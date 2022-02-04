@@ -29,6 +29,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+
+  flutter_localizations:
+    sdk: flutter
+
   # cubit & bloc
   bloc: ^7.2.1
   flutter_bloc: ^7.3.2
