@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:remax_mapstate/main_app.dart';
+import 'package:remax_mapstate/presentation/journeys/drawer/navigation_drawer.dart';
 import 'di/git_it.dart' as getIt;
 
 import 'di/git_it.dart';
@@ -13,7 +15,7 @@ void main() {
   unawaited(
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]));
   unawaited(getIt.init());
-  runApp(const MyApp());
+  runApp(const MainApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -35,14 +37,21 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
 
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
 
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      drawer: const NavigationDrawer(),
+
       appBar: AppBar(
         title: Text("Home"),
       ),

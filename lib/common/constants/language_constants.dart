@@ -1,4 +1,4 @@
-import 'package:remax_mapstate/common/constatns/translate_constatns.dart';
+import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/domain/entities/language_enitity.dart';
 
 

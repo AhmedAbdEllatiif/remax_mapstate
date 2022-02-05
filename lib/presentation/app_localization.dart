@@ -3,8 +3,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:remax_mapstate/common/constatns/assets_constants.dart';
-import 'package:remax_mapstate/common/constatns/language_constants.dart';
+import 'package:remax_mapstate/common/constants/assets_constants.dart';
+import 'package:remax_mapstate/common/constants/language_constants.dart';
 
 class AppLocalizations {
   final Locale locale;
