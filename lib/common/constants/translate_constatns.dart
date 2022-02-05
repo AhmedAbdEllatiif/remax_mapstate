@@ -11,4 +11,11 @@ class TranslateConstants{
   static const String somethingWentWrong = 'somethingWentWrong';
   static const String checkNetwork = 'check Network';
   static const String retry = 'retry';
+
+  static const String home = 'home';
+  static const String support = 'support';
+  static const String favorite = 'favorite';
+  static const String profile = 'profile';
+  static const String calculator = 'calculator';
+
 }

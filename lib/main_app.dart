@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/language_constants.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/presentation/app_localization.dart';
+import 'presentation/cubit/current_user/current_user_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/main/main_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
@@ -19,11 +20,13 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   late LanguageBloc _languageBloc;
+  late CurrentUserCubit _currentUserCubit;
 
   @override
   void initState() {
     super.initState();
     _languageBloc = getItInstance<LanguageBloc>();
+    _currentUserCubit = getItInstance<CurrentUserCubit>();
     //init screen util
     ScreenUtil.init();
   }
@@ -31,14 +34,19 @@ class _MainAppState extends State<MainApp> {
   @override
   void dispose() {
     _languageBloc.close();
+    _currentUserCubit.close();
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<LanguageBloc>.value(
-      value: _languageBloc,
-      child: BlocBuilder<LanguageBloc, LanguageState>(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LanguageBloc>.value(value: _languageBloc),
+        BlocProvider<CurrentUserCubit>.value(value: _currentUserCubit)
+      ],
+           child: BlocBuilder<LanguageBloc, LanguageState>(
         builder: (context, state) {
           if (state is LanguageChanged) {
             return MaterialApp(

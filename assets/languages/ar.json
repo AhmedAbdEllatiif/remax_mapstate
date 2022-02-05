@@ -9,25 +9,18 @@
   "okay": "موافقة",
   "retry": "أعد المحاولة",
 
-  "somethingWentWrong": "هناك خطأ ما...",
-  "checkNetwork": "يرجى التحقق من اتصالك بالشبكة والضغط على زر إعادة المحاولة أو انشرها كخطأ بالضغط على زر التعليقات.",
-  "aboutDescription": "يستخدم هذا المنتج TMDb API ولكنه غير معتمد أو معتمد من قبل TMDb. تم تطوير هذا التطبيق لغرض التعليم.",
-  "noMovies": "آسف ، لا توجد أفلام تحت هذا القسم.",
-  "cast": "فريق العمل",
-  "watchTrailers": "Ver trailers",
-  "noMoviesSearched": "No se encontraron películas, busque con otra palabra",
-  "noFavoriteMovie": "Sin película favorita",
-  "loginToMovieApp": "Inicie sesión en la aplicación de películas a través de TMDb",
-  "username": "Nombre de usuario",
-  "password": "Contraseña",
-  "signIn": "تسجيل دخول",
-  "logout": "خروج",
-  "wrongUsernamePassword": "El nombre de usuario o la identificación de correo electrónico no son válidos",
-  "noNetwork": "No hay conexion de red",
-  "sessionDenied": "Sesión denegada",
-  "enterTMDbUsername": "Ingrese el nombre de usuario de TMDb aquí ...",
-  "enterPassword": "Ingrese la contraseña aquí...",
-  "guestSignIn": "Invitado Registrarse",
+  "home": "الرئيسية",
+  "support": "الدعم",
+  "favorite": "المفضلة",
+  "profile": "الملف الشخصى",
+  "calculator": "الحاسبة",
+
+
+
+
+
+
+
   "arabic": "العربية",
   "english": "English"
 }
