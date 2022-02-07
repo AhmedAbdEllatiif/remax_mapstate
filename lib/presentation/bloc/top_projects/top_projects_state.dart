@@ -7,7 +7,7 @@ abstract class TopProjectsState extends Equatable {
   List<Object> get props => [];
 }
 
-class TopProjectsInitial extends TopProjectsState {}
+class TopProjectsLoading extends TopProjectsState {}
 
 class TopProjectsLoadedState extends TopProjectsState {
   final List<ProjectEntity> projects;

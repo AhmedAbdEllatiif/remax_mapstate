@@ -72,6 +72,10 @@ extension ThemeTextExtension on TextTheme {
     color: Colors.grey,
   );
 
+  TextStyle get geryHeadLine6 => headline6!.copyWith(
+    color: Colors.grey,
+  );
+
   TextStyle get violetHeadLine6 => headline6!.copyWith(
     color: AppColor.violet,
   );

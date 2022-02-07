@@ -17,7 +17,7 @@ class TopProjectsBloc extends Bloc<TopProjectsEvent, TopProjectsState> {
   final GetTopProjects getTopProjects;
 
   TopProjectsBloc({required this.getTopProjects, required this.backdropBloc})
-      : super(TopProjectsInitial()) {
+      : super(TopProjectsLoading()) {
     print("Start Bloc");
     on<TopProjectsEvent>((event, emit) async {
       if (event is LoadTopProjectsEvent) {
