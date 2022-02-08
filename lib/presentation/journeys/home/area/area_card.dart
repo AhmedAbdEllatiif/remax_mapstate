@@ -16,7 +16,7 @@ class AreaCardWidget extends StatelessWidget {
 
   /// to navigate to ProjectsScreen
   void _navigateToProjectsScreen(BuildContext context) =>
-      Navigator.of(context).pushNamed(AppRouter.projectScreen, arguments: {
+      Navigator.of(context).pushNamed(AppRouter.projectsScreen, arguments: {
         ArgumentConstants.projectsArgument: ProjectsArgument(area: area),
       });
 
