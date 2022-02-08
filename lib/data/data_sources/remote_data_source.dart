@@ -1,7 +1,6 @@
 import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/data/models/area_model.dart';
 import 'package:remax_mapstate/data/models/project_model.dart';
-import 'package:remax_mapstate/domain/entities/project_entity.dart';
 
 abstract class RemoteDataSource {
   /// return top projects
@@ -79,7 +78,7 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     const AreaModel(id: 2,title: 'Zayed'),
     const AreaModel(id: 3,title: 'New Zayed'),
     const AreaModel(id: 4,title: 'October'),
-    const AreaModel(id: 5,title: 'New Cairo'),
+    const AreaModel(id: 5,title: 'Sokhna'),
     const AreaModel(id: 6,title: 'New Cairo'),
     const AreaModel(id: 7,title: 'October'),
     const AreaModel(id: 8,title: 'New October'),

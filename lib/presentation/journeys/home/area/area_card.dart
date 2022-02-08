@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:remax_mapstate/common/constants/argument_constants.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
+import 'package:remax_mapstate/presentation/journeys/projects/projects_argument.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
+import 'package:remax_mapstate/router/app_router.dart';
 
 class AreaCardWidget extends StatelessWidget {
 
@@ -10,15 +13,26 @@ class AreaCardWidget extends StatelessWidget {
 
   const AreaCardWidget({Key? key, required this.area}) : super(key: key);
 
+
+  /// to navigate to ProjectsScreen
+  void _navigateToProjectsScreen(BuildContext context) =>
+      Navigator.of(context).pushNamed(AppRouter.projectScreen, arguments: {
+        ArgumentConstants.projectsArgument: ProjectsArgument(area: area),
+      });
+
+
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
-      child:   CircleAvatar(
-        backgroundColor: Colors.white,
-        child: Center(
-          child: Text(area.title,
-          style: const TextStyle(color: Colors.black),
+    return GestureDetector(
+      onTap: () => _navigateToProjectsScreen(context),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
+        child: CircleAvatar(
+          backgroundColor: Colors.white,
+          child: Center(
+            child: Text(area.title,
+              style: const TextStyle(color: Colors.black),
+            ),
           ),
         ),
       ),

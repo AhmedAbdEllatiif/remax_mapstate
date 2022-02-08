@@ -4,11 +4,11 @@ import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 
-class ProjectCardWidget extends StatelessWidget {
+class TopProjectCardWidget extends StatelessWidget {
 
   final int projectId;
   final String posterPath;
-  const ProjectCardWidget({Key? key, required this.projectId, required this.posterPath}) : super(key: key);
+  const TopProjectCardWidget({Key? key, required this.projectId, required this.posterPath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
-import 'package:remax_mapstate/presentation/journeys/home/top_projects/project_card_widget.dart';
+import 'package:remax_mapstate/presentation/journeys/home/top_projects/top_project_card_widget.dart';
 
 class AnimatedProjectCard extends StatelessWidget {
   final int index;
@@ -46,7 +46,7 @@ class AnimatedProjectCard extends StatelessWidget {
           );
         }
       },
-      child: ProjectCardWidget(
+      child: TopProjectCardWidget(
         projectId: projectId,
         posterPath: imagePath,
       ),

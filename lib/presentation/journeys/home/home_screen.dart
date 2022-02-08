@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => _topProjectsBloc),
+        BlocProvider.value(value: _topProjectsBloc, ),
         BlocProvider(create: (context) => _backdropBloc),
         BlocProvider(create: (context) => _areasBloc),
       ],

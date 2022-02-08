@@ -83,4 +83,9 @@ extension ThemeTextExtension on TextTheme {
   TextStyle get vulcanBodyText2 => bodyText2!.copyWith(
     color: AppColor.vulcan,
   );
+
+
+  TextStyle get whiteCaption => caption!.copyWith(
+    color: Colors.white,
+  );
 }

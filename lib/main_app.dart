@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/language_constants.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/presentation/app_localization.dart';
+import 'package:remax_mapstate/router/app_router.dart';
 import 'presentation/cubit/current_user/current_user_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/main/main_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -21,14 +22,20 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   late LanguageBloc _languageBloc;
   late CurrentUserCubit _currentUserCubit;
+  late AppRouter _appRouter;
 
   @override
   void initState() {
     super.initState();
+
+    _appRouter = getItInstance<AppRouter>();
+
+
     _languageBloc = getItInstance<LanguageBloc>();
     _currentUserCubit = getItInstance<CurrentUserCubit>();
     //init screen util
     ScreenUtil.init();
+
   }
 
   @override
@@ -72,7 +79,8 @@ class _MainAppState extends State<MainApp> {
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
               ],
-              home: const MainScreen(),
+              initialRoute: AppRouter.mainScreen,
+              onGenerateRoute: _appRouter.onGeneratedRoute,
             );
           }
           return const Text("No Language provided");

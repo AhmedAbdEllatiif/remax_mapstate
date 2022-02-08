@@ -9,11 +9,17 @@ import 'package:remax_mapstate/presentation/bloc/language_bloc/language_bloc.dar
 import 'package:remax_mapstate/presentation/bloc/project_backdrop/project_backdrop_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/top_projects/top_projects_bloc.dart';
 import 'package:remax_mapstate/presentation/cubit/navigation/navigation_cubit.dart';
+import 'package:remax_mapstate/router/app_router.dart';
 import '../presentation/cubit/current_user/current_user_cubit.dart';
 
 final getItInstance = GetIt.I;
 
 Future init() async {
+
+  ///********************************** AppRouter *********************************************\\\
+  getItInstance.registerFactory<AppRouter>(() => AppRouter());
+
+
   /// Instance of RemoteDataSource
   getItInstance.registerLazySingleton<RemoteDataSource>(
     () => RemoteDateSourceImpl(),
