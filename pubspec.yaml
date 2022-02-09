@@ -53,7 +53,7 @@ dependencies:
   get_it: ^7.2.0
 
   # google_fonts
-  google_fonts: ^2.2.0
+  google_fonts: 2.2.0
 
   # flutter_svg
   flutter_svg: ^1.0.3
@@ -63,6 +63,25 @@ dependencies:
 
   # localization
   localization: ^2.0.0+1
+
+  # responsive framework
+  responsive_framework: ^0.1.5
+
+  # hive
+  hive: ^2.0.5
+  hive_generator: ^1.1.2
+
+  # path_provider
+  path_provider: ^2.0.8
+
+  # build_runner
+  build_runner: ^2.1.7
+
+  # lottie
+  lottie: ^1.2.1
+
+  # dots_indicator
+  dots_indicator: ^2.0.0
 
   # wiredash
   #wiredash: ^0.7.0+1
@@ -102,6 +121,7 @@ flutter:
     - assets/svgs/
     - assets/pngs/
     - assets/languages/
+    - assets/json/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -16,7 +16,7 @@ class ProjectApiRepoImpl extends ProjectApiRepo {
     required this.remoteDataSource,
   });
 
-  /// return list of top project
+  /// return list of TopProject
   @override
   Future<Either<AppError, List<ProjectEntity>>> getTopProject() async {
     try {
@@ -30,6 +30,7 @@ class ProjectApiRepoImpl extends ProjectApiRepo {
     }
   }
 
+  /// return list of Areas
   @override
   Future<Either<AppError, List<AreaEntity>>> getAreas() async {
     try {
@@ -41,6 +42,14 @@ class ProjectApiRepoImpl extends ProjectApiRepo {
     on Exception catch (e) {
       return Left(AppError(AppErrorType.api,message: e.toString()));
     }
+  }
+
+
+  /// return list of FavoriteProject
+  @override
+  Future<Either<AppError, List<ProjectEntity>>> getFavoriteProject() {
+    // TODO: implement getFavoriteProject
+    throw UnimplementedError();
   }
 
 

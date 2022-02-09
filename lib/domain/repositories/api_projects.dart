@@ -11,4 +11,9 @@ abstract class ProjectApiRepo {
   /// return list of areas
   Future<Either<AppError,List<AreaEntity>>> getAreas();
 
+
+
+  /// return list of FavoriteProjects
+  Future<Either<AppError,List<ProjectEntity>>> getFavoriteProject();
+
 }

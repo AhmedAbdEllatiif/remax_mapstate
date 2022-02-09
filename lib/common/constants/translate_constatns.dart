@@ -21,5 +21,14 @@ class TranslateConstants{
 
   static const String projects = 'projects';
   static const String startingPrice = 'startingPrice';
+  static const String seeAll = 'seeAll';
+  static const String noFavProjectsToShow = 'noFavProjectsToShow';
+
+  static const String paymentPlan = 'paymentPlan';
+  static const String startingArea = 'startingArea';
+  static const String finishingType = 'finishingType';
+  static const String deliveryYear = 'deliveryYear';
+  static const String services = 'services';
+  static const String test = 'test';
 
 }

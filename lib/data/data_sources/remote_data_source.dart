@@ -79,10 +79,10 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     const AreaModel(id: 3,title: 'New Zayed'),
     const AreaModel(id: 4,title: 'October'),
     const AreaModel(id: 5,title: 'Sokhna'),
-    const AreaModel(id: 6,title: 'New Cairo'),
+    /*const AreaModel(id: 6,title: 'New Cairo'),
     const AreaModel(id: 7,title: 'October'),
     const AreaModel(id: 8,title: 'New October'),
-    const AreaModel(id: 9,title: 'New Cairo'),
+    const AreaModel(id: 9,title: 'New Cairo'),*/
     ];
   }
 

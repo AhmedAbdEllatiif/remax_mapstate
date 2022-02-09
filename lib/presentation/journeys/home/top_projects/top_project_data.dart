@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/project_backdrop/project_backdrop_bloc.dart';
 
-class ProjectDataWidget extends StatelessWidget {
-  const ProjectDataWidget({Key? key}) : super(key: key);
+class TopProjectDataWidget extends StatelessWidget {
+  const TopProjectDataWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

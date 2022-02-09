@@ -71,9 +71,15 @@ extension ThemeTextExtension on TextTheme {
   TextStyle get gerySubtitle1 => subtitle1!.copyWith(
     color: Colors.grey,
   );
+  TextStyle get whiteSubtitle1  => subtitle1!.copyWith(
+    color: Colors.white,
+  );
 
   TextStyle get geryHeadLine6 => headline6!.copyWith(
     color: Colors.grey,
+  );
+  TextStyle get violetSubTitle2 => subtitle2!.copyWith(
+    color: AppColor.royalBlue,
   );
 
   TextStyle get violetHeadLine6 => headline6!.copyWith(
@@ -84,8 +90,32 @@ extension ThemeTextExtension on TextTheme {
     color: AppColor.vulcan,
   );
 
+  TextStyle get royalBlueBodyText2 => bodyText2!.copyWith(
+    color: AppColor.royalBlue,
+  );
 
   TextStyle get whiteCaption => caption!.copyWith(
     color: Colors.white,
   );
+  TextStyle get geryCaption => caption!.copyWith(
+    color: Colors.grey,
+  );
+  TextStyle get vulcanCaption => caption!.copyWith(
+    color: AppColor.vulcan,
+  );
+
+  TextStyle get letterSpaceHeadLine6 => headline6!.copyWith(
+    color: AppColor.vulcan,
+    letterSpacing: 2,
+    fontWeight: FontWeight.bold
+  );
+
+   TextStyle get blackBodyText2 => bodyText2!.copyWith(
+    color: AppColor.vulcan,
+    fontSize: Sizes.dimen_14.sp,
+    wordSpacing: 0.25,
+    letterSpacing: 0.25,
+    height: 1.5,
+  );
+
 }

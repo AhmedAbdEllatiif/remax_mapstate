@@ -1,0 +1,3 @@
+enum ProjectServices{
+  gym,pool,
+}

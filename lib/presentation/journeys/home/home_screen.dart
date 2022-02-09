@@ -6,6 +6,10 @@ import 'package:remax_mapstate/presentation/bloc/project_backdrop/project_backdr
 import 'package:remax_mapstate/presentation/bloc/top_projects/top_projects_bloc.dart';
 import 'package:remax_mapstate/presentation/journeys/home/area/area_section.dart';
 import 'package:remax_mapstate/presentation/journeys/home/top_projects/top_projects_widget.dart';
+import 'package:remax_mapstate/presentation/themes/theme_color.dart';
+import 'package:remax_mapstate/presentation/widgets/loading_animation_widget.dart';
+import 'package:responsive_framework/responsive_value.dart';
+import 'package:responsive_framework/responsive_wrapper.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -43,85 +47,59 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: _topProjectsBloc, ),
+        BlocProvider.value(
+          value: _topProjectsBloc,
+        ),
         BlocProvider(create: (context) => _backdropBloc),
         BlocProvider(create: (context) => _areasBloc),
       ],
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          FractionallySizedBox(
-            alignment: Alignment.topCenter,
-            heightFactor: 0.6,
-            child: BlocBuilder<TopProjectsBloc, TopProjectsState>(
-              builder: (context, state) {
-                /// TopProjectsLoading
-                if (state is TopProjectsLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      value: 15,
-                      semanticsLabel: 'Linear progress indicator',
-                    ),
-                  );
-                }
+      child: BlocBuilder<TopProjectsBloc, TopProjectsState>(
+        builder: (context, state) {
+          /// TopProjectsLoading
+          if (state is TopProjectsLoading) {
+            return const Center(
+              child: LoadingAnimationWidget(),
+            );
+          }
 
-                /// TopProjectsLoadedState
-                else if (state is TopProjectsLoadedState) {
-                  return TopProjectWidget(
+          /// TopProjectsLoadedState
+          else if (state is TopProjectsLoadedState) {
+            return Stack(
+              fit: StackFit.expand,
+              children: [
+                FractionallySizedBox(
+                  alignment: Alignment.topCenter,
+                  heightFactor: 0.6,
+                  child: TopProjectWidget(
                     projects: state.projects,
                     defaultIndex: state.defaultIndex,
-                  );
-                }
+                  ),
+                ),
 
-                /// ErrorLoadingTopProjects
-                else if (state is ErrorLoadingTopProjects) {
-                  return Center(
-                    child: Text(
-                        "Error: ${state.appError.appErrorType}, Message: ${state.appError.message}"),
-                  );
-                }
+                /// AreaSectionWidget
+                const FractionallySizedBox(
+                    alignment: Alignment.bottomCenter,
+                    heightFactor: 0.4,
+                    child: AreaSectionWidget(
 
-                return const Center(child: Text("Else To Show"));
-              },
-            ),
-          ),
-
-          /// AreaSectionWidget
-          FractionallySizedBox(
-            alignment: Alignment.bottomCenter,
-            heightFactor: 0.4,
-            child: BlocBuilder<AreasBloc, AreasState>(
-              builder: (context, state) {
-                /// loading
-                if (state is AreasLoadingState) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      value: 15,
-                      semanticsLabel: 'Linear progress indicator',
                     ),
-                  );
-                }
 
-                /// loaded
-                if (state is AreasLoadedState) {
-                  return AreaSectionWidget(
-                    areas: state.areas,
-                  );
-                }
+                    // child: Placeholder(color: AppColor.royalBlue,),
+                    ),
+              ],
+            );
+          }
 
-                /// error
-                else if (state is AreasErrorState) {
-                  return Center(
-                    child: Text(
-                        "Error: ${state.appError.appErrorType}, Message: ${state.appError.message}"),
-                  );
-                }
+          /// ErrorLoadingTopProjects
+          else if (state is ErrorLoadingTopProjects) {
+            return Center(
+              child: Text(
+                  "Error: ${state.appError.appErrorType}, Message: ${state.appError.message}"),
+            );
+          }
 
-                return const Center(child: Text("Else To Show"));
-              },
-            ),
-          ),
-        ],
+          return const Center(child: Text("Else To Show"));
+        },
       ),
     );
   }

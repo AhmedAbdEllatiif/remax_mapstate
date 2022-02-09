@@ -1,10 +1,79 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:remax_mapstate/common/constants/translate_constatns.dart';
+import 'package:remax_mapstate/di/git_it.dart';
+import 'package:remax_mapstate/presentation/bloc/favorite_projects/favorite_projects_bloc.dart';
+import 'package:remax_mapstate/presentation/widgets/empty_list_widegt.dart';
+import 'package:remax_mapstate/presentation/widgets/loading_animation_widget.dart';
+import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 
-class FavoriteScreen extends StatelessWidget {
+class FavoriteScreen extends StatefulWidget {
+
+
   const FavoriteScreen({Key? key}) : super(key: key);
 
   @override
+  State<FavoriteScreen> createState() => _FavoriteScreenState();
+}
+
+class _FavoriteScreenState extends State<FavoriteScreen> {
+
+  late FavoriteProjectsBloc favoriteProjectsBloc;
+
+
+  @override
+  void initState() {
+    super.initState();
+    favoriteProjectsBloc = getItInstance<FavoriteProjectsBloc>();
+    favoriteProjectsBloc.add(LoadFavoriteProjectsEvent());
+  }
+
+  @override
+  void dispose() {
+    favoriteProjectsBloc.close();
+    super.dispose();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
-    return const Center(child: Text("Favorite Screen"),);
+    return BlocProvider(
+      create: (context) => favoriteProjectsBloc,
+
+      child: BlocBuilder<FavoriteProjectsBloc, FavoriteProjectsState>(
+        builder: (context, state) {
+
+          if(state is FavoriteProjectsLoading){
+            return const Center(child: LoadingAnimationWidget());
+          }
+
+          if(state is FavoriteProjectsNoProjectsToShow){
+            return Center(child: EmptyListWidget(text: TranslateConstants.noFavProjectsToShow.t(context),));
+          }
+          if (state is FavoriteProjectsLoadedState) {
+            return Center(child: Text("StateLoaded: ${state.projects}"),);
+          }
+
+          if (state is FavoriteProjectsErrorState) {
+            return Center(child: Text(
+                "Error: ${state.appError.appErrorType} , Message: ${state
+                    .appError.message}"),);
+          }
+
+          return Center(child: Text("State: $state"),);
+        },
+      ),
+    );
   }
 }
+
+
+
+
+
+
+
+
+
+
+

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/presentation/journeys/home/top_projects/project_backdrop_widget.dart';
-import 'package:remax_mapstate/presentation/journeys/home/top_projects/project_data.dart';
 import 'package:remax_mapstate/presentation/journeys/home/top_projects/project_page_view.dart';
+import 'package:remax_mapstate/presentation/journeys/home/top_projects/top_project_data.dart';
 import 'package:remax_mapstate/presentation/widgets/separator.dart';
 
 class TopProjectWidget extends StatelessWidget {
@@ -33,7 +33,7 @@ class TopProjectWidget extends StatelessWidget {
 
 
             // project data
-            const ProjectDataWidget(),
+            const TopProjectDataWidget(),
 
             // separator
             const Separator(),
