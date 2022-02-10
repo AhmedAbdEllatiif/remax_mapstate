@@ -8,6 +8,10 @@ class AssetsConstants{
   static const String mountainViewImagePath = "${_pngPath}mountainview.png";
   static const String promotionImagePath = "${_pngPath}promotion.jpg";
   static const String gymIcon = "${_pngPath}gym_icon.png";
+  static const String person1 = "${_pngPath}person_1.png";
+  static const String person2 = "${_pngPath}person_2.png";
+  static const String whatsapp = "${_pngPath}whatsapp.png";
+  static const String phoneCall = "${_pngPath}phone_call.png";
 
   static const String loading = "${_jsonPath}loading.json";
   static const String emptyBox = "${_jsonPath}empty_box.json";

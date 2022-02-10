@@ -18,6 +18,7 @@ import 'package:remax_mapstate/presentation/journeys/project_details/starting_pr
 import 'package:remax_mapstate/presentation/journeys/project_details/app_button.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
+import 'package:remax_mapstate/router/app_router.dart';
 
 class ProjectDetailsScreen extends StatefulWidget {
   final ProjectDetailsArgument projectDetailsArgument;
@@ -134,7 +135,9 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
                     AppButton(
                       text: "Select Your Broker",
                       reverseGradient: true,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, AppRouter.chooseBrokerScreen);
+                      },
                     ),
                   ],
                 ),

@@ -1,5 +1,6 @@
 import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/data/models/area_model.dart';
+import 'package:remax_mapstate/data/models/broker_model.dart';
 import 'package:remax_mapstate/data/models/project_model.dart';
 
 abstract class RemoteDataSource {
@@ -8,6 +9,9 @@ abstract class RemoteDataSource {
 
   /// return areas
   Future<List<AreaModel>> getAreas();
+
+  /// return list of brokers
+  Future<List<BrokerModel>> getAreaBrokers();
 }
 
 class RemoteDateSourceImpl extends RemoteDataSource {
@@ -86,6 +90,19 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     ];
   }
 
+  List<BrokerModel> areaBrokers(){
+    return const [
+      BrokerModel(id: 0, age: 33, image: AssetsConstants.person1, name: "John", rating: 3.5, totalDoneDeals: 50,whatsappNum: '01005787483',phoneNum:'01007715117' ),
+      BrokerModel(id: 1, age: 28, image: AssetsConstants.person1, name: "Micheal", rating: 4.5, totalDoneDeals: 180,whatsappNum: '01005787483',phoneNum:'01007715117' ),
+      BrokerModel(id: 2, age: 33, image: AssetsConstants.person1, name: "John", rating: 3.5, totalDoneDeals: 50,whatsappNum: '01005787483',phoneNum:'01007715117' ),
+      BrokerModel(id: 3, age: 28, image: AssetsConstants.person1, name: "Micheal", rating: 4.5, totalDoneDeals: 180,whatsappNum: '01005787483',phoneNum:'01007715117' ),
+      BrokerModel(id: 4, age: 33, image: AssetsConstants.person1, name: "John", rating: 3.5, totalDoneDeals: 50,whatsappNum: '01005787483',phoneNum:'01007715117' ),
+      BrokerModel(id: 5, age: 28, image: AssetsConstants.person1, name: "Micheal", rating: 4.5, totalDoneDeals: 180,whatsappNum: '01005787483',phoneNum:'01007715117' ),
+      BrokerModel(id: 6, age: 33, image: AssetsConstants.person1, name: "John", rating: 3.5, totalDoneDeals: 50,whatsappNum: '01005787483',phoneNum:'01007715117' ),
+      BrokerModel(id: 7, age: 28, image: AssetsConstants.person1, name: "Micheal", rating: 4.5, totalDoneDeals: 180,whatsappNum: '01005787483',phoneNum:'01007715117' ),
+    ];
+  }
+
 
   @override
   Future<List<AreaModel>> getAreas() async {
@@ -97,5 +114,11 @@ class RemoteDateSourceImpl extends RemoteDataSource {
   Future<List<ProjectModel>> getTopProjects() async {
     final myProjects = await projects();
     return myProjects;
+  }
+
+  @override
+  Future<List<BrokerModel>> getAreaBrokers() async{
+    final brokers = await areaBrokers();
+    return brokers;
   }
 }

@@ -83,6 +83,9 @@ dependencies:
   # dots_indicator
   dots_indicator: ^2.0.0
 
+  # flutter_rating_bar
+  flutter_rating_bar: ^4.0.0
+
   # wiredash
   #wiredash: ^0.7.0+1
 

@@ -5,10 +5,11 @@ import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/data/data_sources/remote_data_source.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
+import 'package:remax_mapstate/domain/entities/broker_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/domain/repositories/api_projects.dart';
 
-class ProjectApiRepoImpl extends ProjectApiRepo {
+class ProjectApiRepoImpl extends ApiRepo {
 
   final RemoteDataSource remoteDataSource;
 
@@ -50,6 +51,20 @@ class ProjectApiRepoImpl extends ProjectApiRepo {
   Future<Either<AppError, List<ProjectEntity>>> getFavoriteProject() {
     // TODO: implement getFavoriteProject
     throw UnimplementedError();
+  }
+
+  /// return list of area broker
+  @override
+  Future<Either<AppError, List<BrokerEntity>>> getAreaBrokers() async {
+    try {
+      final brokers = await remoteDataSource.getAreaBrokers();
+      return Right(brokers);
+    } on SocketException catch(e){
+      return Left(AppError(AppErrorType.network,message: e.message));
+    }
+    on Exception catch (e) {
+      return Left(AppError(AppErrorType.api,message: e.toString()));
+    }
   }
 
 

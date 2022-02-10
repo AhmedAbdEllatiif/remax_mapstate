@@ -5,6 +5,7 @@ import 'package:remax_mapstate/data/repositories/loca_repository_impl.dart';
 import 'package:remax_mapstate/data/repositories/project_api_repo_impl.dart';
 import 'package:remax_mapstate/domain/repositories/api_projects.dart';
 import 'package:remax_mapstate/domain/repositories/local_repository.dart';
+import 'package:remax_mapstate/domain/use_cases/get_area_brokers.dart';
 import 'package:remax_mapstate/domain/use_cases/get_areas.dart';
 import 'package:remax_mapstate/domain/use_cases/get_top_projects.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/check_for_favorite_project.dart';
@@ -13,10 +14,12 @@ import 'package:remax_mapstate/domain/use_cases/local_usecases/get_fav_projects.
 import 'package:remax_mapstate/domain/use_cases/local_usecases/save_fav_project.dart';
 
 import 'package:remax_mapstate/presentation/bloc/areas_bloc/areas_bloc.dart';
+import 'package:remax_mapstate/presentation/bloc/brokers_by_area/area_brokers_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/favorite_projects/favorite_projects_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/language_bloc/language_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/project_backdrop/project_backdrop_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/top_projects/top_projects_bloc.dart';
+import 'package:remax_mapstate/presentation/cubit/broker_changed/broker_changed_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/navigation/navigation_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/project_scrollable_indicator/indicator_position_cubit.dart';
 import 'package:remax_mapstate/router/app_router.dart';
@@ -30,22 +33,22 @@ Future init() async {
 
   ///********************************** DataSource *********************************************\\\
 
-
   /// Instance of RemoteDataSource
   getItInstance.registerLazySingleton<RemoteDataSource>(
     () => RemoteDateSourceImpl(),
   );
+
   ///********************************** Local_DataSource *********************************************\\\
 
   /// Instance of LocalDataSource
   getItInstance.registerLazySingleton<LocalDataSource>(
-        () => LocalDataSourceImpl(),
+    () => LocalDataSourceImpl(),
   );
 
   ///********************************** Repositories *********************************************\\\
 
   /// Instance of ProjectsApiRepo
-  getItInstance.registerLazySingleton<ProjectApiRepo>(
+  getItInstance.registerLazySingleton<ApiRepo>(
     () => ProjectApiRepoImpl(
       remoteDataSource: getItInstance(),
     ),
@@ -54,14 +57,12 @@ Future init() async {
   ///********************************** Local_Repositories *********************************************\\\
   /// Instance of LocalRepository
   getItInstance.registerLazySingleton<LocalRepository>(
-        () => LocalRepositoryImpl(
-      localDataSource:  getItInstance(),
+    () => LocalRepositoryImpl(
+      localDataSource: getItInstance(),
     ),
   );
 
-
-
-  ///********************************** Use_Cases *********************************************\\\
+  ///********************************** Remote_Use_Cases *********************************************\\\
   /// GetTopProjects
   getItInstance.registerLazySingleton<GetTopProjects>(
     () => GetTopProjects(projectApiRepo: getItInstance()),
@@ -74,7 +75,12 @@ Future init() async {
     ),
   );
 
-
+  /// GetAreasBrokersCase
+  getItInstance.registerLazySingleton<GetAreaBrokersCase>(
+    () => GetAreaBrokersCase(
+      apiRepo: getItInstance(),
+    ),
+  );
 
   ///********************************** Local_Use_Cases *********************************************\\\
   /// GetFavProject
@@ -83,24 +89,28 @@ Future init() async {
 
   /// DeleteFavProject
   getItInstance.registerLazySingleton<DeleteFavProject>(
-          () => DeleteFavProject(localRepository: getItInstance()));
+      () => DeleteFavProject(localRepository: getItInstance()));
 
   /// SaveFavProject
   getItInstance.registerLazySingleton<SaveFavProject>(
-          () => SaveFavProject(localRepository: getItInstance()));
+      () => SaveFavProject(localRepository: getItInstance()));
 
   /// CheckForFavProject
   getItInstance.registerLazySingleton<CheckForFavProjectUseCase>(
-          () => CheckForFavProjectUseCase(localRepository: getItInstance()));
-
+      () => CheckForFavProjectUseCase(localRepository: getItInstance()));
 
   ///********************************** init cubit *********************************************\\\
-  //==> init navigation cubit
+  /// init navigation cubit
   getItInstance.registerFactory<NavigationCubit>(() => NavigationCubit());
 
-  //==> init CurrentUserCubit
+  /// init CurrentUserCubit
   getItInstance.registerSingleton<CurrentUserCubit>(
     CurrentUserCubit(),
+  );
+
+  /// init BrokerChangeCubit
+  getItInstance.registerFactory<BrokerChangedCubit>(
+      ()=>BrokerChangedCubit(),
   );
 
   ///********************************** init blocs *********************************************\\\
@@ -137,11 +147,11 @@ Future init() async {
     ),
   );
 
+  /// init IndicatorPositionCubit
+  getItInstance
+      .registerFactory<IndicatorPositionCubit>(() => IndicatorPositionCubit());
 
-  getItInstance.registerFactory<IndicatorPositionCubit>(() => IndicatorPositionCubit());
-
-
-
-
-
+  /// init AreaBrokersBloc
+  getItInstance
+      .registerFactory<AreaBrokersBloc>(() => AreaBrokersBloc(getAreaBrokersCase: getItInstance()));
 }

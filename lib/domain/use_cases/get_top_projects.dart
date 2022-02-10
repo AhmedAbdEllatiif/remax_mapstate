@@ -6,7 +6,7 @@ import 'package:remax_mapstate/domain/repositories/api_projects.dart';
 import 'package:remax_mapstate/domain/use_cases/use_case.dart';
 
 class GetTopProjects extends UseCase<List<ProjectEntity>, NoParams> {
-  final ProjectApiRepo projectApiRepo;
+  final ApiRepo projectApiRepo;
 
   GetTopProjects({required this.projectApiRepo});
 

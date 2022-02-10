@@ -129,4 +129,13 @@ extension ThemeTextExtension on TextTheme {
     height: 1.5,
   );
 
+  TextStyle get boldVulcanBodyText2 => bodyText2!.copyWith(
+    color: AppColor.vulcan,
+    fontSize: Sizes.dimen_14.sp,
+    wordSpacing: 0.25,
+    letterSpacing: 0.25,
+    height: 1.5,
+    fontWeight: FontWeight.bold
+  );
+
 }

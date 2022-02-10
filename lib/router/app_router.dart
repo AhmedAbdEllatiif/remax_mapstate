@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:remax_mapstate/common/constants/argument_constants.dart';
+import 'package:remax_mapstate/presentation/journeys/choose_broker/choose_broker_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/main/main_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_details_argument.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_details_screen.dart';
@@ -14,6 +15,7 @@ class AppRouter {
   static const String notificationScreen = "/notifications";
   static const String projectsScreen = "/projectsScreen";
   static const String projectDetailsScreen = "/projectDetailsScreen";
+  static const String chooseBrokerScreen = "/chooseBrokerScreen";
 
   Route? onGeneratedRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
@@ -43,9 +45,9 @@ class AppRouter {
           return ProjectDetailsScreen(projectDetailsArgument: projectDetails);
         });
 
-      /// Choose User Screen \\\
-      //case chooseUserScreen:
-      //return MaterialPageRoute(builder: (_) => const ChooseUserScreen());
+      /// Choose Broker Screen \\\
+      case chooseBrokerScreen:
+      return MaterialPageRoute(builder: (_) => const ChooseBrokerScreen());
 
       /// login Screen \\\
       //case loginScreen:
