@@ -11,7 +11,7 @@ class OverViewSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Overview",
+        Text(TranslateConstants.overview.t(context),
           style: Theme.of(context).textTheme.violetSubTitle2,),
 
         Container(margin: const EdgeInsets.only(top: 5,bottom: 0),),

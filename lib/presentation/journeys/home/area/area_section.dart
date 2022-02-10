@@ -30,7 +30,7 @@ class AreaSectionWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Find by Area",
+                      TranslateConstants.findByArea.t(context),
                       style: Theme.of(context).textTheme.whiteSubtitle1,
                     ),
 

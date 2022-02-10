@@ -15,9 +15,9 @@ import 'package:remax_mapstate/presentation/journeys/project_details/project_ima
 import 'package:remax_mapstate/presentation/journeys/project_details/project_section.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/services.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/starting_price_section.dart';
-
-
-
+import 'package:remax_mapstate/presentation/journeys/project_details/submit_inquiry_button.dart';
+import 'package:remax_mapstate/presentation/themes/theme_color.dart';
+import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
 class ProjectDetailsScreen extends StatefulWidget {
   final ProjectDetailsArgument projectDetailsArgument;
@@ -35,67 +35,97 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("Project Details"),
+          title: Text(TranslateConstants.projectDetails.t(context)),
         ),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
+        body: Stack(
+          children: [
+            Scrollbar(
+              radius: const Radius.circular(Sizes.dimen_60),
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    /// Project Images section
+                    ProjectImagesSection(),
 
+                    /// Project avatar, name, isFavorite, district
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: Sizes.dimen_16.w,
+                          vertical: Sizes.dimen_12.w),
+                      child: const ProjectAvatarNameSection(
+                        name: '',
+                        district: '',
+                        avatarUrl: '',
+                      ),
+                    ),
 
-              /// Project Images section
-              ProjectImagesSection(),
+                    /// Starting price section
+                    const ProjectStartingPriceSection(
+                      startingPrice: '',
+                    ),
 
-              /// Project avatar, name, isFavorite, district
-              Padding(
-                padding:  EdgeInsets.symmetric(horizontal: Sizes.dimen_16.w,vertical: Sizes.dimen_12.w),
-                child: const ProjectAvatarNameSection(name:'' ,district: '',avatarUrl: '',),
-              ),
+                    /// projectData paymentPlan, startingArea, FinishingType, DeliveryYear
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: Sizes.dimen_32.w,
+                          vertical: Sizes.dimen_12.w),
+                      child: const ProjectDataSection(
+                        deliveryYear: '',
+                        startingArea: '',
+                        paymentPlan: '',
+                        finishingType: '',
+                      ),
+                    ),
 
+                    /// Services section
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: Sizes.dimen_10.w,
+                          vertical: Sizes.dimen_12.w),
+                      child: const ServicesSection(),
+                    ),
 
-              /// Starting price section
-              const ProjectStartingPriceSection(startingPrice: '',),
+                    /// overView and layout section
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: Sizes.dimen_16.w,
+                          vertical: Sizes.dimen_12.w),
+                      child: Container(
+                        padding: EdgeInsets.only(
+                          left: Sizes.dimen_10.w,
+                          right: Sizes.dimen_10.w,
+                          top: Sizes.dimen_8.w,
+                          bottom: Sizes.dimen_30.w,
+                        ),
+                        color: Colors.white,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            /// overview section
+                            OverViewSection(),
 
-              /// projectData paymentPlan, startingArea, FinishingType, DeliveryYear
-              Padding(
-                padding:  EdgeInsets.symmetric(horizontal: Sizes.dimen_32.w,vertical: Sizes.dimen_12.w),
-                child: const ProjectDataSection(deliveryYear: '', startingArea: '', paymentPlan: '', finishingType: '',),
-              ),
-
-
-              /// Services section
-              Padding(
-                padding:  EdgeInsets.symmetric(horizontal: Sizes.dimen_10.w,vertical: Sizes.dimen_12.w),
-                child: const ServicesSection(),
-              ),
-
-
-              /// overView and layout section
-              Padding(
-                padding:  EdgeInsets.symmetric(horizontal: Sizes.dimen_16.w,vertical: Sizes.dimen_12.w),
-                child:  Container(
-                  padding: EdgeInsets.symmetric(horizontal: Sizes.dimen_10.w,vertical: Sizes.dimen_8.w),
-                  color: Colors.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-
-                      /// overview section
-                      OverViewSection(),
-
-                      /// layout section
-                      LayoutSection(),
-                    ],
-                  ),
+                            /// layout section
+                            LayoutSection(),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
+            ),
 
-
-
-            ],
-          ),
+            /// Submit Inquiry Button
+            Positioned(
+              bottom: 0.0,
+              right: 0.0,
+              left: 0.0,
+              child: SubmitInquiryButton(
+                onPressed: () {},
+              ),
+            ),
+          ],
         ));
   }
-
 }
-

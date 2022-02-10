@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
+import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
+import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
@@ -13,7 +15,7 @@ class LayoutSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(margin: EdgeInsets.only(top: 10),),
-        Text("Layouts",
+        Text(TranslateConstants.layouts.t(context),
           style: Theme.of(context).textTheme.violetSubTitle2,),
 
         ListView.builder(
@@ -58,27 +60,25 @@ class ExpansionItem extends StatelessWidget {
             Container(
               // margin: EdgeInsets.only(left: 10,right: 10,bottom: 10),
               padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
+              /*decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(8)),
-                border: Border.all(color: AppColor.vulcan),
+                border: Border.all(color: AppColor.violet),
                 //border: Border.symmetric(vertical: BorderSide(color: AppColors.primaryColor)),
-              ),
-              child: Expanded(
-                child: Row(
-                  children: [
-                    Column(
-                      children: [
-                        Text(
-                          description,
-                          style: TextStyle(
-                              color: AppColor.royalBlue, backgroundColor: Colors.white),
-                        ),
-                      ],
-                    )
+              ),*/
+              child: Row(
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        description,
+                        style: TextStyle(
+                            color: AppColor.vulcan, backgroundColor: Colors.white),
+                      ),
+                    ],
+                  )
 
-                  ],
-                ),
+                ],
               ),
             ),
           ],

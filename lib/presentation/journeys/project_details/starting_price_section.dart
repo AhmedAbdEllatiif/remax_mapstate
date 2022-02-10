@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
+import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
@@ -21,7 +22,7 @@ class ProjectStartingPriceSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(TranslateConstants.startingPrice,
+            Text(TranslateConstants.startingPrice.t(context),
               style: Theme.of(context).textTheme.vulcanCaption,),
             Text('1,927,000 EGP',style: Theme.of(context).textTheme.letterSpaceHeadLine6),
 

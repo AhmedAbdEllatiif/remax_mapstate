@@ -63,6 +63,16 @@ class ThemeText {
 }
 
 extension ThemeTextExtension on TextTheme {
+
+  TextStyle get submitTextButton => button!.copyWith(
+    fontSize: Sizes.dimen_18.sp,
+    color: Colors.white,
+    letterSpacing: 1.5,
+    fontWeight: FontWeight.bold,
+  );
+
+
+
   TextStyle get royalBlueSubtitle1 => subtitle1!.copyWith(
         color: AppColor.royalBlue,
         fontWeight: FontWeight.w600,
