@@ -15,7 +15,7 @@ import 'package:remax_mapstate/presentation/journeys/project_details/project_ima
 import 'package:remax_mapstate/presentation/journeys/project_details/project_section.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/services.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/starting_price_section.dart';
-import 'package:remax_mapstate/presentation/journeys/project_details/submit_inquiry_button.dart';
+import 'package:remax_mapstate/presentation/journeys/project_details/app_button.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
@@ -96,7 +96,7 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
                           left: Sizes.dimen_10.w,
                           right: Sizes.dimen_10.w,
                           top: Sizes.dimen_8.w,
-                          bottom: Sizes.dimen_30.w,
+                          bottom: Sizes.dimen_40.w,
                         ),
                         color: Colors.white,
                         child: Column(
@@ -121,8 +121,23 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
               bottom: 0.0,
               right: 0.0,
               left: 0.0,
-              child: SubmitInquiryButton(
-                onPressed: () {},
+              child: Container(
+                color: AppColor.vulcan,
+                padding: EdgeInsets.symmetric(vertical: Sizes.dimen_10.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    AppButton(
+                      text:  TranslateConstants.submitInquiry.t(context),
+                      onPressed: () {},
+                    ),
+                    AppButton(
+                      text: "Select Your Broker",
+                      reverseGradient: true,
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

@@ -65,9 +65,10 @@ class ThemeText {
 extension ThemeTextExtension on TextTheme {
 
   TextStyle get submitTextButton => button!.copyWith(
-    fontSize: Sizes.dimen_18.sp,
+    fontSize: Sizes.dimen_14.sp,
     color: Colors.white,
     letterSpacing: 1.5,
+    overflow: TextOverflow.fade,
     fontWeight: FontWeight.bold,
   );
 
