@@ -70,6 +70,7 @@ class _ChooseBrokerScreenState extends State<ChooseBrokerScreen> {
           /// listener on AreaBrokersBloc
           listener: (context, state) {
             if (state is AreaBrokersLoadedState) {
+              /// add change broker to show BottomCardDataHolder with current broker
               brokerChangedCubit.changeBroker(state.brokers[0]);
             }
           },
