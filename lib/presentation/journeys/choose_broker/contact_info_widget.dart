@@ -4,12 +4,16 @@ import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
-class ContactInfoCard extends StatelessWidget {
+
+
+
+/// This Widget for contact info (Whatsapp, PhoneCall)
+class ContactInfoWidget extends StatelessWidget {
 
   final String whatsapp;
   final String phoneNum;
 
-  const ContactInfoCard({Key? key, required this.whatsapp, required this.phoneNum}) : super(key: key);
+  const ContactInfoWidget({Key? key, required this.whatsapp, required this.phoneNum}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
