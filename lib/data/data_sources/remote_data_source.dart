@@ -7,6 +7,12 @@ abstract class RemoteDataSource {
   /// return top projects
   Future<List<ProjectModel>> getTopProjects();
 
+  /// return residential projects
+  Future<List<ProjectModel>> getResidentialProjects(int areaId);
+
+  /// return commercial projects
+  Future<List<ProjectModel>> getCommercialProjects(int areaId);
+
   /// return areas
   Future<List<AreaModel>> getAreas();
 
@@ -120,5 +126,18 @@ class RemoteDateSourceImpl extends RemoteDataSource {
   Future<List<BrokerModel>> getAreaBrokers() async{
     final brokers = await areaBrokers();
     return brokers;
+  }
+
+  @override
+  Future<List<ProjectModel>> getCommercialProjects(int areaId) async {
+    //final myProjects = await projects();
+    final List<ProjectModel>  myProjects = [];
+    return myProjects;
+  }
+
+  @override
+  Future<List<ProjectModel>> getResidentialProjects(int areaId) async {
+   final myProjects = await projects();
+    return myProjects;
   }
 }

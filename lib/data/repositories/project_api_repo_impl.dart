@@ -68,4 +68,35 @@ class ProjectApiRepoImpl extends ApiRepo {
   }
 
 
+
+  @override
+  Future<Either<AppError, List<ProjectEntity>>> getCommercialProjects(int areaId) async {
+     try {
+    final projects = await remoteDataSource.getCommercialProjects(areaId);
+    return Right(projects);
+    } on SocketException catch(e){
+    return Left(AppError(AppErrorType.network,message: e.message));
+    }
+    on Exception catch (e) {
+    return Left(AppError(AppErrorType.api,message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<AppError, List<ProjectEntity>>> getResidentialProjects(int areaId) async {
+    try {
+      final projects = await remoteDataSource.getResidentialProjects(areaId);
+      return Right(projects);
+    } on SocketException catch(e){
+      return Left(AppError(AppErrorType.network,message: e.message));
+    }
+    on Exception catch (e) {
+      return Left(AppError(AppErrorType.api,message: e.toString()));
+    }
+  }
+
+
+
+
+
 }

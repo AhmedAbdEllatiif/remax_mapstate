@@ -31,6 +31,7 @@ class EmptyListWidget extends StatelessWidget {
           /// Text
           Text(
             text,
+            textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.whiteSubtitle1,
           )
         ],

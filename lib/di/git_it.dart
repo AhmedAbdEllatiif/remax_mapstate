@@ -7,6 +7,8 @@ import 'package:remax_mapstate/domain/repositories/api_projects.dart';
 import 'package:remax_mapstate/domain/repositories/local_repository.dart';
 import 'package:remax_mapstate/domain/use_cases/get_area_brokers.dart';
 import 'package:remax_mapstate/domain/use_cases/get_areas.dart';
+import 'package:remax_mapstate/domain/use_cases/get_commercial_projects.dart';
+import 'package:remax_mapstate/domain/use_cases/get_residential_projects.dart';
 import 'package:remax_mapstate/domain/use_cases/get_top_projects.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/check_for_favorite_project.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/delete_fav_project.dart';
@@ -20,8 +22,10 @@ import 'package:remax_mapstate/presentation/bloc/language_bloc/language_bloc.dar
 import 'package:remax_mapstate/presentation/bloc/project_backdrop/project_backdrop_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/top_projects/top_projects_bloc.dart';
 import 'package:remax_mapstate/presentation/cubit/broker_changed/broker_changed_cubit.dart';
+import 'package:remax_mapstate/presentation/cubit/commercial_projects/commercial_projects_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/navigation/navigation_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/project_scrollable_indicator/indicator_position_cubit.dart';
+import 'package:remax_mapstate/presentation/cubit/residential_projects/residential_projects_cubit.dart';
 import 'package:remax_mapstate/router/app_router.dart';
 import '../presentation/cubit/current_user/current_user_cubit.dart';
 
@@ -82,6 +86,20 @@ Future init() async {
     ),
   );
 
+  /// GetResidentialProjectsCase
+  getItInstance.registerLazySingleton<GetResidentialProjectsCase>(
+        () => GetResidentialProjectsCase(
+      apiRepo: getItInstance(),
+    ),
+  );
+
+  /// GetCommercialProjectsCase
+  getItInstance.registerLazySingleton<GetCommercialProjectsCase>(
+        () => GetCommercialProjectsCase(
+      apiRepo: getItInstance(),
+    ),
+  );
+
   ///********************************** Local_Use_Cases *********************************************\\\
   /// GetFavProject
   getItInstance.registerLazySingleton<GetFavProjects>(
@@ -112,6 +130,19 @@ Future init() async {
   getItInstance.registerFactory<BrokerChangedCubit>(
       ()=>BrokerChangedCubit(),
   );
+
+  /// init ResidentialProjectsCubit
+  getItInstance.registerSingleton<ResidentialProjectsCubit>(
+    ResidentialProjectsCubit(residentialProjectsCase: getItInstance()),
+  );
+
+
+  /// init CommercialProjectsCubit
+  getItInstance.registerSingleton<CommercialProjectsCubit>(
+    CommercialProjectsCubit(commercialProjectsCase: getItInstance()),
+  );
+
+
 
   ///********************************** init blocs *********************************************\\\
   //==> init LanguageBloc

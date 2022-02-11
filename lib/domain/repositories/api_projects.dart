@@ -6,19 +6,26 @@ import 'package:remax_mapstate/domain/entities/project_entity.dart';
 
 abstract class ApiRepo {
 
+
+  ///******************************** Projects ******************************** \\\\
   /// return list of TopProjects
   Future<Either<AppError,List<ProjectEntity>>> getTopProject();
 
-  /// return list of areas
-  Future<Either<AppError,List<AreaEntity>>> getAreas();
+  /// return list of ResidentialProjects
+  Future<Either<AppError,List<ProjectEntity>>> getResidentialProjects(int areaId);
 
-
+  /// return list of CommercialProjects
+  Future<Either<AppError,List<ProjectEntity>>> getCommercialProjects(int areaId);
 
   /// return list of FavoriteProjects
   Future<Either<AppError,List<ProjectEntity>>> getFavoriteProject();
 
 
-  /// return list of broker according to specefic area
+  /// return list of areas
+  Future<Either<AppError,List<AreaEntity>>> getAreas();
+
+
+  /// return list of broker according to specific area
   Future<Either<AppError,List<BrokerEntity>>> getAreaBrokers();
 
 
