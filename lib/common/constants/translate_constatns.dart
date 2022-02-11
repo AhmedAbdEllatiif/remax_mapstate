@@ -34,6 +34,8 @@ class TranslateConstants{
   static const String layouts = 'layouts';
   static const String projectDetails = 'projectDetails';
   static const String findByArea = 'findByArea';
+  static const String residential = 'residential';
+  static const String commercial = 'commercial';
   static const String test = 'test';
 
 }
