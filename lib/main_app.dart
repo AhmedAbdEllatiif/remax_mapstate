@@ -35,6 +35,8 @@ class _MainAppState extends State<MainApp> {
 
     _languageBloc = getItInstance<LanguageBloc>();
     _currentUserCubit = getItInstance<CurrentUserCubit>();
+    _currentUserCubit.clientUser();
+
     //init screen util
     ScreenUtil.init();
 

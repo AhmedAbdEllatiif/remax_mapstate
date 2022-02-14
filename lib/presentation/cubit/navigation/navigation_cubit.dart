@@ -7,18 +7,18 @@ part 'navigation_state.dart';
 class NavigationCubit extends Cubit<NavigationState> {
   NavigationCubit() : super( const HomeState(title: TranslateConstants.home, index: 0));
 
-  void home() =>
-      emit(const HomeState(title: TranslateConstants.home, index: 0));
+  void home(int index) =>
+      emit(HomeState(title: TranslateConstants.home, index: index));
 
-  void support() =>
-      emit(const SupportState(title: TranslateConstants.support, index: 1));
+  void support(int index) =>
+      emit(SupportState(title: TranslateConstants.support, index: index));
 
-  void calculator() => emit(
-      const CalculatorState(title: TranslateConstants.calculator, index: 2));
+  void calculator(int index) => emit(
+      CalculatorState(title: TranslateConstants.calculator, index: index));
 
-  void favorite() =>
-      emit(const FavoriteState(title: TranslateConstants.favorite, index: 2));
+  void favorite(int index) =>
+      emit(FavoriteState(title: TranslateConstants.favorite, index: index));
 
-  void profile() =>
-      emit(const ProfileState(title: TranslateConstants.profile, index: 3));
+  void profile(int index) =>
+      emit(ProfileState(title: TranslateConstants.profile, index: index));
 }
