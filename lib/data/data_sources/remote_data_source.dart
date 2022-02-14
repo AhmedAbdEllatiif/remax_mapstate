@@ -2,6 +2,7 @@ import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/data/models/area_model.dart';
 import 'package:remax_mapstate/data/models/broker_model.dart';
 import 'package:remax_mapstate/data/models/project_model.dart';
+import 'package:remax_mapstate/data/models/project_status.dart';
 
 abstract class RemoteDataSource {
   /// return top projects
@@ -18,6 +19,9 @@ abstract class RemoteDataSource {
 
   /// return list of brokers
   Future<List<BrokerModel>> getAreaBrokers();
+
+  /// return list project status
+  Future<List<ProjectStatusModel>> getProjectStatus();
 }
 
 class RemoteDateSourceImpl extends RemoteDataSource {
@@ -96,6 +100,16 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     ];
   }
 
+  List<ProjectStatusModel> projectStatus(){
+    return [
+      const ProjectStatusModel(id: 0,name: 'Ready To move',image: AssetsConstants.mountainViewImagePath),
+      const ProjectStatusModel(id: 1,name: 'Under Construction',image: AssetsConstants.promotionImagePath),
+      const ProjectStatusModel(id: 2,name: 'Off Plans',image: AssetsConstants.mountainViewImagePath),
+
+    ];
+  }
+
+
   List<BrokerModel> areaBrokers(){
     return const [
       BrokerModel(id: 0, age: 33, image: AssetsConstants.person1, name: "John", rating: 3.5, totalDoneDeals: 50,whatsappNum: '01005787483',phoneNum:'01007715117' ),
@@ -139,5 +153,12 @@ class RemoteDateSourceImpl extends RemoteDataSource {
   Future<List<ProjectModel>> getResidentialProjects(int areaId) async {
    final myProjects = await projects();
     return myProjects;
+  }
+
+  /// return list project status
+  @override
+  Future<List<ProjectStatusModel>> getProjectStatus() async {
+    final status = await projectStatus();
+    return status;
   }
 }

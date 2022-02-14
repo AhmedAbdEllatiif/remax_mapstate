@@ -3,6 +3,7 @@ import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
 import 'package:remax_mapstate/domain/entities/broker_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
+import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
 
 abstract class ApiRepo {
 
@@ -28,5 +29,8 @@ abstract class ApiRepo {
   /// return list of broker according to specific area
   Future<Either<AppError,List<BrokerEntity>>> getAreaBrokers();
 
+
+  /// return list project status
+  Future<Either<AppError,List<ProjectStatusEntity>>> getProjectStatus();
 
 }

@@ -7,6 +7,7 @@ import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
 import 'package:remax_mapstate/domain/entities/broker_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
+import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
 import 'package:remax_mapstate/domain/repositories/api_projects.dart';
 
 class ProjectApiRepoImpl extends ApiRepo {
@@ -82,11 +83,26 @@ class ProjectApiRepoImpl extends ApiRepo {
     }
   }
 
+  /// return list residential projects
   @override
   Future<Either<AppError, List<ProjectEntity>>> getResidentialProjects(int areaId) async {
     try {
       final projects = await remoteDataSource.getResidentialProjects(areaId);
       return Right(projects);
+    } on SocketException catch(e){
+      return Left(AppError(AppErrorType.network,message: e.message));
+    }
+    on Exception catch (e) {
+      return Left(AppError(AppErrorType.api,message: e.toString()));
+    }
+  }
+
+  /// return list project status
+  @override
+  Future<Either<AppError, List<ProjectStatusEntity>>> getProjectStatus() async {
+    try {
+      final status = await remoteDataSource.getProjectStatus();
+      return Right(status);
     } on SocketException catch(e){
       return Left(AppError(AppErrorType.network,message: e.message));
     }

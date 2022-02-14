@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
+import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
 import 'package:remax_mapstate/presentation/journeys/home/top_projects/project_backdrop_widget.dart';
 import 'package:remax_mapstate/presentation/journeys/home/top_projects/project_page_view.dart';
 import 'package:remax_mapstate/presentation/journeys/home/top_projects/top_project_data.dart';
 import 'package:remax_mapstate/presentation/widgets/separator.dart';
 
 class TopProjectWidget extends StatelessWidget {
-  final List<ProjectEntity> projects;
+  final List<ProjectStatusEntity> projectStausList;
   final int defaultIndex;
 
 
-  const TopProjectWidget({Key? key, required this.projects, required this.defaultIndex}) : super(key: key);
+  const TopProjectWidget({Key? key, required this.projectStausList, required this.defaultIndex}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class TopProjectWidget extends StatelessWidget {
 
             // scroll view with top projects
             ProjectPageView(
-              projects: projects,
+              projectStatusList: projectStausList,
               initialPage: defaultIndex,
             ),
 

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:remax_mapstate/common/constants/sizes.dart';
+import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/di/git_it.dart';
-import 'package:remax_mapstate/presentation/bloc/top_projects/top_projects_bloc.dart';
+import 'package:remax_mapstate/presentation/bloc/projects/fetch_projects_bloc.dart';
 import 'package:remax_mapstate/presentation/cubit/residential_projects/residential_projects_cubit.dart';
-import 'package:remax_mapstate/presentation/journeys/projects/project_card.dart';
+import 'package:remax_mapstate/presentation/journeys/area_projects/unit_types_list_widget.dart';
+
 import 'package:remax_mapstate/presentation/widgets/empty_list_widegt.dart';
 import 'package:remax_mapstate/presentation/widgets/loading_animation_widget.dart';
+
+import '../project_card.dart';
 
 class ResidentialPage extends StatefulWidget {
   const ResidentialPage({Key? key}) : super(key: key);
@@ -61,7 +66,11 @@ class _ResidentialPageState extends State<ResidentialPage>
           }
 
           if (state is ResidentialProjectsLoadedState) {
-            return ListView.builder(
+            return Padding(
+              padding:  EdgeInsets.all(Sizes.dimen_30.w),
+              child: UnitTypeListWidget(),
+            );
+           /* return ListView.builder(
                 scrollDirection: Axis.vertical,
                 physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
@@ -69,7 +78,7 @@ class _ResidentialPageState extends State<ResidentialPage>
                 itemBuilder: (context, index) =>
                     ProjectCardWidget(
                       projectEntity: state.projects[index],
-                    ));
+                    ));*/
           }
 
           return const Center(

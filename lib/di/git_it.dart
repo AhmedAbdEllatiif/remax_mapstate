@@ -8,8 +8,9 @@ import 'package:remax_mapstate/domain/repositories/local_repository.dart';
 import 'package:remax_mapstate/domain/use_cases/get_area_brokers.dart';
 import 'package:remax_mapstate/domain/use_cases/get_areas.dart';
 import 'package:remax_mapstate/domain/use_cases/get_commercial_projects.dart';
+import 'package:remax_mapstate/domain/use_cases/get_project_status.dart';
 import 'package:remax_mapstate/domain/use_cases/get_residential_projects.dart';
-import 'package:remax_mapstate/domain/use_cases/get_top_projects.dart';
+import 'package:remax_mapstate/domain/use_cases/get_projects.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/check_for_favorite_project.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/delete_fav_project.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/get_fav_projects.dart';
@@ -19,14 +20,15 @@ import 'package:remax_mapstate/presentation/bloc/areas_bloc/areas_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/brokers_by_area/area_brokers_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/favorite_projects/favorite_projects_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/language_bloc/language_bloc.dart';
-import 'package:remax_mapstate/presentation/bloc/project_backdrop/project_backdrop_bloc.dart';
-import 'package:remax_mapstate/presentation/bloc/top_projects/top_projects_bloc.dart';
+import 'package:remax_mapstate/presentation/bloc/project_status/project_status_bloc.dart';
+import 'package:remax_mapstate/presentation/bloc/projects/fetch_projects_bloc.dart';
 import 'package:remax_mapstate/presentation/cubit/broker_changed/broker_changed_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/commercial_projects/commercial_projects_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/navigation/navigation_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/project_scrollable_indicator/indicator_position_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/residential_projects/residential_projects_cubit.dart';
 import 'package:remax_mapstate/router/app_router.dart';
+import '../presentation/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
 import '../presentation/cubit/current_user/current_user_cubit.dart';
 
 final getItInstance = GetIt.I;
@@ -68,8 +70,8 @@ Future init() async {
 
   ///********************************** Remote_Use_Cases *********************************************\\\
   /// GetTopProjects
-  getItInstance.registerLazySingleton<GetTopProjects>(
-    () => GetTopProjects(projectApiRepo: getItInstance()),
+  getItInstance.registerLazySingleton<GetProjectsCase>(
+    () => GetProjectsCase(projectApiRepo: getItInstance()),
   );
 
   /// GetAreasCase
@@ -88,14 +90,21 @@ Future init() async {
 
   /// GetResidentialProjectsCase
   getItInstance.registerLazySingleton<GetResidentialProjectsCase>(
-        () => GetResidentialProjectsCase(
+    () => GetResidentialProjectsCase(
       apiRepo: getItInstance(),
     ),
   );
 
   /// GetCommercialProjectsCase
   getItInstance.registerLazySingleton<GetCommercialProjectsCase>(
-        () => GetCommercialProjectsCase(
+    () => GetCommercialProjectsCase(
+      apiRepo: getItInstance(),
+    ),
+  );
+
+  /// GetProjectStatusCase
+  getItInstance.registerLazySingleton<GetProjectStatusCase>(
+        () => GetProjectStatusCase(
       apiRepo: getItInstance(),
     ),
   );
@@ -128,7 +137,7 @@ Future init() async {
 
   /// init BrokerChangeCubit
   getItInstance.registerFactory<BrokerChangedCubit>(
-      ()=>BrokerChangedCubit(),
+    () => BrokerChangedCubit(),
   );
 
   /// init ResidentialProjectsCubit
@@ -136,13 +145,10 @@ Future init() async {
     ResidentialProjectsCubit(residentialProjectsCase: getItInstance()),
   );
 
-
   /// init CommercialProjectsCubit
   getItInstance.registerSingleton<CommercialProjectsCubit>(
     CommercialProjectsCubit(commercialProjectsCase: getItInstance()),
   );
-
-
 
   ///********************************** init blocs *********************************************\\\
   //==> init LanguageBloc
@@ -151,15 +157,22 @@ Future init() async {
   );
 
   //==> init ProjectBackdropBloc
-  getItInstance.registerSingleton<ProjectBackdropBloc>(
-    ProjectBackdropBloc(),
+  getItInstance.registerFactory<ProjectStatusBackdropBloc>(
+    () => ProjectStatusBackdropBloc(),
   );
 
-  ///==> init TopProjectsBloc
-  getItInstance.registerSingleton<TopProjectsBloc>(TopProjectsBloc(
-    getTopProjects: getItInstance(),
-    backdropBloc: getItInstance(),
-  ));
+  ///==> init ProjectStatusBloc
+  getItInstance.registerFactory<ProjectStatusBloc>(
+    () => ProjectStatusBloc(
+      backdropBloc: getItInstance(),
+      getProjectStatusCase: getItInstance(),
+    ),
+  );
+
+  ///==> init FetchProjectsBloc
+  getItInstance.registerFactory<FetchProjectsBloc>(() => FetchProjectsBloc(
+        getProjects: getItInstance(),
+      ));
 
   /// init areas bloc
   getItInstance.registerSingleton<AreasBloc>(
@@ -183,6 +196,6 @@ Future init() async {
       .registerFactory<IndicatorPositionCubit>(() => IndicatorPositionCubit());
 
   /// init AreaBrokersBloc
-  getItInstance
-      .registerFactory<AreaBrokersBloc>(() => AreaBrokersBloc(getAreaBrokersCase: getItInstance()));
+  getItInstance.registerFactory<AreaBrokersBloc>(
+      () => AreaBrokersBloc(getAreaBrokersCase: getItInstance()));
 }

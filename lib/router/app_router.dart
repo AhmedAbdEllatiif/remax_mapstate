@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:remax_mapstate/common/constants/argument_constants.dart';
+import 'package:remax_mapstate/presentation/journeys/area_projects/projects_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/choose_broker/choose_broker_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/main/main_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_details_argument.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_details_screen.dart';
-import 'package:remax_mapstate/presentation/journeys/projects/projects_argument.dart';
-import 'package:remax_mapstate/presentation/journeys/projects/projects_screen.dart';
+
+import '../presentation/journeys/area_projects/projects_argument.dart';
 
 class AppRouter {
   static const String mainScreen = "/";

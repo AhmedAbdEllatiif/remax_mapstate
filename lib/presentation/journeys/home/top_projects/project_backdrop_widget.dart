@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
-import 'package:remax_mapstate/presentation/bloc/project_backdrop/project_backdrop_bloc.dart';
+import 'package:remax_mapstate/presentation/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
 
 class ProjectBackDropWidget extends StatelessWidget {
   const ProjectBackDropWidget({Key? key}) : super(key: key);
@@ -24,10 +24,10 @@ class ProjectBackDropWidget extends StatelessWidget {
             FractionallySizedBox(
               heightFactor: 1,
               widthFactor: 1,
-              child: BlocBuilder<ProjectBackdropBloc, ProjectBackdropState>(
+              child: BlocBuilder<ProjectStatusBackdropBloc, ProjectStatusBackdropState>(
                 builder: (context, state) {
                   if (state is ProjectBackdropChangedState) {
-                    final imageUrl = state.projectEntity.imageUrl;
+                    final imageUrl = state.projectStatusEntity.image;
 
                     return  Image.asset(
                       imageUrl,
