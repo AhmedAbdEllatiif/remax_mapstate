@@ -3,6 +3,7 @@ import 'package:remax_mapstate/data/models/area_model.dart';
 import 'package:remax_mapstate/data/models/broker_model.dart';
 import 'package:remax_mapstate/data/models/project_model.dart';
 import 'package:remax_mapstate/data/models/project_status.dart';
+import 'package:remax_mapstate/data/models/unit_type_model.dart';
 
 abstract class RemoteDataSource {
   /// return top projects
@@ -22,6 +23,9 @@ abstract class RemoteDataSource {
 
   /// return list project status
   Future<List<ProjectStatusModel>> getProjectStatus();
+
+  /// return list unitTypes status
+  Future<List<UnitTypeModel>> getResidentialUnitTypesByArea();
 }
 
 class RemoteDateSourceImpl extends RemoteDataSource {
@@ -102,9 +106,9 @@ class RemoteDateSourceImpl extends RemoteDataSource {
 
   List<ProjectStatusModel> projectStatus(){
     return [
-      const ProjectStatusModel(id: 0,name: 'Ready To move',image: AssetsConstants.mountainViewImagePath),
-      const ProjectStatusModel(id: 1,name: 'Under Construction',image: AssetsConstants.promotionImagePath),
-      const ProjectStatusModel(id: 2,name: 'Off Plans',image: AssetsConstants.mountainViewImagePath),
+      const ProjectStatusModel(id: 0,name: 'Ready To move',image: AssetsConstants.readyToMove),
+      const ProjectStatusModel(id: 1,name: 'Under Construction',image: AssetsConstants.underConstruction),
+      const ProjectStatusModel(id: 2,name: 'Off Plans',image: AssetsConstants.offPlan),
 
     ];
   }
@@ -120,6 +124,20 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       BrokerModel(id: 5, age: 28, image: AssetsConstants.person1, name: "Micheal", rating: 4.5, totalDoneDeals: 180,whatsappNum: '01005787483',phoneNum:'01007715117' ),
       BrokerModel(id: 6, age: 33, image: AssetsConstants.person1, name: "John", rating: 3.5, totalDoneDeals: 50,whatsappNum: '01005787483',phoneNum:'01007715117' ),
       BrokerModel(id: 7, age: 28, image: AssetsConstants.person1, name: "Micheal", rating: 4.5, totalDoneDeals: 180,whatsappNum: '01005787483',phoneNum:'01007715117' ),
+    ];
+  }
+
+  List<UnitTypeModel> unitTypes(){
+    return [
+      const UnitTypeModel(id: 0,name: 'Twin House'),
+      const UnitTypeModel(id: 1,name: 'Villa'),
+      const UnitTypeModel(id: 2,name: 'Town House'),
+      const UnitTypeModel(id: 2,name: 'Duplex'),
+      const UnitTypeModel(id: 0,name: 'Twin House'),
+      const UnitTypeModel(id: 1,name: 'Villa'),
+      const UnitTypeModel(id: 2,name: 'Town House'),
+      const UnitTypeModel(id: 2,name: 'Duplex'),
+
     ];
   }
 
@@ -160,5 +178,12 @@ class RemoteDateSourceImpl extends RemoteDataSource {
   Future<List<ProjectStatusModel>> getProjectStatus() async {
     final status = await projectStatus();
     return status;
+  }
+
+  /// return list unitTypes status
+  @override
+  Future<List<UnitTypeModel>> getResidentialUnitTypesByArea() async {
+    final uniTypes = await unitTypes();
+    return uniTypes;
   }
 }

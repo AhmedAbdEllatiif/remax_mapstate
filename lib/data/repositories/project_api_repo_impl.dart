@@ -8,6 +8,7 @@ import 'package:remax_mapstate/domain/entities/area_entity.dart';
 import 'package:remax_mapstate/domain/entities/broker_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
+import 'package:remax_mapstate/domain/entities/unit_type_entity.dart';
 import 'package:remax_mapstate/domain/repositories/api_projects.dart';
 
 class ProjectApiRepoImpl extends ApiRepo {
@@ -103,6 +104,20 @@ class ProjectApiRepoImpl extends ApiRepo {
     try {
       final status = await remoteDataSource.getProjectStatus();
       return Right(status);
+    } on SocketException catch(e){
+      return Left(AppError(AppErrorType.network,message: e.message));
+    }
+    on Exception catch (e) {
+      return Left(AppError(AppErrorType.api,message: e.toString()));
+    }
+  }
+
+  /// return list unitTypes status
+  @override
+  Future<Either<AppError, List<UnitTypeEntity>>> getResidentialUnitTypesByArea() async {
+    try {
+      final unitTypes = await remoteDataSource.getResidentialUnitTypesByArea();
+      return Right(unitTypes);
     } on SocketException catch(e){
       return Left(AppError(AppErrorType.network,message: e.message));
     }

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/presentation/bloc/projects/fetch_projects_bloc.dart';
 import 'package:remax_mapstate/presentation/cubit/commercial_projects/commercial_projects_cubit.dart';
-import 'package:remax_mapstate/presentation/journeys/area_projects/project_card.dart';
+import 'package:remax_mapstate/presentation/journeys/projects/project_card.dart';
 import 'package:remax_mapstate/presentation/widgets/empty_list_widegt.dart';
 import 'package:remax_mapstate/presentation/widgets/loading_animation_widget.dart';
 

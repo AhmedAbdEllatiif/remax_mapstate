@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:remax_mapstate/common/constants/argument_constants.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
-import 'package:remax_mapstate/presentation/journeys/area_projects/projects_argument.dart';
+import 'package:remax_mapstate/presentation/journeys/projects/projects_argument.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
@@ -17,16 +17,16 @@ class AreaCardWidget extends StatelessWidget {
 
 
   /// to navigate to ProjectsScreen
-  void _navigateToProjectsScreen(BuildContext context) =>
-      Navigator.of(context).pushNamed(AppRouter.projectsScreen, arguments: {
-        ArgumentConstants.projectsArgument: ProjectsArgument(area: area),
+  void _navigateToAreaScreen(BuildContext context) =>
+      Navigator.of(context).pushNamed(AppRouter.areaScreen, arguments: {
+        ArgumentConstants.areaArgument: AreaArgument(area: area),
       });
 
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _navigateToProjectsScreen(context),
+      onTap: () => _navigateToAreaScreen(context),
       child: CircleAvatar(
         backgroundColor: Colors.white,
         child: Center(

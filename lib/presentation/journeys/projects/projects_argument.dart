@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
 
-class ProjectsArgument extends Equatable{
+class AreaArgument extends Equatable{
   final AreaEntity area;
 
-  const ProjectsArgument({
+  const AreaArgument({
     required this.area,
   });
 

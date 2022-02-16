@@ -1,44 +1,68 @@
 part of 'residential_projects_cubit.dart';
 
-abstract class ResidentialProjectsState extends Equatable {
-  const ResidentialProjectsState();
+abstract class ResidentialState extends Equatable {
+  const ResidentialState();
 
   @override
   List<Object> get props => [];
 }
 
 /// Initial State
-class ResidentialProjectsInitial extends ResidentialProjectsState {}
+class ResidentialInitial extends ResidentialState {}
 
 
 /// Loading State
-class ResidentialProjectsLoadingState extends ResidentialProjectsState {}
+class ResidentialLoadingState extends ResidentialState {}
 
-/// NoProjectsTo State
-class NoResidentialProjectsToShowState extends ResidentialProjectsState {}
+/// No projects to show State
+class NoProjectsToShowState extends ResidentialState {}
 
 
 /// Error State
-class ResidentialProjectsErrorState extends ResidentialProjectsState {
+class ResidentialCubitErrorState extends ResidentialState {
 
   final AppError appError;
 
-  const ResidentialProjectsErrorState({
+  const ResidentialCubitErrorState({
     required this.appError,
   });
   @override
   List<Object> get props => [appError];
 }
 
-/// Loaded State
-class ResidentialProjectsLoadedState extends ResidentialProjectsState {
+
+
+
+/// Projects Loaded State
+class ProjectsLoadedState extends ResidentialState {
 
   final List<ProjectEntity> projects;
 
-  const ResidentialProjectsLoadedState({
+  const ProjectsLoadedState({
     required this.projects,
   });
 
   @override
   List<Object> get props => [projects];
+}
+
+
+
+///******************************* UnitTypes *******************************\\\
+
+/// No unitTypes to show State
+class NoUnitTypesToShowState extends ResidentialState {}
+
+
+/// UnitTypes Loaded State
+class UnitTypesLoadedState extends ResidentialState {
+
+  final List<UnitTypeEntity> unitTypes;
+
+  const UnitTypesLoadedState({
+    required this.unitTypes,
+  });
+
+  @override
+  List<Object> get props => [unitTypes];
 }

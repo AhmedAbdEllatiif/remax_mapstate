@@ -12,6 +12,9 @@ class AssetsConstants{
   static const String person2 = "${_pngPath}person_2.png";
   static const String whatsapp = "${_pngPath}whatsapp.png";
   static const String phoneCall = "${_pngPath}phone_call.png";
+  static const String readyToMove = "${_pngPath}ready_to_move.jpg";
+  static const String offPlan = "${_pngPath}offPlan.jpg";
+  static const String underConstruction = "${_pngPath}underConstruction.jpg";
 
   static const String loading = "${_jsonPath}loading.json";
   static const String emptyBox = "${_jsonPath}empty_box.json";

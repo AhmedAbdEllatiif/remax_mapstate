@@ -11,6 +11,7 @@ import 'package:remax_mapstate/domain/use_cases/get_commercial_projects.dart';
 import 'package:remax_mapstate/domain/use_cases/get_project_status.dart';
 import 'package:remax_mapstate/domain/use_cases/get_residential_projects.dart';
 import 'package:remax_mapstate/domain/use_cases/get_projects.dart';
+import 'package:remax_mapstate/domain/use_cases/get_unit_types_by_area.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/check_for_favorite_project.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/delete_fav_project.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/get_fav_projects.dart';
@@ -104,7 +105,14 @@ Future init() async {
 
   /// GetProjectStatusCase
   getItInstance.registerLazySingleton<GetProjectStatusCase>(
-        () => GetProjectStatusCase(
+    () => GetProjectStatusCase(
+      apiRepo: getItInstance(),
+    ),
+  );
+
+  /// GetProjectStatusCase
+  getItInstance.registerLazySingleton<GetResidentialUnitTypesByAreaCase>(
+    () => GetResidentialUnitTypesByAreaCase(
       apiRepo: getItInstance(),
     ),
   );
@@ -141,8 +149,11 @@ Future init() async {
   );
 
   /// init ResidentialProjectsCubit
-  getItInstance.registerSingleton<ResidentialProjectsCubit>(
-    ResidentialProjectsCubit(residentialProjectsCase: getItInstance()),
+  getItInstance.registerFactory<ResidentialCubit>(
+        () => ResidentialCubit(
+      residentialProjectsCase: getItInstance(),
+      getUnitTypesByAreaCase: getItInstance(),
+    ),
   );
 
   /// init CommercialProjectsCubit
