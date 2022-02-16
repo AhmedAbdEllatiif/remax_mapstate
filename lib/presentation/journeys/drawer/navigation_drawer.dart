@@ -5,7 +5,7 @@ import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
-import 'package:remax_mapstate/presentation/bloc/language_bloc/language_bloc.dart';
+import 'package:remax_mapstate/presentation/cubit/language/language_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/drawer/navgation_expanded_list_tile.dart';
 import 'package:remax_mapstate/presentation/journeys/drawer/navigation_list_item.dart';
 import 'package:remax_mapstate/presentation/widgets/logo.dart';
@@ -46,11 +46,7 @@ class NavigationDrawer extends StatelessWidget {
             ),
             NavigationExpandedListItem(
               title: TranslateConstants.language.t(context),
-              onPressed: (index) {
-                BlocProvider.of<LanguageBloc>(context).add(ToggleLanguageEvent(
-                    languageEntity:
-                        LanguageConstants.supportedLanguages[index]));
-              },
+              onPressed: (index) => _onLanguageSelected(index,context),
               children: LanguageConstants.supportedLanguages
                   .map((e) => e.value)
                   .toList(),
@@ -74,6 +70,13 @@ class NavigationDrawer extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+
+  void _onLanguageSelected(int index, BuildContext context) {
+    BlocProvider.of<LanguageCubit>(context).toggleLanguage(
+      LanguageConstants.supportedLanguages[index],
     );
   }
 

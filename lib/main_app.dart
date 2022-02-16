@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/language_constants.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/presentation/app_localization.dart';
+import 'package:remax_mapstate/presentation/cubit/language/language_cubit.dart';
 import 'package:remax_mapstate/router/app_router.dart';
 import 'presentation/cubit/current_user/current_user_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/main/main_screen.dart';
@@ -10,7 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 import 'di/git_it.dart';
-import 'presentation/bloc/language_bloc/language_bloc.dart';
+
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
 
@@ -22,8 +23,8 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  late LanguageBloc _languageBloc;
   late CurrentUserCubit _currentUserCubit;
+  late LanguageCubit _languageCubit;
   late AppRouter _appRouter;
 
   @override
@@ -32,74 +33,74 @@ class _MainAppState extends State<MainApp> {
 
     _appRouter = getItInstance<AppRouter>();
 
+    /// init language bloc
+    _languageCubit = getItInstance<LanguageCubit>();
+    _languageCubit.loadPreferredLanguage();
 
-    _languageBloc = getItInstance<LanguageBloc>();
+    /// init CurrentUserCubit
     _currentUserCubit = getItInstance<CurrentUserCubit>();
     _currentUserCubit.clientUser();
 
-    //init screen util
+    ///init screen util
     ScreenUtil.init();
-
   }
 
   @override
   void dispose() {
-    _languageBloc.close();
+
     _currentUserCubit.close();
+    _languageCubit.close();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<LanguageBloc>.value(value: _languageBloc),
+        BlocProvider<LanguageCubit>.value(value: _languageCubit),
         BlocProvider<CurrentUserCubit>.value(value: _currentUserCubit)
       ],
-           child: BlocBuilder<LanguageBloc, LanguageState>(
-        builder: (context, state) {
-          if (state is LanguageChanged) {
-            return MaterialApp(
-              builder: (context, widget) => ResponsiveWrapper.builder(
-                  ClampingScrollWrapper.builder(context, widget!),
-                  maxWidth: 1200,
-                  //minWidth: 480,
-                  defaultScale: true,
-                  breakpoints: [
-                    const ResponsiveBreakpoint.resize(350, name: MOBILE),
-                    const ResponsiveBreakpoint.autoScale(600, name: TABLET),
-                    const ResponsiveBreakpoint.resize(800, name: DESKTOP),
-                    const ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
-                    // const ResponsiveBreakpoint.autoScale(500,name: TABLET,scaleFactor: 1)
-                  ]),
-
-              theme: ThemeData(
-                unselectedWidgetColor: AppColor.royalBlue,
-                primaryColor: AppColor.vulcan,
-                colorScheme: ColorScheme.fromSwatch().copyWith(
-                  secondary: AppColor.royalBlue, // Your accent color
-                ),
-                scaffoldBackgroundColor: AppColor.vulcan,
-                textTheme: ThemeText.getTextTheme(),
-                appBarTheme: const AppBarTheme(elevation: 0,color: AppColor.vulcan,),
+      child: BlocBuilder<LanguageCubit, Locale>(
+        builder: (context, locale) {
+          return MaterialApp(
+            builder: (context, widget) => ResponsiveWrapper.builder(
+                ClampingScrollWrapper.builder(context, widget!),
+                maxWidth: 1200,
+                //minWidth: 480,
+                defaultScale: true,
+                breakpoints: [
+                  const ResponsiveBreakpoint.resize(350, name: MOBILE),
+                  const ResponsiveBreakpoint.autoScale(600, name: TABLET),
+                  const ResponsiveBreakpoint.resize(800, name: DESKTOP),
+                  const ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
+                  // const ResponsiveBreakpoint.autoScale(500,name: TABLET,scaleFactor: 1)
+                ]),
+            theme: ThemeData(
+              unselectedWidgetColor: AppColor.royalBlue,
+              primaryColor: AppColor.vulcan,
+              colorScheme: ColorScheme.fromSwatch().copyWith(
+                secondary: AppColor.royalBlue, // Your accent color
               ),
-
-              supportedLocales: LanguageConstants.supportedLanguages
-                  .map((e) => Locale(e.code))
-                  .toList(),
-              locale: state.locale,
-              localizationsDelegates: const [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              initialRoute: AppRouter.mainScreen,
-              onGenerateRoute: _appRouter.onGeneratedRoute,
-            );
-          }
-          return const Text("No Language provided");
+              scaffoldBackgroundColor: AppColor.vulcan,
+              textTheme: ThemeText.getTextTheme(),
+              appBarTheme: const AppBarTheme(
+                elevation: 0,
+                color: AppColor.vulcan,
+              ),
+            ),
+            supportedLocales: LanguageConstants.supportedLanguages
+                .map((e) => Locale(e.code))
+                .toList(),
+            locale: locale,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            initialRoute: AppRouter.mainScreen,
+            onGenerateRoute: _appRouter.onGeneratedRoute,
+          );
         },
       ),
     );

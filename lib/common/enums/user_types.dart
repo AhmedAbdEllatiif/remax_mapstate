@@ -5,3 +5,10 @@
 /// broker ==> when user is a broker
 /// other ==> the other user
 enum UserType { tour, client, broker, other }
+
+
+extension ToString on UserType {
+  String toShortString() {
+    return toString().split('.').last;
+  }
+}

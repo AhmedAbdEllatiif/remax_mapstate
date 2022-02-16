@@ -1,13 +1,17 @@
 import 'package:get_it/get_it.dart';
+import 'package:remax_mapstate/data/data_sources/app_settings_local_data_source.dart';
 import 'package:remax_mapstate/data/data_sources/local_data_source.dart';
 import 'package:remax_mapstate/data/data_sources/remote_data_source.dart';
+import 'package:remax_mapstate/data/repositories/app_settings_repository_impl.dart';
 import 'package:remax_mapstate/data/repositories/loca_repository_impl.dart';
 import 'package:remax_mapstate/data/repositories/project_api_repo_impl.dart';
 import 'package:remax_mapstate/domain/repositories/api_projects.dart';
+import 'package:remax_mapstate/domain/repositories/app_settings_repository.dart';
 import 'package:remax_mapstate/domain/repositories/local_repository.dart';
 import 'package:remax_mapstate/domain/use_cases/get_area_brokers.dart';
 import 'package:remax_mapstate/domain/use_cases/get_areas.dart';
 import 'package:remax_mapstate/domain/use_cases/get_commercial_projects.dart';
+import 'package:remax_mapstate/domain/use_cases/local_usecases/get_preferred_language.dart';
 import 'package:remax_mapstate/domain/use_cases/get_project_status.dart';
 import 'package:remax_mapstate/domain/use_cases/get_residential_projects.dart';
 import 'package:remax_mapstate/domain/use_cases/get_projects.dart';
@@ -16,15 +20,17 @@ import 'package:remax_mapstate/domain/use_cases/local_usecases/check_for_favorit
 import 'package:remax_mapstate/domain/use_cases/local_usecases/delete_fav_project.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/get_fav_projects.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/save_fav_project.dart';
+import 'package:remax_mapstate/domain/use_cases/local_usecases/update_language.dart';
 
 import 'package:remax_mapstate/presentation/bloc/areas_bloc/areas_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/brokers_by_area/area_brokers_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/favorite_projects/favorite_projects_bloc.dart';
-import 'package:remax_mapstate/presentation/bloc/language_bloc/language_bloc.dart';
+
 import 'package:remax_mapstate/presentation/bloc/project_status/project_status_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/projects/fetch_projects_bloc.dart';
 import 'package:remax_mapstate/presentation/cubit/broker_changed/broker_changed_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/commercial_projects/commercial_projects_cubit.dart';
+import 'package:remax_mapstate/presentation/cubit/language/language_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/navigation/navigation_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/project_scrollable_indicator/indicator_position_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/residential_projects/residential_projects_cubit.dart';
@@ -52,6 +58,11 @@ Future init() async {
     () => LocalDataSourceImpl(),
   );
 
+  /// Instance of AppSettingsLocalDataSource
+  getItInstance.registerLazySingleton<AppSettingsLocalDataSource>(
+    () => AppSettingsLocalDataSourceImpl(),
+  );
+
   ///********************************** Repositories *********************************************\\\
 
   /// Instance of ProjectsApiRepo
@@ -66,6 +77,13 @@ Future init() async {
   getItInstance.registerLazySingleton<LocalRepository>(
     () => LocalRepositoryImpl(
       localDataSource: getItInstance(),
+    ),
+  );
+
+  /// Instance of AppSettingsRepository
+  getItInstance.registerLazySingleton<AppSettingsRepository>(
+    () => AppSettingsRepositoryImpl(
+      appSettingsLocalDataSource: getItInstance(),
     ),
   );
 
@@ -118,6 +136,15 @@ Future init() async {
   );
 
   ///********************************** Local_Use_Cases *********************************************\\\
+
+  /// GetPreferredLanguage
+  getItInstance.registerLazySingleton<GetPreferredLanguage>(
+      () => GetPreferredLanguage(appSettingsRepository: getItInstance()));
+
+  /// UpdateLanguage
+  getItInstance.registerLazySingleton<UpdateLanguage>(
+      () => UpdateLanguage(appSettingsRepository: getItInstance()));
+
   /// GetFavProject
   getItInstance.registerLazySingleton<GetFavProjects>(
       () => GetFavProjects(localRepository: getItInstance()));
@@ -150,7 +177,7 @@ Future init() async {
 
   /// init ResidentialProjectsCubit
   getItInstance.registerFactory<ResidentialCubit>(
-        () => ResidentialCubit(
+    () => ResidentialCubit(
       residentialProjectsCase: getItInstance(),
       getUnitTypesByAreaCase: getItInstance(),
     ),
@@ -158,14 +185,20 @@ Future init() async {
 
   /// init CommercialProjectsCubit
   getItInstance.registerSingleton<CommercialProjectsCubit>(
-    CommercialProjectsCubit(commercialProjectsCase: getItInstance()),
+    CommercialProjectsCubit(
+      commercialProjectsCase: getItInstance(),
+    ),
+  );
+
+  /// init LanguageCubit
+  getItInstance.registerSingleton<LanguageCubit>(
+    LanguageCubit(
+      getPreferredLanguage: getItInstance(),
+      updateLanguage: getItInstance(),
+    ),
   );
 
   ///********************************** init blocs *********************************************\\\
-  //==> init LanguageBloc
-  getItInstance.registerSingleton<LanguageBloc>(
-    LanguageBloc(),
-  );
 
   //==> init ProjectBackdropBloc
   getItInstance.registerFactory<ProjectStatusBackdropBloc>(
