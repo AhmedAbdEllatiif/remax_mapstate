@@ -42,10 +42,10 @@ class RouteHelper {
       Navigator.of(context)
           .pushNamed(RouteList.areaScreen, arguments: areaArgument);
 
-  /// To AreaScreen \\\
+  /// To BrokersScreen \\\
   void chooseBrokerScreen(BuildContext context,
           {required ChooseBrokerArgument chooseBrokerArgument}) =>
       Navigator.of(context)
-          .pushNamed(RouteList.areaScreen, arguments: chooseBrokerArgument);
+          .pushNamed(RouteList.chooseBrokerScreen, arguments: chooseBrokerArgument);
 }
 //Navigator.pushNamed(context, AppRouter.chooseBrokerScreen)

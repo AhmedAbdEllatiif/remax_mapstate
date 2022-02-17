@@ -39,14 +39,14 @@ class UserTypeCard extends StatelessWidget {
           children: [
             const Icon(
               Icons.person,
-              color: AppColor.royalBlue,
+              color: AppColor.vulcan,
             ),
             const SizedBox(
               height: 10,
             ),
             Text(
               currentUserEntity.userType.toShortString().t(context).toUpperCase(),
-              style: const TextStyle(color: AppColor.royalBlue),
+              style: const TextStyle(color: AppColor.vulcan),
             ),
           ],
         ),
