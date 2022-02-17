@@ -9,6 +9,7 @@ import 'package:remax_mapstate/presentation/cubit/language/language_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/drawer/navgation_expanded_list_tile.dart';
 import 'package:remax_mapstate/presentation/journeys/drawer/navigation_list_item.dart';
 import 'package:remax_mapstate/presentation/widgets/logo.dart';
+import 'package:remax_mapstate/router/app_router.dart';
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
@@ -65,6 +66,14 @@ class NavigationDrawer extends StatelessWidget {
                 Navigator.of(context).pop();
 
                 _showDialog(context);
+              },
+            ),
+
+            NavigationListItem(
+              title: TranslateConstants.logout.t(context),
+              onPressed: () {
+                /// navigate to choose userScreen
+                Navigator.pushNamedAndRemoveUntil(context, AppRouter.chooseUserScreen, (routePredicate) => false);
               },
             ),
           ],
