@@ -7,7 +7,7 @@ import 'package:remax_mapstate/presentation/journeys/choose_broker/choose_broker
 import 'package:remax_mapstate/presentation/journeys/main/main_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_details_argument.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_details_screen.dart';
-
+import 'package:remax_mapstate/presentation/journeys/start_app/choose_user_type/choose_user_screen.dart';
 
 class AppRouter {
   static const String mainScreen = "/";
@@ -33,12 +33,12 @@ class AppRouter {
           return const ProjectsScreen();
         });
 
-    /// Area Screen \\\
+      /// Area Screen \\\
       case areaScreen:
         return MaterialPageRoute(builder: (context) {
           final args = routeSettings.arguments as Map<String, AreaArgument>;
           final areaArgument =
-          args[ArgumentConstants.areaArgument] as AreaArgument;
+              args[ArgumentConstants.areaArgument] as AreaArgument;
           return AreaScreen(
             areaArgument: areaArgument,
           );
@@ -56,7 +56,11 @@ class AppRouter {
 
       /// Choose Broker Screen \\\
       case chooseBrokerScreen:
-      return MaterialPageRoute(builder: (_) => const ChooseBrokerScreen());
+        return MaterialPageRoute(builder: (_) => const ChooseBrokerScreen());
+
+      /// Choose User Screen \\\
+      case chooseUserScreen:
+      return MaterialPageRoute(builder: (_) => const ChooseUserScreen());
 
       /// login Screen \\\
       //case loginScreen:

@@ -42,7 +42,7 @@ class _MainAppState extends State<MainApp> {
 
     /// init CurrentUserCubit
     _currentUserCubit = getItInstance<CurrentUserCubit>();
-    _currentUserCubit.changeUser( CurrentUserEntity(currentUserStr: UserType.tour.toShortString()));
+    //_currentUserCubit.changeUser( CurrentUserEntity(currentUserStr: UserType.tour.toShortString()));
 
     ///init screen util
     ScreenUtil.init();
@@ -100,7 +100,7 @@ class _MainAppState extends State<MainApp> {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            initialRoute: AppRouter.mainScreen,
+            initialRoute: AppRouter.chooseUserScreen,
             onGenerateRoute: _appRouter.onGeneratedRoute,
           );
         },
