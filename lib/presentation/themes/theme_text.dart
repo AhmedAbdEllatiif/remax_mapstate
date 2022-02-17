@@ -1,17 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/src/material/text_theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
-import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 
 class ThemeText {
-  const ThemeText._();
 
-  static TextTheme get _poppinsTextTheme => GoogleFonts.poppinsTextTheme();
+
+  static TextTheme get _poppinsTextTheme => GoogleFonts.cairoTextTheme();
 
   static TextStyle get _whiteHeadline6 => _poppinsTextTheme.headline6!.copyWith(
         fontSize: Sizes.dimen_20.sp,
@@ -19,9 +15,10 @@ class ThemeText {
       );
 
   static TextStyle get _whiteHeadline5 => _poppinsTextTheme.headline5!.copyWith(
-    fontSize: Sizes.dimen_24.sp,
-    color: Colors.white,
-  );
+        fontSize: Sizes.dimen_24.sp,
+        color: Colors.white,
+      );
+
 
   static TextStyle get _whiteSubTitle1 => _poppinsTextTheme.headline6!.copyWith(
         fontSize: Sizes.dimen_14.sp,
@@ -30,7 +27,6 @@ class ThemeText {
         letterSpacing: 0.25,
         height: 1.5,
       );
-
 
   static TextStyle get _whiteSubTitle2 => _poppinsTextTheme.headline6!.copyWith(
         fontSize: Sizes.dimen_16.sp,
@@ -47,12 +43,11 @@ class ThemeText {
       );
 
   static TextStyle get _button => _poppinsTextTheme.button!.copyWith(
-    fontSize: Sizes.dimen_14.sp,
-    color: Colors.white,
-  );
+        fontSize: Sizes.dimen_14.sp,
+        color: Colors.white,
+      );
 
-
-  static getTextTheme() => TextTheme(
+   static getTextTheme() => TextTheme(
         headline5: _whiteHeadline5,
         headline6: _whiteHeadline6,
         subtitle1: _whiteSubTitle1,
@@ -63,16 +58,20 @@ class ThemeText {
 }
 
 extension ThemeTextExtension on TextTheme {
-
   TextStyle get submitTextButton => button!.copyWith(
-    fontSize: Sizes.dimen_14.sp,
-    color: Colors.white,
-    letterSpacing: 1.5,
-    overflow: TextOverflow.fade,
-    fontWeight: FontWeight.bold,
-  );
+        fontSize: Sizes.dimen_14.sp,
+        color: Colors.white,
+        letterSpacing: 1.5,
+        overflow: TextOverflow.fade,
+        fontWeight: FontWeight.bold,
+      );
 
-
+  TextStyle get takeATourText => subtitle1!.copyWith(
+        color: Colors.white70,
+        letterSpacing: 2.5,
+        fontSize: Sizes.dimen_14.sp,
+        overflow: TextOverflow.fade,
+      );
 
   TextStyle get royalBlueSubtitle1 => subtitle1!.copyWith(
         color: AppColor.royalBlue,
@@ -80,62 +79,70 @@ extension ThemeTextExtension on TextTheme {
       );
 
   TextStyle get gerySubtitle1 => subtitle1!.copyWith(
-    color: Colors.grey,
-  );
-  TextStyle get whiteSubtitle1  => subtitle1!.copyWith(
-    color: Colors.white,
-  );
+        color: Colors.grey,
+      );
+
+  TextStyle get gerySubtitle1WithSpacing =>
+      subtitle1!.copyWith(color: Colors.white70, letterSpacing: 2.5);
+
+  TextStyle get whiteSubtitle1 => subtitle1!.copyWith(
+        color: Colors.white,
+      );
 
   TextStyle get geryHeadLine6 => headline6!.copyWith(
-    color: Colors.grey,
+        color: Colors.grey,
+      );
+
+  TextStyle get whiteSpacingHeadLine6 => headline6!.copyWith(
+    color: Colors.white,
+    letterSpacing: 2.5,
   );
+
+
   TextStyle get violetSubTitle2 => subtitle2!.copyWith(
-    color: AppColor.royalBlue,
-  );
+        color: AppColor.royalBlue,
+      );
 
   TextStyle get violetHeadLine6 => headline6!.copyWith(
-    color: AppColor.violet,
-  );
+        color: AppColor.violet,
+      );
 
   TextStyle get vulcanBodyText2 => bodyText2!.copyWith(
-    color: AppColor.vulcan,
-  );
+        color: AppColor.vulcan,
+      );
 
   TextStyle get royalBlueBodyText2 => bodyText2!.copyWith(
-    color: AppColor.royalBlue,
-  );
+        color: AppColor.royalBlue,
+      );
 
   TextStyle get whiteCaption => caption!.copyWith(
-    color: Colors.white,
-  );
+        color: Colors.white,
+      );
+
   TextStyle get geryCaption => caption!.copyWith(
-    color: Colors.grey,
-  );
+        color: Colors.grey,
+      );
+
   TextStyle get vulcanCaption => caption!.copyWith(
-    color: AppColor.vulcan,
-  );
+        color: AppColor.vulcan,
+      );
 
   TextStyle get letterSpaceHeadLine6 => headline6!.copyWith(
-    color: AppColor.vulcan,
-    letterSpacing: 2,
-    fontWeight: FontWeight.bold
-  );
+      color: AppColor.vulcan, letterSpacing: 2, fontWeight: FontWeight.bold);
 
-   TextStyle get blackBodyText2 => bodyText2!.copyWith(
-    color: AppColor.vulcan,
-    fontSize: Sizes.dimen_14.sp,
-    wordSpacing: 0.25,
-    letterSpacing: 0.25,
-    height: 1.5,
-  );
+  TextStyle get blackBodyText2 => bodyText2!.copyWith(
+        color: AppColor.vulcan,
+        fontSize: Sizes.dimen_14.sp,
+        wordSpacing: 0.25,
+        letterSpacing: 0.25,
+        height: 1.5,
+      );
 
   TextStyle get boldVulcanBodyText2 => bodyText2!.copyWith(
-    color: AppColor.vulcan,
-    fontSize: Sizes.dimen_14.sp,
-    wordSpacing: 0.25,
-    letterSpacing: 0.25,
-    height: 1.5,
-    fontWeight: FontWeight.bold
-  );
-
+      color: AppColor.vulcan,
+      fontSize: Sizes.dimen_14.sp,
+      wordSpacing: 0.25,
+      letterSpacing: 0.25,
+      height: 1.5,
+      fontWeight: FontWeight.bold);
 }

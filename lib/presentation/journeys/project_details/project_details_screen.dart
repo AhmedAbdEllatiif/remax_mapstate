@@ -15,7 +15,7 @@ import 'package:remax_mapstate/presentation/journeys/project_details/project_ima
 import 'package:remax_mapstate/presentation/journeys/project_details/project_section.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/services.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/starting_price_section.dart';
-import 'package:remax_mapstate/presentation/journeys/project_details/app_button.dart';
+import 'package:remax_mapstate/presentation/widgets/app_button.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 import 'package:remax_mapstate/router/app_router.dart';
