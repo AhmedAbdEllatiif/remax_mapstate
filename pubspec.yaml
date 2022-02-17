@@ -89,7 +89,8 @@ dependencies:
   # graphql_flutter
   graphql_flutter: ^5.0.1
 
-  shared_preferences: ^2.0.13
+  # intl_phone_number_input
+  intl_phone_number_input: ^0.7.0+2
 
   # wiredash
   #wiredash: ^0.7.0+1

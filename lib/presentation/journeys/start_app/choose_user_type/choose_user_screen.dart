@@ -9,23 +9,16 @@ import 'package:remax_mapstate/presentation/journeys/start_app/choose_user_type/
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
+import 'choose_user_list_widget.dart';
 import '../../../../common/constants/sizes.dart';
 import '../../../../common/screen_utils/screen_util.dart';
-import 'choose_user_list_widget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class ChooseUserScreen extends StatelessWidget {
   const ChooseUserScreen({Key? key}) : super(key: key);
 
-  void _saveUser() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool result = await prefs.setString('user', "client");
-    print("IsSaved: $result");
-  }
-
   @override
   Widget build(BuildContext context) {
-    _saveUser();
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
