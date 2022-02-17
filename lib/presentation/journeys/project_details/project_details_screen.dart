@@ -7,7 +7,7 @@ import 'package:remax_mapstate/presentation/journeys/project_details/avatar_name
 import 'package:remax_mapstate/presentation/journeys/project_details/expansion_item.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/layout_section.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/overview_section.dart';
-import 'package:remax_mapstate/presentation/journeys/project_details/project_data_item_card.dart';
+
 import 'package:remax_mapstate/presentation/journeys/project_details/project_details_argument.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
@@ -17,8 +17,10 @@ import 'package:remax_mapstate/presentation/journeys/project_details/services.da
 import 'package:remax_mapstate/presentation/journeys/project_details/starting_price_section.dart';
 import 'package:remax_mapstate/presentation/widgets/app_button.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
-import 'package:remax_mapstate/presentation/themes/theme_text.dart';
-import 'package:remax_mapstate/router/app_router.dart';
+
+import 'package:remax_mapstate/router/route_hepler.dart';
+
+import '../choose_broker/arguments/choose_broker_argument.dart';
 
 class ProjectDetailsScreen extends StatefulWidget {
   final ProjectDetailsArgument projectDetailsArgument;
@@ -129,15 +131,18 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     AppButton(
-                      text:  TranslateConstants.submitInquiry.t(context),
+                      text: TranslateConstants.submitInquiry.t(context),
                       onPressed: () {},
                     ),
                     AppButton(
                       text: "Select Your Broker",
                       reverseGradient: true,
-                      onPressed: () {
-                        Navigator.pushNamed(context, AppRouter.chooseBrokerScreen);
-                      },
+                      onPressed: () =>
+                          RouteHelper().chooseBrokerScreen(
+                        context,
+                        chooseBrokerArgument:
+                            const ChooseBrokerArgument(areaId: "0"),
+                      ),
                     ),
                   ],
                 ),

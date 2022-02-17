@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/language_constants.dart';
+import 'package:remax_mapstate/common/constants/route_list.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/presentation/app_localization.dart';
 import 'package:remax_mapstate/presentation/cubit/language/language_cubit.dart';
-import 'package:remax_mapstate/router/app_router.dart';
+import 'package:remax_mapstate/router/fade_page_route.dart';
+import 'package:remax_mapstate/router/routes.dart';
 import 'presentation/cubit/current_user/current_user_cubit.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
@@ -28,13 +30,13 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   late LanguageCubit _languageCubit;
-  late AppRouter _appRouter;
+
 
   @override
   void initState() {
     super.initState();
 
-    _appRouter = getItInstance<AppRouter>();
+
 
     /// init language bloc
     _languageCubit = getItInstance<LanguageCubit>();
@@ -108,9 +110,16 @@ class _MainAppState extends State<MainApp> {
             /// Routes
             initialRoute:
             widget.userType == UserType.noUser || widget.userType == UserType.tour
-                ? AppRouter.chooseUserScreen
-                : AppRouter.mainScreen,
-            onGenerateRoute: _appRouter.onGeneratedRoute,
+                ? RouteList.chooseUserScreen
+                : RouteList.mainScreen,
+            onGenerateRoute: (RouteSettings settings){
+              final routes = Routes.getRoutes(settings);
+              final WidgetBuilder? builder = routes[settings.name];
+              return FadePageRouteBuilder(
+                builder: builder!,
+                settings:settings,
+              );
+            },
           );
         },
       ),

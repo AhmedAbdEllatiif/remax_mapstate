@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/presentation/cubit/current_user/current_user_cubit.dart';
+import 'package:remax_mapstate/router/route_hepler.dart';
 
 import '../../../../domain/entities/current_user.dart';
-import '../../../../router/app_router.dart';
+
 import '../../../themes/theme_color.dart';
 
 class UserTypeCard extends StatelessWidget {
@@ -58,7 +59,5 @@ class UserTypeCard extends StatelessWidget {
   }
 
   /// navigate to MainScreen
-  void _navigateToMainScreen(BuildContext context) async {
-    Navigator.pushNamedAndRemoveUntil(context, AppRouter.mainScreen, (routePredicate) => false);
-  }
+  void _navigateToMainScreen(BuildContext context) => RouteHelper().mainScreen(context);
 }

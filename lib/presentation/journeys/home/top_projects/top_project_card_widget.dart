@@ -5,21 +5,26 @@ import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_details_argument.dart';
-import 'package:remax_mapstate/router/app_router.dart';
+
+
+import '../../../../router/route_hepler.dart';
 
 class TopProjectCardWidget extends StatelessWidget {
-
   final int projectId;
   final String posterPath;
-  const TopProjectCardWidget({Key? key, required this.projectId, required this.posterPath}) : super(key: key);
+
+  const TopProjectCardWidget(
+      {Key? key, required this.projectId, required this.posterPath})
+      : super(key: key);
 
   /// to navigate to ProjectDetailsScreen
   void _navigateToProjectsScreen(BuildContext context) =>
-      Navigator.of(context).pushNamed(AppRouter.projectDetailsScreen, arguments: {
-        ArgumentConstants.projectDetails: ProjectDetailsArgument(projectId: projectId,),
-      });
-
-
+      RouteHelper().projectDetailScreen(
+        context,
+        projectDetailsArgument : ProjectDetailsArgument(
+          projectId: projectId,
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +32,10 @@ class TopProjectCardWidget extends StatelessWidget {
       elevation: 32.0,
       color: Colors.transparent,
       child: GestureDetector(
-        onTap: ()=>_navigateToProjectsScreen(context),
+        onTap: () => _navigateToProjectsScreen(context),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
-          child:
-          Image.asset(
+          child: Image.asset(
             posterPath,
             fit: BoxFit.cover,
           ),

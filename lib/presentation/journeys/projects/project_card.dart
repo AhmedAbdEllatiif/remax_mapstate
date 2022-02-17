@@ -9,9 +9,10 @@ import 'package:remax_mapstate/presentation/journeys/project_details/project_det
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
-import 'package:remax_mapstate/router/app_router.dart';
 import 'package:responsive_framework/responsive_value.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
+
+import '../../../router/route_hepler.dart';
 
 class ProjectCardWidget extends StatelessWidget {
   final ProjectEntity projectEntity;
@@ -164,10 +165,13 @@ class ProjectCardWidget extends StatelessWidget {
   }
 
   /// to navigate to ProjectDetailsScreen
-  void _navigateToProjectsScreen(BuildContext context) => Navigator.of(context)
-          .pushNamed(AppRouter.projectDetailsScreen, arguments: {
-        ArgumentConstants.projectDetails: ProjectDetailsArgument(
-          projectId: 0,
+  /// to navigate to ProjectDetailsScreen
+  void _navigateToProjectsScreen(BuildContext context) =>
+      RouteHelper().projectDetailScreen(
+        context,
+        projectDetailsArgument : ProjectDetailsArgument(
+          projectId: projectEntity.id,
         ),
-      });
+      );
+
 }

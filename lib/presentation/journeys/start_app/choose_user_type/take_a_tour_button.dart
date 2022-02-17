@@ -8,7 +8,7 @@ import '../../../../common/constants/sizes.dart';
 import '../../../../common/constants/translate_constatns.dart';
 import '../../../../common/enums/user_types.dart';
 import '../../../../domain/entities/current_user.dart';
-import '../../../../router/app_router.dart';
+import '../../../../router/route_hepler.dart';
 import '../../../cubit/current_user/current_user_cubit.dart';
 
 class TakeATourButton extends StatelessWidget {
@@ -41,8 +41,5 @@ class TakeATourButton extends StatelessWidget {
   }
 
   /// navigate to MainScreen
-  void _navigateToMainScreen(BuildContext context) async {
-    Navigator.pushNamedAndRemoveUntil(
-        context, AppRouter.mainScreen, (routePredicate) => false);
-  }
+  void _navigateToMainScreen(BuildContext context) => RouteHelper().mainScreen(context);
 }

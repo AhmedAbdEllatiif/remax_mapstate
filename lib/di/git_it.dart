@@ -36,18 +36,15 @@ import 'package:remax_mapstate/presentation/cubit/language/language_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/navigation/navigation_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/project_scrollable_indicator/indicator_position_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/residential_projects/residential_projects_cubit.dart';
-import 'package:remax_mapstate/router/app_router.dart';
+
 import '../presentation/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
 import '../presentation/cubit/current_user/current_user_cubit.dart';
 
 final getItInstance = GetIt.I;
 
 Future init() async {
-  ///********************************** AppRouter *********************************************\\\
-  getItInstance.registerFactory<AppRouter>(() => AppRouter());
 
   ///********************************** DataSource *********************************************\\\
-
   /// Instance of RemoteDataSource
   getItInstance.registerLazySingleton<RemoteDataSource>(
     () => RemoteDateSourceImpl(),
