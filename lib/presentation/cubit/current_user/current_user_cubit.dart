@@ -15,11 +15,22 @@ class CurrentUserCubit extends Cubit<CurrentUserTable> {
   final GetCurrentUserCase getCurrentUserCase;
   final UpdateCurrentUserCase updateCurrentUserCase;
 
+
   CurrentUserCubit({
     required this.getCurrentUserCase,
     required this.updateCurrentUserCase,
   }) : super(CurrentUserTable.fromCurrentUserEntity(
              CurrentUserEntity(currentUserStr: UserType.noUser.toShortString())));
+
+
+
+  /// to remove currentUser
+  Future<void> removeUser() async {
+    final noUser =
+    CurrentUserTable.fromCurrentUserEntity(CurrentUserEntity(currentUserStr: UserType.noUser.toShortString()));
+    await updateCurrentUserCase(noUser);
+    loadCurrentUser();
+  }
 
   /// to update currentUser
   Future<void> changeUser(CurrentUserEntity currentUserEntity) async {
@@ -28,6 +39,17 @@ class CurrentUserCubit extends Cubit<CurrentUserTable> {
     await updateCurrentUserCase(currentUser);
     loadCurrentUser();
   }
+
+  /// to load currentUser
+  Future<UserType> getCurrentUserType() async {
+    final response = await getCurrentUserCase(NoParams());
+    final userType = response.fold(
+          (l) => CurrentUserTable.fromCurrentUserEntity( CurrentUserEntity(currentUserStr: UserType.noUser.toShortString())),
+          (currentUser) => currentUser,
+    );
+    return CurrentUserEntity(currentUserStr: userType.currentUser).userType;
+  }
+
 
   /// to load currentUser
   void loadCurrentUser() async {

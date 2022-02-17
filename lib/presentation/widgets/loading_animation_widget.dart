@@ -7,7 +7,7 @@ class LoadingAnimationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Lottie.asset(
-        AssetsConstants.loading,
+        AssetsConstants.loadingBuilding,
         frameRate: FrameRate.max,
       );
 }

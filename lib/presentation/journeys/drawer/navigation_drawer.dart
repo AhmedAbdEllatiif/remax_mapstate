@@ -5,6 +5,7 @@ import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
+import 'package:remax_mapstate/presentation/cubit/current_user/current_user_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/language/language_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/drawer/navgation_expanded_list_tile.dart';
 import 'package:remax_mapstate/presentation/journeys/drawer/navigation_list_item.dart';
@@ -71,7 +72,8 @@ class NavigationDrawer extends StatelessWidget {
 
             NavigationListItem(
               title: TranslateConstants.logout.t(context),
-              onPressed: () {
+              onPressed: () async {
+                await BlocProvider.of<CurrentUserCubit>(context).removeUser();
                 /// navigate to choose userScreen
                 Navigator.pushNamedAndRemoveUntil(context, AppRouter.chooseUserScreen, (routePredicate) => false);
               },

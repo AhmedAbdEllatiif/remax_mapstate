@@ -89,6 +89,8 @@ dependencies:
   # graphql_flutter
   graphql_flutter: ^5.0.1
 
+  shared_preferences: ^2.0.13
+
   # wiredash
   #wiredash: ^0.7.0+1
 

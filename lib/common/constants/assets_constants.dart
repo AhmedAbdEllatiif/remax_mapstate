@@ -18,4 +18,5 @@ class AssetsConstants{
 
   static const String loading = "${_jsonPath}loading.json";
   static const String emptyBox = "${_jsonPath}empty_box.json";
+  static const String loadingBuilding = "${_jsonPath}loading-building.json";
 }

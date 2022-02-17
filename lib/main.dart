@@ -7,6 +7,7 @@ import 'package:hive/hive.dart';
 import 'package:remax_mapstate/data/tables/current_user_table.dart';
 import 'package:remax_mapstate/data/tables/fav_project_table.dart';
 import 'package:remax_mapstate/main_app.dart';
+import 'package:remax_mapstate/presentation/cubit/current_user/current_user_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/navigation/navigation_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/drawer/navigation_drawer.dart';
 import 'di/git_it.dart' as getIt;
@@ -22,7 +23,9 @@ void main() async {
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]));
 
   // init getIt
-  unawaited(getIt.init());
+  //unawaited(getIt.init());
+  await getIt.init();
+  final CurrentUserCubit currentUserCubit =  getIt.getItInstance<CurrentUserCubit>();
 
   // init appDocumentDir
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
@@ -30,6 +33,9 @@ void main() async {
   Hive.registerAdapter(FavProjectTableAdapter());
   Hive.registerAdapter(CurrentUserTableAdapter());
 
-  runApp(const MainApp());
+  final currentUserType =  await currentUserCubit.getCurrentUserType();
+
+
+  runApp( MainApp(currentUserCubit: currentUserCubit,userType: currentUserType,));
 }
 

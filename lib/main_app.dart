@@ -3,13 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/language_constants.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
-import 'package:remax_mapstate/data/tables/current_user_table.dart';
-import 'package:remax_mapstate/domain/entities/current_user.dart';
 import 'package:remax_mapstate/presentation/app_localization.dart';
 import 'package:remax_mapstate/presentation/cubit/language/language_cubit.dart';
 import 'package:remax_mapstate/router/app_router.dart';
 import 'presentation/cubit/current_user/current_user_cubit.dart';
-import 'package:remax_mapstate/presentation/journeys/main/main_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
@@ -19,14 +16,17 @@ import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
 
 class MainApp extends StatefulWidget {
-  const MainApp({Key? key}) : super(key: key);
+
+  final UserType userType;
+  final CurrentUserCubit currentUserCubit;
+
+    const MainApp({Key? key, required this.currentUserCubit,required this.userType}) : super(key: key);
 
   @override
   _MainAppState createState() => _MainAppState();
 }
 
 class _MainAppState extends State<MainApp> {
-  late CurrentUserCubit _currentUserCubit;
   late LanguageCubit _languageCubit;
   late AppRouter _appRouter;
 
@@ -40,9 +40,8 @@ class _MainAppState extends State<MainApp> {
     _languageCubit = getItInstance<LanguageCubit>();
     _languageCubit.loadPreferredLanguage();
 
-    /// init CurrentUserCubit
-    _currentUserCubit = getItInstance<CurrentUserCubit>();
-    //_currentUserCubit.changeUser( CurrentUserEntity(currentUserStr: UserType.tour.toShortString()));
+    /// loadCurrentUser of currentUserCubit
+    widget.currentUserCubit.loadCurrentUser();
 
     ///init screen util
     ScreenUtil.init();
@@ -50,7 +49,7 @@ class _MainAppState extends State<MainApp> {
 
   @override
   void dispose() {
-    _currentUserCubit.close();
+    widget.currentUserCubit.close();
     _languageCubit.close();
     super.dispose();
   }
@@ -60,11 +59,12 @@ class _MainAppState extends State<MainApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider<LanguageCubit>.value(value: _languageCubit),
-        BlocProvider<CurrentUserCubit>.value(value: _currentUserCubit)
+        BlocProvider<CurrentUserCubit>.value(value: widget.currentUserCubit)
       ],
       child: BlocBuilder<LanguageCubit, Locale>(
         builder: (context, locale) {
-          return MaterialApp(
+         return MaterialApp(
+
             builder: (context, widget) => ResponsiveWrapper.builder(
                 ClampingScrollWrapper.builder(context, widget!),
                 maxWidth: 1200,
@@ -77,6 +77,8 @@ class _MainAppState extends State<MainApp> {
                   const ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
                   // const ResponsiveBreakpoint.autoScale(500,name: TABLET,scaleFactor: 1)
                 ]),
+
+            /// Theme
             theme: ThemeData(
               unselectedWidgetColor: AppColor.royalBlue,
               primaryColor: AppColor.vulcan,
@@ -90,6 +92,8 @@ class _MainAppState extends State<MainApp> {
                 color: AppColor.vulcan,
               ),
             ),
+
+            /// Languages
             supportedLocales: LanguageConstants.supportedLanguages
                 .map((e) => Locale(e.code))
                 .toList(),
@@ -100,11 +104,18 @@ class _MainAppState extends State<MainApp> {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            initialRoute: AppRouter.chooseUserScreen,
+
+            /// Routes
+            initialRoute:
+            widget.userType == UserType.noUser || widget.userType == UserType.tour
+                ? AppRouter.chooseUserScreen
+                : AppRouter.mainScreen,
             onGenerateRoute: _appRouter.onGeneratedRoute,
           );
         },
       ),
     );
   }
+
+
 }
