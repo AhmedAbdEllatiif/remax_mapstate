@@ -15,6 +15,7 @@ class AssetsConstants{
   static const String readyToMove = "${_pngPath}ready_to_move.jpg";
   static const String offPlan = "${_pngPath}offPlan.jpg";
   static const String underConstruction = "${_pngPath}underConstruction.jpg";
+  static const String city = "${_pngPath}img_city.jpg";
 
   static const String loading = "${_jsonPath}loading.json";
   static const String emptyBox = "${_jsonPath}empty_box.json";

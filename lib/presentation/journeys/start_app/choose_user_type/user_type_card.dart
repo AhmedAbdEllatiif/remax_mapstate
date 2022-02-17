@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:remax_mapstate/common/constants/sizes.dart';
+import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
+import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/presentation/cubit/current_user/current_user_cubit.dart';
 import 'package:remax_mapstate/router/route_hepler.dart';
@@ -20,7 +23,7 @@ class UserTypeCard extends StatelessWidget {
     return InkWell(
       hoverColor: AppColor.vulcan,
       splashColor: AppColor.vulcan,
-      borderRadius: const BorderRadius.all(Radius.circular(15)),
+      borderRadius:  BorderRadius.all(Radius.circular(Sizes.dimen_16.w)),
       onTap: () async {
         /// update currentUser
         await _updateCurrentUser(context);
@@ -30,7 +33,7 @@ class UserTypeCard extends StatelessWidget {
       },
       child: Card(
         //color: AppColors.darkGray,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Sizes.dimen_16.w)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -59,5 +62,5 @@ class UserTypeCard extends StatelessWidget {
   }
 
   /// navigate to MainScreen
-  void _navigateToMainScreen(BuildContext context) => RouteHelper().mainScreen(context);
+  void _navigateToMainScreen(BuildContext context) => RouteHelper().mainScreen(context,isClearStack: true);
 }

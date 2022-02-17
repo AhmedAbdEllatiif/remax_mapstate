@@ -4,15 +4,19 @@ import 'package:remax_mapstate/presentation/journeys/project_details/project_det
 import 'package:remax_mapstate/presentation/journeys/projects/projects_argument.dart';
 import '../presentation/journeys/choose_broker/arguments/choose_broker_argument.dart';
 
-
 class RouteHelper {
   RouteHelper();
 
-
   /// To MainScreen \\\
-  void mainScreen(BuildContext context)=>
-      Navigator.pushNamedAndRemoveUntil(context, RouteList.mainScreen, (routePredicate) => false);
-
+  void mainScreen(
+    BuildContext context, {
+    required isClearStack,
+  }) {
+    isClearStack
+        ? Navigator.pushNamedAndRemoveUntil(
+            context, RouteList.mainScreen, (routePredicate) => false)
+        : Navigator.of(context).pushNamed(RouteList.mainScreen);
+  }
 
   /// To ChooseUserTypeScreen \\\
   void chooseUserTypeScreen(
@@ -20,9 +24,9 @@ class RouteHelper {
     required isClearStack,
   }) {
     isClearStack
-        ? Navigator.of(context).pushNamed(RouteList.chooseUserScreen)
-        : Navigator.pushNamedAndRemoveUntil(
-            context, RouteList.chooseUserScreen, (routePredicate) => false);
+        ? Navigator.pushNamedAndRemoveUntil(
+            context, RouteList.chooseUserScreen, (routePredicate) => false)
+        : Navigator.of(context).pushNamed(RouteList.chooseUserScreen);
   }
 
   /// To ProjectDetailScreen \\\
@@ -34,8 +38,7 @@ class RouteHelper {
       );
 
   /// To AreaScreen \\\
-  void areaScreen(BuildContext context,
-          {required AreaArgument areaArgument}) =>
+  void areaScreen(BuildContext context, {required AreaArgument areaArgument}) =>
       Navigator.of(context)
           .pushNamed(RouteList.areaScreen, arguments: areaArgument);
 

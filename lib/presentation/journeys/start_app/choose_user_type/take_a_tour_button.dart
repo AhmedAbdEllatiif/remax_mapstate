@@ -41,5 +41,5 @@ class TakeATourButton extends StatelessWidget {
   }
 
   /// navigate to MainScreen
-  void _navigateToMainScreen(BuildContext context) => RouteHelper().mainScreen(context);
+  void _navigateToMainScreen(BuildContext context) => RouteHelper().mainScreen(context,isClearStack: false);
 }
