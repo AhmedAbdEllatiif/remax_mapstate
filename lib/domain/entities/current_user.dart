@@ -17,7 +17,7 @@ class CurrentUserEntity {
       case "client":  return  UserType.client;
       case "broker":  return  UserType.broker;
       case "tour":  return  UserType.tour;
-      case "other":  return  UserType.other;
+      case "ambassador":  return  UserType.ambassador;
       case "noUser":  return  UserType.noUser;
       default: return  UserType.noUser;
     }

@@ -23,7 +23,7 @@ class BottomNavigation extends StatelessWidget {
         return BottomNavigationItems().broker(context);
       case UserType.tour:
         return BottomNavigationItems().clientItems(context);
-      case UserType.other:
+      case UserType.ambassador:
         return BottomNavigationItems().broker(context);
       case UserType.noUser:
         return BottomNavigationItems().clientItems(context);

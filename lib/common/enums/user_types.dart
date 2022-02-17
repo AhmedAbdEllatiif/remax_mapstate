@@ -9,7 +9,7 @@ enum UserType {
   tour,
   client,
   broker,
-  other,
+  ambassador,
   noUser,
 }
 

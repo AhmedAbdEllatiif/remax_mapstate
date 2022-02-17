@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
+import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/presentation/cubit/current_user/current_user_cubit.dart';
 
 import '../../../../domain/entities/current_user.dart';
@@ -40,7 +41,7 @@ class UserTypeCard extends StatelessWidget {
               height: 10,
             ),
             Text(
-              currentUserEntity.userType.toShortString().toUpperCase(),
+              currentUserEntity.userType.toShortString().t(context).toUpperCase(),
               style: const TextStyle(color: AppColor.royalBlue),
             ),
           ],

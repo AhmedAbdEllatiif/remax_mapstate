@@ -38,6 +38,9 @@ class TranslateConstants{
   static const String commercial = 'commercial';
   static const String enjoyATour = 'enjoyATour';
   static const String selectUserType = 'selectUserType';
+  static const String client = 'client';
+  static const String broker = 'broker';
+  static const String ambassador = 'ambassador';
   static const String test = 'test';
 
 }

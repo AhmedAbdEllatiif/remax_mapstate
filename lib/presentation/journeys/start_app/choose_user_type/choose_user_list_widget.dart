@@ -14,7 +14,7 @@ class ChooseUserListWidget extends StatelessWidget {
   final columns = 2;
 
   //final usersList = ['client', 'Ambassador', 'Broker'];
-  final usersList = [UserType.client, UserType.broker, UserType.other];
+  final usersList = [UserType.client, UserType.broker, UserType.ambassador];
 
   @override
   Widget build(BuildContext context) {

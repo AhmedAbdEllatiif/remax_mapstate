@@ -35,6 +35,9 @@
   "logout": "Logout",
   "enjoyATour": "Enjoy a tour",
   "selectUserType": "Select User Type",
+  "client": "client",
+  "broker": "broker",
+  "ambassador": "ambassador",
 
 
   "arabic": "العربية",
