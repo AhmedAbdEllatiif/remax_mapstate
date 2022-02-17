@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:remax_mapstate/data/tables/current_user_table.dart';
 import 'package:remax_mapstate/di/git_it.dart';
+import 'package:remax_mapstate/domain/entities/current_user.dart';
 import 'package:remax_mapstate/presentation/cubit/navigation/navigation_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/calculator_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/favorite/favorite_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/profile/profile_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/support/support_screen.dart';
+import '../../../common/enums/user_types.dart';
 import '../../cubit/current_user/current_user_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/drawer/navigation_drawer.dart';
 import 'package:remax_mapstate/presentation/journeys/home/home_screen.dart';
@@ -57,9 +60,10 @@ class MainScreen extends StatelessWidget {
         ),
 
         // bottomNavigationBar
-        bottomNavigationBar: BlocBuilder<CurrentUserCubit, CurrentUserState>(
-          builder: (context, state) {
-            return BottomNavigation(userType: state.userType,);
+        bottomNavigationBar: BlocBuilder<CurrentUserCubit, CurrentUserTable>(
+          builder: (context, currentUser) {
+            print("CurrentUser ${CurrentUserEntity(currentUserStr: currentUser.currentUser).userType} \n str >> ${CurrentUserEntity(currentUserStr: currentUser.currentUser).userType.toShortString()}");
+            return BottomNavigation(userType: CurrentUserEntity(currentUserStr: currentUser.currentUser).userType,);
           },
         ),
       ),

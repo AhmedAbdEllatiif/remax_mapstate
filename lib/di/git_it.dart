@@ -11,6 +11,8 @@ import 'package:remax_mapstate/domain/repositories/local_repository.dart';
 import 'package:remax_mapstate/domain/use_cases/get_area_brokers.dart';
 import 'package:remax_mapstate/domain/use_cases/get_areas.dart';
 import 'package:remax_mapstate/domain/use_cases/get_commercial_projects.dart';
+import 'package:remax_mapstate/domain/use_cases/local_usecases/current_user/get_current_user.dart';
+import 'package:remax_mapstate/domain/use_cases/local_usecases/current_user/update_current_user.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/get_preferred_language.dart';
 import 'package:remax_mapstate/domain/use_cases/get_project_status.dart';
 import 'package:remax_mapstate/domain/use_cases/get_residential_projects.dart';
@@ -145,6 +147,14 @@ Future init() async {
   getItInstance.registerLazySingleton<UpdateLanguage>(
       () => UpdateLanguage(appSettingsRepository: getItInstance()));
 
+  /// GetCurrentUserCase
+  getItInstance.registerLazySingleton<GetCurrentUserCase>(
+      () => GetCurrentUserCase(appSettingsRepository: getItInstance()));
+
+  /// UpdateCurrentUserCase
+  getItInstance.registerLazySingleton<UpdateCurrentUserCase>(
+      () => UpdateCurrentUserCase(appSettingsRepository: getItInstance()));
+
   /// GetFavProject
   getItInstance.registerLazySingleton<GetFavProjects>(
       () => GetFavProjects(localRepository: getItInstance()));
@@ -167,7 +177,10 @@ Future init() async {
 
   /// init CurrentUserCubit
   getItInstance.registerSingleton<CurrentUserCubit>(
-    CurrentUserCubit(),
+    CurrentUserCubit(
+      getCurrentUserCase: getItInstance(),
+      updateCurrentUserCase: getItInstance(),
+    ),
   );
 
   /// init BrokerChangeCubit

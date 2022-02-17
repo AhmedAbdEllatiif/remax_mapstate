@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:remax_mapstate/data/tables/current_user_table.dart';
 import 'package:remax_mapstate/data/tables/fav_project_table.dart';
 import 'package:remax_mapstate/main_app.dart';
 import 'package:remax_mapstate/presentation/cubit/navigation/navigation_cubit.dart';
@@ -27,6 +28,7 @@ void main() async {
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   Hive.registerAdapter(FavProjectTableAdapter());
+  Hive.registerAdapter(CurrentUserTableAdapter());
 
   runApp(const MainApp());
 }

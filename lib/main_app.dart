@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/language_constants.dart';
+import 'package:remax_mapstate/common/enums/user_types.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
+import 'package:remax_mapstate/data/tables/current_user_table.dart';
+import 'package:remax_mapstate/domain/entities/current_user.dart';
 import 'package:remax_mapstate/presentation/app_localization.dart';
 import 'package:remax_mapstate/presentation/cubit/language/language_cubit.dart';
 import 'package:remax_mapstate/router/app_router.dart';
@@ -39,7 +42,7 @@ class _MainAppState extends State<MainApp> {
 
     /// init CurrentUserCubit
     _currentUserCubit = getItInstance<CurrentUserCubit>();
-    _currentUserCubit.clientUser();
+    _currentUserCubit.changeUser( CurrentUserEntity(currentUserStr: UserType.tour.toShortString()));
 
     ///init screen util
     ScreenUtil.init();
@@ -47,7 +50,6 @@ class _MainAppState extends State<MainApp> {
 
   @override
   void dispose() {
-
     _currentUserCubit.close();
     _languageCubit.close();
     super.dispose();
