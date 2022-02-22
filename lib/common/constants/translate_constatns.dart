@@ -53,6 +53,7 @@ class TranslateConstants{
   static const String enterPhoneNum = 'enterPhoneNum';
   static const String tryAgain = 'tryAgain';
   static const String tryAgainAfter = 'tryAgainAfter';
+  static const String login = 'login';
   static const String test = 'test';
 
 }

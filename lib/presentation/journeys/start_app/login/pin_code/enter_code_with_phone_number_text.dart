@@ -15,19 +15,27 @@ class EnterCodeWithPhoneNumberText extends StatelessWidget {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
         return Padding(
-          padding:
-           EdgeInsets.symmetric(horizontal: Sizes.dimen_32.w, vertical: Sizes.dimen_6.h),
-          child: RichText(
-            text: TextSpan(
-                text: TranslateConstants.enterTheCode.t(context),
-                children: [
-                  TextSpan(
-                    text: state.serverParams.phoneNum,
-                    style: Theme.of(context).textTheme.subtitle2!.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                ],
-                style: Theme.of(context).textTheme.subtitle1,),
-            textAlign: TextAlign.center,
+          padding: EdgeInsets.symmetric(
+              horizontal: Sizes.dimen_32.w, vertical: Sizes.dimen_6.h),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                TranslateConstants.enterTheCode.t(context) + "  ",
+                style: Theme.of(context).textTheme.subtitle1,
+                textAlign: TextAlign.center,
+              ),
+              Directionality(
+                textDirection: TextDirection.ltr,
+                child: Text(
+                  state.serverParams.phoneNum,
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle2!
+                      .copyWith(fontWeight: FontWeight.bold),
+                ),
+              )
+            ],
           ),
         );
       },

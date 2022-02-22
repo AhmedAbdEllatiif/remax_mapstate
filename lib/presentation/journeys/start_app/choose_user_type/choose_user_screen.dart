@@ -6,13 +6,13 @@ import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/choose_user_type/take_a_tour_button.dart';
+import 'package:remax_mapstate/presentation/journeys/start_app/choose_user_type/toggle_language_widget.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
 import 'choose_user_list_widget.dart';
 import '../../../../common/constants/sizes.dart';
 import '../../../../common/screen_utils/screen_util.dart';
-
 
 class ChooseUserScreen extends StatelessWidget {
   const ChooseUserScreen({Key? key}) : super(key: key);
@@ -24,24 +24,12 @@ class ChooseUserScreen extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           /// background fullImage
-          /* Expanded(
-            child: Opacity(
-              opacity: 0.8,
-              child: Container(
-                color: AppColor.vulcan,
-                child: Image.asset(
-                  AssetsConstants.city,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          ),*/
-
           Image.asset(
             AssetsConstants.city,
             fit: BoxFit.cover,
           ),
 
+          /// filter on image
           BackdropFilter(
             filter: ImageFilter.blur(
               sigmaX: 1.5,
@@ -53,6 +41,9 @@ class ChooseUserScreen extends StatelessWidget {
               color: AppColor.fadeVulcan,
             ),
           ),
+
+          /// toggle language
+          const ToggleLanguageWidget(positionSpaces: Sizes.dimen_22),
 
           Column(
             mainAxisAlignment: MainAxisAlignment.center,

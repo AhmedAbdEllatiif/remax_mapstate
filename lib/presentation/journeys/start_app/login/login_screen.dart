@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:remax_mapstate/common/constants/translate_constatns.dart';
+import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/presentation/bloc/login/login_bloc.dart';
 import 'package:remax_mapstate/presentation/cubit/change_login_view/change_login_view_cubit.dart';
@@ -59,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              "Login",
+              TranslateConstants.login.t(context),
             ),
           ),
           body: BlocBuilder<ChangeLoginViewCubit, LoginView>(
