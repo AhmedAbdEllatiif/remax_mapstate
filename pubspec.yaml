@@ -101,6 +101,8 @@ dependencies:
   # flutter_countdown_timer
   flutter_countdown_timer: ^4.1.0
 
+  # shared_preferences
+  shared_preferences: ^2.0.13
 
   # wiredash
   #wiredash: ^0.7.0+1

@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:remax_mapstate/common/constants/route_list.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/presentation/bloc/login/login_bloc.dart';
+import 'package:remax_mapstate/presentation/cubit/auto_login/auto_login_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/login/pin_code/btn_with_box_shadow.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/login/pin_code/didnot_receive_pin_code_text.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/login/pin_code/enter_code_with_phone_number_text.dart';
@@ -72,8 +72,12 @@ class _OtpVerificationCodeState extends State<OtpVerificationCode> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginBloc, LoginState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is CorrectCodeEntered) {
+          /// save auto login
+          await context.read<AutoLoginCubit>().save();
+
+          /// navigate to login screen
           _navigateToLoginScreen(context);
         }
       },

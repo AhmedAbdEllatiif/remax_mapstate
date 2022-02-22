@@ -1,7 +1,11 @@
 import 'dart:async';
 
 import 'package:hive/hive.dart';
+import 'package:remax_mapstate/common/enums/login_status.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
+import 'package:remax_mapstate/di/git_it.dart';
+import 'package:remax_mapstate/domain/entities/auto_login_entity.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../tables/current_user_table.dart';
 
@@ -19,9 +23,19 @@ abstract class AppSettingsLocalDataSource {
 
   /// return the current preferred language
   Future<CurrentUserTable> getCurrentUser();
+
+  /// return LoginStatus
+  Future<AutoLoginEntity> getAutoLogin();
+
+  /// return save LoginStatus
+  Future<void> saveLoginStatus(AutoLoginEntity autoLoginEntity);
+
+  /// to remove auto login
+  Future<void> deleteAutoLogin();
 }
 
 class AppSettingsLocalDataSourceImpl extends AppSettingsLocalDataSource {
+
   ///********************************** Language *********************************\\\\
   /// return the current preferred language
   /// return 'en' as default if no language box in local DB
@@ -53,7 +67,32 @@ class AppSettingsLocalDataSourceImpl extends AppSettingsLocalDataSource {
   @override
   Future<CurrentUserTable> getCurrentUser() async {
     final currentUserBox = await Hive.openBox('currentUserBox');
-    return currentUserBox.get('currentUser') ?? CurrentUserTable(currentUser: UserType.noUser.toShortString());
+    return currentUserBox.get('currentUser') ??
+        CurrentUserTable(currentUser: UserType.noUser.toShortString());
+  }
+
+
+  /// return LoginStatus
+  @override
+  Future<AutoLoginEntity> getAutoLogin() async{
+    final SharedPreferences preferences = await getItInstance<SharedPreferences>();
+    final currentLoginStatusStr =  preferences.getString("isLoggedIn") ??
+        LoginStatus.notLoggedIn.toShortString();
+    return AutoLoginEntity(currentLoginStatusStr: currentLoginStatusStr);
+  }
+
+  /// return save LoginStatus
+  @override
+  Future<void> saveLoginStatus(AutoLoginEntity autoLoginEntity) async {
+    final SharedPreferences preferences = await getItInstance<SharedPreferences>();
+    preferences.setString("isLoggedIn", autoLoginEntity.loginStatus.toShortString());
+  }
+
+  /// to remove auto login
+  @override
+  Future<void> deleteAutoLogin() async {
+    final SharedPreferences preferences = await getItInstance<SharedPreferences>();
+    preferences.setString("isLoggedIn", LoginStatus.notLoggedIn.toShortString());
   }
 
 

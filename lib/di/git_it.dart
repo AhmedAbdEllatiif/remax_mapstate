@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get_it/get_it.dart';
 import 'package:remax_mapstate/data/data_sources/app_settings_local_data_source.dart';
 import 'package:remax_mapstate/data/data_sources/local_data_source.dart';
@@ -31,6 +33,7 @@ import 'package:remax_mapstate/presentation/bloc/login/login_bloc.dart';
 
 import 'package:remax_mapstate/presentation/bloc/project_status/project_status_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/projects/fetch_projects_bloc.dart';
+import 'package:remax_mapstate/presentation/cubit/auto_login/auto_login_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/broker_changed/broker_changed_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/change_login_view/change_login_view_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/commercial_projects/commercial_projects_cubit.dart';
@@ -39,138 +42,180 @@ import 'package:remax_mapstate/presentation/cubit/language/language_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/navigation/navigation_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/project_scrollable_indicator/indicator_position_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/residential_projects/residential_projects_cubit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../domain/use_cases/local_usecases/auto_login/delete_auto_login.dart';
+import '../domain/use_cases/local_usecases/auto_login/get_auto_login.dart';
+import '../domain/use_cases/local_usecases/auto_login/save_auto_login.dart';
 import '../presentation/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
 import '../presentation/cubit/current_user/current_user_cubit.dart';
 
 final getItInstance = GetIt.I;
 
 Future init() async {
+  ///********************************** SharedPreferences *********************************************\\\
+  getItInstance.registerSingletonAsync<SharedPreferences>(
+        () => SharedPreferences.getInstance(),
+  );
+
   ///********************************** DataSource *********************************************\\\
   /// Instance of RemoteDataSource
   getItInstance.registerLazySingleton<RemoteDataSource>(
-    () => RemoteDateSourceImpl(),
+        () => RemoteDateSourceImpl(),
   );
 
   ///********************************** Local_DataSource *********************************************\\\
 
   /// Instance of LocalDataSource
   getItInstance.registerLazySingleton<LocalDataSource>(
-    () => LocalDataSourceImpl(),
+        () => LocalDataSourceImpl(),
   );
 
   /// Instance of AppSettingsLocalDataSource
   getItInstance.registerLazySingleton<AppSettingsLocalDataSource>(
-    () => AppSettingsLocalDataSourceImpl(),
+        () => AppSettingsLocalDataSourceImpl(),
   );
 
   ///********************************** Repositories *********************************************\\\
 
   /// Instance of ProjectsApiRepo
   getItInstance.registerLazySingleton<ApiRepo>(
-    () => ProjectApiRepoImpl(
-      remoteDataSource: getItInstance(),
-    ),
+        () =>
+        ProjectApiRepoImpl(
+          remoteDataSource: getItInstance(),
+        ),
   );
 
   ///********************************** Local_Repositories *********************************************\\\
   /// Instance of LocalRepository
   getItInstance.registerLazySingleton<LocalRepository>(
-    () => LocalRepositoryImpl(
-      localDataSource: getItInstance(),
-    ),
+        () =>
+        LocalRepositoryImpl(
+          localDataSource: getItInstance(),
+        ),
   );
 
   /// Instance of AppSettingsRepository
   getItInstance.registerLazySingleton<AppSettingsRepository>(
-    () => AppSettingsRepositoryImpl(
-      appSettingsLocalDataSource: getItInstance(),
-    ),
+        () =>
+        AppSettingsRepositoryImpl(
+          appSettingsLocalDataSource: getItInstance(),
+        ),
   );
 
   ///********************************** Remote_Use_Cases *********************************************\\\
+
+  /// GetAutoLogin
+  getItInstance.registerLazySingleton<GetAutoLogin>(() =>
+      GetAutoLogin(appSettingsRepository: getItInstance(),));
+
+  /// SaveAutoLogin
+  getItInstance.registerLazySingleton<SaveAutoLogin>(() =>
+      SaveAutoLogin(appSettingsRepository: getItInstance(),));
+
+
+  /// DeleteAutoLogin
+  getItInstance.registerLazySingleton<DeleteAutoLogin>(() =>
+      DeleteAutoLogin(appSettingsRepository: getItInstance(),));
+
   /// GetTopProjects
   getItInstance.registerLazySingleton<GetProjectsCase>(
-    () => GetProjectsCase(projectApiRepo: getItInstance()),
+        () => GetProjectsCase(projectApiRepo: getItInstance()),
   );
 
   /// GetAreasCase
   getItInstance.registerLazySingleton<GetAreasCase>(
-    () => GetAreasCase(
-      projectApiRepo: getItInstance(),
-    ),
+        () =>
+        GetAreasCase(
+          projectApiRepo: getItInstance(),
+        ),
   );
 
   /// GetAreasBrokersCase
   getItInstance.registerLazySingleton<GetAreaBrokersCase>(
-    () => GetAreaBrokersCase(
-      apiRepo: getItInstance(),
-    ),
+        () =>
+        GetAreaBrokersCase(
+          apiRepo: getItInstance(),
+        ),
   );
 
   /// GetResidentialProjectsCase
   getItInstance.registerLazySingleton<GetResidentialProjectsCase>(
-    () => GetResidentialProjectsCase(
-      apiRepo: getItInstance(),
-    ),
+        () =>
+        GetResidentialProjectsCase(
+          apiRepo: getItInstance(),
+        ),
   );
 
   /// GetCommercialProjectsCase
   getItInstance.registerLazySingleton<GetCommercialProjectsCase>(
-    () => GetCommercialProjectsCase(
-      apiRepo: getItInstance(),
-    ),
+        () =>
+        GetCommercialProjectsCase(
+          apiRepo: getItInstance(),
+        ),
   );
 
   /// GetProjectStatusCase
   getItInstance.registerLazySingleton<GetProjectStatusCase>(
-    () => GetProjectStatusCase(
-      apiRepo: getItInstance(),
-    ),
+        () =>
+        GetProjectStatusCase(
+          apiRepo: getItInstance(),
+        ),
   );
 
   /// GetProjectStatusCase
   getItInstance.registerLazySingleton<GetResidentialUnitTypesByAreaCase>(
-    () => GetResidentialUnitTypesByAreaCase(
-      apiRepo: getItInstance(),
-    ),
+        () =>
+        GetResidentialUnitTypesByAreaCase(
+          apiRepo: getItInstance(),
+        ),
   );
 
   ///********************************** Local_Use_Cases *********************************************\\\
 
   /// GetPreferredLanguage
   getItInstance.registerLazySingleton<GetPreferredLanguage>(
-      () => GetPreferredLanguage(appSettingsRepository: getItInstance()));
+          () => GetPreferredLanguage(appSettingsRepository: getItInstance()));
 
   /// UpdateLanguage
   getItInstance.registerLazySingleton<UpdateLanguage>(
-      () => UpdateLanguage(appSettingsRepository: getItInstance()));
+          () => UpdateLanguage(appSettingsRepository: getItInstance()));
 
   /// GetCurrentUserCase
   getItInstance.registerLazySingleton<GetCurrentUserCase>(
-      () => GetCurrentUserCase(appSettingsRepository: getItInstance()));
+          () => GetCurrentUserCase(appSettingsRepository: getItInstance()));
 
   /// UpdateCurrentUserCase
   getItInstance.registerLazySingleton<UpdateCurrentUserCase>(
-      () => UpdateCurrentUserCase(appSettingsRepository: getItInstance()));
+          () => UpdateCurrentUserCase(appSettingsRepository: getItInstance()));
 
   /// GetFavProject
   getItInstance.registerLazySingleton<GetFavProjects>(
-      () => GetFavProjects(localRepository: getItInstance()));
+          () => GetFavProjects(localRepository: getItInstance()));
 
   /// DeleteFavProject
   getItInstance.registerLazySingleton<DeleteFavProject>(
-      () => DeleteFavProject(localRepository: getItInstance()));
+          () => DeleteFavProject(localRepository: getItInstance()));
 
   /// SaveFavProject
   getItInstance.registerLazySingleton<SaveFavProject>(
-      () => SaveFavProject(localRepository: getItInstance()));
+          () => SaveFavProject(localRepository: getItInstance()));
 
   /// CheckForFavProject
   getItInstance.registerLazySingleton<CheckForFavProjectUseCase>(
-      () => CheckForFavProjectUseCase(localRepository: getItInstance()));
+          () => CheckForFavProjectUseCase(localRepository: getItInstance()));
 
   ///********************************** init cubit *********************************************\\\
+
+  /// init AutoLoginCubit
+  getItInstance.registerSingleton<AutoLoginCubit>(
+    AutoLoginCubit(
+      getAutoLogin: getItInstance(),
+      saveAutoLogin: getItInstance(),
+      deleteAutoLogin: getItInstance(),
+    ),
+  );
+
   /// init navigation cubit
   getItInstance.registerFactory<NavigationCubit>(() => NavigationCubit());
 
@@ -184,22 +229,24 @@ Future init() async {
 
   /// init BrokerChangeCubit
   getItInstance.registerFactory<BrokerChangedCubit>(
-    () => BrokerChangedCubit(),
+        () => BrokerChangedCubit(),
   );
 
   /// init ResidentialProjectsCubit
   getItInstance.registerFactory<ResidentialCubit>(
-    () => ResidentialCubit(
-      residentialProjectsCase: getItInstance(),
-      getUnitTypesByAreaCase: getItInstance(),
-    ),
+        () =>
+        ResidentialCubit(
+          residentialProjectsCase: getItInstance(),
+          getUnitTypesByAreaCase: getItInstance(),
+        ),
   );
 
   /// init CommercialProjectsCubit
   getItInstance.registerFactory<CommercialProjectsCubit>(
-    () => CommercialProjectsCubit(
-      commercialProjectsCase: getItInstance(),
-    ),
+        () =>
+        CommercialProjectsCubit(
+          commercialProjectsCase: getItInstance(),
+        ),
   );
 
   /// init LanguageCubit
@@ -212,12 +259,12 @@ Future init() async {
 
   /// init CountDownCubit
   getItInstance.registerFactory(
-    () => CountDownCubit(),
+        () => CountDownCubit(),
   );
 
   /// init ChangeLoginViewCubit
   getItInstance.registerFactory<ChangeLoginViewCubit>(
-    () => ChangeLoginViewCubit(),
+        () => ChangeLoginViewCubit(),
   );
 
   ///********************************** init blocs *********************************************\\\
@@ -227,40 +274,43 @@ Future init() async {
         () => LoginBloc(countDownCubit: getItInstance()),
   );
 
-
   ///==> init ProjectBackdropBloc
   getItInstance.registerFactory<ProjectStatusBackdropBloc>(
-    () => ProjectStatusBackdropBloc(),
+        () => ProjectStatusBackdropBloc(),
   );
 
   ///==> init ProjectStatusBloc
   getItInstance.registerFactory<ProjectStatusBloc>(
-    () => ProjectStatusBloc(
-      backdropBloc: getItInstance(),
-      getProjectStatusCase: getItInstance(),
-    ),
+        () =>
+        ProjectStatusBloc(
+          backdropBloc: getItInstance(),
+          getProjectStatusCase: getItInstance(),
+        ),
   );
 
   ///==> init FetchProjectsBloc
-  getItInstance.registerFactory<FetchProjectsBloc>(() => FetchProjectsBloc(
+  getItInstance.registerFactory<FetchProjectsBloc>(() =>
+      FetchProjectsBloc(
         getProjects: getItInstance(),
       ));
 
   /// init areas bloc
   getItInstance.registerFactory<AreasBloc>(
-    () => AreasBloc(
-      getAreas: getItInstance(),
-    ),
+        () =>
+        AreasBloc(
+          getAreas: getItInstance(),
+        ),
   );
 
   /// init favoriteProjects bloc
   getItInstance.registerFactory<FavoriteProjectsBloc>(
-    () => FavoriteProjectsBloc(
-      getFavProjects: getItInstance(),
-      deleteFavProject: getItInstance(),
-      saveFavProject: getItInstance(),
-      checkForFavProject: getItInstance(),
-    ),
+        () =>
+        FavoriteProjectsBloc(
+          getFavProjects: getItInstance(),
+          deleteFavProject: getItInstance(),
+          saveFavProject: getItInstance(),
+          checkForFavProject: getItInstance(),
+        ),
   );
 
   /// init IndicatorPositionCubit
@@ -269,5 +319,5 @@ Future init() async {
 
   /// init AreaBrokersBloc
   getItInstance.registerFactory<AreaBrokersBloc>(
-      () => AreaBrokersBloc(getAreaBrokersCase: getItInstance()));
+          () => AreaBrokersBloc(getAreaBrokersCase: getItInstance()));
 }

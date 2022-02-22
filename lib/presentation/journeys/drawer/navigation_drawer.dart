@@ -12,6 +12,8 @@ import 'package:remax_mapstate/presentation/journeys/drawer/navigation_list_item
 import 'package:remax_mapstate/presentation/widgets/logo.dart';
 import 'package:remax_mapstate/router/route_hepler.dart';
 
+import '../../cubit/auto_login/auto_login_cubit.dart';
+
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
 
@@ -31,6 +33,8 @@ class NavigationDrawer extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
+            /// logo
             Padding(
               padding: EdgeInsets.only(
                 top: Sizes.dimen_8.h,
@@ -42,10 +46,15 @@ class NavigationDrawer extends StatelessWidget {
                 height: Sizes.dimen_20.h,
               ),
             ),
+
+            /// Okay
             NavigationListItem(
               title: TranslateConstants.okay.t(context),
               onPressed: () {},
             ),
+
+
+            /// Change language
             NavigationExpandedListItem(
               title: TranslateConstants.language.t(context),
               onPressed: (index) => _onLanguageSelected(index,context),
@@ -53,6 +62,9 @@ class NavigationDrawer extends StatelessWidget {
                   .map((e) => e.value)
                   .toList(),
             ),
+
+
+            /// Okay
             NavigationListItem(
               title: TranslateConstants.okay.t(context),
               onPressed: () {
@@ -60,6 +72,8 @@ class NavigationDrawer extends StatelessWidget {
                 Navigator.of(context).pop();
               },
             ),
+
+            /// About
             NavigationListItem(
               title: TranslateConstants.about.t(context),
               onPressed: () {
@@ -70,12 +84,17 @@ class NavigationDrawer extends StatelessWidget {
               },
             ),
 
+
+            /// Logout
             NavigationListItem(
               title: TranslateConstants.logout.t(context),
               onPressed: () async {
-                await BlocProvider.of<CurrentUserCubit>(context).removeUser();
+
+                /// clear current user data
+                await _clearCurrentUser(context);
+
                 /// navigate to choose userScreen
-                RouteHelper().chooseUserTypeScreen(context, isClearStack: true);
+                _navigateToChooseUserScreen(context);
               },
             ),
           ],
@@ -83,6 +102,20 @@ class NavigationDrawer extends StatelessWidget {
       ),
     );
   }
+
+  /// To remove currentUser and autoLogin
+  Future<void> _clearCurrentUser(BuildContext context) async {
+    /// remove current user
+    await BlocProvider.of<CurrentUserCubit>(context).removeUser();
+    /// remove auto login
+    await context.read<AutoLoginCubit>().delete();
+  }
+
+  /// To navigate to chooseUserScreen
+  void _navigateToChooseUserScreen(BuildContext context){
+    RouteHelper().chooseUserTypeScreen(context, isClearStack: true);
+  }
+
 
 
   void _onLanguageSelected(int index, BuildContext context) {

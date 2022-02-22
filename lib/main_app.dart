@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/language_constants.dart';
 import 'package:remax_mapstate/common/constants/route_list.dart';
+import 'package:remax_mapstate/common/enums/login_status.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/presentation/app_localization.dart';
+import 'package:remax_mapstate/presentation/cubit/auto_login/auto_login_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/language/language_cubit.dart';
 import 'package:remax_mapstate/router/fade_page_route.dart';
 import 'package:remax_mapstate/router/routes.dart';
@@ -17,20 +19,24 @@ import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
 
 class MainApp extends StatefulWidget {
-
   final UserType userType;
   final CurrentUserCubit currentUserCubit;
   final LanguageCubit languageCubit;
+  final AutoLoginCubit autoLoginCubit;
 
-    const MainApp({Key? key, required this.currentUserCubit,required this.userType,required this.languageCubit}) : super(key: key);
+  const MainApp(
+      {Key? key,
+      required this.currentUserCubit,
+      required this.userType,
+      required this.languageCubit,
+      required this.autoLoginCubit})
+      : super(key: key);
 
   @override
   _MainAppState createState() => _MainAppState();
 }
 
 class _MainAppState extends State<MainApp> {
-
-
   @override
   void initState() {
     super.initState();
@@ -46,6 +52,7 @@ class _MainAppState extends State<MainApp> {
   void dispose() {
     widget.currentUserCubit.close();
     widget.languageCubit.close();
+    widget.autoLoginCubit.close();
     super.dispose();
   }
 
@@ -54,64 +61,67 @@ class _MainAppState extends State<MainApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider<LanguageCubit>.value(value: widget.languageCubit),
-        BlocProvider<CurrentUserCubit>.value(value: widget.currentUserCubit)
+        BlocProvider<CurrentUserCubit>.value(value: widget.currentUserCubit),
+        BlocProvider<AutoLoginCubit>.value(value: widget.autoLoginCubit),
       ],
       child: BlocBuilder<LanguageCubit, Locale>(
-        builder: (context, locale) {
-         return MaterialApp(
+        builder: (_, locale) {
+          return BlocBuilder<AutoLoginCubit, AutoLoginState>(
+            builder: (_, autoLoginState) {
+              return MaterialApp(
+                builder: (context, widget) => ResponsiveWrapper.builder(
+                    ClampingScrollWrapper.builder(context, widget!),
+                    maxWidth: 1200,
+                    //minWidth: 480,
+                    defaultScale: true,
+                    breakpoints: [
+                      const ResponsiveBreakpoint.resize(350, name: MOBILE),
+                      const ResponsiveBreakpoint.autoScale(600, name: TABLET),
+                      const ResponsiveBreakpoint.resize(800, name: DESKTOP),
+                      const ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
+                      // const ResponsiveBreakpoint.autoScale(500,name: TABLET,scaleFactor: 1)
+                    ]),
 
-            builder: (context, widget) => ResponsiveWrapper.builder(
-                ClampingScrollWrapper.builder(context, widget!),
-                maxWidth: 1200,
-                //minWidth: 480,
-                defaultScale: true,
-                breakpoints: [
-                  const ResponsiveBreakpoint.resize(350, name: MOBILE),
-                  const ResponsiveBreakpoint.autoScale(600, name: TABLET),
-                  const ResponsiveBreakpoint.resize(800, name: DESKTOP),
-                  const ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
-                  // const ResponsiveBreakpoint.autoScale(500,name: TABLET,scaleFactor: 1)
-                ]),
+                /// Theme
+                theme: ThemeData(
+                  unselectedWidgetColor: AppColor.royalBlue,
+                  primaryColor: AppColor.vulcan,
+                  colorScheme: ColorScheme.fromSwatch().copyWith(
+                    secondary: AppColor.royalBlue, // Your accent color
+                  ),
+                  scaffoldBackgroundColor: AppColor.vulcan,
+                  textTheme: ThemeText.getTextTheme(),
+                  appBarTheme: const AppBarTheme(
+                    elevation: 0,
+                    color: AppColor.vulcan,
+                  ),
+                ),
 
-            /// Theme
-            theme: ThemeData(
-              unselectedWidgetColor: AppColor.royalBlue,
-              primaryColor: AppColor.vulcan,
-              colorScheme: ColorScheme.fromSwatch().copyWith(
-                secondary: AppColor.royalBlue, // Your accent color
-              ),
-              scaffoldBackgroundColor: AppColor.vulcan,
-              textTheme: ThemeText.getTextTheme(),
-              appBarTheme: const AppBarTheme(
-                elevation: 0,
-                color: AppColor.vulcan,
-              ),
-            ),
+                /// Languages
+                supportedLocales: LanguageConstants.supportedLanguages
+                    .map((e) => Locale(e.code))
+                    .toList(),
+                locale: locale,
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
 
-            /// Languages
-            supportedLocales: LanguageConstants.supportedLanguages
-                .map((e) => Locale(e.code))
-                .toList(),
-            locale: locale,
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-
-            /// Routes
-           //initialRoute:RouteList.loginScreen,
-            initialRoute:
-            widget.userType == UserType.noUser || widget.userType == UserType.tour
-                ? RouteList.chooseUserScreen
-                : RouteList.mainScreen,
-            onGenerateRoute: (RouteSettings settings){
-              final routes = Routes.getRoutes(settings);
-              final WidgetBuilder? builder = routes[settings.name];
-              return FadePageRouteBuilder(
-                builder: builder!,
-                settings:settings,
+                /// Routes
+                //initialRoute:RouteList.loginScreen,
+                initialRoute: autoLoginState.loginStatus == LoginStatus.loggedIn
+                    ? RouteList.mainScreen
+                    : RouteList.chooseUserScreen,
+                onGenerateRoute: (RouteSettings settings) {
+                  final routes = Routes.getRoutes(settings);
+                  final WidgetBuilder? builder = routes[settings.name];
+                  return FadePageRouteBuilder(
+                    builder: builder!,
+                    settings: settings,
+                  );
+                },
               );
             },
           );
@@ -119,6 +129,4 @@ class _MainAppState extends State<MainApp> {
       ),
     );
   }
-
-
 }

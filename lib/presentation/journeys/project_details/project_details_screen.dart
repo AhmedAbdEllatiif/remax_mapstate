@@ -135,7 +135,7 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
                       onPressed: () {},
                     ),
                     AppButton(
-                      text: "Select Your Broker",
+                      text: TranslateConstants.selectYourBroker.t(context),
                       reverseGradient: true,
                       onPressed: () =>
                           RouteHelper().chooseBrokerScreen(
