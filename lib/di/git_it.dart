@@ -27,11 +27,14 @@ import 'package:remax_mapstate/domain/use_cases/local_usecases/update_language.d
 import 'package:remax_mapstate/presentation/bloc/areas_bloc/areas_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/brokers_by_area/area_brokers_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/favorite_projects/favorite_projects_bloc.dart';
+import 'package:remax_mapstate/presentation/bloc/login/login_bloc.dart';
 
 import 'package:remax_mapstate/presentation/bloc/project_status/project_status_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/projects/fetch_projects_bloc.dart';
 import 'package:remax_mapstate/presentation/cubit/broker_changed/broker_changed_cubit.dart';
+import 'package:remax_mapstate/presentation/cubit/change_login_view/change_login_view_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/commercial_projects/commercial_projects_cubit.dart';
+import 'package:remax_mapstate/presentation/cubit/count_down_cubit/count_down_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/language/language_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/navigation/navigation_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/project_scrollable_indicator/indicator_position_cubit.dart';
@@ -43,7 +46,6 @@ import '../presentation/cubit/current_user/current_user_cubit.dart';
 final getItInstance = GetIt.I;
 
 Future init() async {
-
   ///********************************** DataSource *********************************************\\\
   /// Instance of RemoteDataSource
   getItInstance.registerLazySingleton<RemoteDataSource>(
@@ -194,8 +196,8 @@ Future init() async {
   );
 
   /// init CommercialProjectsCubit
-  getItInstance.registerSingleton<CommercialProjectsCubit>(
-    CommercialProjectsCubit(
+  getItInstance.registerFactory<CommercialProjectsCubit>(
+    () => CommercialProjectsCubit(
       commercialProjectsCase: getItInstance(),
     ),
   );
@@ -208,9 +210,25 @@ Future init() async {
     ),
   );
 
+  /// init CountDownCubit
+  getItInstance.registerFactory(
+    () => CountDownCubit(),
+  );
+
+  /// init ChangeLoginViewCubit
+  getItInstance.registerFactory<ChangeLoginViewCubit>(
+    () => ChangeLoginViewCubit(),
+  );
+
   ///********************************** init blocs *********************************************\\\
 
-  //==> init ProjectBackdropBloc
+  ///==> init LoginBloc
+  getItInstance.registerFactory<LoginBloc>(
+        () => LoginBloc(countDownCubit: getItInstance()),
+  );
+
+
+  ///==> init ProjectBackdropBloc
   getItInstance.registerFactory<ProjectStatusBackdropBloc>(
     () => ProjectStatusBackdropBloc(),
   );
@@ -229,15 +247,15 @@ Future init() async {
       ));
 
   /// init areas bloc
-  getItInstance.registerSingleton<AreasBloc>(
-    AreasBloc(
+  getItInstance.registerFactory<AreasBloc>(
+    () => AreasBloc(
       getAreas: getItInstance(),
     ),
   );
 
   /// init favoriteProjects bloc
-  getItInstance.registerSingleton<FavoriteProjectsBloc>(
-    FavoriteProjectsBloc(
+  getItInstance.registerFactory<FavoriteProjectsBloc>(
+    () => FavoriteProjectsBloc(
       getFavProjects: getItInstance(),
       deleteFavProject: getItInstance(),
       saveFavProject: getItInstance(),

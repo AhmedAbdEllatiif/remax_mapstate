@@ -41,6 +41,18 @@ class TranslateConstants{
   static const String client = 'client';
   static const String broker = 'broker';
   static const String ambassador = 'ambassador';
+  static const String searchCountryLabel = 'searchCountryLabel';
+  static const String enterTheCode = 'enterTheCode';
+  static const String didNotReceiveCode = 'didNotReceiveCode';
+  static const String resend = 'resend';
+  static const String pinCodeRequired = 'pinCodeRequired';
+  static const String pinCodeAtLeast6 = 'pinCodeAtLeast6';
+  static const String wrongPinCode = 'wrongPinCode';
+  static const String verify = 'verify';
+  static const String sendPinCode = 'sendPinCode';
+  static const String enterPhoneNum = 'enterPhoneNum';
+  static const String tryAgain = 'tryAgain';
+  static const String tryAgainAfter = 'tryAgainAfter';
   static const String test = 'test';
 
 }

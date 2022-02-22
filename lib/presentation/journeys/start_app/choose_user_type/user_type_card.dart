@@ -29,7 +29,7 @@ class UserTypeCard extends StatelessWidget {
         await _updateCurrentUser(context);
 
         /// navigate to MainScreen
-        _navigateToMainScreen(context);
+        _navigateToLoginScreen(context);
       },
       child: Card(
         //color: AppColors.darkGray,
@@ -61,6 +61,6 @@ class UserTypeCard extends StatelessWidget {
         currentUserStr: currentUserEntity.userType.toShortString()));
   }
 
-  /// navigate to MainScreen
-  void _navigateToMainScreen(BuildContext context) => RouteHelper().mainScreen(context,isClearStack: true);
+  /// navigate to LoginScreen
+  void _navigateToLoginScreen(BuildContext context) => RouteHelper().loginScreen(context);
 }

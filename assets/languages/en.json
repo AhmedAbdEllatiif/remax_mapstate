@@ -38,6 +38,18 @@
   "client": "client",
   "broker": "broker",
   "ambassador": "ambassador",
+  "searchCountryLabel": "Search by code or country",
+  "enterTheCode": "Enter the code sent to ",
+  "didNotReceiveCode": "Didn't receive the code? ",
+  "resend": "Resend",
+  "pinCodeRequired": "Pin code is required",
+  "pinCodeAtLeast6": "Pin code is 6 characters",
+  "wrongPinCode": "Wrong Pin Code entered",
+  "verify": "Verify",
+  "sendPinCode": "Send Pin Code",
+  "enterPhoneNum": "Enter Phone Number",
+  "tryAgain": "Try Again",
+  "tryAgainAfter": "Try again after ",
 
 
   "arabic": "العربية",

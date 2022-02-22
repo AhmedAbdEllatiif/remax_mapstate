@@ -24,7 +24,9 @@ class AreaCardWidget extends StatelessWidget {
           child: Text(
             area.title,
             maxLines: 2,
-            style: Theme.of(context).textTheme.royalBlueBodyText2,
+            style: Theme.of(context).textTheme.vulcanBodyText2.copyWith(
+              fontWeight: FontWeight.bold
+            ),
           ),
         ),
       ),

@@ -108,6 +108,7 @@ class _MainAppState extends State<MainApp> {
             ],
 
             /// Routes
+           //initialRoute:RouteList.loginScreen,
             initialRoute:
             widget.userType == UserType.noUser || widget.userType == UserType.tour
                 ? RouteList.chooseUserScreen

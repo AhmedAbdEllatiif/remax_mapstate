@@ -35,7 +35,7 @@ class AppButton extends StatelessWidget {
           text,
           maxLines: 1,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.submitTextButton,
+          style: Theme.of(context).textTheme.buttonText,
         ),
       ),
     );

@@ -53,7 +53,7 @@ class AppSettingsLocalDataSourceImpl extends AppSettingsLocalDataSource {
   @override
   Future<CurrentUserTable> getCurrentUser() async {
     final currentUserBox = await Hive.openBox('currentUserBox');
-    return currentUserBox.get('currentUser') ?? UserType.noUser;
+    return currentUserBox.get('currentUser') ?? CurrentUserTable(currentUser: UserType.noUser.toShortString());
   }
 
 

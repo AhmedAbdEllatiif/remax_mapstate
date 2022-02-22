@@ -10,11 +10,13 @@ import '../common/constants/route_list.dart';
 import '../presentation/journeys/choose_broker/arguments/choose_broker_argument.dart';
 import '../presentation/journeys/project_details/project_details_argument.dart';
 import '../presentation/journeys/projects/projects_argument.dart';
+import '../presentation/journeys/start_app/login/login_screen.dart';
 
 class Routes{
 
   static Map<String,WidgetBuilder> getRoutes(RouteSettings settings)=>{
     RouteList.mainScreen : (context) => const MainScreen(),
+    RouteList.loginScreen : (context) => const LoginScreen(),
     RouteList.chooseUserScreen : (context) => const ChooseUserScreen(),
     RouteList.projectsScreen : (context) => const ProjectsScreen(),
     RouteList.chooseBrokerScreen : (context) =>  ChooseBrokerScreen(chooseBrokerArgument: settings.arguments as ChooseBrokerArgument),

@@ -15,14 +15,37 @@ import 'package:remax_mapstate/presentation/journeys/home/home_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/main/bottom_navigation.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+
+  late  NavigationCubit navigationCubit;
+
+
+  @override
+  void initState() {
+    super.initState();
+    print("MainScreen >> initState is Here");
+    navigationCubit = getItInstance<NavigationCubit>();
+  }
+
+  @override
+  void dispose() {
+    print("MainScreen >> Dispose is Here");
+    navigationCubit.close();
+    super.dispose();
+  }
 
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getItInstance<NavigationCubit>(),
+      create: (context) => navigationCubit,
       child: Scaffold(
         drawer: const NavigationDrawer(),
 
@@ -36,6 +59,7 @@ class MainScreen extends StatelessWidget {
         ),
 
         body: BlocBuilder<NavigationCubit, NavigationState>(
+          bloc: navigationCubit,
           builder: (context, state) {
             if (state is HomeState) {
               return const HomeScreen();

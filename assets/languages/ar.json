@@ -35,6 +35,21 @@
   "client": "عميل",
   "broker": "مسوق",
   "ambassador": "سفير",
+  "searchCountryLabel": "ابحث عن طريق الرمز أو الدولة",
+  "enterTheCode": "أدخل الرمز المرسل إلى ",
+  "didNotReceiveCode": "لم يصلك الرمز؟ ",
+  "resend": "إعادة إرسال",
+  "pinCodeRequired": "الرقم السري مطلوب",
+  "pinCodeAtLeast6": "الرقم السري يتكون من 6 أحرف",
+  "wrongPinCode": "تم إدخال الرقم السري خطأ",
+  "verify": "تحقق",
+  "sendPinCode": "أرسل رقم التحقق",
+  "enterPhoneNum": "أدخل رقم الهاتف",
+  "tryAgain": "اعد المحاولة",
+  "tryAgainAfter": "حاول مجددا بعد ",
+
+
+
 
 
   "arabic": "العربية",

@@ -18,6 +18,11 @@ class RouteHelper {
         : Navigator.of(context).pushNamed(RouteList.mainScreen);
   }
 
+  /// To LoginScreen \\\
+  void loginScreen(BuildContext context) =>
+      Navigator.of(context)
+          .pushNamed(RouteList.loginScreen,);
+
   /// To ChooseUserTypeScreen \\\
   void chooseUserTypeScreen(
     BuildContext context, {

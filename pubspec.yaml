@@ -35,8 +35,8 @@ dependencies:
     sdk: flutter
 
   # cubit & bloc
-  bloc: ^7.2.1
-  flutter_bloc: ^7.3.2
+  bloc: ^8.0.2
+  flutter_bloc: ^8.0.1
 
 
   # equatable
@@ -53,7 +53,7 @@ dependencies:
   get_it: ^7.2.0
 
   # google_fonts
-  google_fonts: 2.2.0
+  google_fonts: ^2.3.1
 
   # flutter_svg
   flutter_svg: ^1.0.3
@@ -92,6 +92,16 @@ dependencies:
   # intl_phone_number_input
   intl_phone_number_input: ^0.7.0+2
 
+  # formz
+  formz: ^0.4.1
+
+  # pin_code_fields
+  pin_code_fields: ^7.3.0
+
+  # flutter_countdown_timer
+  flutter_countdown_timer: ^4.1.0
+
+
   # wiredash
   #wiredash: ^0.7.0+1
 
@@ -102,6 +112,14 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+
+
+#dependency_overrides:
+  #js: ^0.6.4
+  #material_color_utilities: ^0.1.4
+  #path: ^1.8.1
+  #source_span: ^1.8.2
+  #vector_math: ^2.1.2
 
 dev_dependencies:
   flutter_test:
@@ -131,6 +149,7 @@ flutter:
     - assets/pngs/
     - assets/languages/
     - assets/json/
+    - assets/gif/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

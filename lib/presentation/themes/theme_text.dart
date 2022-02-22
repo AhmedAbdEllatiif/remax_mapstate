@@ -58,13 +58,15 @@ class ThemeText {
 }
 
 extension ThemeTextExtension on TextTheme {
-  TextStyle get submitTextButton => button!.copyWith(
+  TextStyle get buttonText => button!.copyWith(
         fontSize: Sizes.dimen_14.sp,
         color: Colors.white,
         letterSpacing: 1.5,
         overflow: TextOverflow.fade,
         fontWeight: FontWeight.bold,
       );
+
+
 
   TextStyle get takeATourText => subtitle1!.copyWith(
         color: AppColor.vulcan,
@@ -89,6 +91,7 @@ extension ThemeTextExtension on TextTheme {
         color: Colors.white,
       );
 
+
   TextStyle get geryHeadLine6 => headline6!.copyWith(
         color: Colors.grey,
       );
@@ -112,7 +115,7 @@ extension ThemeTextExtension on TextTheme {
       );
 
   TextStyle get royalBlueBodyText2 => bodyText2!.copyWith(
-        color: AppColor.royalBlue,
+        color: AppColor.vulcan,
       );
 
   TextStyle get whiteCaption => caption!.copyWith(
