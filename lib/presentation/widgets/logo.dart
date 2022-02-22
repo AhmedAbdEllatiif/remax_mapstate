@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../common/constants/assets_constants.dart';
+
 class Logo extends StatelessWidget {
 
   final double height;
@@ -8,6 +10,9 @@ class Logo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Image.asset(
+      AssetsConstants.whiteLogo,
+      fit: BoxFit.cover,
+    );
   }
 }
