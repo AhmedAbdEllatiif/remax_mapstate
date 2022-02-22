@@ -8,8 +8,8 @@ class ChooseUserListWidget extends StatelessWidget {
 
    ChooseUserListWidget({Key? key}) : super(key: key);
 
-  final double runSpacing = 30;
-  final double spacing = 30;
+  final double runSpacing = 15;
+  final double spacing = 15;
   final int listSize = 3;
   final columns = 2;
 
@@ -32,8 +32,8 @@ class ChooseUserListWidget extends StatelessWidget {
                 (index) {
               return SizedBox(
                 //margin: EdgeInsets.symmetric(horizontal: 2),
-                width: w - 20,
-                height: w - 20,
+                width: w - 50,
+                height: w - 50,
                 //color: Colors.green[200],
                 child: UserTypeCard(
                   currentUserEntity: CurrentUserEntity(

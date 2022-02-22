@@ -9,36 +9,31 @@ import '../../../cubit/language/language_cubit.dart';
 
 class ToggleLanguageWidget extends StatelessWidget {
 
-  final double positionSpaces;
 
-  const ToggleLanguageWidget({Key? key,required this.positionSpaces}) : super(key: key);
+  const ToggleLanguageWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return   BlocBuilder<LanguageCubit, Locale>(
       builder: (context, state) {
-        return Positioned(
-            top:  positionSpaces.h,
-            right: isEnglishLanguage(state.languageCode) ? 0.0 : positionSpaces.w,
-            left: isEnglishLanguage(state.languageCode) ? positionSpaces.w : 0.0,
-            child: GestureDetector(
-              onTap: () => toggleLanguage(
+        return GestureDetector(
+          onTap: () => toggleLanguage(
+            context: context,
+            currentLanguage: state.languageCode,
+          ),
+          child: Row(
+            children: [
+              const Icon(
+                Icons.language_outlined,
+                color: Colors.white,
+              ),
+              Text(" ${getLanguageCodeToChange(
                 context: context,
                 currentLanguage: state.languageCode,
-              ),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.language_outlined,
-                    color: Colors.white,
-                  ),
-                  Text(" ${getLanguageCodeToChange(
-                    context: context,
-                    currentLanguage: state.languageCode,
-                  )}")
-                ],
-              ),
-            ));
+              )}")
+            ],
+          ),
+        );
       },
     );
   }

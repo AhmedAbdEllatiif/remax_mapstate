@@ -69,7 +69,7 @@ extension ThemeTextExtension on TextTheme {
 
 
   TextStyle get takeATourText => subtitle1!.copyWith(
-        color: AppColor.vulcan,
+        color: Colors.white,
         letterSpacing: 2.5,
         fontSize: Sizes.dimen_14.sp,
         overflow: TextOverflow.fade,

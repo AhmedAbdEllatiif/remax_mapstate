@@ -22,14 +22,14 @@ class TakeATourButton extends StatelessWidget {
         await _updateCurrentUser(context);
         _navigateToMainScreen(context);
       },
-      style: ButtonStyle(
+      /*style: ButtonStyle(
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             side: const BorderSide(width: 1, color: AppColor.vulcan) ,
             borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
           ),
         ),
-      ),
+      ),*/
       child: Text(
         TranslateConstants.enjoyATour.t(context),
         maxLines: 1,

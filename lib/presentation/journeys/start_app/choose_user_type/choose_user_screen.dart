@@ -5,6 +5,7 @@ import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
+import 'package:remax_mapstate/presentation/journeys/start_app/choose_user_type/choose_user_animation.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/choose_user_type/take_a_tour_button.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/choose_user_type/toggle_language_widget.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
@@ -19,61 +20,53 @@ class ChooseUserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          /// background fullImage
-          Image.asset(
-            AssetsConstants.city,
-            fit: BoxFit.cover,
-          ),
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: Sizes.dimen_8.h,horizontal: Sizes.dimen_10.h ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
 
-          /// filter on image
-          BackdropFilter(
-            filter: ImageFilter.blur(
-              sigmaX: 1.5,
-              sigmaY: 1.5,
-            ),
-            child: Container(
-              width: ScreenUtil.screenWidth,
-              height: 1,
-              color: AppColor.fadeVulcan,
-            ),
-          ),
-
-          /// toggle language
-          const ToggleLanguageWidget(positionSpaces: Sizes.dimen_22),
-
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              /// text select userType
-              Container(
-                margin: EdgeInsets.only(bottom: Sizes.dimen_16.h),
-                child: Text(
-                  TranslateConstants.selectUserType.t(context),
-                  style: Theme.of(context).textTheme.whiteSpacingHeadLine6,
+                /// toggle language
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const [
+                    ToggleLanguageWidget(),
+                  ],
                 ),
-              ),
 
-              /// list of userTypes
-              ChooseUserListWidget(),
+                /// Lottie animation
+                Container(
+                  width: ScreenUtil.screenWidth,
+                  height: ScreenUtil.screenHeight * 0.20,
+                  margin: EdgeInsets.only(top:Sizes.dimen_10.h ),
+                  child: const ChooseUserAnimation(),
+                ),
 
-              /// button take a tour
-              Container(
-                margin: EdgeInsets.only(top: Sizes.dimen_40.h),
-                height: Sizes.dimen_18.h,
-                width: ScreenUtil.screenWidth * 0.5 - 15,
-                decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(Sizes.dimen_16.w)),
-                    border: Border.all(color: Colors.white70, width: 0.1)),
-                child: const TakeATourButton(),
-              ),
-            ],
+
+                /// list of userTypes
+                Container(
+                    margin: EdgeInsets.only(top: Sizes.dimen_10.h),
+                    child: ChooseUserListWidget()),
+
+                /// button take a tour
+                Container(
+                  margin: EdgeInsets.only(top: Sizes.dimen_22.h),
+                  height: Sizes.dimen_18.h,
+                  width: ScreenUtil.screenWidth * 0.5 - 15,
+                  decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(Sizes.dimen_16.w)),
+                      border: Border.all(color: Colors.white70, width: 0.1)),
+                  child: const TakeATourButton(),
+                ),
+              ],
+            ),
           ),
-        ],
+        ),
       ),
     );
   }
