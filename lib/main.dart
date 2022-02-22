@@ -8,6 +8,7 @@ import 'package:remax_mapstate/data/tables/current_user_table.dart';
 import 'package:remax_mapstate/data/tables/fav_project_table.dart';
 import 'package:remax_mapstate/main_app.dart';
 import 'package:remax_mapstate/presentation/cubit/current_user/current_user_cubit.dart';
+import 'package:remax_mapstate/presentation/cubit/language/language_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/navigation/navigation_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/drawer/navigation_drawer.dart';
 import 'di/git_it.dart' as getIt;
@@ -26,6 +27,7 @@ void main() async {
   //unawaited(getIt.init());
   await getIt.init();
   final CurrentUserCubit currentUserCubit =  getIt.getItInstance<CurrentUserCubit>();
+  final LanguageCubit languageCubit =  getIt.getItInstance<LanguageCubit>();
 
   // init appDocumentDir
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
@@ -34,8 +36,9 @@ void main() async {
   Hive.registerAdapter(CurrentUserTableAdapter());
 
   final currentUserType =  await currentUserCubit.getCurrentUserType();
+  await languageCubit.loadPreferredLanguage();
 
 
-  runApp( MainApp(currentUserCubit: currentUserCubit,userType: currentUserType,));
+  runApp( MainApp(languageCubit: languageCubit,currentUserCubit: currentUserCubit,userType: currentUserType,));
 }
 

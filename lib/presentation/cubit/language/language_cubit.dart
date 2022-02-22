@@ -27,7 +27,7 @@ class LanguageCubit extends Cubit<Locale> {
     loadPreferredLanguage();
   }
 
-  void loadPreferredLanguage() async {
+  Future<void> loadPreferredLanguage() async {
     final response = await getPreferredLanguage(NoParams());
     emit(response.fold(
           (l) => Locale(LanguageConstants.supportedLanguages[0].code),

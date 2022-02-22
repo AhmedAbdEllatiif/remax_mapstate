@@ -12,7 +12,6 @@ import 'presentation/cubit/current_user/current_user_cubit.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
-import 'di/git_it.dart';
 
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
@@ -21,26 +20,20 @@ class MainApp extends StatefulWidget {
 
   final UserType userType;
   final CurrentUserCubit currentUserCubit;
+  final LanguageCubit languageCubit;
 
-    const MainApp({Key? key, required this.currentUserCubit,required this.userType}) : super(key: key);
+    const MainApp({Key? key, required this.currentUserCubit,required this.userType,required this.languageCubit}) : super(key: key);
 
   @override
   _MainAppState createState() => _MainAppState();
 }
 
 class _MainAppState extends State<MainApp> {
-  late LanguageCubit _languageCubit;
 
 
   @override
   void initState() {
     super.initState();
-
-
-
-    /// init language bloc
-    _languageCubit = getItInstance<LanguageCubit>();
-    _languageCubit.loadPreferredLanguage();
 
     /// loadCurrentUser of currentUserCubit
     widget.currentUserCubit.loadCurrentUser();
@@ -52,7 +45,7 @@ class _MainAppState extends State<MainApp> {
   @override
   void dispose() {
     widget.currentUserCubit.close();
-    _languageCubit.close();
+    widget.languageCubit.close();
     super.dispose();
   }
 
@@ -60,7 +53,7 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<LanguageCubit>.value(value: _languageCubit),
+        BlocProvider<LanguageCubit>.value(value: widget.languageCubit),
         BlocProvider<CurrentUserCubit>.value(value: widget.currentUserCubit)
       ],
       child: BlocBuilder<LanguageCubit, Locale>(
