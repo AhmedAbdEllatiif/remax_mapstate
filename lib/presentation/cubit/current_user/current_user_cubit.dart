@@ -54,10 +54,13 @@ class CurrentUserCubit extends Cubit<CurrentUserTable> {
   /// to load currentUser
   void loadCurrentUser() async {
     final response = await getCurrentUserCase(NoParams());
-    emit(response.fold(
-      (l) => CurrentUserTable.fromCurrentUserEntity( CurrentUserEntity(currentUserStr: UserType.noUser.toShortString())),
-      (currentUser) => currentUser,
-    ));
+
+    if(!isClosed){
+      emit(response.fold(
+            (l) => CurrentUserTable.fromCurrentUserEntity( CurrentUserEntity(currentUserStr: UserType.noUser.toShortString())),
+            (currentUser) => currentUser,
+      ));
+    }
   }
 
 /*// tour

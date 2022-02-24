@@ -11,16 +11,24 @@ class CountDownCubit extends Cubit<CountDownState> {
     controller = null;
   }
 
+
+  void _emitIfNotClosed(CountDownState state){
+    if(!isClosed){
+      emit(state);
+    }
+  }
+
+
   /// Start counting
   void startCountDown() {
     controller = _getController(timeInSec: 10);
-    emit(CountDownStarted(timerController: controller!));
+    _emitIfNotClosed(CountDownStarted(timerController: controller!));
   }
 
   /// Event sent from UI to end the countDown
   void endCountDown() {
     if (controller != null) {
-      emit(CountDownEnded());
+      _emitIfNotClosed(CountDownEnded());
       _clearController();
     }
   }
@@ -37,7 +45,7 @@ class CountDownCubit extends Cubit<CountDownState> {
 
   /// Callback When the countDown timer is finished
   void _onCountDownEnded() {
-    emit(CountDownEnded());
+    _emitIfNotClosed(CountDownEnded());
     _clearController();
   }
 

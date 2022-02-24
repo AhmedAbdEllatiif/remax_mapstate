@@ -17,11 +17,18 @@ class AreasBloc extends Bloc<AreasEvent, AreasState> {
 
   AreasBloc({required this.getAreas}) : super(AreasLoadingState()) {
     on<AreasEvent>((event, emit) async {
+
+      void _emitIfNotClosed(AreasState state){
+        if(!isClosed){
+          emit(state);
+        }
+      }
+
       if (event is LoadAreasEvent) {
         final response = await getAreas(NoParams());
         response.fold(
-          (appError) => emit(AreasErrorState(appError: appError)),
-          (areas) => emit(AreasLoadedState(areas: areas)),
+          (appError) => _emitIfNotClosed(AreasErrorState(appError: appError)),
+          (areas) => _emitIfNotClosed(AreasLoadedState(areas: areas)),
         );
       }
     });

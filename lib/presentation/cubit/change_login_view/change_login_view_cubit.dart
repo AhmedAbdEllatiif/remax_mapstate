@@ -8,7 +8,13 @@ class ChangeLoginViewCubit extends Cubit<LoginView> {
   ChangeLoginViewCubit() : super( LoginView.phoneNum);
 
 
-  void changeToPhoneNum()=>emit(LoginView.phoneNum);
-  void changeToPinCodeView()=>emit(LoginView.pinCode);
+  void _emitIfNotClosed(LoginView state){
+    if(!isClosed){
+      emit(state);
+    }
+  }
+
+  void changeToPhoneNum()=>_emitIfNotClosed(LoginView.phoneNum);
+  void changeToPinCodeView()=>_emitIfNotClosed(LoginView.pinCode);
 
 }

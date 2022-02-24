@@ -17,21 +17,28 @@ class AreaBrokersBloc extends Bloc<AreaBrokersEvent, AreaBrokersState> {
   AreaBrokersBloc({required this.getAreaBrokersCase})
       : super(AreaBrokersLoadingState()) {
     on<AreaBrokersEvent>((event, emit) async {
+
+      void _emitIfNotClosed(AreaBrokersState state){
+        if(!isClosed){
+          emit(state);
+        }
+      }
+
       /// loading
       /*if (event is LoadAreaBrokersEvent) {
-        emit(AreaBrokersLoadingState());
+        _emitIfNotClosed(AreaBrokersLoadingState());
       }*/
 
       /// loaded
       if (event is LoadAreaBrokersEvent) {
         final response = await getAreaBrokersCase(NoParams());
         response.fold(
-            (appError) => emit(AreaBrokersErrorState(appError: appError)),
+            (appError) => _emitIfNotClosed(AreaBrokersErrorState(appError: appError)),
             (brokers) => {
               if(brokers.isEmpty)
-                emit(NoBrokerInArea())
+                _emitIfNotClosed(NoBrokerInArea())
               else
-                emit(AreaBrokersLoadedState(brokers: brokers))
+                _emitIfNotClosed(AreaBrokersLoadedState(brokers: brokers))
             });
       }
     });

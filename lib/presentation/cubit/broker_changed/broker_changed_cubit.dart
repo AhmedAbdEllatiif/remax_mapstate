@@ -10,8 +10,13 @@ class BrokerChangedCubit extends Cubit<BrokerChangedState> {
 
   BrokerChangedCubit() : super(BrokerChangedInitialState());
 
+  void _emitIfNotClosed(BrokerChangedState state){
+    if(!isClosed){
+      emit(state);
+    }
+  }
 
   void changeBroker(BrokerEntity brokerEntity) =>
-      emit(OnBrokerChangedState(brokerEntity: brokerEntity));
+      _emitIfNotClosed(OnBrokerChangedState(brokerEntity: brokerEntity));
 
 }

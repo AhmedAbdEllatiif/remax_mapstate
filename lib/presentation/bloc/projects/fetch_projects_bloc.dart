@@ -19,24 +19,32 @@ class FetchProjectsBloc extends Bloc<FetchProjectsEvent, FetchProjectsState> {
   FetchProjectsBloc({required this.getProjects,})
       : super(FetchProjectsLoading()) {
 
+
+
     on<FetchProjectsEvent>((event, emit) async {
+
+
+      void _emitIfNotClosed(FetchProjectsState state){
+        if(!isClosed){
+          emit(state);
+        }
+      }
+
       if (event is LoadFetchProjectsEvent) {
 
         final either = await getProjects(NoParams());
         either.fold(
           (appError) {
 
-            emit(ErrorLoadingFetchProjects(appError: appError));
+            _emitIfNotClosed(ErrorLoadingFetchProjects(appError: appError));
           },
           (projects) {
 
             // emit TopProjectsLoadedState
-            emit(FetchProjectsLoadedState(
+            _emitIfNotClosed(FetchProjectsLoadedState(
                 projects: projects, defaultIndex: event.defaultIndex));
           },
         );
-      }else{
-        print("event is else");
       }
     });
   }

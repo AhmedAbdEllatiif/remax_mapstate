@@ -19,13 +19,20 @@ class ProjectStatusBloc extends Bloc<ProjectStatusEvent, ProjectStatusState> {
     required this.backdropBloc,
   }) : super(ProjectStatusLoadingState()) {
     on<ProjectStatusEvent>((event, emit) async {
+
+      void _emitIfNotClosed(ProjectStatusState state){
+        if(!isClosed){
+          emit(state);
+        }
+      }
+
       if (event is LoadProjectStatusEvent) {
 
         final either = await getProjectStatusCase(NoParams());
         either.fold(
           (appError) {
 
-            emit(ErrorLoadingProjectStatus(appError: appError));
+            _emitIfNotClosed(ErrorLoadingProjectStatus(appError: appError));
           },
           (projectStatus) {
             // add BackdropChangedEvent
@@ -33,13 +40,11 @@ class ProjectStatusBloc extends Bloc<ProjectStatusEvent, ProjectStatusState> {
                 projectStatusEntity: projectStatus[event.defaultIndex]));
 
             // emit TopProjectsLoadedState
-            emit(ProjectStatusLoadedState(
+            _emitIfNotClosed(ProjectStatusLoadedState(
                 projectStatus: projectStatus,
                 defaultIndex: event.defaultIndex));
           },
         );
-      } else {
-        print("event is else");
       }
     });
   }

@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
-import 'package:remax_mapstate/common/constants/translate_constatns.dart';
-import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/params/login_params.dart';
 
@@ -28,6 +26,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     */
     on<LoginEvent>((event, emit) async {
 
+      void _emitIfNotClosed(LoginState state){
+        if(!isClosed){
+          emit(state);
+        }
+      }
 
       /// Request new pin code event
       if (event is RequestPinCodeEvent) {
@@ -39,7 +42,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         countDownCubit.endCountDown();
 
         /// emit the pinCode is received
-        emit(ReceivedPinCodeSaved(
+        _emitIfNotClosed(ReceivedPinCodeSaved(
             serverParams:
                 LoginParams(phoneNum: phoneNum, pinCode: serverPinCode),
             userEnteredPin: state.userEnteredPin));
@@ -85,22 +88,22 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         final serverPinCode = params.pinCode;
         final userEnteredPin = state.userEnteredPin;
         if (serverPinCode.isNotEmpty && serverPinCode == userEnteredPin) {
-          emit(CorrectCodeEntered());
+          _emitIfNotClosed(CorrectCodeEntered());
         } else {
           if (userEnteredPin.isEmpty) {
-            emit(WrongCodeEntered(
+            _emitIfNotClosed(WrongCodeEntered(
                 appError: const AppError(AppErrorType.validation,
                     message: TranslateConstants.pinCodeRequired),
                 serverParams: state.serverParams,
                 userEnteredPin: state.userEnteredPin));
           } else if (userEnteredPin.length < 6) {
-            emit(WrongCodeEntered(
+            _emitIfNotClosed(WrongCodeEntered(
                 appError: const AppError(AppErrorType.validation,
                     message: TranslateConstants.pinCodeAtLeast6),
                 serverParams: state.serverParams,
                 userEnteredPin: state.userEnteredPin));
           } else if (serverPinCode != userEnteredPin) {
-            emit(WrongCodeEntered(
+            _emitIfNotClosed(WrongCodeEntered(
                 appError: const AppError(AppErrorType.validation,
                     message: TranslateConstants.wrongPinCode),
                 serverParams: state.serverParams,

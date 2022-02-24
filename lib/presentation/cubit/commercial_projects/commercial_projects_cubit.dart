@@ -13,6 +13,13 @@ class CommercialProjectsCubit extends Cubit<CommercialProjectsState> {
   CommercialProjectsCubit({required this.commercialProjectsCase})
       : super(CommercialProjectsInitial());
 
+  void _emitIfNotClosed(CommercialProjectsState state){
+    if(!isClosed){
+      emit(state);
+    }
+  }
+
+
   void loadCommercialProjects(int areaId) async {
     emit(CommercialProjectsLoadingState());
     Future.delayed(const Duration(milliseconds: 3000), () async {
@@ -23,9 +30,9 @@ class CommercialProjectsCubit extends Cubit<CommercialProjectsState> {
           (appError) => emit(CommercialProjectsErrorState(appError: appError)),
           (projects) {
         if (projects.isEmpty) {
-          emit(NoCommercialProjectsToShowState());
+          _emitIfNotClosed(NoCommercialProjectsToShowState());
         } else {
-          emit(CommercialProjectsLoadedState(projects: projects));
+          _emitIfNotClosed(CommercialProjectsLoadedState(projects: projects));
         }
       });
     });

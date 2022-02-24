@@ -23,6 +23,14 @@ class AutoLoginCubit extends Cubit<AutoLoginState> {
   }) : super(
             const CurrentAutoLoginStatus(loginStatus: LoginStatus.notLoggedIn));
 
+
+  void _emitIfNotClosed(AutoLoginState state){
+    if(!isClosed){
+      emit(state);
+    }
+  }
+
+
   Future<void> save() async {
     await saveAutoLogin(AutoLoginEntity(
         currentLoginStatusStr: LoginStatus.loggedIn.toShortString()));
@@ -37,8 +45,8 @@ class AutoLoginCubit extends Cubit<AutoLoginState> {
   Future<void> loadCurrentAutoLoginStatus() async {
     final either = await getAutoLogin(NoParams());
     either.fold(
-      (appError) => emit(AutoLoginError(appError: appError)),
-      (loginStatus) => emit(CurrentAutoLoginStatus(loginStatus: loginStatus)),
+      (appError) => _emitIfNotClosed(AutoLoginError(appError: appError)),
+      (loginStatus) => _emitIfNotClosed(CurrentAutoLoginStatus(loginStatus: loginStatus)),
     );
   }
 }

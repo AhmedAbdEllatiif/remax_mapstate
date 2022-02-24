@@ -33,19 +33,24 @@ class FavoriteProjectsBloc
   }) : super(FavoriteProjectsLoading()) {
     on<FavoriteProjectsEvent>((event, emit) async {
 
+      void _emitIfNotClosed(FavoriteProjectsState state){
+        if(!isClosed){
+          emit(state);
+        }
+      }
 
       ///==> fetchFavoriteProjects
       Future<void> _fetchFavoriteProjects() async {
         final response = await getFavProjects(NoParams());
         response.fold(
               (appError) =>
-              emit(FavoriteProjectsErrorState(appError: appError)),
+              _emitIfNotClosed(FavoriteProjectsErrorState(appError: appError)),
               (projects) {
             if (projects.isEmpty) {
-              emit(FavoriteProjectsNoProjectsToShow());
+              _emitIfNotClosed(FavoriteProjectsNoProjectsToShow());
             }
             else{
-              emit(FavoriteProjectsLoadedState(projects: projects));
+              _emitIfNotClosed(FavoriteProjectsLoadedState(projects: projects));
             }
           },
         );
@@ -64,9 +69,9 @@ class FavoriteProjectsBloc
             ProjectParamEntity(projectId: event.projectEntity.id));
         response.fold(
               (appError) =>
-              emit(FavoriteProjectsErrorState(appError: appError)),
+              _emitIfNotClosed(FavoriteProjectsErrorState(appError: appError)),
               (isFavorite) =>
-              emit(IsFavoriteProjectState(isProjectFavorite: isFavorite)),
+              _emitIfNotClosed(IsFavoriteProjectState(isProjectFavorite: isFavorite)),
         );
       }
 
@@ -82,9 +87,9 @@ class FavoriteProjectsBloc
             ProjectParamEntity(projectId: event.projectId));
         response.fold(
               (appError) =>
-              emit(FavoriteProjectsErrorState(appError: appError)),
+              _emitIfNotClosed(FavoriteProjectsErrorState(appError: appError)),
               (isFavorite) =>
-              emit(IsFavoriteProjectState(isProjectFavorite: isFavorite)),
+              _emitIfNotClosed(IsFavoriteProjectState(isProjectFavorite: isFavorite)),
         );
       }
 

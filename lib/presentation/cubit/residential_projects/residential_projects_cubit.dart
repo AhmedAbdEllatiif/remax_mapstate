@@ -19,7 +19,7 @@ class ResidentialCubit extends Cubit<ResidentialState> {
       required this.residentialProjectsCase})
       : super(ResidentialInitial());
 
-  void emitIfNotClosed(ResidentialState state) {
+  void _emitIfNotClosed(ResidentialState state) {
     if (!isClosed) {
       emit(state);
     }
@@ -35,9 +35,9 @@ class ResidentialCubit extends Cubit<ResidentialState> {
           (appError) => emit(ResidentialCubitErrorState(appError: appError)),
           (unitTypes) {
         if (unitTypes.isEmpty) {
-          emitIfNotClosed(NoUnitTypesToShowState());
+          _emitIfNotClosed(NoUnitTypesToShowState());
         } else {
-          emitIfNotClosed(UnitTypesLoadedState(unitTypes: unitTypes));
+          _emitIfNotClosed(UnitTypesLoadedState(unitTypes: unitTypes));
         }
       });
     });
@@ -54,9 +54,9 @@ class ResidentialCubit extends Cubit<ResidentialState> {
           (appError) => emit(ResidentialCubitErrorState(appError: appError)),
           (projects) {
         if (projects.isEmpty) {
-          emitIfNotClosed(NoProjectsToShowState());
+          _emitIfNotClosed(NoProjectsToShowState());
         } else {
-          emitIfNotClosed(ProjectsLoadedState(projects: projects));
+          _emitIfNotClosed(ProjectsLoadedState(projects: projects));
         }
       });
     });

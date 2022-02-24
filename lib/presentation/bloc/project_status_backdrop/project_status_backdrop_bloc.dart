@@ -14,7 +14,10 @@ class ProjectStatusBackdropBloc
   ProjectStatusBackdropBloc() : super(ProjectBackdropInitial()) {
     on<ProjectStatusBackdropEvent>((event, emit) async {
       if (event is ProjectBackdropChangedEvent) {
-        emit(ProjectBackdropChangedState(projectStatusEntity: event.projectStatusEntity));
+        if (!isClosed) {
+          emit(ProjectBackdropChangedState(
+              projectStatusEntity: event.projectStatusEntity));
+        }
       }
     });
   }
