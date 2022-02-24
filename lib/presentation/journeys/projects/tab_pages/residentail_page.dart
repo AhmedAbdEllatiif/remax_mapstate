@@ -74,6 +74,7 @@ class _ResidentialPageState extends State<ResidentialPage>
                 itemCount: state.projects.length,
                 itemBuilder: (context, index) => ProjectCardWidget(
                       projectEntity: state.projects[index],
+                  testingIndex: index,
                     ));
           }
 

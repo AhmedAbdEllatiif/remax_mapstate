@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
 import 'package:remax_mapstate/domain/entities/broker_entity.dart';
+import 'package:remax_mapstate/domain/entities/contact_developer.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
 import 'package:remax_mapstate/domain/entities/unit_type_entity.dart';
@@ -36,5 +37,9 @@ abstract class ApiRepo {
 
   /// return list unitTypes status
   Future<Either<AppError,List<UnitTypeEntity>>> getResidentialUnitTypesByArea();
+
+
+///******************************** Developer Contact ******************************** \\\\
+  Future<Either<AppError,ContactDeveloperEntity>> getDeveloperContact(int developerId);
 
 }

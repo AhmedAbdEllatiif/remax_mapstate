@@ -17,8 +17,10 @@ import '../../../router/route_hepler.dart';
 
 class ProjectCardWidget extends StatelessWidget {
   final ProjectEntity projectEntity;
+  ///TODO remove this after testing is end
+  final int testingIndex;
 
-  const ProjectCardWidget({Key? key, required this.projectEntity})
+  const ProjectCardWidget({Key? key, required this.projectEntity, required this.testingIndex})
       : super(key: key);
 
   @override
@@ -171,7 +173,8 @@ class ProjectCardWidget extends StatelessWidget {
       RouteHelper().projectDetailScreen(
         context,
         projectDetailsArgument : ProjectDetailsArgument(
-          projectId: projectEntity.id,
+          //projectId: projectEntity.id,
+          projectId: testingIndex
         ),
       );
 

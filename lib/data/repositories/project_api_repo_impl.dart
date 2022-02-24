@@ -6,10 +6,11 @@ import 'package:remax_mapstate/data/data_sources/remote_data_source.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
 import 'package:remax_mapstate/domain/entities/broker_entity.dart';
+import 'package:remax_mapstate/domain/entities/contact_developer.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
 import 'package:remax_mapstate/domain/entities/unit_type_entity.dart';
-import 'package:remax_mapstate/domain/repositories/api_projects.dart';
+import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 
 class ProjectApiRepoImpl extends ApiRepo {
 
@@ -118,6 +119,20 @@ class ProjectApiRepoImpl extends ApiRepo {
     try {
       final unitTypes = await remoteDataSource.getResidentialUnitTypesByArea();
       return Right(unitTypes);
+    } on SocketException catch(e){
+      return Left(AppError(AppErrorType.network,message: e.message));
+    }
+    on Exception catch (e) {
+      return Left(AppError(AppErrorType.api,message: e.toString()));
+    }
+  }
+
+  /// return developer contact data
+  @override
+  Future<Either<AppError, ContactDeveloperEntity>> getDeveloperContact(int developerId) async {
+    try {
+      final developerData = await remoteDataSource.getDeveloperContact(developerId);
+      return Right(developerData);
     } on SocketException catch(e){
       return Left(AppError(AppErrorType.network,message: e.message));
     }

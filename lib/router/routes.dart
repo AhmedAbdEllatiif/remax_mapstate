@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:remax_mapstate/domain/entities/params/contact_developer.dart';
 import 'package:remax_mapstate/presentation/journeys/area_projects/area_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/choose_broker/choose_broker_screen.dart';
+import 'package:remax_mapstate/presentation/journeys/developer_contact/developer_contact_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/main/main_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_details_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/projects/projects_screen.dart';
@@ -19,6 +21,7 @@ class Routes{
     RouteList.loginScreen : (context) => const LoginScreen(),
     RouteList.chooseUserScreen : (context) => const ChooseUserScreen(),
     RouteList.projectsScreen : (context) => const ProjectsScreen(),
+    RouteList.developerContact : (context) => DeveloperContactScreen(developerContactParams:  settings.arguments as ContactDeveloperParam),
     RouteList.chooseBrokerScreen : (context) =>  ChooseBrokerScreen(chooseBrokerArgument: settings.arguments as ChooseBrokerArgument),
     RouteList.areaScreen : (context) =>  AreaScreen(areaArgument: settings.arguments as AreaArgument),
     RouteList.projectDetailsScreen : (context) =>  ProjectDetailsScreen( projectDetailsArgument:  settings.arguments as ProjectDetailsArgument),

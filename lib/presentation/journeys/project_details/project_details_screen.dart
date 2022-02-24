@@ -113,11 +113,11 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
             ),
 
             /// Submit Inquiry Button
-            const Positioned(
+             Positioned(
               bottom: 0.0,
               right: 0.0,
               left: 0.0,
-              child: ButtonSection(),
+              child: ButtonSection(developerId: widget.projectDetailsArgument.projectId),
             ),
           ],
         ));

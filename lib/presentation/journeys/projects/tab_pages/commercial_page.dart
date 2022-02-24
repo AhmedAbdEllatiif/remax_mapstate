@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/di/git_it.dart';
-import 'package:remax_mapstate/presentation/bloc/projects/fetch_projects_bloc.dart';
 import 'package:remax_mapstate/presentation/cubit/commercial_projects/commercial_projects_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/projects/project_card.dart';
 import 'package:remax_mapstate/presentation/widgets/empty_list_widegt.dart';
@@ -52,7 +51,7 @@ class _CommercialPageState extends State<CommercialPage>
             return Container(
               margin: const EdgeInsets.all(10),
               child: const Center(
-                child:  EmptyListWidget(
+                child: EmptyListWidget(
                     text: "No Commercial projects in this area"),
               ),
             );
@@ -66,11 +65,13 @@ class _CommercialPageState extends State<CommercialPage>
                 itemCount: state.projects.length,
                 itemBuilder: (context, index) => ProjectCardWidget(
                       projectEntity: state.projects[index],
+                      testingIndex: index,
                     ));
           }
 
           return const Center(
-            child: const Text("Nothing to Show"),
+            /// TODO Remove this
+            child: Text("Nothing to Show"),
           );
         },
       ),

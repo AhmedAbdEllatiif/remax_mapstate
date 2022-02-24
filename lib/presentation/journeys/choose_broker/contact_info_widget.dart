@@ -10,10 +10,10 @@ import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 /// This Widget for contact info (Whatsapp, PhoneCall)
 class ContactInfoWidget extends StatelessWidget {
 
-  final String whatsapp;
+  final String? whatsapp;
   final String phoneNum;
 
-  const ContactInfoWidget({Key? key, required this.whatsapp, required this.phoneNum}) : super(key: key);
+  const ContactInfoWidget({Key? key,  this.whatsapp = null, required this.phoneNum}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +21,8 @@ class ContactInfoWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
 
+
+        if(whatsapp != null)
         Column(
           children: [
             Text(
@@ -45,7 +47,7 @@ class ContactInfoWidget extends StatelessWidget {
         Column(
           children: [
             Text(
-              "Lovely Phone call",
+              "Friendly Phone call",
               style: Theme.of(context).textTheme.geryCaption,
             ),
             GestureDetector(
