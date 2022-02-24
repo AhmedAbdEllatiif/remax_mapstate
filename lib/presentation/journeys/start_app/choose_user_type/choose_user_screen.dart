@@ -22,6 +22,7 @@ class ChooseUserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: AppColor.bgGray,
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Container(
@@ -39,17 +40,17 @@ class ChooseUserScreen extends StatelessWidget {
                 ),
 
                 /// Lottie animation
-                Container(
+                /*Container(
                   width: ScreenUtil.screenWidth,
                   height: ScreenUtil.screenHeight * 0.20,
                   margin: EdgeInsets.only(top:Sizes.dimen_10.h ),
                   child: const ChooseUserAnimation(),
-                ),
+                ),*/
 
 
                 /// list of userTypes
                 Container(
-                    margin: EdgeInsets.only(top: Sizes.dimen_10.h),
+                    margin: EdgeInsets.only(top: Sizes.dimen_64.h),
                     child: ChooseUserListWidget()),
 
                 /// button take a tour
@@ -60,7 +61,7 @@ class ChooseUserScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius:
                           BorderRadius.all(Radius.circular(Sizes.dimen_16.w)),
-                      border: Border.all(color: Colors.white70, width: 0.1)),
+                      border: Border.all(color: AppColor.vulcan, width: 0.4)),
                   child: const TakeATourButton(),
                 ),
               ],

@@ -28,15 +28,15 @@ class ButtonWithBoxShadow extends StatelessWidget {
         ),
       ),
       decoration: BoxDecoration(
-          color: AppColor.royalBlue,
+          color: AppColor.vulcan,
           borderRadius: BorderRadius.circular(5),
           boxShadow: const [
             BoxShadow(
-                color: AppColor.royalBlue,
+                color: AppColor.vulcan,
                 offset: Offset(1, -2),
                 blurRadius: 5),
             BoxShadow(
-                color: AppColor.royalBlue,
+                color: AppColor.vulcan,
                 offset: Offset(-1, 2),
                 blurRadius: 5)
           ]),

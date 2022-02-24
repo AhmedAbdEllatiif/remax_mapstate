@@ -6,6 +6,7 @@ import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_details_argument.dart';
+import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
@@ -35,7 +36,7 @@ class ProjectCardWidget extends StatelessWidget {
       width: ScreenUtil.screenWidth,
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        elevation: 1,
+        elevation: 5,
         //color: colors[index],
         semanticContainer: true,
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -54,7 +55,7 @@ class ProjectCardWidget extends StatelessWidget {
 
                   // grid tile footer
                   footer: Container(
-                    color: Colors.grey,
+                    color: AppColor.transparentVulcan,
                     height: ResponsiveValue<double>(context,
                         defaultValue: Sizes.dimen_24.h,
                         valueWhen: [

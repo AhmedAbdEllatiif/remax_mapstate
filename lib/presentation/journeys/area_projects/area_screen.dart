@@ -3,6 +3,7 @@ import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/presentation/journeys/projects/projects_argument.dart';
 import 'package:remax_mapstate/presentation/journeys/projects/projects_screen.dart';
+import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 
 class AreaScreen extends StatelessWidget {
   final AreaArgument areaArgument;
@@ -23,6 +24,8 @@ class AreaScreen extends StatelessWidget {
             //TranslateConstants.projects.t(context),
           ),
           bottom:  TabBar(
+            indicatorColor: AppColor.vulcan,
+            unselectedLabelColor: AppColor.fadeVulcan,
             tabs: [
               Tab(
                 text: TranslateConstants.residential.t(context),

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:remax_mapstate/presentation/journeys/drawer/navigation_list_item.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 
-class NavigationExpandedListItem extends StatelessWidget {
+import '../../themes/theme_color.dart';
+
+class NavigationExpandedListItem extends StatefulWidget {
   final String title;
   final List<String> children;
   final Function(int languageIndex) onPressed;
@@ -10,6 +12,15 @@ class NavigationExpandedListItem extends StatelessWidget {
   const NavigationExpandedListItem(
       {Key? key, required this.title, required this.onPressed, required this.children})
       : super(key: key);
+
+  @override
+  State<NavigationExpandedListItem> createState() => _NavigationExpandedListItemState();
+}
+
+class _NavigationExpandedListItemState extends State<NavigationExpandedListItem> {
+
+  Color expansionChangesColor = AppColor.white;
+
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +34,27 @@ class NavigationExpandedListItem extends StatelessWidget {
         ],
       ),
       child: ExpansionTile(
+        leading: Icon(Icons.language_outlined,color: expansionChangesColor,),
+        childrenPadding: EdgeInsets.zero,
+        iconColor: AppColor.vulcan,
+        collapsedIconColor: AppColor.white,
+        collapsedBackgroundColor: AppColor.vulcan,
         title: Text(
-          title,
-          style: Theme.of(context).textTheme.subtitle1,
+          widget.title,
+          style: Theme.of(context).textTheme.subtitle1!.copyWith(
+              color: expansionChangesColor,
+            fontWeight: FontWeight.w600,
+          ),
         ),
+        onExpansionChanged: (isExpanded){
+
+          setState(() {
+            expansionChangesColor = isExpanded? AppColor.vulcan: AppColor.white;
+          });
+        },
         children: [
-              for(int i=0;i<children.length;i++)
-            NavigationSubListItem(title: children[i].t(context), onPressed:()=> onPressed(i)),
+              for(int i=0;i<widget.children.length;i++)
+            NavigationSubListItem(title: widget.children[i].t(context), onPressed:()=> widget.onPressed(i)),
         ],
       ),
     );

@@ -9,6 +9,7 @@ import 'package:remax_mapstate/presentation/cubit/current_user/current_user_cubi
 import 'package:remax_mapstate/presentation/cubit/language/language_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/drawer/navgation_expanded_list_tile.dart';
 import 'package:remax_mapstate/presentation/journeys/drawer/navigation_list_item.dart';
+import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/widgets/logo.dart';
 import 'package:remax_mapstate/router/route_hepler.dart';
 
@@ -50,7 +51,31 @@ class NavigationDrawer extends StatelessWidget {
             /// Okay
             NavigationListItem(
               title: TranslateConstants.okay.t(context),
+              icon: const Icon(Icons.message_outlined,color: AppColor.vulcan,),
               onPressed: () {},
+            ),
+
+
+
+            /// Okay
+            NavigationListItem(
+              title: TranslateConstants.okay.t(context),
+              icon: const Icon(Icons.message_outlined,color: AppColor.vulcan,),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+
+            /// About
+            NavigationListItem(
+              title: TranslateConstants.about.t(context),
+              icon: const Icon(Icons.info_outline,color: AppColor.vulcan,),
+              onPressed: () {
+                // to close the drawer
+                Navigator.of(context).pop();
+
+                _showDialog(context);
+              },
             ),
 
 
@@ -64,30 +89,10 @@ class NavigationDrawer extends StatelessWidget {
             ),
 
 
-            /// Okay
-            NavigationListItem(
-              title: TranslateConstants.okay.t(context),
-              onPressed: () {
-                // to close the drawer
-                Navigator.of(context).pop();
-              },
-            ),
-
-            /// About
-            NavigationListItem(
-              title: TranslateConstants.about.t(context),
-              onPressed: () {
-                // to close the drawer
-                Navigator.of(context).pop();
-
-                _showDialog(context);
-              },
-            ),
-
-
             /// Logout
             NavigationListItem(
               title: TranslateConstants.logout.t(context),
+              icon: const Icon(Icons.login_outlined,color: AppColor.vulcan,),
               onPressed: () async {
 
                 /// clear current user data

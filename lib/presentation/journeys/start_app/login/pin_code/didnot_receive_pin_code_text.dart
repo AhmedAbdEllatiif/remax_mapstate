@@ -40,10 +40,12 @@ class NotReceiveCodeText extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .subtitle2!
-                              .copyWith(fontWeight: FontWeight.bold),
+                              .copyWith(color: AppColor.vulcan,fontWeight: FontWeight.bold),
                         ),
                       ],
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                        color: AppColor.vulcan,
+                      ),
                     ),
                     textAlign: TextAlign.center,
                   );
@@ -61,7 +63,9 @@ class NotReceiveCodeText extends StatelessWidget {
             children: [
               Text(
                 TranslateConstants.didNotReceiveCode.t(context),
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                  color: AppColor.vulcan,
+                ),
               ),
               TextButton(
                   onPressed: () =>
@@ -81,7 +85,9 @@ class NotReceiveCodeText extends StatelessWidget {
           children: [
             Text(
               TranslateConstants.didNotReceiveCode.t(context),
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                color: AppColor.vulcan,
+              ),
             ),
             TextButton(
                 onPressed: () => context.read<LoginBloc>().add(ResendPinCode()),

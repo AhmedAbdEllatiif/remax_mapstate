@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/language_constants.dart';
 import 'package:remax_mapstate/common/constants/route_list.dart';
@@ -10,6 +11,7 @@ import 'package:remax_mapstate/presentation/cubit/auto_login/auto_login_cubit.da
 import 'package:remax_mapstate/presentation/cubit/language/language_cubit.dart';
 import 'package:remax_mapstate/router/fade_page_route.dart';
 import 'package:remax_mapstate/router/routes.dart';
+import 'common/constants/sizes.dart';
 import 'presentation/cubit/current_user/current_user_cubit.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
@@ -84,16 +86,31 @@ class _MainAppState extends State<MainApp> {
 
                 /// Theme
                 theme: ThemeData(
-                  unselectedWidgetColor: AppColor.royalBlue,
-                  primaryColor: AppColor.vulcan,
+                  unselectedWidgetColor:  AppColor.fadeVulcan,
+                  primaryColor: AppColor.white,
                   colorScheme: ColorScheme.fromSwatch().copyWith(
                     secondary: AppColor.royalBlue, // Your accent color
                   ),
-                  scaffoldBackgroundColor: AppColor.vulcan,
+                  scaffoldBackgroundColor: AppColor.bgGray,
                   textTheme: ThemeText.getTextTheme(),
                   appBarTheme: const AppBarTheme(
+                    systemOverlayStyle: SystemUiOverlayStyle(
+                      // Status bar color
+                      statusBarColor: AppColor.bgGray,
+
+
+                      // Status bar brightness (optional)
+                      statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+                      statusBarBrightness: Brightness.light, // For iOS (dark icons)
+                    ),
+                    iconTheme: IconThemeData(color: AppColor.vulcan),
                     elevation: 0,
-                    color: AppColor.vulcan,
+                    titleTextStyle: TextStyle(
+                      color: AppColor.vulcan,
+                      fontSize: Sizes.dimen_18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    color: AppColor.bgGray,
                   ),
                 ),
 

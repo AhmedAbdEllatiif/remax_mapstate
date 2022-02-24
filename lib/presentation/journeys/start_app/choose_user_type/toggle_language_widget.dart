@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
+import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 
 import '../../../../common/constants/language_constants.dart';
 import '../../../../common/constants/translate_constatns.dart';
 import '../../../cubit/language/language_cubit.dart';
 
 class ToggleLanguageWidget extends StatelessWidget {
-
-
   const ToggleLanguageWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return   BlocBuilder<LanguageCubit, Locale>(
+    return BlocBuilder<LanguageCubit, Locale>(
       builder: (context, state) {
         return GestureDetector(
           onTap: () => toggleLanguage(
@@ -25,12 +24,15 @@ class ToggleLanguageWidget extends StatelessWidget {
             children: [
               const Icon(
                 Icons.language_outlined,
-                color: Colors.white,
+                color: AppColor.vulcan,
               ),
-              Text(" ${getLanguageCodeToChange(
-                context: context,
-                currentLanguage: state.languageCode,
-              )}")
+              Text(
+                " ${getLanguageCodeToChange(
+                  context: context,
+                  currentLanguage: state.languageCode,
+                )}",
+                style: TextStyle(color: AppColor.vulcan),
+              )
             ],
           ),
         );

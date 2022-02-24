@@ -6,6 +6,7 @@ import 'package:remax_mapstate/common/enums/services.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
+import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
 class ServicesSection extends StatelessWidget {
@@ -18,7 +19,9 @@ class ServicesSection extends StatelessWidget {
       children: [
         Text(
           TranslateConstants.services.t(context),
-          style: Theme.of(context).textTheme.geryCaption,
+          style: Theme.of(context).textTheme.caption!.copyWith(
+            color: AppColor.vulcan
+          ),
         ),
 
         const SizedBox(height: 5,),
@@ -57,13 +60,14 @@ class ServiceItemCard extends StatelessWidget {
           CircleAvatar(
             maxRadius: Sizes.dimen_30.w,
             minRadius: Sizes.dimen_10.w,
-            foregroundColor: Colors.white,
-            backgroundColor: Colors.white,
+            foregroundColor: AppColor.white,
+            backgroundColor: AppColor.white,
             child: Padding(
               padding:  const EdgeInsets.all(Sizes.dimen_12),
               child: Image.asset(
                 AssetsConstants.gymIcon,
                 fit: BoxFit.cover,
+                //color: AppColor.white,
               ),
             ),
 
@@ -73,7 +77,9 @@ class ServiceItemCard extends StatelessWidget {
 
           Text(
             'GYM',
-            style: Theme.of(context).textTheme.whiteCaption,
+            style: Theme.of(context).textTheme.caption!.copyWith(
+              color: AppColor.vulcan
+            ),
           )
         ],
       ),

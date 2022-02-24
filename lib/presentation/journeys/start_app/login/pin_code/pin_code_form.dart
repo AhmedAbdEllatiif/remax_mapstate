@@ -32,7 +32,7 @@ class PinCodeForm extends StatelessWidget {
                 vertical: Sizes.dimen_4.h, horizontal: Sizes.dimen_32.w),
             child: PinCodeTextField(
               appContext: context,
-              textStyle: const TextStyle().copyWith(color: AppColor.royalBlue),
+              textStyle: const TextStyle().copyWith(color: AppColor.white),
               pastedTextStyle: const TextStyle(
                 color: AppColor.vulcan,
                 fontWeight: FontWeight.bold,
@@ -49,25 +49,17 @@ class PinCodeForm extends StatelessWidget {
               autoFocus: true,
               animationType: AnimationType.fade,
               validator: (v) {
-                /* context.read<LoginBloc>().add(
-                          const VerifyEnteredCodeEvent());*/
                 return '';
               },
 
-              cursorColor: AppColor.royalBlue,
               animationDuration: const Duration(milliseconds: 300),
               enableActiveFill: true,
               errorAnimationController: errorController,
               controller: textEditingController,
               keyboardType: TextInputType.number,
-              /* boxShadows: [
-                    BoxShadow(
-                      offset: Offset(0, 1),
-                      color: Colors.white,
-                      blurRadius: 10,
-                    )
-                  ],*/
 
+
+              cursorColor: AppColor.vulcan,
               /// pinTheme
               pinTheme: PinTheme(
                 shape: PinCodeFieldShape.box,
@@ -76,18 +68,29 @@ class PinCodeForm extends StatelessWidget {
                 fieldWidth: 40,
 
                 /// OnSelected
-                selectedFillColor: Colors.white,
-                selectedColor: AppColor.royalBlue,
+                selectedFillColor: AppColor.white,
+                selectedColor: AppColor.vulcan, // frame color
 
                 /// after pinItem filled
-                activeFillColor: Colors.white,
-                activeColor: Colors.white,
+                activeFillColor: AppColor.vulcan,
+                activeColor: AppColor.vulcan, // frame color
 
                 /// not selected and not filled
-                inactiveColor: Colors.white,
-                inactiveFillColor: Colors.white,
+                inactiveFillColor: AppColor.white,
+                inactiveColor: AppColor.white, // frame color
+
+                /// error border color
                 errorBorderColor: Colors.red,
               ),
+
+
+              boxShadows:  [
+                BoxShadow(
+                  offset: const Offset(0, 1),
+                  color: AppColor.vulcan,
+                  blurRadius: Sizes.dimen_10.w,
+                )
+              ],
 
               /// onCompleted
               onCompleted: (v) {

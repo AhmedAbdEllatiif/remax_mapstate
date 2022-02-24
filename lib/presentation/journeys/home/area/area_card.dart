@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
 import 'package:remax_mapstate/presentation/journeys/projects/projects_argument.dart';
-import 'package:remax_mapstate/presentation/themes/theme_text.dart';
+import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/router/route_hepler.dart';
 
 class AreaCardWidget extends StatelessWidget {
@@ -19,12 +19,13 @@ class AreaCardWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () => _navigateToAreaScreen(context),
       child: CircleAvatar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColor.vulcan,
         child: Center(
           child: Text(
             area.title,
             maxLines: 2,
-            style: Theme.of(context).textTheme.vulcanBodyText2.copyWith(
+            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+              color: AppColor.bgGray,
               fontWeight: FontWeight.bold
             ),
           ),

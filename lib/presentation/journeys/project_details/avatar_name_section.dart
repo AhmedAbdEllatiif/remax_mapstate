@@ -38,18 +38,22 @@ class ProjectAvatarNameSection extends StatelessWidget {
               children: [
                 Text(
                   "Cairo".intelliTrim(),
+                  style: Theme.of(context).textTheme.caption!.copyWith(
+                    color: AppColor.vulcan,
+                  ),
                 ),
                 Text(
                   "New Cairo".intelliTrim(),
                   style:
-                  Theme.of(context).textTheme.whiteCaption,
+                  Theme.of(context).textTheme.caption,
+
                 )
               ],
             )
           ],
         ),
 
-        const Icon(Icons.favorite_border,color: AppColor.royalBlue,),
+        const Icon(Icons.favorite_border,color: AppColor.vulcan,),
 
         /// Column of Starting price
         /*  Column(

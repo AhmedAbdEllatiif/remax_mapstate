@@ -71,6 +71,8 @@ class _PhoneNumWidgetState extends State<PhoneNumWidget> {
                   searchTextStyle: const TextStyle(color: AppColor.vulcan),
                   countryNameTextStyle: const TextStyle(color: AppColor.vulcan),
                   dialCodeTextStyle: const TextStyle(color: AppColor.vulcan),
+                  textStyle: const TextStyle(color: AppColor.vulcan),
+                  selectorTextStyle: const TextStyle(color: AppColor.vulcan),
 
                   /// bottomSheet
                   selectorConfig: SelectorConfig(
@@ -83,21 +85,19 @@ class _PhoneNumWidgetState extends State<PhoneNumWidget> {
 
                   ignoreBlank: false,
                   autoValidateMode: AutovalidateMode.disabled,
-                  textStyle: const TextStyle(color: Colors.white),
-                  selectorTextStyle: const TextStyle(color: Colors.white),
                   // text with flag
                   initialValue: number,
                   textFieldController: controller,
                   formatInput: true,
                   autoFocus: true,
-                  cursorColor: Colors.white,
+                  cursorColor: AppColor.vulcan,
 
 
                   /// the box of phone num
                   inputDecoration: const InputDecoration(
                       focusedBorder: OutlineInputBorder(
                         borderSide:
-                            BorderSide(color: AppColor.royalBlue, width: 1.0),
+                            BorderSide(color: AppColor.vulcan, width: 1.0),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white, width: 1.0),

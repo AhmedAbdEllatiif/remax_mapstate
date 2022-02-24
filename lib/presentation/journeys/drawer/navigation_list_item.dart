@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
+import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 
 class NavigationListItem extends StatelessWidget {
   final String title;
+  final Icon icon;
   final Function() onPressed;
 
   const NavigationListItem(
-      {Key? key, required this.title, required this.onPressed})
+      {Key? key, required this.title, required this.onPressed, required this.icon})
       : super(key: key);
 
   @override
@@ -25,9 +27,13 @@ class NavigationListItem extends StatelessWidget {
           ],
         ),
         child: ListTile(
+          leading: icon,
           title: Text(
             title,
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                color: AppColor.vulcan,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ),
@@ -62,7 +68,10 @@ class NavigationSubListItem extends StatelessWidget {
           contentPadding: EdgeInsets.symmetric(horizontal: Sizes.dimen_32.w),
           title: Text(
             title,
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.subtitle1!.copyWith(
+              fontWeight: FontWeight.w500,
+              color: AppColor.vulcan
+            ),
           ),
         ),
       ),

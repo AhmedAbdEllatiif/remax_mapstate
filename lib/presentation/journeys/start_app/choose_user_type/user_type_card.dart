@@ -32,25 +32,26 @@ class UserTypeCard extends StatelessWidget {
         _navigateToLoginScreen(context);
       },
       child: Card(
-        //color: AppColors.darkGray,
+        color: AppColor.vulcan,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Sizes.dimen_16.w)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(
               Icons.person,
-              color: AppColor.vulcan,
+              color: AppColor.white,
             ),
             const SizedBox(
               height: 10,
             ),
             Text(
               currentUserEntity.userType.toShortString().t(context).toUpperCase(),
-              style: const TextStyle(color: AppColor.vulcan),
+              style: const TextStyle(color: AppColor.white),
             ),
           ],
         ),
-        elevation: 5,
+        elevation: 15,
+        shadowColor: AppColor.vulcan,
       ),
     );
   }

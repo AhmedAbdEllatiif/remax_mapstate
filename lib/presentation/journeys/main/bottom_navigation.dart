@@ -39,9 +39,13 @@ class BottomNavigation extends StatelessWidget {
         return BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             //To stop animation
-            backgroundColor: AppColor.vulcan,
-            selectedItemColor: Colors.white,
+            backgroundColor: AppColor.white,
+            selectedItemColor: AppColor.vulcan,
+            unselectedItemColor: AppColor.fadeVulcan,
             showUnselectedLabels: false,
+            selectedLabelStyle: const TextStyle(
+              fontWeight: FontWeight.w600,
+            ),
             currentIndex: state.index,
             onTap: (index) {
               /// To navigate if any user exists

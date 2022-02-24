@@ -8,6 +8,7 @@ import 'package:remax_mapstate/presentation/cubit/change_login_view/change_login
 import 'package:remax_mapstate/presentation/cubit/count_down_cubit/count_down_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/login/phone_num.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/login/pin_code/otp_verification.dart';
+import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -58,6 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: WillPopScope(
         onWillPop:()=> _willPopScopeCall(context),
         child: Scaffold(
+          backgroundColor: AppColor.bgGray,
           appBar: AppBar(
             centerTitle: true,
             title: Text(

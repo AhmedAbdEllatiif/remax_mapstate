@@ -4,6 +4,7 @@ import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
+import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 
 import '../../../../bloc/login/login_bloc.dart';
 
@@ -22,7 +23,7 @@ class EnterCodeWithPhoneNumberText extends StatelessWidget {
             children: [
               Text(
                 TranslateConstants.enterTheCode.t(context) + "  ",
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.subtitle1!.copyWith(color: AppColor.vulcan),
                 textAlign: TextAlign.center,
               ),
               Directionality(
@@ -32,7 +33,7 @@ class EnterCodeWithPhoneNumberText extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .subtitle2!
-                      .copyWith(fontWeight: FontWeight.bold),
+                      .copyWith(color: AppColor.vulcan,fontWeight: FontWeight.bold),
                 ),
               )
             ],

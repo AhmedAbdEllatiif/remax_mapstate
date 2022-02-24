@@ -31,12 +31,18 @@ class AreaSectionWidget extends StatelessWidget {
                   children: [
                     Text(
                       TranslateConstants.findByArea.t(context),
-                      style: Theme.of(context).textTheme.whiteSubtitle1,
+                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                        color: AppColor.vulcan,
+                        fontWeight: FontWeight.w600
+                      ),
                     ),
 
                     Text(
                       TranslateConstants.seeAll.t(context),
-                      style: Theme.of(context).textTheme.whiteSubtitle1,
+                      style: Theme.of(context).textTheme.whiteSubtitle1.copyWith(
+                          color: AppColor.vulcan,
+                        fontWeight: FontWeight.w600
+                      ),
                     ),
                   ],
                 ),

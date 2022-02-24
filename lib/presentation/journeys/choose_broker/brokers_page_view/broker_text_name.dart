@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/presentation/cubit/broker_changed/broker_changed_cubit.dart';
+import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 
 class BrokerTextName extends StatelessWidget {
   const BrokerTextName({Key? key}) : super(key: key);
@@ -15,7 +16,9 @@ class BrokerTextName extends StatelessWidget {
             textAlign: TextAlign.center,
             maxLines: 1,
             overflow: TextOverflow.fade,
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.headline6!.copyWith(
+              color: AppColor.vulcan
+            ),
           );
         }
         return const SizedBox.shrink();

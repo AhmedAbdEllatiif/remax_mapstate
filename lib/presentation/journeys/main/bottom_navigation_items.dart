@@ -12,7 +12,6 @@ class BottomNavigationItems{
       BottomNavigationBarItem(
         icon: const Icon(Icons.home_outlined),
         label: TranslateConstants.home.t(context),
-
       ),
 
 

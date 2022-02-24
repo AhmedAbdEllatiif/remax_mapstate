@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
+import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 class ProjectDataItemCard extends StatelessWidget {
 
@@ -18,12 +19,16 @@ class ProjectDataItemCard extends StatelessWidget {
         children: [
           Text(
             title,
-            style: Theme.of(context).textTheme.geryCaption,
+            style: Theme.of(context).textTheme.caption!.copyWith(
+              color: AppColor.vulcan
+            ),
           ),
 
           Text(
             data,
-            style: Theme.of(context).textTheme.whiteSubtitle1,
+            style: Theme.of(context).textTheme.subtitle1!.copyWith(
+          color: AppColor.fadeVulcan
+            ),
           ),
         ],
       ),

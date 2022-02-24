@@ -5,6 +5,8 @@ import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/presentation/cubit/residential_projects/residential_projects_cubit.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
+import '../../themes/theme_color.dart';
+
 class UnitTypeCardWidget extends StatelessWidget {
   const UnitTypeCardWidget({Key? key}) : super(key: key);
 
@@ -16,6 +18,7 @@ class UnitTypeCardWidget extends StatelessWidget {
         BlocProvider.of<ResidentialCubit>(context).loadProjects(0);
       },
       child: Card(
+        elevation: 10,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(Sizes.dimen_12.w))
         ),
