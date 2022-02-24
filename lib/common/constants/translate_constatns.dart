@@ -55,6 +55,7 @@ class TranslateConstants{
   static const String tryAgainAfter = 'tryAgainAfter';
   static const String login = 'login';
   static const String selectYourBroker = 'selectYourBroker';
+  static const String contactWithDeveloper = 'contactWithDeveloper';
   static const String test = 'test';
 
 }

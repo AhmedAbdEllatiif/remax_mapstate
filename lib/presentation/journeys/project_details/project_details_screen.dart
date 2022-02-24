@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
-import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/avatar_name_section.dart';
-import 'package:remax_mapstate/presentation/journeys/project_details/expansion_item.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/layout_section.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/overview_section.dart';
 
@@ -15,12 +12,8 @@ import 'package:remax_mapstate/presentation/journeys/project_details/project_ima
 import 'package:remax_mapstate/presentation/journeys/project_details/project_section.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/services.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/starting_price_section.dart';
-import 'package:remax_mapstate/presentation/widgets/app_button.dart';
-import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 
-import 'package:remax_mapstate/router/route_hepler.dart';
-
-import '../choose_broker/arguments/choose_broker_argument.dart';
+import 'buttons_section.dart';
 
 class ProjectDetailsScreen extends StatefulWidget {
   final ProjectDetailsArgument projectDetailsArgument;
@@ -120,33 +113,11 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
             ),
 
             /// Submit Inquiry Button
-            Positioned(
+            const Positioned(
               bottom: 0.0,
               right: 0.0,
               left: 0.0,
-              child: Container(
-                color: AppColor.vulcan,
-                padding: EdgeInsets.symmetric(vertical: Sizes.dimen_10.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    AppButton(
-                      text: TranslateConstants.submitInquiry.t(context),
-                      onPressed: () {},
-                    ),
-                    AppButton(
-                      text: TranslateConstants.selectYourBroker.t(context),
-                      reverseGradient: true,
-                      onPressed: () =>
-                          RouteHelper().chooseBrokerScreen(
-                        context,
-                        chooseBrokerArgument:
-                            const ChooseBrokerArgument(areaId: "0"),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              child: ButtonSection(),
             ),
           ],
         ));
