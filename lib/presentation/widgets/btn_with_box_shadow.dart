@@ -4,8 +4,8 @@ import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
-import '../../../../../common/constants/sizes.dart';
-import '../../../../themes/theme_color.dart';
+import '../../common/constants/sizes.dart';
+import '../themes/theme_color.dart';
 
 class ButtonWithBoxShadow extends StatelessWidget {
   final Function() onPressed;

@@ -7,7 +7,7 @@ import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/presentation/bloc/login/login_bloc.dart';
 import 'package:remax_mapstate/presentation/cubit/auto_login/auto_login_cubit.dart';
-import 'package:remax_mapstate/presentation/journeys/start_app/login/pin_code/btn_with_box_shadow.dart';
+import 'package:remax_mapstate/presentation/widgets/btn_with_box_shadow.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/login/pin_code/didnot_receive_pin_code_text.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/login/pin_code/enter_code_with_phone_number_text.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/login/pin_code/pin_code_form.dart';

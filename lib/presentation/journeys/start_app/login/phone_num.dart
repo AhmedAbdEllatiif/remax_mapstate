@@ -9,7 +9,7 @@ import 'package:remax_mapstate/domain/entities/params/login_params.dart';
 import 'package:remax_mapstate/presentation/bloc/login/login_bloc.dart';
 import 'package:remax_mapstate/presentation/cubit/change_login_view/change_login_view_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/login/phone_num_animation.dart';
-import 'package:remax_mapstate/presentation/journeys/start_app/login/pin_code/btn_with_box_shadow.dart';
+import 'package:remax_mapstate/presentation/widgets/btn_with_box_shadow.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 
 import '../../../../common/constants/assets_constants.dart';

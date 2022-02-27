@@ -7,6 +7,7 @@ import 'package:remax_mapstate/domain/entities/current_user.dart';
 import 'package:remax_mapstate/presentation/cubit/navigation/navigation_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/calculator_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/favorite/favorite_screen.dart';
+import 'package:remax_mapstate/presentation/journeys/not_user_login_first/not_a_user_login_first_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/profile/profile_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/support/support_screen.dart';
 import '../../../common/enums/user_types.dart';
@@ -84,6 +85,9 @@ class _MainScreenState extends State<MainScreen> {
                }
                else if (state is CalculatorState) {
                  return const CalculatorScreen();
+               }
+               else if (state is NotAUser) {
+                 return const NotAUserLoginFirstScreen();
                }
 
                else {

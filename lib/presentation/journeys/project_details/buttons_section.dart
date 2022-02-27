@@ -5,7 +5,6 @@ import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_developer.dart';
 import 'package:remax_mapstate/presentation/cubit/current_user/current_user_cubit.dart';
-import 'package:remax_mapstate/presentation/cubit/current_user/current_user_cubit.dart';
 
 import '../../../common/constants/sizes.dart';
 import '../../../common/constants/translate_constatns.dart';
@@ -28,8 +27,24 @@ class ButtonSection extends StatelessWidget {
       builder: (context, currentUserTable) {
         final currentUser = currentUserType(currentUserTable);
 
-        /// if client, tour or noUser
-        if(currentUser == UserType.client || currentUser == UserType.tour || currentUser == UserType.noUser){
+
+        ///  tour or noUser
+        if(currentUser == UserType.tour || currentUser == UserType.noUser){
+          return Container(
+            color: AppColor.vulcan,
+            padding: EdgeInsets.symmetric(vertical: Sizes.dimen_5.h,horizontal: Sizes.dimen_16.w,),
+            child:AppButtonGradient(
+              text: TranslateConstants.login.t(context).toUpperCase(),
+              onPressed: () {
+                RouteHelper().chooseUserTypeScreen(context, isClearStack: true);
+              },
+            ),
+          );
+        }
+
+
+        /// client
+        if(currentUser == UserType.client ){
           return Container(
             color: AppColor.vulcan,
             padding: EdgeInsets.symmetric(vertical: Sizes.dimen_5.h),
@@ -55,7 +70,7 @@ class ButtonSection extends StatelessWidget {
           );
         }
 
-        /// if broker or ambassador
+        /// broker or ambassador
         if(currentUser == UserType.broker || currentUser == UserType.ambassador){
           return Container(
             color: AppColor.vulcan,

@@ -28,4 +28,5 @@ class AssetsConstants{
   static const String otpLotti = "${_jsonPath}otp.json";
   static const String phoneNumLotti = "${_jsonPath}phone_number_animation.json";
   static const String chooseUserLotti = "${_jsonPath}choose_user_animation.json";
+  static const String notUserAnimation = "${_jsonPath}not_user.json";
 }
