@@ -131,8 +131,9 @@ class ProjectApiRepoImpl extends ApiRepo {
   @override
   Future<Either<AppError, ContactDeveloperEntity>> getDeveloperContact(int developerId) async {
     try {
-      final developerData = await remoteDataSource.getDeveloperContact(developerId);
-      return Right(developerData);
+      final developerDataModel = await remoteDataSource.getDeveloperContact(developerId);
+      final contactDeveloperEntity = ContactDeveloperEntity.fromContactDeveloperModel(developerDataModel);
+      return Right(contactDeveloperEntity);
     } on SocketException catch(e){
       return Left(AppError(AppErrorType.network,message: e.message));
     }

@@ -56,6 +56,15 @@ class TranslateConstants{
   static const String login = 'login';
   static const String selectYourBroker = 'selectYourBroker';
   static const String contactWithDeveloper = 'contactWithDeveloper';
+  static const String welcomeWhatsappText = 'welcomeWhatsappText';
+  static const String defaultBrokerWhatsappText = 'defaultBrokerWhatsappText';
+  static const String defaultClientWhatsappText = 'defaultClientWhatsappText';
+  static const String contactWith = 'contactWith';
+  static const String location = 'location';
+  static const String whatsapp = 'whatsapp';
+  static const String getDirections = 'getDirections';
+  static const String friendlyPhoneCall = 'friendlyPhoneCall';
+  static const String headOffice = 'headOffice';
   static const String test = 'test';
 
 }

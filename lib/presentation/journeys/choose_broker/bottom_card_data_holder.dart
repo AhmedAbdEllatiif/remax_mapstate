@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
+import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
+import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/presentation/cubit/broker_changed/broker_changed_cubit.dart';
 
 import 'broker_data_widget.dart';
-import 'contact_info_widget.dart';
+import '../../widgets/contact_info_widget.dart';
 
 class BottomCardDataHolder extends StatelessWidget {
   const BottomCardDataHolder({Key? key}) : super(key: key);
@@ -59,6 +61,15 @@ class BottomCardDataHolder extends StatelessWidget {
                 ContactInfoWidget(
                   phoneNum: currentBroker.whatsappNum,
                   whatsapp: currentBroker.phoneNum,
+                  onWhatsappPressed: () {
+                    context.read<BrokerChangedCubit>().openWhatsApp(
+                        welcomeText:
+                            TranslateConstants.welcomeWhatsappText.t(context),
+                        text: TranslateConstants.defaultClientWhatsappText.t(context),);
+                  },
+                  onCallPressed: () {
+
+                  },
                 ),
               ],
             );

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-enum AppErrorType{ api ,network,localDB,sharedPreferences,validation}
+enum AppErrorType{ api ,network,localDB,sharedPreferences,validation,canNotMakePhoneCall,canOpenWhatsapp}
 
 class AppError extends Equatable{
 

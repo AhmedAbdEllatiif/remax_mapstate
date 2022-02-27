@@ -8,6 +8,7 @@ import 'package:remax_mapstate/data/repositories/app_settings_repository_impl.da
 import 'package:remax_mapstate/data/repositories/loca_repository_impl.dart';
 import 'package:remax_mapstate/data/repositories/project_api_repo_impl.dart';
 import 'package:remax_mapstate/domain/repositories/api_repository.dart';
+import 'package:remax_mapstate/domain/repositories/app_repository.dart';
 import 'package:remax_mapstate/domain/repositories/app_settings_repository.dart';
 import 'package:remax_mapstate/domain/repositories/local_repository.dart';
 import 'package:remax_mapstate/domain/use_cases/get_area_brokers.dart';
@@ -49,6 +50,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../domain/use_cases/local_usecases/auto_login/delete_auto_login.dart';
 import '../domain/use_cases/local_usecases/auto_login/get_auto_login.dart';
 import '../domain/use_cases/local_usecases/auto_login/save_auto_login.dart';
+import '../domain/use_cases/make_phone_call.dart';
+import '../domain/use_cases/open_map.dart';
+import '../domain/use_cases/open_whats_app.dart';
 import '../presentation/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
 import '../presentation/cubit/current_user/current_user_cubit.dart';
 
@@ -85,6 +89,11 @@ Future init() async {
     () => ProjectApiRepoImpl(
       remoteDataSource: getItInstance(),
     ),
+  );
+
+  /// Instance of ProjectsApiRepo
+  getItInstance.registerLazySingleton<AppRepository>(
+        () => AppRepository(),
   );
 
   ///********************************** Local_Repositories *********************************************\\\
@@ -172,6 +181,31 @@ Future init() async {
     ),
   );
 
+  /// OpenWhatsappCase
+  getItInstance.registerLazySingleton<OpenWhatsappCase>(
+        () => OpenWhatsappCase(
+      appRepository: getItInstance(),
+    ),
+  );
+
+
+  /// OpenMapCase
+  getItInstance.registerLazySingleton<OpenMapCase>(
+        () => OpenMapCase(
+      appRepository: getItInstance(),
+    ),
+  );
+
+
+
+  /// MakePhoneCallCase
+  getItInstance.registerLazySingleton<MakePhoneCallCase>(
+        () => MakePhoneCallCase(
+      appRepository: getItInstance(),
+    ),
+  );
+
+
   ///********************************** Local_Use_Cases *********************************************\\\
 
   /// GetPreferredLanguage
@@ -230,7 +264,10 @@ Future init() async {
 
   /// init BrokerChangeCubit
   getItInstance.registerFactory<BrokerChangedCubit>(
-    () => BrokerChangedCubit(),
+    () => BrokerChangedCubit(
+      openWhatsappCase: getItInstance(),
+      makePhoneCallCase: getItInstance(),
+    ),
   );
 
   /// init ResidentialProjectsCubit
@@ -270,6 +307,9 @@ Future init() async {
   getItInstance.registerFactory<DeveloperContactCubit>(
     () => DeveloperContactCubit(
       getDeveloperContactCase: getItInstance(),
+      makePhoneCallCase: getItInstance(),
+      openMapCase: getItInstance(),
+      openWhatsappCase: getItInstance(),
     ),
   );
 

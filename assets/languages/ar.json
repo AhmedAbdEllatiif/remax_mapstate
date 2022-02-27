@@ -33,7 +33,7 @@
   "enjoyATour": "استمتع بجولة",
   "selectUserType": "حدد المستخدم",
   "client": "عميل",
-  "broker": "مسوق",
+  "broker": "وسيط",
   "ambassador": "سفير",
   "searchCountryLabel": "ابحث عن طريق الرمز أو الدولة",
   "enterTheCode": "أدخل الرمز المرسل إلى ",
@@ -50,8 +50,15 @@
   "login": "تسجيل الدخول",
   "selectYourBroker": "اختر وسيطك",
   "contactWithDeveloper": "تواصل مع المطور",
-
-
+  "welcomeWhatsappText": "مرحبا",
+  "defaultBrokerWhatsappText": "أنا وسيط من تطبيق Mapstate ، أريد أن أطرح عليك بعض الأسئلة >>",
+  "defaultClientWhatsappText": "أنا عميل من تطبيق Mapstate ، أريد أن أطرح عليك بعض الأسئلة >>",
+  "contactWith": "تواصل مع",
+  "location": "موقع",
+  "whatsapp": "واتس اب",
+  "friendlyPhoneCall": "مكالمة هاتفية",
+  "getDirections": "الموقع على الخريطة",
+  "headOffice": "المكتب الرئيسي",
 
   "arabic": "العربية",
   "english": "English",

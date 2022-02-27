@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
+import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/domain/entities/contact_developer.dart';
 import 'package:remax_mapstate/presentation/journeys/developer_contact/developer_data_item.dart';
 
 import '../../../common/constants/sizes.dart';
-import '../choose_broker/contact_info_widget.dart';
+import '../../cubit/developer_contact/developer_contact_cubit.dart';
+import '../../widgets/contact_info_widget.dart';
+import 'location_data_item.dart';
 
 class ContactDataCard extends StatelessWidget {
   final ContactDeveloperEntity contactDeveloperEntity;
@@ -25,31 +30,25 @@ class ContactDataCard extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
-
-
               /// firstName
               DeveloperDataItem(
-                dataKey: 'Name',
+                dataKey: TranslateConstants.contactWith.t(context),
                 value: contactDeveloperEntity.empSecondName != null
                     ? contactDeveloperEntity.empFirstName +
                         " " +
                         contactDeveloperEntity.empSecondName!
                     : contactDeveloperEntity.empFirstName,
-                isLocation: false,
               ),
 
               const SizedBox(
                 height: 15,
               ),
 
-
               /// Location
               //if(contactDeveloperEntity.developerLocation != null)
-              const DeveloperDataItem(
-                dataKey: 'Location',
-                value: 'Get Directions',
-                isLocation: true,
+              LocationDataItem(
+                dataKey: contactDeveloperEntity.developerName,
+                value: TranslateConstants.getDirections.t(context),
               ),
 
               const SizedBox(
@@ -60,6 +59,17 @@ class ContactDataCard extends StatelessWidget {
               ContactInfoWidget(
                 phoneNum: contactDeveloperEntity.empPhoneNum,
                 whatsapp: contactDeveloperEntity.empPhoneNum,
+                onWhatsappPressed: () {
+                  context.read<DeveloperContactCubit>().openWhatsApp(
+                        welcomeText:
+                            TranslateConstants.welcomeWhatsappText.t(context),
+                        text: TranslateConstants.defaultBrokerWhatsappText
+                            .t(context),
+                      );
+                },
+                onCallPressed: () {
+                  context.read<DeveloperContactCubit>().makePhoneCall();
+                },
               ),
             ],
           ),

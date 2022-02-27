@@ -68,63 +68,66 @@ class _ChooseBrokerScreenState extends State<ChooseBrokerScreen> {
           title: const Text("Brokers"),
         ),
 
-        body: BlocConsumer<AreaBrokersBloc, AreaBrokersState>(
-          /// listener on AreaBrokersBloc
-          listener: (context, state) {
-            if (state is AreaBrokersLoadedState) {
-              /// add change broker to show BottomCardDataHolder with current broker
-              brokerChangedCubit.changeBroker(state.brokers[0]);
-            }
-          },
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: BlocConsumer<AreaBrokersBloc, AreaBrokersState>(
+            /// listener on AreaBrokersBloc
+            listener: (context, state) {
+              if (state is AreaBrokersLoadedState) {
+                /// add change broker to show BottomCardDataHolder with current broker
+                brokerChangedCubit.changeBroker(state.brokers[0]);
+              }
+            },
 
-          /// builder of AreaBrokersBloc
-          builder: (context, state) {
-            /// loading
-            if (state is AreaBrokersLoadingState) {
-              return const Center(child: LoadingAnimationWidget());
-            }
+            /// builder of AreaBrokersBloc
+            builder: (context, state) {
+              /// loading
+              if (state is AreaBrokersLoadingState) {
+                return const Center(child: LoadingAnimationWidget());
+              }
 
-            /// empty list
-            if (state is NoBrokerInArea) {
-              return const Center(
-                child: EmptyListWidget(text: 'No Brokers to show'),
-              );
-            }
+              /// empty list
+              if (state is NoBrokerInArea) {
+                return const Center(
+                  child: EmptyListWidget(text: 'No Brokers to show'),
+                );
+              }
 
-            /// error
-            if (state is AreaBrokersErrorState) {
-              return Center(
-                child: Text(
-                  'Error: ${state.appError.appErrorType} , Message: ${state.appError.message}',
-                ),
-              );
-            }
-
-            /// loaded
-            if (state is AreaBrokersLoadedState) {
-              final brokers = state.brokers;
-              return Column(
-                children: [
-                  /// PageView with brokers images
-                  TopBrokersPageViewWidget(
-                    brokers: brokers,
-                    pageController: _pageController,
+              /// error
+              if (state is AreaBrokersErrorState) {
+                return Center(
+                  child: Text(
+                    'Error: ${state.appError.appErrorType} , Message: ${state.appError.message}',
                   ),
+                );
+              }
 
-                  /// BottomCardDataHolder
-                  Container(
-                    width: ScreenUtil.screenWidth * _cardWidthRatio(context),
-                    height: ScreenUtil.screenHeight * 0.35,
-                    margin: EdgeInsets.only(top: Sizes.dimen_20.w),
-                    child: const BottomCardDataHolder(),
-                  ),
-                ],
-              );
-            }
+              /// loaded
+              if (state is AreaBrokersLoadedState) {
+                final brokers = state.brokers;
+                return Column(
+                  children: [
+                    /// PageView with brokers images
+                    TopBrokersPageViewWidget(
+                      brokers: brokers,
+                      pageController: _pageController,
+                    ),
 
-            /// nothing to show
-            return const Center(child: SizedBox.shrink());
-          },
+                    /// BottomCardDataHolder
+                    Container(
+                      width: ScreenUtil.screenWidth * _cardWidthRatio(context),
+                      height: ScreenUtil.screenHeight * 0.35,
+                      margin: EdgeInsets.only(top: Sizes.dimen_20.w),
+                      child: const BottomCardDataHolder(),
+                    ),
+                  ],
+                );
+              }
+
+              /// nothing to show
+              return const Center(child: SizedBox.shrink());
+            },
+          ),
         ),
       ),
     );

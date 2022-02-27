@@ -3,7 +3,6 @@ import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 
 import '../../../common/constants/assets_constants.dart';
 import '../../../common/constants/sizes.dart';
-import '../../../common/screen_utils/screen_util.dart';
 
 class DeveloperContactImage extends StatelessWidget {
   final String imageUrl;
@@ -27,7 +26,7 @@ class DeveloperContactImage extends StatelessWidget {
           },
         ),
         /*CachedNetworkImage(
-          imageUrl: '${ApiConstants.BASE_IMAGE_URL}$posterPath',
+          imageUrl: 'http://109.205.183.245:8000/media/United%20Development%20Group%20(UDG)/karim_udg.jpg',
           fit: BoxFit.cover,
         ),*/
         /*child: Image.network(

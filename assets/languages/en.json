@@ -53,6 +53,16 @@
   "login": "Login",
   "selectYourBroker": "Select your broker",
   "contactWithDeveloper": "Contact with developer",
+  "welcomeWhatsappText": "Hey",
+  "defaultBrokerWhatsappText": "I'm a broker from Mapstate app, I want to ask you some questions >>",
+  "defaultClientWhatsappText": "I'm a Client from Mapstate app, I want to ask you some questions >>",
+  "contactWith": "Contact with",
+  "location": "Location",
+  "whatsapp": "Whatsapp",
+  "friendlyPhoneCall": "Friendly Phone call",
+  "getDirections": "Get Directions",
+  "headOffice": "Head office",
+
 
 
   "arabic": "العربية",

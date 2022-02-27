@@ -1,8 +1,8 @@
 part of 'broker_changed_cubit.dart';
 
 abstract class BrokerChangedState extends Equatable {
-
-  const BrokerChangedState();
+  final BrokerEntity? brokerEntity;
+  const BrokerChangedState({this.brokerEntity});
 
   @override
   List<Object?> get props => [];

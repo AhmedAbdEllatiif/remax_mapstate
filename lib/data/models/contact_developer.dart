@@ -3,7 +3,8 @@ import 'package:remax_mapstate/domain/entities/contact_developer.dart';
 class ContactDeveloperModel extends ContactDeveloperEntity {
   final int id;
   final String developerName;
-  final String? developerLocation;
+  final double? latitude;
+  final double? longitude;
   final String empFirstName;
   final String? empSecondName;
   final String empPhoneNum;
@@ -12,7 +13,8 @@ class ContactDeveloperModel extends ContactDeveloperEntity {
   const ContactDeveloperModel({
     required this.id,
     required this.developerName,
-    this.developerLocation,
+    required this.latitude,
+    required this.longitude,
     required this.empFirstName,
     this.empSecondName,
     required this.empPhoneNum,
@@ -20,11 +22,9 @@ class ContactDeveloperModel extends ContactDeveloperEntity {
   }) : super(
           id: id,
           developerName: developerName,
-          developerLocation: developerLocation,
           empFirstName: empFirstName,
           empSecondName: empSecondName,
           empPhoneNum: empPhoneNum,
           image: image,
-
         );
 }

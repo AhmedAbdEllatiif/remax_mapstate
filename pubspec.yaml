@@ -104,6 +104,12 @@ dependencies:
   # shared_preferences
   shared_preferences: ^2.0.13
 
+  # url_launcher
+  url_launcher: ^6.0.20
+
+  # map_launcher
+  map_launcher: ^2.2.1+1
+
   # wiredash
   #wiredash: ^0.7.0+1
 
