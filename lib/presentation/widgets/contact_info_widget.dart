@@ -4,6 +4,7 @@ import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
+import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
 
@@ -31,16 +32,14 @@ class ContactInfoWidget extends StatelessWidget {
                 TranslateConstants.whatsapp.t(context),
                 style: Theme.of(context).textTheme.geryCaption,
               ),
-              GestureDetector(
-                onTap: onWhatsappPressed,
-                child: Container(
-                  height: Sizes.dimen_30.w,
-                  margin: EdgeInsets.only(top: Sizes.dimen_10.w),
-                  child: Image.asset(
-                    AssetsConstants.whatsapp,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+              IconButton(
+                iconSize: Sizes.dimen_14.h ,
+                splashColor: AppColor.vulcan,
+                splashRadius:Sizes.dimen_22.w,
+                icon: Image.asset(
+                  AssetsConstants.whatsapp,
+                  fit: BoxFit.cover,
+                ), onPressed: onWhatsappPressed,
               ),
             ],
           ),
@@ -52,17 +51,17 @@ class ContactInfoWidget extends StatelessWidget {
               TranslateConstants.friendlyPhoneCall.t(context),
               style: Theme.of(context).textTheme.geryCaption,
             ),
-            GestureDetector(
-              onTap: onCallPressed,
-              child: Container(
-                height: Sizes.dimen_30.w,
-                margin: EdgeInsets.only(top: Sizes.dimen_10.w),
-                child: Image.asset(
-                  AssetsConstants.phoneCall,
-                  fit: BoxFit.cover,
-                ),
-              ),
+
+            IconButton(
+              iconSize: Sizes.dimen_14.h ,
+              splashColor: AppColor.vulcan,
+              splashRadius:Sizes.dimen_22.w,
+              icon: Image.asset(
+                AssetsConstants.phoneCall,
+                fit: BoxFit.cover,
+              ), onPressed: onCallPressed,
             ),
+
           ],
         ),
       ],
