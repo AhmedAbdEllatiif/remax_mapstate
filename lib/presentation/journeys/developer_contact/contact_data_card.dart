@@ -45,14 +45,14 @@ class ContactDataCard extends StatelessWidget {
               ),
 
               /// Location
-              //if(contactDeveloperEntity.developerLocation != null)
+              if(contactDeveloperEntity.mapEntity != null)
               LocationDataItem(
                 dataKey: contactDeveloperEntity.developerName,
                 value: TranslateConstants.getDirections.t(context),
               ),
 
-              const SizedBox(
-                height: 30,
+              SizedBox(
+                height: Sizes.dimen_8.h,
               ),
 
               /// contact info

@@ -48,6 +48,7 @@ class LocationDataItem extends StatelessWidget {
               padding: const EdgeInsets.all(Sizes.dimen_6),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     value,
