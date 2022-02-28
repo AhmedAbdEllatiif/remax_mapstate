@@ -13,7 +13,7 @@ class TranslateConstants{
   static const String retry = 'retry';
 
   static const String home = 'home';
-  static const String support = 'support';
+  static const String teamSupport = 'teamSupport';
   static const String favorite = 'favorite';
   static const String profile = 'profile';
   static const String calculator = 'calculator';

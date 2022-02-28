@@ -48,7 +48,7 @@ class BottomNavigationItems{
 
         BottomNavigationBarItem(
             icon: const Icon(Icons.support_outlined),
-            label: TranslateConstants.support.t(context),
+            label: TranslateConstants.teamSupport.t(context),
            ),
 
 

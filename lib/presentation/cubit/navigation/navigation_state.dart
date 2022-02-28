@@ -30,7 +30,7 @@ class SupportState extends NavigationState {
 
   const SupportState({
     required this.index,
-  }) : super(TranslateConstants.support, index);
+  }) : super(TranslateConstants.teamSupport, index);
 
   @override
   List<Object> get props => [title, index];
