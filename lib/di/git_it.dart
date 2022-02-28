@@ -15,6 +15,7 @@ import 'package:remax_mapstate/domain/use_cases/get_area_brokers.dart';
 import 'package:remax_mapstate/domain/use_cases/get_areas.dart';
 import 'package:remax_mapstate/domain/use_cases/get_commercial_projects.dart';
 import 'package:remax_mapstate/domain/use_cases/get_developer_contact.dart';
+import 'package:remax_mapstate/domain/use_cases/get_team_support.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/current_user/get_current_user.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/current_user/update_current_user.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/get_preferred_language.dart';
@@ -45,6 +46,7 @@ import 'package:remax_mapstate/presentation/cubit/language/language_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/navigation/navigation_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/project_scrollable_indicator/indicator_position_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/residential_projects/residential_projects_cubit.dart';
+import 'package:remax_mapstate/presentation/cubit/team_support/team_support_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../domain/use_cases/local_usecases/auto_login/delete_auto_login.dart';
@@ -93,7 +95,7 @@ Future init() async {
 
   /// Instance of ProjectsApiRepo
   getItInstance.registerLazySingleton<AppRepository>(
-        () => AppRepository(),
+    () => AppRepository(),
   );
 
   ///********************************** Local_Repositories *********************************************\\\
@@ -183,28 +185,31 @@ Future init() async {
 
   /// OpenWhatsappCase
   getItInstance.registerLazySingleton<OpenWhatsappCase>(
-        () => OpenWhatsappCase(
+    () => OpenWhatsappCase(
       appRepository: getItInstance(),
     ),
   );
-
 
   /// OpenMapCase
   getItInstance.registerLazySingleton<OpenMapCase>(
-        () => OpenMapCase(
+    () => OpenMapCase(
       appRepository: getItInstance(),
     ),
   );
-
-
 
   /// MakePhoneCallCase
   getItInstance.registerLazySingleton<MakePhoneCallCase>(
-        () => MakePhoneCallCase(
+    () => MakePhoneCallCase(
       appRepository: getItInstance(),
     ),
   );
 
+  /// GetTeamSupportCase
+  getItInstance.registerLazySingleton<GetTeamSupportCase>(
+    () => GetTeamSupportCase(
+      apiRepo: getItInstance(),
+    ),
+  );
 
   ///********************************** Local_Use_Cases *********************************************\\\
 
@@ -310,6 +315,15 @@ Future init() async {
       makePhoneCallCase: getItInstance(),
       openMapCase: getItInstance(),
       openWhatsappCase: getItInstance(),
+    ),
+  );
+
+  /// init TeamSupportCubit
+  getItInstance.registerSingleton<TeamSupportCubit>(
+    TeamSupportCubit(
+      openWhatsappCase: getItInstance(),
+      makePhoneCallCase: getItInstance(),
+      getTeamSupportCase: getItInstance(),
     ),
   );
 

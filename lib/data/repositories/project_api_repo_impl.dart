@@ -9,6 +9,7 @@ import 'package:remax_mapstate/domain/entities/broker_entity.dart';
 import 'package:remax_mapstate/domain/entities/contact_developer.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
+import 'package:remax_mapstate/domain/entities/team_support_entity.dart';
 import 'package:remax_mapstate/domain/entities/unit_type_entity.dart';
 import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 
@@ -134,6 +135,21 @@ class ProjectApiRepoImpl extends ApiRepo {
       final developerDataModel = await remoteDataSource.getDeveloperContact(developerId);
       final contactDeveloperEntity = ContactDeveloperEntity.fromContactDeveloperModel(developerDataModel);
       return Right(contactDeveloperEntity);
+    } on SocketException catch(e){
+      return Left(AppError(AppErrorType.network,message: e.message));
+    }
+    on Exception catch (e) {
+      return Left(AppError(AppErrorType.api,message: e.toString()));
+    }
+  }
+
+  /// return team support data
+  @override
+  Future<Either<AppError, TeamSupportEntity>> getTeamSupport() async {
+    try {
+      final teamSupportModel = await remoteDataSource.getTeamSupport();
+      final teamSupportEntity = teamSupportModel;
+      return Right(teamSupportEntity);
     } on SocketException catch(e){
       return Left(AppError(AppErrorType.network,message: e.message));
     }

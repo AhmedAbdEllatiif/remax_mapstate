@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/data/tables/current_user_table.dart';
 import 'package:remax_mapstate/di/git_it.dart';
@@ -9,15 +8,13 @@ import 'package:remax_mapstate/presentation/journeys/calculator/calculator_scree
 import 'package:remax_mapstate/presentation/journeys/favorite/favorite_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/not_user_login_first/not_a_user_login_first_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/profile/profile_screen.dart';
-import 'package:remax_mapstate/presentation/journeys/support/support_screen.dart';
-import '../../../common/enums/user_types.dart';
+import 'package:remax_mapstate/presentation/journeys/team_support/team_support_screen.dart';
 import '../../cubit/current_user/current_user_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/drawer/navigation_drawer.dart';
 import 'package:remax_mapstate/presentation/journeys/home/home_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/main/bottom_navigation.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 
-import 'main_app_bar.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -34,13 +31,11 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    print("MainScreen >> initState is Here");
     navigationCubit = getItInstance<NavigationCubit>();
   }
 
   @override
   void dispose() {
-    print("MainScreen >> Dispose is Here");
     navigationCubit.close();
     super.dispose();
   }
@@ -78,7 +73,7 @@ class _MainScreenState extends State<MainScreen> {
                  return const FavoriteScreen();
                }
                else if (state is SupportState) {
-                 return const SupportScreen();
+                 return const TeamSupportScreen();
                }
                else if (state is ProfileState) {
                  return const ProfileScreen();

@@ -4,6 +4,7 @@ import 'package:remax_mapstate/data/models/broker_model.dart';
 import 'package:remax_mapstate/data/models/contact_developer.dart';
 import 'package:remax_mapstate/data/models/project_model.dart';
 import 'package:remax_mapstate/data/models/project_status.dart';
+import 'package:remax_mapstate/data/models/team_support_model.dart';
 import 'package:remax_mapstate/data/models/unit_type_model.dart';
 
 abstract class RemoteDataSource {
@@ -30,6 +31,9 @@ abstract class RemoteDataSource {
 
   /// return the developer contact data
   Future<ContactDeveloperModel> getDeveloperContact(int developerId);
+
+  /// return team support data
+  Future<TeamSupportModel> getTeamSupport();
 }
 
 class RemoteDateSourceImpl extends RemoteDataSource {
@@ -112,19 +116,19 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     return [
       const ProjectStatusModel(
           id: 0, name: 'Ready To move', image: AssetsConstants.readyToMove),
-      const ProjectStatusModel(id: 1,
+      const ProjectStatusModel(
+          id: 1,
           name: 'Under Construction',
           image: AssetsConstants.underConstruction),
       const ProjectStatusModel(
           id: 2, name: 'Off Plans', image: AssetsConstants.offPlan),
-
     ];
   }
 
-
   List<BrokerModel> areaBrokers() {
     return const [
-      BrokerModel(id: 0,
+      BrokerModel(
+          id: 0,
           age: 33,
           image: AssetsConstants.person1,
           name: "John",
@@ -132,61 +136,68 @@ class RemoteDateSourceImpl extends RemoteDataSource {
           totalDoneDeals: 50,
           whatsappNum: '+2001124466700',
           phoneNum: '+2001124466700'),
-      BrokerModel(id: 1,
+      BrokerModel(
+          id: 1,
           age: 28,
           image: AssetsConstants.person1,
           name: "Micheal",
           rating: 4.5,
           totalDoneDeals: 180,
-            whatsappNum: '+2001124466700',
+          whatsappNum: '+2001124466700',
           phoneNum: '+2001124466700'),
-      BrokerModel(id: 2,
+      BrokerModel(
+          id: 2,
           age: 33,
           image: AssetsConstants.person1,
           name: "John",
           rating: 3.5,
           totalDoneDeals: 50,
-           whatsappNum: '+2001124466700',
+          whatsappNum: '+2001124466700',
           phoneNum: '+2001124466700'),
-      BrokerModel(id: 3,
+      BrokerModel(
+          id: 3,
           age: 28,
           image: AssetsConstants.person1,
           name: "Micheal",
           rating: 4.5,
           totalDoneDeals: 180,
-           whatsappNum: '+2001124466700',
+          whatsappNum: '+2001124466700',
           phoneNum: '+2001124466700'),
-      BrokerModel(id: 4,
+      BrokerModel(
+          id: 4,
           age: 33,
           image: AssetsConstants.person1,
           name: "John",
           rating: 3.5,
           totalDoneDeals: 50,
-            whatsappNum: '+2001124466700',
+          whatsappNum: '+2001124466700',
           phoneNum: '+2001124466700'),
-      BrokerModel(id: 5,
+      BrokerModel(
+          id: 5,
           age: 28,
           image: AssetsConstants.person1,
           name: "Micheal",
           rating: 4.5,
           totalDoneDeals: 180,
-           whatsappNum: '+2001124466700',
+          whatsappNum: '+2001124466700',
           phoneNum: '+2001124466700'),
-      BrokerModel(id: 6,
+      BrokerModel(
+          id: 6,
           age: 33,
           image: AssetsConstants.person1,
           name: "John",
           rating: 3.5,
           totalDoneDeals: 50,
-           whatsappNum: '+2001124466700',
+          whatsappNum: '+2001124466700',
           phoneNum: '+2001124466700'),
-      BrokerModel(id: 7,
+      BrokerModel(
+          id: 7,
           age: 28,
           image: AssetsConstants.person1,
           name: "Micheal",
           rating: 4.5,
           totalDoneDeals: 180,
-            whatsappNum: '+2001124466700',
+          whatsappNum: '+2001124466700',
           phoneNum: '+2001124466700'),
     ];
   }
@@ -201,31 +212,44 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       const UnitTypeModel(id: 1, name: 'Villa'),
       const UnitTypeModel(id: 2, name: 'Town House'),
       const UnitTypeModel(id: 2, name: 'Duplex'),
-
     ];
   }
 
   ContactDeveloperModel developerContact() {
-    return const ContactDeveloperModel(id: 0,
+    return const ContactDeveloperModel(
+      id: 0,
       developerName: "Mountain View",
       empFirstName: "Jack",
       empSecondName: "Alison",
       latitude: 37.759392,
       longitude: -122.5107336,
       image: AssetsConstants.person2,
-      empPhoneNum: "+2001124466700",);
+      empPhoneNum: "+2001124466700",
+    );
   }
 
   ContactDeveloperModel developerContactWithOutImage() {
-    return const ContactDeveloperModel(id: 1,
+    return const ContactDeveloperModel(
+      id: 1,
       developerName: "Mountain View",
       empFirstName: "Jack",
       empSecondName: "Alison",
       latitude: null,
       longitude: null,
-      empPhoneNum: "+2001124466700",);
+      empPhoneNum: "+2001124466700",
+    );
   }
 
+  TeamSupportModel teamSupportModel() {
+    return const TeamSupportModel(
+      id: 0,
+      firstName: "Haytham",
+      lastName: "Hagrasy",
+      phoneNum: "+2001124466700",
+      whatsappNum: '+2001124466700',
+      image: AssetsConstants.person2,
+    );
+  }
 
   @override
   Future<List<AreaModel>> getAreas() async {
@@ -275,7 +299,15 @@ class RemoteDateSourceImpl extends RemoteDataSource {
   /// return the developer contact data
   @override
   Future<ContactDeveloperModel> getDeveloperContact(int developerId) async {
-    final developerContactData = developerId %2 ==0? await developerContact(): await developerContactWithOutImage();
+    final developerContactData = developerId % 2 == 0
+        ? await developerContact()
+        : await developerContactWithOutImage();
     return developerContactData;
+  }
+
+  @override
+  Future<TeamSupportModel> getTeamSupport() async {
+    final teamSupport = await teamSupportModel();
+    return teamSupport;
   }
 }
