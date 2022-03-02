@@ -31,6 +31,7 @@ import 'package:remax_mapstate/domain/use_cases/local_usecases/update_language.d
 
 import 'package:remax_mapstate/presentation/bloc/areas_bloc/areas_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/brokers_by_area/area_brokers_bloc.dart';
+import 'package:remax_mapstate/presentation/bloc/calculator_validation/calculator_validation_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/favorite_projects/favorite_projects_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/login/login_bloc.dart';
 
@@ -47,6 +48,9 @@ import 'package:remax_mapstate/presentation/cubit/navigation/navigation_cubit.da
 import 'package:remax_mapstate/presentation/cubit/project_scrollable_indicator/indicator_position_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/residential_projects/residential_projects_cubit.dart';
 import 'package:remax_mapstate/presentation/cubit/team_support/team_support_cubit.dart';
+import 'package:remax_mapstate/presentation/journeys/calculator/formz/downpayment.dart';
+import 'package:remax_mapstate/presentation/journeys/calculator/formz/number_of_years.dart';
+import 'package:remax_mapstate/presentation/journeys/calculator/formz/unit_price.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../domain/use_cases/local_usecases/auto_login/delete_auto_login.dart';
@@ -376,4 +380,11 @@ Future init() async {
   /// init AreaBrokersBloc
   getItInstance.registerFactory<AreaBrokersBloc>(
       () => AreaBrokersBloc(getAreaBrokersCase: getItInstance()));
+
+
+  /// init CalculatorValidationBloc
+  getItInstance.registerFactory<CalculatorValidationBloc>(
+          () => CalculatorValidationBloc(unitPrice: const UnitPrice.dirty(value: ''),
+          downPayment: const DownPaymentForm.dirty(value: ''),
+          numberOfYears: const NumberOfYears.dirty(value: ''),));
 }

@@ -106,8 +106,8 @@ extension ThemeTextExtension on TextTheme {
         color: AppColor.royalBlue,
       );
 
-  TextStyle get violetHeadLine6 => headline6!.copyWith(
-        color: AppColor.violet,
+  TextStyle get vulcanHeadLine6 => headline6!.copyWith(
+        color: AppColor.vulcan,
       );
 
   TextStyle get vulcanBodyText2 => bodyText2!.copyWith(

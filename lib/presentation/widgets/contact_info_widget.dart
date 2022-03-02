@@ -39,6 +39,7 @@ class ContactInfoWidget extends StatelessWidget {
                 icon: Image.asset(
                   AssetsConstants.whatsapp,
                   fit: BoxFit.cover,
+                  //color: AppColor.royalBlue,
                 ), onPressed: onWhatsappPressed,
               ),
             ],
@@ -59,6 +60,7 @@ class ContactInfoWidget extends StatelessWidget {
               icon: Image.asset(
                 AssetsConstants.phoneCall,
                 fit: BoxFit.cover,
+                //color: AppColor.royalBlue,
               ), onPressed: onCallPressed,
             ),
 

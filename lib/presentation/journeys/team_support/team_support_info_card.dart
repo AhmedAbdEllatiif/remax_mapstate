@@ -6,8 +6,6 @@ import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/presentation/cubit/team_support/team_support_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/team_support/team_support_data_item.dart';
 
-
-
 import '../../../common/constants/sizes.dart';
 import '../../../domain/entities/team_support_entity.dart';
 import '../../widgets/contact_info_widget.dart';
@@ -32,18 +30,14 @@ class TeamSupportCardInfo extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
               /// name
               TeamSupportDataItem(
                 dataKey: TranslateConstants.contactWith.t(context),
                 value: teamSupportEntity.name
               ),
 
-              const SizedBox(
-                height: 15,
-              ),
-
-
-
+              /// spacing
               SizedBox(
                 height: Sizes.dimen_8.h,
               ),

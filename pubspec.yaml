@@ -110,6 +110,9 @@ dependencies:
   # map_launcher
   map_launcher: ^2.2.1+1
 
+  # pattern_formatter
+  pattern_formatter: ^2.0.0
+
   # wiredash
   #wiredash: ^0.7.0+1
 

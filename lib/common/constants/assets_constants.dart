@@ -20,6 +20,7 @@ class AssetsConstants{
   static const String city = "${_pngPath}img_city.jpg";
   static const String whiteLogo = "${_pngPath}white_logo.png";
   static const String personPlaceHolder = "${_pngPath}person_placeHolder.png";
+  static const String phoneIcon = "${_pngPath}phone_icon.png";
 
   static const String loading = "${_jsonPath}loading.json";
   static const String emptyBox = "${_jsonPath}empty_box.json";
