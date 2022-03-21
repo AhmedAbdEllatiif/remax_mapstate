@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
-import 'package:remax_mapstate/presentation/themes/theme_text.dart';
+import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 
 class BrokerDataWidget extends StatelessWidget {
   final String dataKey;
@@ -23,7 +23,9 @@ class BrokerDataWidget extends StatelessWidget {
       children: [
         Text(
           dataKey,
-          style: Theme.of(context).textTheme.geryCaption,
+          style: Theme.of(context).textTheme.caption!.copyWith(
+            color: AppColor.absoluteTransparentGeeBung
+          ),
         ),
         isRating
             ? RatingBar.builder(
@@ -33,8 +35,10 @@ class BrokerDataWidget extends StatelessWidget {
                 direction: Axis.horizontal,
                 allowHalfRating: true,
                 itemCount: 5,
-                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                itemBuilder: (context, _) => Icon(
+                itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                unratedColor: AppColor.absoluteTransparentGeeBung,
+                ignoreGestures: true,
+                itemBuilder: (context, _) => const Icon(
                   Icons.star,
                   color: Colors.amber,
                 ),
@@ -44,7 +48,10 @@ class BrokerDataWidget extends StatelessWidget {
               )
             : Text(
                 value,
-                style: Theme.of(context).textTheme.boldVulcanBodyText2,
+                style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  color: AppColor.geeBung,
+                  fontWeight: FontWeight.w700
+                ),
               ),
       ],
     );

@@ -96,9 +96,9 @@ class _ProjectImagesSectionState extends State<ProjectImagesSection> {
                       activeSize: const Size(18.0, 9.0),
                       activeShape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5.0)),
-                      color: AppColor.vulcan,
+                      color: AppColor.black,
                       // Inactive color
-                      activeColor: AppColor.royalBlue,
+                      activeColor: AppColor.geeBung,
                     ),
                   );
                 },

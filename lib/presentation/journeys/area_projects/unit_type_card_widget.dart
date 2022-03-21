@@ -19,13 +19,17 @@ class UnitTypeCardWidget extends StatelessWidget {
       },
       child: Card(
         elevation: 10,
+        color: AppColor.geeBung,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(Sizes.dimen_12.w))
         ),
         child: Center(
           child: Text("Item",
             maxLines: 2,
-            style: Theme.of(context).textTheme.royalBlueBodyText2,
+            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+              color: AppColor.black,
+              fontWeight: FontWeight.bold
+            ),
           ),
         ),
       ),

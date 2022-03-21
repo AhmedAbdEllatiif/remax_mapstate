@@ -24,14 +24,14 @@ class ToggleLanguageWidget extends StatelessWidget {
             children: [
               const Icon(
                 Icons.language_outlined,
-                color: AppColor.vulcan,
+                color: AppColor.geeBung,
               ),
               Text(
                 " ${getLanguageCodeToChange(
                   context: context,
                   currentLanguage: state.languageCode,
                 )}",
-                style: TextStyle(color: AppColor.vulcan),
+                style: const TextStyle(color: AppColor.geeBung),
               )
             ],
           ),

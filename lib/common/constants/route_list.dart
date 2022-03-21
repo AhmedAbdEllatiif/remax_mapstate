@@ -9,4 +9,5 @@ class RouteList{
   static const String projectDetailsScreen = "/projectDetailsScreen";
   static const String chooseBrokerScreen = "/chooseBrokerScreen";
   static const String areaScreen = "/areaScreen";
+  static const String calculationResult = "/calculationResultScreen";
 }

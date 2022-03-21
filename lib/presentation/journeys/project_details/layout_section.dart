@@ -14,22 +14,27 @@ class LayoutSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(margin: EdgeInsets.only(top: 10),),
-        Text(TranslateConstants.layouts.t(context),
-          style: Theme.of(context).textTheme.violetSubTitle2,),
-
+        Container(
+          margin: EdgeInsets.only(top: 10),
+        ),
+        Text(
+          TranslateConstants.layouts.t(context),
+          style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                color: AppColor.absoluteTransparentGeeBung,
+              ),
+        ),
         ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: 7,
-            itemBuilder: (context,index) => ExpansionItem(title: 'Bed Room',description: '3 bed rooms',)
-        ),
+            itemBuilder: (context, index) => const ExpansionItem(
+                  title: 'Bed Room',
+                  description: '3 bed rooms',
+                )),
       ],
     );
   }
 }
-
-
 
 class ExpansionItem extends StatelessWidget {
   final String title;
@@ -42,20 +47,21 @@ class ExpansionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: Theme.of(context).copyWith(dividerColor: Colors.transparent,),
+      data: Theme.of(context).copyWith(
+        dividerColor: Colors.transparent,
+      ),
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(Sizes.dimen_16.w)
-        ),
+            borderRadius: BorderRadius.circular(Sizes.dimen_16.w)),
         child: ExpansionTile(
           title: Text(title),
-          collapsedTextColor: AppColor.vulcan,
-          backgroundColor: Colors.white,
-          collapsedIconColor: AppColor.vulcan,
-          collapsedBackgroundColor:  Colors.white,
-          textColor: AppColor.royalBlue,
-          iconColor: AppColor.royalBlue,
-          childrenPadding: EdgeInsets.only(left: 50,right: 50,bottom: 10),
+          collapsedTextColor: AppColor.geeBung,
+          backgroundColor: AppColor.black,
+          collapsedIconColor: AppColor.geeBung,
+          collapsedBackgroundColor: AppColor.black,
+          textColor: AppColor.absoluteTransparentGeeBung,
+          iconColor: AppColor.absoluteTransparentGeeBung,
+          childrenPadding: EdgeInsets.only(left: 50, right: 50, bottom: 10),
           children: [
             Container(
               // margin: EdgeInsets.only(left: 10,right: 10,bottom: 10),
@@ -72,12 +78,12 @@ class ExpansionItem extends StatelessWidget {
                     children: [
                       Text(
                         description,
-                        style: TextStyle(
-                            color: AppColor.vulcan, backgroundColor: Colors.white),
+                        style: const TextStyle(
+                          color: AppColor.fadeGeeBung,
+                        ),
                       ),
                     ],
                   )
-
                 ],
               ),
             ),

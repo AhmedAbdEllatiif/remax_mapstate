@@ -1,9 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:remax_mapstate/domain/entities/params/calculator_input.dart';
+import 'package:remax_mapstate/presentation/journeys/calculation_result/calculation_final_result.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/downpayment.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/number_of_years.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/unit_price.dart';
+
+import '../../journeys/calculator/formz/first_down_payment.dart';
+import '../../journeys/calculator/formz/second_down_payment.dart';
+import '../../journeys/calculator/formz/third_down_payment.dart';
 
 part 'calculator_validation_event.dart';
 
@@ -14,12 +19,18 @@ class CalculatorValidationBloc
   UnitPrice unitPrice;
   NumberOfYears numberOfYears;
   DownPaymentForm downPayment;
+  FirstDownPaymentForm firstDownPaymentForm;
+  SecondDownPaymentForm secondDownPaymentForm;
+  ThirdDownPaymentForm thirdDownPaymentForm;
 
-  CalculatorValidationBloc(
-      {required this.numberOfYears,
-      required this.downPayment,
-      required this.unitPrice})
-      : super(const CalculatorValidationState()) {
+  CalculatorValidationBloc({
+    required this.numberOfYears,
+    required this.downPayment,
+    required this.unitPrice,
+    required this.firstDownPaymentForm,
+    required this.secondDownPaymentForm,
+    required this.thirdDownPaymentForm,
+  }) : super(const CalculatorValidationState()) {
     on<CalculatorValidationEvent>((event, emit) {
       //void emitIfNot
 
@@ -135,8 +146,6 @@ class CalculatorValidationBloc
               numberOfYearsLength: lengthOnChanges));
         }
 
-
-
         ///==> validator
         else if (currentStr.isNotEmpty && isNotValid) {
           if (state.numberOfYears.error != null) {
@@ -148,18 +157,15 @@ class CalculatorValidationBloc
         }
 
         ///==> check if years more than 50 years
-        else if( double.tryParse(numberOfYears.value) == null){
-          emit(state.copyWith(
-              validationEnum: CalculatorValidationEnum.invalidNumberOfYears));
-        }
-
-        ///==> check if years more than 50 years
-        else if (double.parse(currentStr) > 50.0) {
-          if (state.numberOfYears.error != null) {
-            emit(state.copyWith(
-                validationEnum: CalculatorValidationEnum.largeNumOfYears,
-                minLength: minLength,
-                numberOfYearsLength: lengthOnChanges));
+        else if (currentStr.isNotEmpty &&
+            double.tryParse(numberOfYears.value) != null) {
+          if (double.parse(currentStr) > 50.0) {
+            if (state.numberOfYears.error != null) {
+              emit(state.copyWith(
+                  validationEnum: CalculatorValidationEnum.largeNumOfYears,
+                  minLength: minLength,
+                  numberOfYearsLength: lengthOnChanges));
+            }
           }
         }
 
@@ -180,6 +186,156 @@ class CalculatorValidationBloc
 
       ///************************************* End of NumberOfYearsChangedEvent ******************************************************\\
 
+      ///************************************* Start first of DownPaymentChangedEvent ******************************************************\\
+      /// watch on firstDownPayment changes \\\
+      void onFirstDownPaymentChanges(FirstDownPaymentChangedEvent event) {
+        final maxLength = event.params.maxLength;
+        final minLength = event.params.minLength;
+        final currentStr = event.currentStringOnChange;
+        final strLength = event.currentStringOnChange.length;
+        final downPaymentForm = state.downPayment;
+        final isReachedMax = strLength >= maxLength;
+        final isNotValid = downPaymentForm.validator(currentStr) != null;
+        final lengthOnChanges = event.currentStringOnChange.length;
+
+        ///==> maxLength
+        if (isReachedMax) {
+          emit(state.copyWith(
+              validationEnum:
+                  CalculatorValidationEnum.maxLengthFirstDownPayment,
+              minLength: minLength,
+              downPaymentLength: lengthOnChanges));
+        }
+
+        ///==> validator
+        else if (currentStr.isNotEmpty && isNotValid) {
+          if (state.firstDownPayment.error != null) {
+            emit(state.copyWith(
+                validationEnum:
+                    CalculatorValidationEnum.invalidFirstDownPayment,
+                minLength: minLength,
+                downPaymentLength: lengthOnChanges));
+          }
+        }
+
+        ///==> else
+        else {
+          emit(state.copyWith(
+              validationEnum: CalculatorValidationEnum.ideal,
+              minLength: minLength,
+              downPaymentLength: lengthOnChanges));
+        }
+      }
+
+      /// FirstDownPaymentChangedEvent
+      if (event is FirstDownPaymentChangedEvent) {
+        onFirstDownPaymentChanges(event);
+        firstDownPaymentForm =
+            FirstDownPaymentForm.dirty(value: event.currentStringOnChange);
+      }
+
+      ///************************************* End first of DownPaymentChangedEvent ******************************************************\\
+
+      ///************************************* Start second of DownPaymentChangedEvent ******************************************************\\
+      /// watch on secondDownPayment changes \\\
+      void onSecondDownPaymentChanges(SecondDownPaymentChangedEvent event) {
+        final maxLength = event.params.maxLength;
+        final minLength = event.params.minLength;
+        final currentStr = event.currentStringOnChange;
+        final strLength = event.currentStringOnChange.length;
+        final downPaymentForm = state.downPayment;
+        final isReachedMax = strLength >= maxLength;
+        final isNotValid = downPaymentForm.validator(currentStr) != null;
+        final lengthOnChanges = event.currentStringOnChange.length;
+
+        ///==> maxLength
+        if (isReachedMax) {
+          emit(state.copyWith(
+              validationEnum:
+                  CalculatorValidationEnum.maxLengthSecondDownPayment,
+              minLength: minLength,
+              downPaymentLength: lengthOnChanges));
+        }
+
+        ///==> validator
+        else if (currentStr.isNotEmpty && isNotValid) {
+          if (state.secondDownPayment.error != null) {
+            emit(state.copyWith(
+                validationEnum:
+                    CalculatorValidationEnum.invalidSecondDownPayment,
+                minLength: minLength,
+                downPaymentLength: lengthOnChanges));
+          }
+        }
+
+        ///==> else
+        else {
+          emit(state.copyWith(
+              validationEnum: CalculatorValidationEnum.ideal,
+              minLength: minLength,
+              downPaymentLength: lengthOnChanges));
+        }
+      }
+
+      /// SecondDownPaymentChangedEvent
+      if (event is SecondDownPaymentChangedEvent) {
+        onSecondDownPaymentChanges(event);
+        secondDownPaymentForm =
+            SecondDownPaymentForm.dirty(value: event.currentStringOnChange);
+      }
+
+      ///************************************* End second of DownPaymentChangedEvent ******************************************************\\
+
+      ///************************************* Start third of DownPaymentChangedEvent ******************************************************\\
+      /// watch on thirdDownPayment changes \\\
+      void onThirdDownPaymentChanges(ThirdDownPaymentChangedEvent event) {
+        final maxLength = event.params.maxLength;
+        final minLength = event.params.minLength;
+        final currentStr = event.currentStringOnChange;
+        final strLength = event.currentStringOnChange.length;
+        final downPaymentForm = state.downPayment;
+        final isReachedMax = strLength >= maxLength;
+        final isNotValid = downPaymentForm.validator(currentStr) != null;
+        final lengthOnChanges = event.currentStringOnChange.length;
+
+        ///==> maxLength
+        if (isReachedMax) {
+          emit(state.copyWith(
+              validationEnum:
+                  CalculatorValidationEnum.maxLengthThirdDownPayment,
+              minLength: minLength,
+              downPaymentLength: lengthOnChanges));
+        }
+
+        ///==> validator
+        else if (currentStr.isNotEmpty && isNotValid) {
+          if (state.secondDownPayment.error != null) {
+            emit(state.copyWith(
+                validationEnum:
+                    CalculatorValidationEnum.invalidThirdDownPayment,
+                minLength: minLength,
+                downPaymentLength: lengthOnChanges));
+          }
+        }
+
+        ///==> else
+        else {
+          emit(state.copyWith(
+              validationEnum: CalculatorValidationEnum.ideal,
+              minLength: minLength,
+              downPaymentLength: lengthOnChanges));
+        }
+      }
+
+      /// ThirdDownPaymentChangedEvent
+      if (event is ThirdDownPaymentChangedEvent) {
+        onThirdDownPaymentChanges(event);
+        thirdDownPaymentForm =
+            ThirdDownPaymentForm.dirty(value: event.currentStringOnChange);
+      }
+
+      ///************************************* End third of DownPaymentChangedEvent ******************************************************\\
+
       ///************************************* Submit ******************************************************\\
       /// CalculatorFormSubmitted
       if (event is SubmitCalculatorFormEvent) {
@@ -187,12 +343,10 @@ class CalculatorValidationBloc
         if (unitPrice.value.length < 6) {
           emit(state.copyWith(
               validationEnum: CalculatorValidationEnum.minLengthUnitPrice));
-        }
-        else if (unitPrice.value.length >= 13) {
+        } else if (unitPrice.value.length >= 13) {
           emit(state.copyWith(
               validationEnum: CalculatorValidationEnum.maxLengthUnitPrice));
-        }
-        else if (unitPrice.invalid) {
+        } else if (unitPrice.invalid) {
           emit(state.copyWith(
               validationEnum: CalculatorValidationEnum.invalidUnitPrice));
         }
@@ -201,11 +355,10 @@ class CalculatorValidationBloc
         else if (downPayment.value.isEmpty) {
           emit(state.copyWith(
               validationEnum: CalculatorValidationEnum.minLengthDownPayment));
-        }else if (downPayment.value.length >= 3) {
+        } else if (downPayment.value.length >= 6) {
           emit(state.copyWith(
               validationEnum: CalculatorValidationEnum.maxLengthDownPayment));
-        }
-        else if (downPayment.invalid) {
+        } else if (downPayment.invalid) {
           emit(state.copyWith(
               validationEnum: CalculatorValidationEnum.invalidDownPayment));
         }
@@ -214,30 +367,84 @@ class CalculatorValidationBloc
         else if (numberOfYears.value.isEmpty) {
           emit(state.copyWith(
               validationEnum: CalculatorValidationEnum.minLengthNumOfYears));
-        }
-        else if (downPayment.value.length >= 4) {
+        } else if (numberOfYears.value.length >= 4) {
           emit(state.copyWith(
               validationEnum: CalculatorValidationEnum.maxLengthNumOfYears));
-        }
-        else if( double.tryParse(numberOfYears.value) == null){
+        } else if (double.tryParse(numberOfYears.value) == null) {
           emit(state.copyWith(
               validationEnum: CalculatorValidationEnum.invalidNumberOfYears));
-        }
-        else if (double.parse(numberOfYears.value) > 50.0) {
+        } else if (double.parse(numberOfYears.value) > 50.0) {
           emit(state.copyWith(
               validationEnum: CalculatorValidationEnum.largeNumOfYears));
-        }
-        else if (numberOfYears.invalid) {
+        } else if (numberOfYears.invalid) {
           emit(state.copyWith(
               validationEnum: CalculatorValidationEnum.invalidNumberOfYears));
         }
 
+        ///==> firstDownPayment is invalid
+        else if (firstDownPaymentForm.value.isEmpty) {
+          emit(state.copyWith(
+              validationEnum:
+                  CalculatorValidationEnum.minLengthFirstDownPayment));
+        } else if (firstDownPaymentForm.value.length >= 6) {
+          emit(state.copyWith(
+              validationEnum:
+                  CalculatorValidationEnum.maxLengthFirstDownPayment));
+        } else if (firstDownPaymentForm.invalid) {
+          emit(state.copyWith(
+              validationEnum:
+                  CalculatorValidationEnum.invalidFirstDownPayment));
+        }
+
+        ///==> secondDownPayment is invalid
+        else if (secondDownPaymentForm.value.isEmpty) {
+          emit(state.copyWith(
+              validationEnum:
+                  CalculatorValidationEnum.minLengthSecondDownPayment));
+        } else if (secondDownPaymentForm.value.length >= 6) {
+          emit(state.copyWith(
+              validationEnum:
+                  CalculatorValidationEnum.maxLengthSecondDownPayment));
+        } else if (secondDownPaymentForm.invalid) {
+          emit(state.copyWith(
+              validationEnum:
+                  CalculatorValidationEnum.invalidSecondDownPayment));
+        }
+
+        ///==> thirdDownPayment is invalid
+        else if (thirdDownPaymentForm.value.isEmpty) {
+          emit(state.copyWith(
+              validationEnum:
+                  CalculatorValidationEnum.minLengthThirdDownPayment));
+        } else if (thirdDownPaymentForm.value.length >= 6) {
+          emit(state.copyWith(
+              validationEnum:
+                  CalculatorValidationEnum.maxLengthThirdDownPayment));
+        } else if (thirdDownPaymentForm.invalid) {
+          emit(state.copyWith(
+              validationEnum:
+                  CalculatorValidationEnum.invalidThirdDownPayment));
+        }
+
         /// else All valid
         else {
+          final double totalUnitPrice = double.parse(unitPrice.value);
+          final double totalNumberOfYears = double.parse(numberOfYears.value);
+          final double initialDownPayment = double.parse(downPayment.value);
+          final double firstDownPayment =
+              double.parse(firstDownPaymentForm.value);
+          final double secondDownPayment =
+              double.parse(secondDownPaymentForm.value);
+          final double thirdDownPayment =
+              double.parse(thirdDownPaymentForm.value);
           emit(state.copyWith(
-            unitPrice: unitPrice,
-            numberOfYears: numberOfYears,
-            downPayment: downPayment,
+            calculationFinalResult: CalculationFinalResult.calculate(
+                totalUnitPrice: totalUnitPrice,
+                initialDownPayment: initialDownPayment,
+                numOfYears: totalNumberOfYears,
+                firstDownPayment: firstDownPayment,
+                secondDownPayment: secondDownPayment,
+                thirdDownPayment: thirdDownPayment),
             validationEnum: CalculatorValidationEnum.successForm,
           ));
         }

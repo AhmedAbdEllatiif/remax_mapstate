@@ -17,7 +17,8 @@ class BrokerTextName extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.fade,
             style: Theme.of(context).textTheme.headline6!.copyWith(
-              color: AppColor.vulcan
+              color: AppColor.geeBung,
+              fontWeight: FontWeight.w600
             ),
           );
         }

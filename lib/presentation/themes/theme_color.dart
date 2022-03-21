@@ -5,9 +5,26 @@ class AppColor{
   const AppColor._();
 
 
-  static const Color vulcan = Color(0xFF141221);
+/*  static const Color vulcan = Color(0xFF141221);
   static const Color white = Color(0xFFFFFFFF);
   static const bgGray = Color(0xffefeeee);
+  static const Color fadeVulcan = Color(0x9424213B);
+  static const Color transparentVulcan = Color(0x94141221);
+  //static const Color royalBlue = Color(0xFF604FEF);
+  static const Color royalBlue = Color(0xFF1482ff);
+  static const Color violet = Color(0xFFA74DBC);*/
+
+  static const Color black = Color(0xFF000000);
+  static const Color fadeBlack = Color(0xFF111111);
+  static const Color transparentBlack = Color(0xC1111111);
+  static const Color geeBung = Color(0xFFDD9936);
+  static const Color fadeGeeBung = Color(0xFFF3BE57);
+  //static const Color absoluteFadeGeeBung = Color(0xFFFbCC60);
+  static const Color transparentGeeBung = Color(0xa4fce5b0);
+  static const Color absoluteTransparentGeeBung = Color(0x81fce5b0);
+  static const Color textFieldInputGeeBung = Color(0x4dfce5b0);
+  static const bgGray = Color(0xffefeeee);
+  static const white = Color(0xffffffff);
   static const Color fadeVulcan = Color(0x9424213B);
   static const Color transparentVulcan = Color(0x94141221);
   //static const Color royalBlue = Color(0xFF604FEF);

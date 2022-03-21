@@ -59,7 +59,6 @@ class _LoginScreenState extends State<LoginScreen> {
       child: WillPopScope(
         onWillPop:()=> _willPopScopeCall(context),
         child: Scaffold(
-          backgroundColor: AppColor.bgGray,
           appBar: AppBar(
             centerTitle: true,
             title: Text(

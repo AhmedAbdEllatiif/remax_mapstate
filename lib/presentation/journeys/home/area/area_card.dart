@@ -19,13 +19,13 @@ class AreaCardWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () => _navigateToAreaScreen(context),
       child: CircleAvatar(
-        backgroundColor: AppColor.vulcan,
+        backgroundColor: AppColor.geeBung,
         child: Center(
           child: Text(
             area.title,
             maxLines: 2,
             style: Theme.of(context).textTheme.bodyText2!.copyWith(
-              color: AppColor.bgGray,
+              color: AppColor.black,
               fontWeight: FontWeight.bold
             ),
           ),

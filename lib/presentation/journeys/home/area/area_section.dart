@@ -32,7 +32,7 @@ class AreaSectionWidget extends StatelessWidget {
                     Text(
                       TranslateConstants.findByArea.t(context),
                       style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                        color: AppColor.vulcan,
+                        color: AppColor.geeBung,
                         fontWeight: FontWeight.w600
                       ),
                     ),
@@ -40,7 +40,7 @@ class AreaSectionWidget extends StatelessWidget {
                     Text(
                       TranslateConstants.seeAll.t(context),
                       style: Theme.of(context).textTheme.whiteSubtitle1.copyWith(
-                          color: AppColor.vulcan,
+                          color: AppColor.geeBung,
                         fontWeight: FontWeight.w600
                       ),
                     ),

@@ -27,7 +27,7 @@ class AppButtonGradient extends StatelessWidget {
       child: Container(
         height: Sizes.dimen_18.h,
         width: ScreenUtil.screenWidth * 0.5 - 15,
-       color: AppColor.royalBlue,
+       color: AppColor.geeBung,
        /* decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(Sizes.dimen_20.w)),
           gradient: LinearGradient(colors: _gradientColors()),

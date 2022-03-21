@@ -30,11 +30,13 @@ class ContactInfoWidget extends StatelessWidget {
             children: [
               Text(
                 TranslateConstants.whatsapp.t(context),
-                style: Theme.of(context).textTheme.geryCaption,
+                style: Theme.of(context).textTheme.caption!.copyWith(
+                    color: AppColor.absoluteTransparentGeeBung
+                ),
               ),
               IconButton(
                 iconSize: Sizes.dimen_14.h ,
-                splashColor: AppColor.vulcan,
+                splashColor: AppColor.black,
                 splashRadius:Sizes.dimen_22.w,
                 icon: Image.asset(
                   AssetsConstants.whatsapp,
@@ -50,12 +52,14 @@ class ContactInfoWidget extends StatelessWidget {
           children: [
             Text(
               TranslateConstants.friendlyPhoneCall.t(context),
-              style: Theme.of(context).textTheme.geryCaption,
+              style: Theme.of(context).textTheme.caption!.copyWith(
+                  color: AppColor.absoluteTransparentGeeBung
+              ),
             ),
 
             IconButton(
               iconSize: Sizes.dimen_14.h ,
-              splashColor: AppColor.vulcan,
+              splashColor: AppColor.black,
               splashRadius:Sizes.dimen_22.w,
               icon: Image.asset(
                 AssetsConstants.phoneCall,

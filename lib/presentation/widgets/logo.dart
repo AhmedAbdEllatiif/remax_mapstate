@@ -14,7 +14,7 @@ class Logo extends StatelessWidget {
     return Image.asset(
       AssetsConstants.whiteLogo,
       fit: BoxFit.cover,
-      color: AppColor.vulcan,
+      color: AppColor.geeBung,
     );
   }
 }

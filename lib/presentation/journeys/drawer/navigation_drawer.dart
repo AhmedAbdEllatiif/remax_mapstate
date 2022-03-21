@@ -25,7 +25,7 @@ class NavigationDrawer extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             blurRadius: 4.0,
-            color: Theme.of(context).primaryColor.withOpacity(0.9),
+            color: Theme.of(context).primaryColor.withOpacity(0.2),
           )
         ],
       ),
@@ -51,7 +51,7 @@ class NavigationDrawer extends StatelessWidget {
             /// Okay
             NavigationListItem(
               title: TranslateConstants.okay.t(context),
-              icon: const Icon(Icons.message_outlined,color: AppColor.vulcan,),
+              icon: const Icon(Icons.message_outlined,color: AppColor.geeBung,),
               onPressed: () {},
             ),
 
@@ -60,7 +60,7 @@ class NavigationDrawer extends StatelessWidget {
             /// Okay
             NavigationListItem(
               title: TranslateConstants.okay.t(context),
-              icon: const Icon(Icons.message_outlined,color: AppColor.vulcan,),
+              icon: const Icon(Icons.message_outlined,color: AppColor.geeBung,),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -69,7 +69,7 @@ class NavigationDrawer extends StatelessWidget {
             /// About
             NavigationListItem(
               title: TranslateConstants.about.t(context),
-              icon: const Icon(Icons.info_outline,color: AppColor.vulcan,),
+              icon: const Icon(Icons.info_outline,color: AppColor.geeBung,),
               onPressed: () {
                 // to close the drawer
                 Navigator.of(context).pop();
@@ -92,7 +92,7 @@ class NavigationDrawer extends StatelessWidget {
             /// Logout
             NavigationListItem(
               title: TranslateConstants.logout.t(context),
-              icon: const Icon(Icons.login_outlined,color: AppColor.vulcan,),
+              icon: const Icon(Icons.login_outlined,color: AppColor.geeBung,),
               onPressed: () async {
 
                 /// clear current user data

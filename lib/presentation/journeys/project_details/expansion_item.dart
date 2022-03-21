@@ -21,9 +21,9 @@ class ExpansionItem extends StatelessWidget {
         ),
         child: ExpansionTile(
           title: Text(title),
-          collapsedTextColor: AppColor.vulcan,
+          collapsedTextColor: AppColor.black,
           backgroundColor: Colors.white,
-          collapsedIconColor: AppColor.vulcan,
+          collapsedIconColor: AppColor.black,
           collapsedBackgroundColor:  Colors.white,
           textColor: AppColor.royalBlue,
           iconColor: AppColor.royalBlue,
@@ -35,7 +35,7 @@ class ExpansionItem extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(8)),
-                border: Border.all(color: AppColor.vulcan),
+                border: Border.all(color: AppColor.black),
                 //border: Border.symmetric(vertical: BorderSide(color: AppColors.primaryColor)),
               ),
               child: Expanded(

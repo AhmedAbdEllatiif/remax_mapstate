@@ -86,31 +86,32 @@ class _MainAppState extends State<MainApp> {
 
                 /// Theme
                 theme: ThemeData(
-                  unselectedWidgetColor:  AppColor.fadeVulcan,
-                  primaryColor: AppColor.white,
+                  unselectedWidgetColor:  AppColor.geeBung,
+                  primaryColor: AppColor.black,
                   colorScheme: ColorScheme.fromSwatch().copyWith(
-                    secondary: AppColor.royalBlue, // Your accent color
+                    secondary: AppColor.geeBung, // Your accent color
                   ),
-                  scaffoldBackgroundColor: AppColor.bgGray,
+                  scaffoldBackgroundColor: AppColor.black,
                   textTheme: ThemeText.getTextTheme(),
                   appBarTheme: const AppBarTheme(
+                    centerTitle: true,
                     systemOverlayStyle: SystemUiOverlayStyle(
                       // Status bar color
-                      statusBarColor: AppColor.bgGray,
+                      //statusBarColor: AppColor.bgGray,
 
 
                       // Status bar brightness (optional)
-                      statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
-                      statusBarBrightness: Brightness.light, // For iOS (dark icons)
+                      // statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+                      // statusBarBrightness: Brightness.light, // For iOS (dark icons)
                     ),
-                    iconTheme: IconThemeData(color: AppColor.vulcan),
+                    iconTheme: IconThemeData(color: AppColor.geeBung),
                     elevation: 0,
                     titleTextStyle: TextStyle(
-                      color: AppColor.vulcan,
+                      color: AppColor.geeBung,
                       fontSize: Sizes.dimen_18,
                       fontWeight: FontWeight.bold,
                     ),
-                    color: AppColor.bgGray,
+                    color: AppColor.fadeBlack,
                   ),
                 ),
 

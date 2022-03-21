@@ -43,7 +43,7 @@ class LocationDataItem extends StatelessWidget {
             onTap: () {
               context.read<DeveloperContactCubit>().openMap();
             },
-            splashColor: AppColor.vulcan,
+            splashColor: AppColor.black,
             child: Padding(
               padding: const EdgeInsets.all(Sizes.dimen_6),
               child: Row(

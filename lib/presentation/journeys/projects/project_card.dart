@@ -57,7 +57,7 @@ class ProjectCardWidget extends StatelessWidget {
 
                   // grid tile footer
                   footer: Container(
-                    color: AppColor.transparentVulcan,
+                    color: AppColor.transparentBlack,
                     height: ResponsiveValue<double>(context,
                         defaultValue: Sizes.dimen_24.h,
                         valueWhen: [
@@ -94,11 +94,16 @@ class ProjectCardWidget extends StatelessWidget {
                               children: [
                                 Text(
                                   "Cairo".intelliTrim(),
+                                  style: const TextStyle(
+                                    color: AppColor.fadeGeeBung
+                                  ),
                                 ),
                                 Text(
                                   "New Cairo".intelliTrim(),
                                   style:
-                                      Theme.of(context).textTheme.whiteCaption,
+                                      Theme.of(context).textTheme.bodyText2!.copyWith(
+                                        color:AppColor.geeBung,
+                                      ),
                                 )
                               ],
                             )
@@ -115,11 +120,16 @@ class ProjectCardWidget extends StatelessWidget {
                                   .intelliTrim_14(),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.bodyText2,
+                              style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                                color: AppColor.fadeGeeBung,
+                              ),
                             ),
                             Text(
                               "1,300,000",
-                              style: Theme.of(context).textTheme.bodyText2,
+                              style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                                color: AppColor.geeBung,
+                                fontWeight: FontWeight.w600
+                              ),
                             )
                           ],
                         )

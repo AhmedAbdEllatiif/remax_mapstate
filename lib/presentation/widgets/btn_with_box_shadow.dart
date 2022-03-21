@@ -10,7 +10,10 @@ import '../themes/theme_color.dart';
 class ButtonWithBoxShadow extends StatelessWidget {
   final Function() onPressed;
   final String text;
-  const ButtonWithBoxShadow({Key? key,required this.onPressed,required this.text}) : super(key: key);
+
+  const ButtonWithBoxShadow(
+      {Key? key, required this.onPressed, required this.text})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,23 +25,22 @@ class ButtonWithBoxShadow extends StatelessWidget {
           onPressed: onPressed,
           child: Center(
               child: Text(
-                  text,
-                style: Theme.of(context).textTheme.buttonText.copyWith(fontSize:  Sizes.dimen_18.sp),
-              )),
+            text,
+            style: Theme.of(context).textTheme.buttonText.copyWith(
+                  fontSize: Sizes.dimen_18.sp,
+                  fontWeight: FontWeight.w600,
+                ),
+          )),
         ),
       ),
       decoration: BoxDecoration(
-          color: AppColor.vulcan,
+          color: AppColor.geeBung,
           borderRadius: BorderRadius.circular(5),
           boxShadow: const [
             BoxShadow(
-                color: AppColor.vulcan,
-                offset: Offset(1, -2),
-                blurRadius: 5),
+                color: AppColor.geeBung, offset: Offset(1, -2), blurRadius: 5),
             BoxShadow(
-                color: AppColor.vulcan,
-                offset: Offset(-1, 2),
-                blurRadius: 5)
+                color: AppColor.geeBung, offset: Offset(-1, 2), blurRadius: 5)
           ]),
     );
   }

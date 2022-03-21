@@ -12,6 +12,7 @@ import 'package:remax_mapstate/presentation/journeys/project_details/project_ima
 import 'package:remax_mapstate/presentation/journeys/project_details/project_section.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/services.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/starting_price_section.dart';
+import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 
 import 'buttons_section.dart';
 
@@ -88,13 +89,16 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
                           horizontal: Sizes.dimen_16.w,
                           vertical: Sizes.dimen_12.w),
                       child: Container(
+                        margin: EdgeInsets.only(
+                          bottom: Sizes.dimen_22.h,
+                        ),
                         padding: EdgeInsets.only(
                           left: Sizes.dimen_10.w,
                           right: Sizes.dimen_10.w,
                           top: Sizes.dimen_8.w,
                           bottom: Sizes.dimen_40.w,
                         ),
-                        color: Colors.white,
+                        color: AppColor.fadeBlack,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [

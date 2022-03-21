@@ -67,12 +67,13 @@ class _PhoneNumWidgetState extends State<PhoneNumWidget> {
               Container(
                 padding: const EdgeInsets.all(20.0),
                 margin: EdgeInsets.only(top: 50),
+
                 child: InternationalPhoneNumberInput(
-                  searchTextStyle: const TextStyle(color: AppColor.vulcan),
-                  countryNameTextStyle: const TextStyle(color: AppColor.vulcan),
-                  dialCodeTextStyle: const TextStyle(color: AppColor.vulcan),
-                  textStyle: const TextStyle(color: AppColor.vulcan),
-                  selectorTextStyle: const TextStyle(color: AppColor.vulcan),
+                  searchTextStyle: const TextStyle(color: AppColor.black),
+                  countryNameTextStyle: const TextStyle(color: AppColor.black),
+                  dialCodeTextStyle: const TextStyle(color: AppColor.black),
+                  textStyle: const TextStyle(color: AppColor.geeBung),
+                  selectorTextStyle: const TextStyle(color: AppColor.geeBung),
 
                   /// bottomSheet
                   selectorConfig: SelectorConfig(
@@ -90,24 +91,26 @@ class _PhoneNumWidgetState extends State<PhoneNumWidget> {
                   textFieldController: controller,
                   formatInput: true,
                   autoFocus: true,
-                  cursorColor: AppColor.vulcan,
+                  cursorColor: AppColor.geeBung,
 
 
                   /// the box of phone num
-                  inputDecoration: const InputDecoration(
+                  inputDecoration:  InputDecoration(
                       focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
                         borderSide:
-                            BorderSide(color: AppColor.vulcan, width: 1.0),
+                            BorderSide(color: AppColor.geeBung, width: 2.0),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white, width: 1.0),
+                        borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
+                        borderSide: BorderSide(color: AppColor.absoluteTransparentGeeBung, width: 0.7),
                       )),
 
                   /// box inside bottomSheet or dialog
                   searchBoxDecoration: InputDecoration(
                       labelText: TranslateConstants.searchCountryLabel.t(context),
                       focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColor.vulcan, width: 1.0),
+                        borderSide: BorderSide(color: AppColor.black, width: 1.0),
                       ),
                       enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey, width: 1.0),

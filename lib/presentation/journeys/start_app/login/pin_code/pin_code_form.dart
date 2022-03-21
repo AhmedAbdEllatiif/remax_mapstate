@@ -32,9 +32,9 @@ class PinCodeForm extends StatelessWidget {
                 vertical: Sizes.dimen_4.h, horizontal: Sizes.dimen_32.w),
             child: PinCodeTextField(
               appContext: context,
-              textStyle: const TextStyle().copyWith(color: AppColor.white),
+              textStyle: const TextStyle().copyWith(color: AppColor.black),
               pastedTextStyle: const TextStyle(
-                color: AppColor.vulcan,
+                color: AppColor.black,
                 fontWeight: FontWeight.bold,
               ),
               length: 6,
@@ -59,7 +59,7 @@ class PinCodeForm extends StatelessWidget {
               keyboardType: TextInputType.number,
 
 
-              cursorColor: AppColor.vulcan,
+              cursorColor: AppColor.black,
               /// pinTheme
               pinTheme: PinTheme(
                 shape: PinCodeFieldShape.box,
@@ -68,16 +68,16 @@ class PinCodeForm extends StatelessWidget {
                 fieldWidth: 40,
 
                 /// OnSelected
-                selectedFillColor: AppColor.white,
-                selectedColor: AppColor.vulcan, // frame color
+                selectedFillColor: AppColor.transparentGeeBung,
+                selectedColor: AppColor.geeBung, // frame color
 
                 /// after pinItem filled
-                activeFillColor: AppColor.vulcan,
-                activeColor: AppColor.vulcan, // frame color
+                activeFillColor: AppColor.geeBung,
+                activeColor: AppColor.geeBung, // frame color
 
                 /// not selected and not filled
-                inactiveFillColor: AppColor.white,
-                inactiveColor: AppColor.white, // frame color
+                inactiveFillColor: AppColor.fadeGeeBung,
+                inactiveColor: AppColor.fadeGeeBung, // frame color
 
                 /// error border color
                 errorBorderColor: Colors.red,
@@ -87,7 +87,7 @@ class PinCodeForm extends StatelessWidget {
               boxShadows:  [
                 BoxShadow(
                   offset: const Offset(0, 1),
-                  color: AppColor.vulcan,
+                  color: AppColor.black,
                   blurRadius: Sizes.dimen_10.w,
                 )
               ],

@@ -48,7 +48,7 @@ class ProjectBackDropWidget extends StatelessWidget {
               filter: ImageFilter.blur(sigmaX: 3.0,sigmaY: 3.0,),
               child: Container(
                 width: ScreenUtil.screenWidth,
-                height: 1,
+                height: 200,
                 color: Colors.transparent,
               ),
             ),

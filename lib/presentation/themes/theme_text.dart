@@ -60,7 +60,7 @@ class ThemeText {
 extension ThemeTextExtension on TextTheme {
   TextStyle get buttonText => button!.copyWith(
         fontSize: Sizes.dimen_14.sp,
-        color: Colors.white,
+        color: AppColor.black,
         letterSpacing: 1.5,
         overflow: TextOverflow.fade,
         fontWeight: FontWeight.bold,
@@ -69,7 +69,7 @@ extension ThemeTextExtension on TextTheme {
 
 
   TextStyle get takeATourText => subtitle1!.copyWith(
-        color: AppColor.vulcan,
+        color: AppColor.fadeGeeBung,
         letterSpacing: 2.5,
         fontSize: Sizes.dimen_14.sp,
         overflow: TextOverflow.fade,
@@ -107,15 +107,15 @@ extension ThemeTextExtension on TextTheme {
       );
 
   TextStyle get vulcanHeadLine6 => headline6!.copyWith(
-        color: AppColor.vulcan,
+        color: AppColor.black,
       );
 
   TextStyle get vulcanBodyText2 => bodyText2!.copyWith(
-        color: AppColor.vulcan,
+        color: AppColor.black,
       );
 
   TextStyle get royalBlueBodyText2 => bodyText2!.copyWith(
-        color: AppColor.vulcan,
+        color: AppColor.black,
       );
 
   TextStyle get whiteCaption => caption!.copyWith(
@@ -127,14 +127,14 @@ extension ThemeTextExtension on TextTheme {
       );
 
   TextStyle get vulcanCaption => caption!.copyWith(
-        color: AppColor.vulcan,
+        color: AppColor.black,
       );
 
   TextStyle get letterSpaceHeadLine6 => headline6!.copyWith(
-      color: AppColor.vulcan, letterSpacing: 2, fontWeight: FontWeight.bold);
+      color: AppColor.black, letterSpacing: 2, fontWeight: FontWeight.bold);
 
   TextStyle get blackBodyText2 => bodyText2!.copyWith(
-        color: AppColor.vulcan,
+        color: AppColor.black,
         fontSize: Sizes.dimen_14.sp,
         wordSpacing: 0.25,
         letterSpacing: 0.25,
@@ -142,7 +142,7 @@ extension ThemeTextExtension on TextTheme {
       );
 
   TextStyle get boldVulcanBodyText2 => bodyText2!.copyWith(
-      color: AppColor.vulcan,
+      color: AppColor.black,
       fontSize: Sizes.dimen_14.sp,
       wordSpacing: 0.25,
       letterSpacing: 0.25,

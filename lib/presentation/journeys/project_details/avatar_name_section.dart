@@ -39,13 +39,15 @@ class ProjectAvatarNameSection extends StatelessWidget {
                 Text(
                   "Cairo".intelliTrim(),
                   style: Theme.of(context).textTheme.caption!.copyWith(
-                    color: AppColor.vulcan,
+                    color: AppColor.geeBung,
                   ),
                 ),
                 Text(
                   "New Cairo".intelliTrim(),
                   style:
-                  Theme.of(context).textTheme.caption,
+                  Theme.of(context).textTheme.caption!.copyWith(
+                    color: AppColor.fadeGeeBung,
+                  ),
 
                 )
               ],
@@ -53,7 +55,7 @@ class ProjectAvatarNameSection extends StatelessWidget {
           ],
         ),
 
-        const Icon(Icons.favorite_border,color: AppColor.vulcan,),
+        const Icon(Icons.favorite_border,color: AppColor.geeBung,),
 
         /// Column of Starting price
         /*  Column(

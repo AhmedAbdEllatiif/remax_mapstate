@@ -31,7 +31,7 @@ class ButtonSection extends StatelessWidget {
         ///  tour or noUser
         if(currentUser == UserType.tour || currentUser == UserType.noUser){
           return Container(
-            color: AppColor.vulcan,
+            color: AppColor.absoluteTransparentGeeBung,
             padding: EdgeInsets.symmetric(vertical: Sizes.dimen_5.h,horizontal: Sizes.dimen_16.w,),
             child:AppButtonGradient(
               text: TranslateConstants.login.t(context).toUpperCase(),
@@ -46,7 +46,7 @@ class ButtonSection extends StatelessWidget {
         /// client
         if(currentUser == UserType.client ){
           return Container(
-            color: AppColor.vulcan,
+            color: AppColor.absoluteTransparentGeeBung,
             padding: EdgeInsets.symmetric(vertical: Sizes.dimen_5.h),
             child:Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -73,7 +73,7 @@ class ButtonSection extends StatelessWidget {
         /// broker or ambassador
         if(currentUser == UserType.broker || currentUser == UserType.ambassador){
           return Container(
-            color: AppColor.vulcan,
+            color: AppColor.absoluteTransparentGeeBung,
             padding: EdgeInsets.symmetric(vertical: Sizes.dimen_5.h,horizontal: Sizes.dimen_16.w,),
             child:AppButtonGradient(
               text: TranslateConstants.contactWithDeveloper.t(context).toUpperCase(),

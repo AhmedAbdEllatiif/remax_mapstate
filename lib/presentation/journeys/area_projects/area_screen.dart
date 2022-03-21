@@ -24,8 +24,9 @@ class AreaScreen extends StatelessWidget {
             //TranslateConstants.projects.t(context),
           ),
           bottom:  TabBar(
-            indicatorColor: AppColor.vulcan,
-            unselectedLabelColor: AppColor.fadeVulcan,
+            indicatorColor: AppColor.geeBung,
+            labelColor: AppColor.geeBung,
+            unselectedLabelColor: AppColor.absoluteTransparentGeeBung,
             tabs: [
               Tab(
                 text: TranslateConstants.residential.t(context),

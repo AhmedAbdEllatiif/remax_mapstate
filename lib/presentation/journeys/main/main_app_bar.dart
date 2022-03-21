@@ -24,12 +24,12 @@ class MainAppBar extends StatelessWidget {
           // Menu icon button
           IconButton(
             onPressed: () => Scaffold.of(context).openDrawer(),
-            icon: const Icon(Icons.menu,color: AppColor.white,),
+            icon: const Icon(Icons.menu,color: AppColor.geeBung,),
           ),
 
           // Logo
           const Text("HOME",style:TextStyle(
-            color: AppColor.white,
+            color: AppColor.geeBung,
             fontSize: Sizes.dimen_18,
             fontWeight: FontWeight.bold,
           ),),
@@ -44,7 +44,7 @@ class MainAppBar extends StatelessWidget {
             },
             icon: Icon(
               Icons.search,
-              color: AppColor.white,
+              color: AppColor.geeBung,
               size: Sizes.dimen_12.h,
             ),
           ),

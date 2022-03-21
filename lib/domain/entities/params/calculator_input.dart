@@ -1,8 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-enum CalculatorInputType { unitPrice, downPayment, numberOfYears }
+enum CalculatorInputType { unitPrice, downPayment, numberOfYears, firstDownPayment, secondDownPayment, thirdDownPayment  }
 
 class CalculatorInputParams extends Equatable {
   final String label;
@@ -20,28 +19,34 @@ class CalculatorInputParams extends Equatable {
       required this.maxLength,
       required this.minLength,
       required this.inputType,
-      this.maxNumOfYears = 0});
+      this.maxNumOfYears = 30});
 
   factory CalculatorInputParams.formInputType(CalculatorInputType inputType) {
     switch (inputType) {
+
+      /// unitPrice
       case CalculatorInputType.unitPrice:
         return CalculatorInputParams(
-          label: 'Unit Price',
+          label: 'Total Unit Price',
           iconData: Icons.price_change_outlined,
           initialValue: "",
           maxLength: 13,
           minLength: 6,
           inputType: inputType,
         );
+
+      /// downPayment
       case CalculatorInputType.downPayment:
         return CalculatorInputParams(
-          label: 'Down payment',
+          label: 'Initial Down payment',
           iconData: Icons.percent_outlined,
           initialValue: "",
-          maxLength: 3,
+          maxLength: 6,
           minLength: 1,
           inputType: inputType,
         );
+
+      /// numberOfYears
       case CalculatorInputType.numberOfYears:
         return CalculatorInputParams(
           label: 'Number of years',
@@ -50,7 +55,39 @@ class CalculatorInputParams extends Equatable {
           maxLength: 4,
           minLength: 1,
           inputType: inputType,
-          maxNumOfYears: 50,
+        );
+
+      /// firstDownPayment
+      case CalculatorInputType.firstDownPayment:
+        return CalculatorInputParams(
+          label: 'First Down payment',
+          iconData: Icons.percent_outlined,
+          initialValue: "",
+          maxLength: 6,
+          minLength: 1,
+          inputType: inputType,
+        );
+
+      /// secondDownPayment
+      case CalculatorInputType.secondDownPayment:
+        return CalculatorInputParams(
+          label: 'Second Down payment',
+          iconData: Icons.percent_outlined,
+          initialValue: "",
+          maxLength: 6,
+          minLength: 1,
+          inputType: inputType,
+        );
+
+      /// thirdDownPayment
+      case CalculatorInputType.thirdDownPayment:
+        return CalculatorInputParams(
+          label: 'Third Down payment',
+          iconData: Icons.percent_outlined,
+          initialValue: "",
+          maxLength: 6,
+          minLength: 1,
+          inputType: inputType,
         );
     }
   }

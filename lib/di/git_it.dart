@@ -61,6 +61,9 @@ import '../domain/use_cases/open_map.dart';
 import '../domain/use_cases/open_whats_app.dart';
 import '../presentation/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
 import '../presentation/cubit/current_user/current_user_cubit.dart';
+import '../presentation/journeys/calculator/formz/first_down_payment.dart';
+import '../presentation/journeys/calculator/formz/second_down_payment.dart';
+import '../presentation/journeys/calculator/formz/third_down_payment.dart';
 
 final getItInstance = GetIt.I;
 
@@ -381,10 +384,14 @@ Future init() async {
   getItInstance.registerFactory<AreaBrokersBloc>(
       () => AreaBrokersBloc(getAreaBrokersCase: getItInstance()));
 
-
   /// init CalculatorValidationBloc
-  getItInstance.registerFactory<CalculatorValidationBloc>(
-          () => CalculatorValidationBloc(unitPrice: const UnitPrice.dirty(value: ''),
-          downPayment: const DownPaymentForm.dirty(value: ''),
-          numberOfYears: const NumberOfYears.dirty(value: ''),));
+  getItInstance
+      .registerFactory<CalculatorValidationBloc>(() => CalculatorValidationBloc(
+            unitPrice: const UnitPrice.dirty(value: ''),
+            downPayment: const DownPaymentForm.dirty(value: ''),
+            numberOfYears: const NumberOfYears.dirty(value: ''),
+            firstDownPaymentForm:  const FirstDownPaymentForm.dirty(value: ''),
+            secondDownPaymentForm:  const SecondDownPaymentForm.dirty(value: ''),
+            thirdDownPaymentForm:  const ThirdDownPaymentForm.dirty(value: ''),
+          ));
 }

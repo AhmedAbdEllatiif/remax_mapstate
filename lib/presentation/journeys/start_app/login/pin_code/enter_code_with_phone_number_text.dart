@@ -23,7 +23,7 @@ class EnterCodeWithPhoneNumberText extends StatelessWidget {
             children: [
               Text(
                 TranslateConstants.enterTheCode.t(context) + "  ",
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(color: AppColor.vulcan),
+                style: Theme.of(context).textTheme.subtitle1!.copyWith(color: AppColor.geeBung),
                 textAlign: TextAlign.center,
               ),
               Directionality(
@@ -33,7 +33,7 @@ class EnterCodeWithPhoneNumberText extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .subtitle2!
-                      .copyWith(color: AppColor.vulcan,fontWeight: FontWeight.bold),
+                      .copyWith(color: AppColor.fadeGeeBung,fontWeight: FontWeight.bold),
                 ),
               )
             ],

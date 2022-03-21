@@ -20,7 +20,7 @@ class ServicesSection extends StatelessWidget {
         Text(
           TranslateConstants.services.t(context),
           style: Theme.of(context).textTheme.caption!.copyWith(
-            color: AppColor.vulcan
+            color: AppColor.absoluteTransparentGeeBung
           ),
         ),
 
@@ -60,14 +60,14 @@ class ServiceItemCard extends StatelessWidget {
           CircleAvatar(
             maxRadius: Sizes.dimen_30.w,
             minRadius: Sizes.dimen_10.w,
-            foregroundColor: AppColor.white,
-            backgroundColor: AppColor.white,
+            foregroundColor: AppColor.geeBung,
+            backgroundColor: AppColor.geeBung,
             child: Padding(
               padding:  const EdgeInsets.all(Sizes.dimen_12),
               child: Image.asset(
                 AssetsConstants.gymIcon,
                 fit: BoxFit.cover,
-                //color: AppColor.white,
+                color: AppColor.black,
               ),
             ),
 
@@ -78,7 +78,7 @@ class ServiceItemCard extends StatelessWidget {
           Text(
             'GYM',
             style: Theme.of(context).textTheme.caption!.copyWith(
-              color: AppColor.vulcan
+              color: AppColor.black
             ),
           )
         ],

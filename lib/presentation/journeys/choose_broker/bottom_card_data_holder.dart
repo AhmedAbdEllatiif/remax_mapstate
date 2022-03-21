@@ -5,6 +5,7 @@ import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/presentation/cubit/broker_changed/broker_changed_cubit.dart';
+import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 
 import 'broker_data_widget.dart';
 import '../../widgets/contact_info_widget.dart';
@@ -15,9 +16,10 @@ class BottomCardDataHolder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: AppColor.fadeBlack,
       elevation: 20,
       shape: RoundedRectangleBorder(
-        side: const BorderSide(color: Colors.white70, width: 1),
+        side: const BorderSide(color: AppColor.absoluteTransparentGeeBung, width: 1),
         borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
       ),
       child: BlocBuilder<BrokerChangedCubit, BrokerChangedState>(

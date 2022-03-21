@@ -40,11 +40,11 @@ class NotReceiveCodeText extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .subtitle2!
-                              .copyWith(color: AppColor.vulcan,fontWeight: FontWeight.bold),
+                              .copyWith(color: AppColor.fadeGeeBung,fontWeight: FontWeight.bold),
                         ),
                       ],
                       style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                        color: AppColor.vulcan,
+                        color: AppColor.geeBung,
                       ),
                     ),
                     textAlign: TextAlign.center,
@@ -64,7 +64,7 @@ class NotReceiveCodeText extends StatelessWidget {
               Text(
                 TranslateConstants.didNotReceiveCode.t(context),
                 style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                  color: AppColor.vulcan,
+                  color: AppColor.geeBung,
                 ),
               ),
               TextButton(
@@ -73,7 +73,7 @@ class NotReceiveCodeText extends StatelessWidget {
                   child: Text(
                     TranslateConstants.tryAgain.t(context),
                     style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                        color: AppColor.royalBlue, fontWeight: FontWeight.bold),
+                        color: AppColor.fadeGeeBung, fontWeight: FontWeight.bold),
                   ))
             ],
           );
@@ -86,7 +86,7 @@ class NotReceiveCodeText extends StatelessWidget {
             Text(
               TranslateConstants.didNotReceiveCode.t(context),
               style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                color: AppColor.vulcan,
+                color: AppColor.geeBung,
               ),
             ),
             TextButton(
@@ -94,7 +94,7 @@ class NotReceiveCodeText extends StatelessWidget {
                 child: Text(
                   TranslateConstants.resend.t(context).toUpperCase(),
                   style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                      color: AppColor.royalBlue, fontWeight: FontWeight.bold),
+                      color: AppColor.fadeGeeBung, fontWeight: FontWeight.bold),
                 ))
           ],
         );

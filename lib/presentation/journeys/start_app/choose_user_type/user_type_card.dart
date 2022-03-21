@@ -21,8 +21,8 @@ class UserTypeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      hoverColor: AppColor.vulcan,
-      splashColor: AppColor.vulcan,
+      hoverColor: AppColor.black,
+      splashColor: AppColor.black,
       borderRadius:  BorderRadius.all(Radius.circular(Sizes.dimen_16.w)),
       onTap: () async {
         /// update currentUser
@@ -32,26 +32,26 @@ class UserTypeCard extends StatelessWidget {
         _navigateToLoginScreen(context);
       },
       child: Card(
-        color: AppColor.vulcan,
+        color: AppColor.geeBung,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Sizes.dimen_16.w)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(
               Icons.person,
-              color: AppColor.white,
+              color: AppColor.black,
             ),
             const SizedBox(
               height: 10,
             ),
             Text(
               currentUserEntity.userType.toShortString().t(context).toUpperCase(),
-              style: const TextStyle(color: AppColor.white),
+              style: const TextStyle(color: AppColor.black),
             ),
           ],
         ),
         elevation: 15,
-        shadowColor: AppColor.vulcan,
+        shadowColor: AppColor.black,
       ),
     );
   }

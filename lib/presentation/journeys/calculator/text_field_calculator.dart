@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:pattern_formatter/pattern_formatter.dart';
-import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
 import '../../../common/constants/sizes.dart';
 import '../../../domain/entities/params/calculator_input.dart';
@@ -19,8 +18,9 @@ class TextFieldCalculator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return   Card(
-      elevation: 10.0,
-      shadowColor: AppColor.vulcan,
+      color: AppColor.textFieldInputGeeBung,
+      elevation: 0.0,
+      //shadowColor: AppColor.absoluteFadeGeeBung,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
       ),
@@ -28,12 +28,25 @@ class TextFieldCalculator extends StatelessWidget {
         //initialValue: initialValue,
         keyboardType: TextInputType.number,
         textInputAction: calculatorInputParams.inputType !=
-            CalculatorInputType.numberOfYears
+            CalculatorInputType.thirdDownPayment
             ? TextInputAction.next
             : TextInputAction.done,
         initialValue: calculatorInputParams.initialValue,
-        cursorColor: AppColor.vulcan,
-        style: const TextStyle(color: AppColor.vulcan),
+        cursorColor: AppColor.geeBung,
+        style: const TextStyle(color: AppColor.geeBung),
+        onFieldSubmitted:(_) {
+          if(calculatorInputParams.inputType ==
+              CalculatorInputType.numberOfYears){
+            context
+                .read<CalculatorValidationBloc>()
+                .add(SubmitCalculatorFormEvent());
+
+          }
+        },
+
+        onSaved: (_) {
+          print("Keyboard Done Saved");
+        },
         inputFormatters: [
           if (calculatorInputParams.inputType ==
               CalculatorInputType.unitPrice)
@@ -46,26 +59,29 @@ class TextFieldCalculator extends StatelessWidget {
                 calculatorInputParams.maxLength),
         ],
 
-        // maxLength: 5,
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
             borderSide:
-            const BorderSide(color: AppColor.royalBlue, width: 1.0),
+            const BorderSide(color: AppColor.geeBung, width: 2.0),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
             borderSide:
-            const BorderSide(color: AppColor.vulcan, width: 1.0),
+            const BorderSide(color: AppColor.absoluteTransparentGeeBung, width: 0.7),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
             borderSide: const BorderSide(color: Colors.red, width: 1.0),
           ),
-          fillColor: AppColor.white,
+          fillColor: AppColor.geeBung,
           labelText: calculatorInputParams.label,
           // errorMaxLines: ,
-          labelStyle: Theme.of(context).textTheme.royalBlueSubtitle1,
+          labelStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
+            color: AppColor.geeBung,
+            fontWeight: FontWeight.bold,
+              fontSize: Sizes.dimen_16,
+          ),
           //errorStyle: const TextStyle(color: Colors.red),
           //errorText: _getError(state.calculatorValidationEnum),
         ),
@@ -82,6 +98,8 @@ class TextFieldCalculator extends StatelessWidget {
 
   void _addEvent(BuildContext context, value) {
     switch (calculatorInputParams.inputType) {
+
+      /// unitPrice
       case CalculatorInputType.unitPrice:
         {
           context.read<CalculatorValidationBloc>().add(
@@ -92,6 +110,8 @@ class TextFieldCalculator extends StatelessWidget {
           );
           break;
         }
+
+        /// downPayment
       case CalculatorInputType.downPayment:
         {
           context.read<CalculatorValidationBloc>().add(
@@ -102,10 +122,46 @@ class TextFieldCalculator extends StatelessWidget {
           );
           break;
         }
+
+        /// numberOfYears
       case CalculatorInputType.numberOfYears:
         {
           context.read<CalculatorValidationBloc>().add(
             NumberOfYearsChangedEvent(
+              currentStringOnChange: value,
+              params: calculatorInputParams,
+            ),
+          );
+          break;
+        }
+
+        /// firstDownPayment
+      case CalculatorInputType.firstDownPayment:
+        {
+          context.read<CalculatorValidationBloc>().add(
+            FirstDownPaymentChangedEvent(
+              currentStringOnChange: value,
+              params: calculatorInputParams,
+            ),
+          );
+          break;
+        }
+        /// secondDownPayment
+      case CalculatorInputType.secondDownPayment:
+        {
+          context.read<CalculatorValidationBloc>().add(
+            SecondDownPaymentChangedEvent(
+              currentStringOnChange: value,
+              params: calculatorInputParams,
+            ),
+          );
+          break;
+        }
+        /// thirdDownPayment
+      case CalculatorInputType.thirdDownPayment:
+        {
+          context.read<CalculatorValidationBloc>().add(
+            ThirdDownPaymentChangedEvent(
               currentStringOnChange: value,
               params: calculatorInputParams,
             ),

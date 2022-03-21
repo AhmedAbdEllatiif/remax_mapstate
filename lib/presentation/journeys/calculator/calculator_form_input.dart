@@ -34,12 +34,12 @@ class CalculatorFormInput extends StatelessWidget {
                 Text(
                   calculatorInputParams.label,
                   style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                      color: AppColor.vulcan, fontWeight: FontWeight.bold),
+                      color: AppColor.absoluteTransparentGeeBung, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   width: Sizes.dimen_10.w,
                 ),
-                Icon(calculatorInputParams.iconData),
+                Icon(calculatorInputParams.iconData,color: AppColor.absoluteTransparentGeeBung,),
               ],
             ),
 
@@ -50,13 +50,13 @@ class CalculatorFormInput extends StatelessWidget {
                   text: TextSpan(
                 text: "(${_getCurrentInputLength(state)}",
                 style: Theme.of(context).textTheme.caption!.copyWith(
-                      color: AppColor.vulcan,
+                      color: AppColor.absoluteTransparentGeeBung,
                     ),
                 children: [
                   TextSpan(
                     text: " / ${calculatorInputParams.maxLength - 1})",
                     style: Theme.of(context).textTheme.caption!.copyWith(
-                          color: AppColor.vulcan,
+                          color: AppColor.absoluteTransparentGeeBung,
                         ),
                   ),
                 ],
@@ -95,6 +95,14 @@ class CalculatorFormInput extends StatelessWidget {
         return state.downPaymentLength;
       case CalculatorInputType.numberOfYears:
         return state.numberOfYearsLength;
+
+
+      case CalculatorInputType.firstDownPayment:
+        return state.firstDownPaymentLength;
+      case CalculatorInputType.secondDownPayment:
+        return state.secondDownPaymentLength;
+      case CalculatorInputType.thirdDownPayment:
+        return state.thirdDownPaymentLength;
     }
   }
 
@@ -105,13 +113,13 @@ class CalculatorFormInput extends StatelessWidget {
       case CalculatorInputType.unitPrice:
          if (validationEnum ==
             CalculatorValidationEnum.invalidUnitPrice) {
-          return ("Invalid Unit Price");
+          return ("* Invalid Unit Price");
         } else if (validationEnum ==
             CalculatorValidationEnum.minLengthUnitPrice) {
-          return ("Unit Price should contain at least ${calculatorInputParams.minLength} characters");
+          return ("* Unit Price should contain at least ${calculatorInputParams.minLength} characters");
         } else if (validationEnum ==
             CalculatorValidationEnum.maxLengthUnitPrice) {
-          return ("Unit Price maximum characters is ${calculatorInputParams.maxLength - 1}");
+          return ("* Unit Price maximum characters is ${calculatorInputParams.maxLength - 1}");
         }
         return null;
 
@@ -119,13 +127,13 @@ class CalculatorFormInput extends StatelessWidget {
       case CalculatorInputType.downPayment:
           if (validationEnum ==
             CalculatorValidationEnum.invalidDownPayment) {
-          return ("Invalid DownPayment");
+          return ("* Invalid DownPayment");
         } else if (validationEnum ==
             CalculatorValidationEnum.minLengthDownPayment) {
-          return ("Down payment should contain at least ${calculatorInputParams.minLength} characters");
+          return ("* Down payment should contain at least ${calculatorInputParams.minLength} characters");
         } else if (validationEnum ==
             CalculatorValidationEnum.maxLengthDownPayment) {
-          return ("Down payment maximum characters is ${calculatorInputParams.maxLength - 1}");
+          return ("* Down payment maximum characters is ${calculatorInputParams.maxLength - 1}");
         }
         return null;
 
@@ -133,19 +141,65 @@ class CalculatorFormInput extends StatelessWidget {
       case CalculatorInputType.numberOfYears:
         if (validationEnum ==
             CalculatorValidationEnum.largeNumOfYears) {
-          return ("Large number of years must be [0-${calculatorInputParams.maxNumOfYears}]");
+          return ("* Large number of years must be [0-${calculatorInputParams.maxNumOfYears}]");
         }
         if (validationEnum ==
             CalculatorValidationEnum.invalidNumberOfYears) {
-          return ("Invalid number of years");
+          return ("* Invalid number of years");
         } else if (validationEnum ==
             CalculatorValidationEnum.minLengthNumOfYears) {
-          return ("Number of years should contain at least ${calculatorInputParams.minLength} characters");
+          return ("* Number of years should contain at least ${calculatorInputParams.minLength} characters");
         } else if (validationEnum ==
             CalculatorValidationEnum.maxLengthNumOfYears) {
-          return ("Number of years maximum characters is ${calculatorInputParams.maxLength - 1}");
+          return ("* Number of years maximum characters is ${calculatorInputParams.maxLength - 1}");
         }
         return null;
+
+
+    /// First Down payment
+      case CalculatorInputType.firstDownPayment:
+        if (validationEnum ==
+            CalculatorValidationEnum.invalidFirstDownPayment) {
+          return ("* Invalid First DownPayment");
+        } else if (validationEnum ==
+            CalculatorValidationEnum.minLengthFirstDownPayment) {
+          return ("* First Down payment should contain at least ${calculatorInputParams.minLength} characters");
+        } else if (validationEnum ==
+            CalculatorValidationEnum.maxLengthFirstDownPayment) {
+          return ("* First Down payment maximum characters is ${calculatorInputParams.maxLength - 1}");
+        }
+        return null;
+
+
+    /// Second Down payment
+      case CalculatorInputType.secondDownPayment:
+        if (validationEnum ==
+            CalculatorValidationEnum.invalidSecondDownPayment) {
+          return ("* Invalid Second DownPayment");
+        } else if (validationEnum ==
+            CalculatorValidationEnum.minLengthSecondDownPayment) {
+          return ("* Second Down payment should contain at least ${calculatorInputParams.minLength} characters");
+        } else if (validationEnum ==
+            CalculatorValidationEnum.maxLengthSecondDownPayment) {
+          return ("* Second Down payment maximum characters is ${calculatorInputParams.maxLength - 1}");
+        }
+        return null;
+
+
+    /// Third Down payment
+      case CalculatorInputType.thirdDownPayment:
+        if (validationEnum ==
+            CalculatorValidationEnum.invalidThirdDownPayment) {
+          return ("* Invalid Third DownPayment");
+        } else if (validationEnum ==
+            CalculatorValidationEnum.minLengthThirdDownPayment) {
+          return ("* Third Down payment should contain at least ${calculatorInputParams.minLength} characters");
+        } else if (validationEnum ==
+            CalculatorValidationEnum.maxLengthThirdDownPayment) {
+          return ("* Third Down payment maximum characters is ${calculatorInputParams.maxLength - 1}");
+        }
+        return null;
+
       default:
         return null;
     }

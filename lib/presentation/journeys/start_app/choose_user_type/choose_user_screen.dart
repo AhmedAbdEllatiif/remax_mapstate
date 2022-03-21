@@ -22,7 +22,6 @@ class ChooseUserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: AppColor.bgGray,
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Container(
@@ -61,7 +60,7 @@ class ChooseUserScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius:
                           BorderRadius.all(Radius.circular(Sizes.dimen_16.w)),
-                      border: Border.all(color: AppColor.vulcan, width: 0.4)),
+                      border: Border.all(color: AppColor.absoluteTransparentGeeBung, width: 0.4)),
                   child: const TakeATourButton(),
                 ),
               ],
