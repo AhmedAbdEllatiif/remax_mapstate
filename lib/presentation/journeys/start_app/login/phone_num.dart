@@ -69,9 +69,11 @@ class _PhoneNumWidgetState extends State<PhoneNumWidget> {
                 margin: EdgeInsets.only(top: 50),
 
                 child: InternationalPhoneNumberInput(
+                  /*
+                  /// To Edit searchTextStyle InternationalPhoneNumberInput >> SelectorButton >> CountrySearchListWidget >> TextFormField
                   searchTextStyle: const TextStyle(color: AppColor.black),
                   countryNameTextStyle: const TextStyle(color: AppColor.black),
-                  dialCodeTextStyle: const TextStyle(color: AppColor.black),
+                  dialCodeTextStyle: const TextStyle(color: AppColor.black),*/
                   textStyle: const TextStyle(color: AppColor.geeBung),
                   selectorTextStyle: const TextStyle(color: AppColor.geeBung),
 
@@ -109,6 +111,7 @@ class _PhoneNumWidgetState extends State<PhoneNumWidget> {
                   /// box inside bottomSheet or dialog
                   searchBoxDecoration: InputDecoration(
                       labelText: TranslateConstants.searchCountryLabel.t(context),
+                      labelStyle: TextStyle(color: AppColor.black),
                       focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: AppColor.black, width: 1.0),
                       ),

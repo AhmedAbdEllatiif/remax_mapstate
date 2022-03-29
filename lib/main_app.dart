@@ -5,6 +5,7 @@ import 'package:remax_mapstate/common/constants/language_constants.dart';
 import 'package:remax_mapstate/common/constants/route_list.dart';
 import 'package:remax_mapstate/common/enums/login_status.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
+import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/presentation/app_localization.dart';
 import 'package:remax_mapstate/presentation/cubit/auto_login/auto_login_cubit.dart';
@@ -113,7 +114,18 @@ class _MainAppState extends State<MainApp> {
                     ),
                     color: AppColor.fadeBlack,
                   ),
-                ),
+
+
+                    /// default card theme
+                    cardTheme: CardTheme(
+                      elevation: 10.0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius:  BorderRadius.all(Radius.circular(Sizes.dimen_10.w)),
+                      ),
+                    )
+              ),
+
+
 
                 /// Languages
                 supportedLocales: LanguageConstants.supportedLanguages

@@ -18,7 +18,7 @@ class TextFieldCalculator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return   Card(
-      color: AppColor.textFieldInputGeeBung,
+      color: AppColor.extraTransparentGeeBung,
       elevation: 0.0,
       //shadowColor: AppColor.absoluteFadeGeeBung,
       shape: RoundedRectangleBorder(

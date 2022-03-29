@@ -6,7 +6,6 @@
   "popular": "POPULAR",
   "now": "NOW",
   "soon": "SOON",
-  "okay": "Okay",
   "retry": "Retry",
 
   "home": "Home",
@@ -62,6 +61,21 @@
   "friendlyPhoneCall": "Friendly Phone call",
   "getDirections": "Get Directions",
   "headOffice": "Head office",
+  "clientRegistration": "Client Registration",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "email": "Email",
+  "currentJob": "Current job",
+  "experienceYears": "Experience years",
+  "spotterRegistration": "Spotter Registration",
+  "brokerRegistration": "Broker Registration",
+  "selectedAreas": "Selected Areas",
+  "okay": "okay",
+  "cancel": "cancel",
+  "register": "Register",
+  "chooseFavoriteAreas": "Choose Favorite Areas",
+  "selectYourFavoriteAreas": "Select Your Favorite Areas",
+  "searchForArea": "Search for Area",
 
 
 

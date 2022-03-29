@@ -19,10 +19,11 @@ class AppColor{
   static const Color transparentBlack = Color(0xC1111111);
   static const Color geeBung = Color(0xFFDD9936);
   static const Color fadeGeeBung = Color(0xFFF3BE57);
+  static const Color extraFadeGeeBung = Color(0xC9F6D187);
   //static const Color absoluteFadeGeeBung = Color(0xFFFbCC60);
   static const Color transparentGeeBung = Color(0xa4fce5b0);
   static const Color absoluteTransparentGeeBung = Color(0x81fce5b0);
-  static const Color textFieldInputGeeBung = Color(0x4dfce5b0);
+  static const Color extraTransparentGeeBung = Color(0x4dfce5b0);
   static const bgGray = Color(0xffefeeee);
   static const white = Color(0xffffffff);
   static const Color fadeVulcan = Color(0x9424213B);

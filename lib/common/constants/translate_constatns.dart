@@ -7,7 +7,6 @@ class TranslateConstants{
   static const String arabic = 'arabic';
   static const String english = 'english';
   static const String aboutDescription = 'aboutDescription';
-  static const String okay = 'okay';
   static const String somethingWentWrong = 'somethingWentWrong';
   static const String checkNetwork = 'check Network';
   static const String retry = 'retry';
@@ -66,5 +65,20 @@ class TranslateConstants{
   static const String friendlyPhoneCall = 'friendlyPhoneCall';
   static const String headOffice = 'headOffice';
   static const String test = 'test';
+  static const String clientRegistration = 'clientRegistration';
+  static const String spotterRegistration = 'spotterRegistration';
+  static const String brokerRegistration = 'brokerRegistration';
+  static const String firstName = 'firstName';
+  static const String lastName = 'lastName';
+  static const String email = 'email';
+  static const String currentJob = 'currentJob';
+  static const String experienceYears = 'experienceYears';
+  static const String selectedAreas = 'selectedAreas';
+  static const String okay = 'okay';
+  static const String cancel = 'cancel';
+  static const String register = 'register';
+  static const String chooseFavoriteAreas = 'chooseFavoriteAreas';
+  static const String selectYourFavoriteAreas = 'selectYourFavoriteAreas';
+  static const String searchForArea = 'searchForArea';
 
 }

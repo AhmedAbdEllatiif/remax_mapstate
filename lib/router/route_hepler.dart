@@ -64,5 +64,17 @@ class RouteHelper {
   /// To CalculationResultScreen \\\
   void calculationResultScreen(BuildContext context,CalculatorValidationBloc calculatorValidationBloc) =>
       Navigator.of(context).pushNamed(RouteList.calculationResult,arguments: calculatorValidationBloc );
+
+  /// To ClientRegistrationScreen \\\
+  void clientRegistrationScreen(BuildContext context) =>
+      Navigator.of(context).pushNamed(RouteList.clientRegistration);
+
+  /// To SpotterRegistrationScreen \\\
+  void spotterRegistrationScreen(BuildContext context) =>
+      Navigator.of(context).pushNamed(RouteList.spotterRegistration);
+
+  /// To BrokerRegistrationScreen \\\
+  void brokerRegistrationScreen(BuildContext context) =>
+      Navigator.of(context).pushNamed(RouteList.brokerRegistration);
 }
 //Navigator.pushNamed(context, AppRouter.chooseBrokerScreen)

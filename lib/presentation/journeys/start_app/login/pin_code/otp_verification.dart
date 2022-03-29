@@ -7,6 +7,7 @@ import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/presentation/bloc/login/login_bloc.dart';
 import 'package:remax_mapstate/presentation/cubit/auto_login/auto_login_cubit.dart';
+import 'package:remax_mapstate/presentation/cubit/current_user/current_user_cubit.dart';
 import 'package:remax_mapstate/presentation/widgets/btn_with_box_shadow.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/login/pin_code/didnot_receive_pin_code_text.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/login/pin_code/enter_code_with_phone_number_text.dart';
@@ -14,6 +15,7 @@ import 'package:remax_mapstate/presentation/journeys/start_app/login/pin_code/pi
 import 'package:remax_mapstate/presentation/journeys/start_app/login/pin_code/pin_error_text.dart';
 
 import '../../../../../common/constants/translate_constatns.dart';
+import '../../../../../common/enums/user_types.dart';
 import '../../../../../router/route_hepler.dart';
 import 'enter_otp_animation.dart';
 
@@ -28,6 +30,7 @@ class OtpVerificationCode extends StatefulWidget {
 
 class _OtpVerificationCodeState extends State<OtpVerificationCode> {
   TextEditingController textEditingController = TextEditingController();
+
 
   // ..text = "123456";
 
@@ -65,9 +68,28 @@ class _OtpVerificationCodeState extends State<OtpVerificationCode> {
   _addBloc(BuildContext context, LoginEvent event) =>
       BlocProvider.of<LoginBloc>(context).add(event);
 
-  /// navigate to LoginScreen
-  void _navigateToLoginScreen(BuildContext context) =>
-      RouteHelper().mainScreen(context, isClearStack: true);
+  /// navigate to NextScreen
+  void _navigateToNextScreen(BuildContext context) async{
+
+    final currentUser = await context.read<CurrentUserCubit>().getCurrentUserType();
+    switch(currentUser){
+
+      case UserType.client:
+        RouteHelper().clientRegistrationScreen(context);
+        break;
+      case UserType.broker:
+        RouteHelper().brokerRegistrationScreen(context);
+        break;
+      case UserType.ambassador:
+        RouteHelper().spotterRegistrationScreen(context);
+        break;
+      case UserType.tour:
+      case UserType.noUser:
+        throw UnimplementedError("_navigateToNextScreen No User");
+    }
+
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +100,7 @@ class _OtpVerificationCodeState extends State<OtpVerificationCode> {
           await context.read<AutoLoginCubit>().save();
 
           /// navigate to login screen
-          _navigateToLoginScreen(context);
+          _navigateToNextScreen(context);
         }
       },
       child: ListView(

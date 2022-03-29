@@ -7,13 +7,16 @@ import 'package:remax_mapstate/presentation/journeys/developer_contact/developer
 import 'package:remax_mapstate/presentation/journeys/main/main_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_details_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/projects/projects_screen.dart';
+import 'package:remax_mapstate/presentation/journeys/start_app/broker_registartion/broker_registartion_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/choose_user_type/choose_user_screen.dart';
+import 'package:remax_mapstate/presentation/journeys/start_app/spotter_registration/spotter_registration_screen.dart';
 
 import '../common/constants/route_list.dart';
 import '../presentation/bloc/calculator_validation/calculator_validation_bloc.dart';
 import '../presentation/journeys/choose_broker/arguments/choose_broker_argument.dart';
 import '../presentation/journeys/project_details/project_details_argument.dart';
 import '../presentation/journeys/projects/projects_argument.dart';
+import '../presentation/journeys/start_app/client_registration/client_registration_screen.dart';
 import '../presentation/journeys/start_app/login/login_screen.dart';
 
 class Routes{
@@ -23,6 +26,9 @@ class Routes{
     RouteList.loginScreen : (context) => const LoginScreen(),
     RouteList.chooseUserScreen : (context) => const ChooseUserScreen(),
     RouteList.projectsScreen : (context) => const ProjectsScreen(),
+    RouteList.clientRegistration : (context) => const ClientRegistrationScreen(),
+    RouteList.spotterRegistration : (context) => const SpotterRegistrationScreen(),
+    RouteList.brokerRegistration : (context) => const BrokerRegistrationScreen(),
     RouteList.calculationResult : (context) =>  CalculationResultScreen(calculatorValidationBloc: settings.arguments as CalculatorValidationBloc),
     RouteList.developerContact : (context) => DeveloperContactScreen(developerContactParams:  settings.arguments as ContactDeveloperParam),
     RouteList.chooseBrokerScreen : (context) =>  ChooseBrokerScreen(chooseBrokerArgument: settings.arguments as ChooseBrokerArgument),

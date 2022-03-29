@@ -23,7 +23,7 @@ class CalculatorInputParams extends Equatable {
 
   factory CalculatorInputParams.formInputType(CalculatorInputType inputType) {
     switch (inputType) {
-
+    ///TODO add translate
       /// unitPrice
       case CalculatorInputType.unitPrice:
         return CalculatorInputParams(

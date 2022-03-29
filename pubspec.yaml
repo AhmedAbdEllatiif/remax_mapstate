@@ -113,6 +113,10 @@ dependencies:
   # pattern_formatter
   pattern_formatter: ^2.0.0
 
+
+  # multi_select_flutter
+  multi_select_flutter: ^4.1.2
+
   # wiredash
   #wiredash: ^0.7.0+1
 

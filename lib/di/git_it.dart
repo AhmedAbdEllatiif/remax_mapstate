@@ -60,6 +60,7 @@ import '../domain/use_cases/make_phone_call.dart';
 import '../domain/use_cases/open_map.dart';
 import '../domain/use_cases/open_whats_app.dart';
 import '../presentation/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
+import '../presentation/cubit/choose_favorite_area/choose_favorite_area_cubit.dart';
 import '../presentation/cubit/current_user/current_user_cubit.dart';
 import '../presentation/journeys/calculator/formz/first_down_payment.dart';
 import '../presentation/journeys/calculator/formz/second_down_payment.dart';
@@ -334,6 +335,11 @@ Future init() async {
     ),
   );
 
+  /// ChooseFavoriteAreaCubit
+  getItInstance.registerFactory<ChooseFavoriteAreaCubit>(
+      ()=> ChooseFavoriteAreaCubit(),
+  );
+
   ///********************************** init blocs *********************************************\\\
 
   ///==> init LoginBloc
@@ -390,8 +396,8 @@ Future init() async {
             unitPrice: const UnitPrice.dirty(value: ''),
             downPayment: const DownPaymentForm.dirty(value: ''),
             numberOfYears: const NumberOfYears.dirty(value: ''),
-            firstDownPaymentForm:  const FirstDownPaymentForm.dirty(value: ''),
-            secondDownPaymentForm:  const SecondDownPaymentForm.dirty(value: ''),
-            thirdDownPaymentForm:  const ThirdDownPaymentForm.dirty(value: ''),
+            firstDownPaymentForm: const FirstDownPaymentForm.dirty(value: ''),
+            secondDownPaymentForm: const SecondDownPaymentForm.dirty(value: ''),
+            thirdDownPaymentForm: const ThirdDownPaymentForm.dirty(value: ''),
           ));
 }
