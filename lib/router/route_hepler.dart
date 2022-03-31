@@ -67,14 +67,14 @@ class RouteHelper {
 
   /// To ClientRegistrationScreen \\\
   void clientRegistrationScreen(BuildContext context) =>
-      Navigator.of(context).pushNamed(RouteList.clientRegistration);
+      Navigator.of(context).pushReplacementNamed(RouteList.clientRegistration);
 
   /// To SpotterRegistrationScreen \\\
   void spotterRegistrationScreen(BuildContext context) =>
-      Navigator.of(context).pushNamed(RouteList.spotterRegistration);
+      Navigator.of(context).pushReplacementNamed(RouteList.spotterRegistration);
 
   /// To BrokerRegistrationScreen \\\
   void brokerRegistrationScreen(BuildContext context) =>
-      Navigator.of(context).pushNamed(RouteList.brokerRegistration);
+      Navigator.of(context).pushReplacementNamed(RouteList.brokerRegistration);
 }
 //Navigator.pushNamed(context, AppRouter.chooseBrokerScreen)
