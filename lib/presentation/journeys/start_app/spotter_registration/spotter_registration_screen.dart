@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 
 import '../../../../common/constants/sizes.dart';
 import '../../../../common/constants/translate_constatns.dart';
 import '../../../../domain/entities/params/app_text_form_field_params.dart';
+import '../../../../router/route_hepler.dart';
+import '../../../cubit/auto_login/auto_login_cubit.dart';
 import '../../../widgets/app_text_form_field.dart';
 import '../../../widgets/btn_with_box_shadow.dart';
 
@@ -85,7 +88,8 @@ class _SpotterRegistrationScreenState extends State<SpotterRegistrationScreen> {
                 ButtonWithBoxShadow(
                   text: TranslateConstants.register.t(context),
                   onPressed: () {
-                    throw UnimplementedError("No Spotter Registration Yet ...");
+                     _saveAutoLogin();
+                    _navigateToMainScreen();
                   },
                 )
               ],
@@ -95,4 +99,11 @@ class _SpotterRegistrationScreenState extends State<SpotterRegistrationScreen> {
       ),
     );
   }
+
+  /// Save auto login
+  void _saveAutoLogin() async => await context.read<AutoLoginCubit>().save();
+
+  /// Navigate to MainScreen
+  void _navigateToMainScreen() =>
+      RouteHelper().mainScreen(context, isClearStack: true);
 }

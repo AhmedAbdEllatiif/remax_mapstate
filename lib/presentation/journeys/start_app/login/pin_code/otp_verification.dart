@@ -96,8 +96,6 @@ class _OtpVerificationCodeState extends State<OtpVerificationCode> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) async {
         if (state is CorrectCodeEntered) {
-          /// save auto login
-          await context.read<AutoLoginCubit>().save();
 
           /// navigate to login screen
           _navigateToNextScreen(context);

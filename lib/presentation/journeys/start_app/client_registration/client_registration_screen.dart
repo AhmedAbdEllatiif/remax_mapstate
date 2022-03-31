@@ -7,10 +7,12 @@ import 'package:remax_mapstate/domain/entities/area_entity.dart';
 import 'package:remax_mapstate/presentation/cubit/choose_favorite_area/choose_favorite_area_cubit.dart';
 import 'package:remax_mapstate/presentation/widgets/app_text_form_field.dart';
 import 'package:remax_mapstate/presentation/widgets/choose_area_widget.dart';
+import 'package:remax_mapstate/router/route_hepler.dart';
 
 import '../../../../common/constants/sizes.dart';
 import '../../../../di/git_it.dart';
 import '../../../../domain/entities/params/app_text_form_field_params.dart';
+import '../../../cubit/auto_login/auto_login_cubit.dart';
 import '../../../widgets/btn_with_box_shadow.dart';
 
 class ClientRegistrationScreen extends StatefulWidget {
@@ -91,11 +93,11 @@ class _ClientRegistrationScreenState extends State<ClientRegistrationScreen> {
 
                   ChooseFavoriteAreaWidget(
                     allAreas: const [
-                       AreaEntity(id: 1, title: "Zayed"),
-                       AreaEntity(id: 2, title: "October"),
-                       AreaEntity(id: 3, title: "Sokhna"),
-                       AreaEntity(id: 4, title: "Sahel"),
-                       AreaEntity(id: 5, title: "New Capital"),
+                      AreaEntity(id: 1, title: "Zayed"),
+                      AreaEntity(id: 2, title: "October"),
+                      AreaEntity(id: 3, title: "Sokhna"),
+                      AreaEntity(id: 4, title: "Sahel"),
+                      AreaEntity(id: 5, title: "New Capital"),
                     ],
                     chooseFavoriteAreaCubit: _chooseFavoriteAreaCubit,
                   ),
@@ -104,8 +106,9 @@ class _ClientRegistrationScreenState extends State<ClientRegistrationScreen> {
                   ButtonWithBoxShadow(
                     text: TranslateConstants.register.t(context),
                     onPressed: () {
-                      throw UnimplementedError(
-                          "No Client Registration Yet ...");
+                      _saveAutoLogin();
+
+                      _navigateToMainScreen();
                     },
                   )
                 ],
@@ -116,4 +119,11 @@ class _ClientRegistrationScreenState extends State<ClientRegistrationScreen> {
       ),
     );
   }
+
+  /// Save auto login
+  void _saveAutoLogin() async => await context.read<AutoLoginCubit>().save();
+
+  /// Navigate to MainScreen
+  void _navigateToMainScreen() =>
+      RouteHelper().mainScreen(context, isClearStack: true);
 }
