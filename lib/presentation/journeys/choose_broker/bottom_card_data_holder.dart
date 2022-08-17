@@ -70,7 +70,7 @@ class BottomCardDataHolder extends StatelessWidget {
                         text: TranslateConstants.defaultClientWhatsappText.t(context),);
                   },
                   onCallPressed: () {
-
+                    context.read<BrokerChangedCubit>().makePhoneCall();
                   },
                 ),
               ],
