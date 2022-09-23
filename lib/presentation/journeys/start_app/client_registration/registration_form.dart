@@ -3,9 +3,10 @@ import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
 import 'package:remax_mapstate/domain/entities/params/app_text_form_field_params.dart';
-import 'package:remax_mapstate/presentation/cubit/choose_favorite_area/choose_favorite_area_cubit.dart';
 import 'package:remax_mapstate/presentation/widgets/app_text_form_field.dart';
 import 'package:remax_mapstate/presentation/widgets/choose_area_widget.dart';
+
+import '../../../logic/cubit/choose_favorite_area/choose_favorite_area_cubit.dart';
 
 class RegistrationFrom extends StatelessWidget {
 

@@ -3,12 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/di/git_it.dart';
-import 'package:remax_mapstate/presentation/cubit/residential_projects/residential_projects_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/area_projects/unit_types_list_widget.dart';
 import 'package:remax_mapstate/presentation/journeys/projects/project_card.dart';
 
 import 'package:remax_mapstate/presentation/widgets/empty_list_widegt.dart';
 import 'package:remax_mapstate/presentation/widgets/loading_animation_widget.dart';
+
+import '../../../logic/cubit/residential_projects/residential_projects_cubit.dart';
 
 class ResidentialPage extends StatefulWidget {
   const ResidentialPage({Key? key}) : super(key: key);

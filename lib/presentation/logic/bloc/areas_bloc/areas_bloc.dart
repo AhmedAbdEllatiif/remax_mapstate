@@ -4,9 +4,10 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
-import '../../../domain/entities/params/no_params.dart';
 import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 import 'package:remax_mapstate/domain/use_cases/get_areas.dart';
+
+import '../../../../domain/entities/params/no_params.dart';
 
 part 'areas_event.dart';
 

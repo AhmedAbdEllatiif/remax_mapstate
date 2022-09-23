@@ -4,13 +4,13 @@ import 'package:remax_mapstate/common/enums/user_types.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_developer.dart';
-import 'package:remax_mapstate/presentation/cubit/current_user/current_user_cubit.dart';
 
 import '../../../common/constants/sizes.dart';
 import '../../../common/constants/translate_constatns.dart';
 import '../../../data/tables/current_user_table.dart';
 import '../../../domain/entities/current_user.dart';
 import '../../../router/route_hepler.dart';
+import '../../logic/cubit/current_user/current_user_cubit.dart';
 import '../../themes/theme_color.dart';
 import '../../widgets/app_button.dart';
 import '../choose_broker/arguments/choose_broker_argument.dart';

@@ -2,10 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:remax_mapstate/domain/entities/broker_entity.dart';
 
-import '../../../domain/entities/params/phone_call.dart';
-import '../../../domain/entities/params/whatsapp_params.dart';
-import '../../../domain/use_cases/make_phone_call.dart';
-import '../../../domain/use_cases/open_whats_app.dart';
+import '../../../../domain/entities/params/phone_call.dart';
+import '../../../../domain/entities/params/whatsapp_params.dart';
+import '../../../../domain/use_cases/make_phone_call.dart';
+import '../../../../domain/use_cases/open_whats_app.dart';
 
 part 'broker_changed_state.dart';
 

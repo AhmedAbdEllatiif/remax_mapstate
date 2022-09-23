@@ -6,7 +6,7 @@ import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 
 import '../../../../common/constants/language_constants.dart';
 import '../../../../common/constants/translate_constatns.dart';
-import '../../../cubit/language/language_cubit.dart';
+import '../../../logic/cubit/language/language_cubit.dart';
 
 class ToggleLanguageWidget extends StatelessWidget {
   const ToggleLanguageWidget({Key? key}) : super(key: key);

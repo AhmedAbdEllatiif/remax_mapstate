@@ -4,8 +4,6 @@ import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/di/git_it.dart';
-import 'package:remax_mapstate/presentation/bloc/brokers_by_area/area_brokers_bloc.dart';
-import 'package:remax_mapstate/presentation/cubit/broker_changed/broker_changed_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/choose_broker/arguments/choose_broker_argument.dart';
 import 'package:remax_mapstate/presentation/journeys/choose_broker/brokers_page_view/top_broker_page_view_widget.dart';
 import 'package:remax_mapstate/presentation/widgets/empty_list_widegt.dart';
@@ -13,6 +11,8 @@ import 'package:remax_mapstate/presentation/widgets/loading_animation_widget.dar
 import 'package:responsive_framework/responsive_value.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
+import '../../logic/bloc/brokers_by_area/area_brokers_bloc.dart';
+import '../../logic/cubit/broker_changed/broker_changed_cubit.dart';
 import 'bottom_card_data_holder.dart';
 
 class ChooseBrokerScreen extends StatefulWidget {

@@ -7,7 +7,7 @@ import 'package:remax_mapstate/domain/entities/contact_developer.dart';
 import 'package:remax_mapstate/presentation/journeys/developer_contact/developer_data_item.dart';
 
 import '../../../common/constants/sizes.dart';
-import '../../cubit/developer_contact/developer_contact_cubit.dart';
+import '../../logic/cubit/developer_contact/developer_contact_cubit.dart';
 import '../../widgets/contact_info_widget.dart';
 import 'location_data_item.dart';
 

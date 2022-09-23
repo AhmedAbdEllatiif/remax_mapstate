@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
-import 'package:remax_mapstate/presentation/cubit/team_support/team_support_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/team_support/team_support_data_item.dart';
 
 import '../../../common/constants/sizes.dart';
 import '../../../domain/entities/team_support_entity.dart';
+import '../../logic/cubit/team_support/team_support_cubit.dart';
 import '../../widgets/contact_info_widget.dart';
 
 

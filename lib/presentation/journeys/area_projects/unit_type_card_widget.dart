@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
-import 'package:remax_mapstate/presentation/cubit/residential_projects/residential_projects_cubit.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
+
+import '../../logic/cubit/residential_projects/residential_projects_cubit.dart';
 import '../../themes/theme_color.dart';
 
 class UnitTypeCardWidget extends StatelessWidget {

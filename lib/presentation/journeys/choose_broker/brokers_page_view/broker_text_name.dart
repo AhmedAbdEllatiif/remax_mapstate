@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:remax_mapstate/presentation/cubit/broker_changed/broker_changed_cubit.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
+
+import '../../../logic/cubit/broker_changed/broker_changed_cubit.dart';
 
 class BrokerTextName extends StatelessWidget {
   const BrokerTextName({Key? key}) : super(key: key);

@@ -7,7 +7,9 @@ import 'package:remax_mapstate/domain/entities/current_user.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/current_user/get_current_user.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/current_user/update_current_user.dart';
 
-import '../../../domain/entities/params/no_params.dart';
+import '../../../../domain/entities/params/no_params.dart';
+
+
 
 part 'current_user_state.dart';
 

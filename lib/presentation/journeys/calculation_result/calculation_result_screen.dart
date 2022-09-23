@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:remax_mapstate/presentation/bloc/calculator_validation/calculator_validation_bloc.dart';
 import 'package:remax_mapstate/presentation/journeys/calculation_result/calculation_result_item.dart';
 
 import 'package:intl/intl.dart';
+
+import '../../logic/bloc/calculator_validation/calculator_validation_bloc.dart';
 
 class CalculationResultScreen extends StatelessWidget {
 

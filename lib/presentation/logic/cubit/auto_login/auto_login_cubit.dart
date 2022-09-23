@@ -4,10 +4,11 @@ import 'package:remax_mapstate/common/enums/login_status.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/auto_login_entity.dart';
 
-import '../../../domain/entities/params/no_params.dart';
-import '../../../domain/use_cases/local_usecases/auto_login/delete_auto_login.dart';
-import '../../../domain/use_cases/local_usecases/auto_login/get_auto_login.dart';
-import '../../../domain/use_cases/local_usecases/auto_login/save_auto_login.dart';
+import '../../../../domain/entities/params/no_params.dart';
+import '../../../../domain/use_cases/local_usecases/auto_login/delete_auto_login.dart';
+import '../../../../domain/use_cases/local_usecases/auto_login/get_auto_login.dart';
+import '../../../../domain/use_cases/local_usecases/auto_login/save_auto_login.dart';
+
 
 part 'auto_login_state.dart';
 

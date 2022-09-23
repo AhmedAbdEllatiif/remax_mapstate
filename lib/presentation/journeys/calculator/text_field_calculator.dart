@@ -6,7 +6,7 @@ import 'package:pattern_formatter/pattern_formatter.dart';
 
 import '../../../common/constants/sizes.dart';
 import '../../../domain/entities/params/calculator_input.dart';
-import '../../bloc/calculator_validation/calculator_validation_bloc.dart';
+import '../../logic/bloc/calculator_validation/calculator_validation_bloc.dart';
 import '../../themes/theme_color.dart';
 
 class TextFieldCalculator extends StatelessWidget {

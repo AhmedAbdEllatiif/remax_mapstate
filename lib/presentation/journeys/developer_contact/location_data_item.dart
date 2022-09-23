@@ -4,9 +4,10 @@ import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
-import 'package:remax_mapstate/presentation/cubit/developer_contact/developer_contact_cubit.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
+
+import '../../logic/cubit/developer_contact/developer_contact_cubit.dart';
 
 class LocationDataItem extends StatelessWidget {
   final String dataKey;

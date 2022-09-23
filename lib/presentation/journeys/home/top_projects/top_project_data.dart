@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:remax_mapstate/presentation/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
+
+import '../../../logic/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
 
 class TopProjectDataWidget extends StatelessWidget {
   const TopProjectDataWidget({Key? key}) : super(key: key);

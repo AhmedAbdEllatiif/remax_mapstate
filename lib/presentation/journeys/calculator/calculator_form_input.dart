@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
-import 'package:remax_mapstate/presentation/bloc/calculator_validation/calculator_validation_bloc.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/text_field_calculator.dart';
+import 'package:remax_mapstate/presentation/logic/bloc/calculator_validation/calculator_validation_bloc.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 import 'package:pattern_formatter/pattern_formatter.dart';
 

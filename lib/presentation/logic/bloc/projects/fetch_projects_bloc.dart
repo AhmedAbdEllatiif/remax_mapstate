@@ -3,9 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
+import 'package:remax_mapstate/domain/entities/params/no_params.dart';
 import 'package:remax_mapstate/domain/use_cases/get_projects.dart';
-import 'package:remax_mapstate/presentation/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
-import '../../../domain/entities/params/no_params.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
 
 part 'fetch_projects_event.dart';

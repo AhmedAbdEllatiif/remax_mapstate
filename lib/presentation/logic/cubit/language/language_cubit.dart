@@ -2,11 +2,12 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import '../../../common/constants/language_constants.dart';
-import '../../../domain/entities/language_enitity.dart';
-import '../../../domain/entities/params/no_params.dart';
-import '../../../domain/use_cases/local_usecases/get_preferred_language.dart';
-import '../../../domain/use_cases/local_usecases/update_language.dart';
+import '../../../../common/constants/language_constants.dart';
+import '../../../../domain/entities/language_enitity.dart';
+import '../../../../domain/entities/params/no_params.dart';
+import '../../../../domain/use_cases/local_usecases/get_preferred_language.dart';
+import '../../../../domain/use_cases/local_usecases/update_language.dart';
+
 
 
 part 'language_state.dart';

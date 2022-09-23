@@ -4,10 +4,12 @@ import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
-import 'package:remax_mapstate/presentation/cubit/choose_favorite_area/choose_favorite_area_cubit.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/choose_favorite_area/choose_favorite_area_cubit.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 
 import '../../common/constants/sizes.dart';
+
+
 
 class MultiSelectionHelper {
   MultiSelectionHelper();

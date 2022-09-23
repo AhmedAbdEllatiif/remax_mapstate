@@ -1,33 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/di/git_it.dart';
-import 'package:remax_mapstate/domain/repositories/api_repository.dart';
-import 'package:remax_mapstate/domain/repositories/app_repository.dart';
-import 'package:remax_mapstate/presentation/bloc/areas_bloc/areas_bloc.dart';
-import 'package:remax_mapstate/presentation/bloc/project_status/project_status_bloc.dart';
-import 'package:remax_mapstate/presentation/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
-import 'package:remax_mapstate/presentation/bloc/projects/fetch_projects_bloc.dart';
 import 'package:remax_mapstate/presentation/journeys/home/area/area_section.dart';
 import 'package:remax_mapstate/presentation/journeys/home/top_projects/top_projects_widget.dart';
-import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/widgets/loading_animation_widget.dart';
-import 'package:responsive_framework/responsive_value.dart';
-import 'package:responsive_framework/responsive_wrapper.dart';
 
-import 'package:graphql_flutter/graphql_flutter.dart';
 
-const productsGraphQL = """
-  {
-  products(first: 10, channel: "default-channel") {
-    edges {
-      node {
-        id
-        name
-        
-      }
-    }
-  }
-}""";
+import '../../logic/bloc/areas_bloc/areas_bloc.dart';
+import '../../logic/bloc/project_status/project_status_bloc.dart';
+import '../../logic/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
+import '../../logic/bloc/projects/fetch_projects_bloc.dart';
+
+
 
 class ProductEdge {
   final String id;

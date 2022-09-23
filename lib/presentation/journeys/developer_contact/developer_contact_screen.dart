@@ -4,13 +4,13 @@ import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_developer.dart';
-import 'package:remax_mapstate/presentation/cubit/developer_contact/developer_contact_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/developer_contact/developer_contact_image.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/widgets/loading_animation_widget.dart';
 
 import '../../../common/constants/sizes.dart';
 import '../../../common/screen_utils/screen_util.dart';
+import '../../logic/cubit/developer_contact/developer_contact_cubit.dart';
 import 'contact_data_card.dart';
 
 class DeveloperContactScreen extends StatefulWidget {

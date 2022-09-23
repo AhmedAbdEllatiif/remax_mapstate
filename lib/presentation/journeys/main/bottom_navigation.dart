@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
-import 'package:remax_mapstate/presentation/cubit/navigation/navigation_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/main/bottom_navigation_items.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
+
+import '../../logic/cubit/navigation/navigation_cubit.dart';
 
 class BottomNavigation extends StatelessWidget {
   final UserType userType;

@@ -4,9 +4,9 @@ import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
-import 'package:remax_mapstate/presentation/cubit/broker_changed/broker_changed_cubit.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 
+import '../../logic/cubit/broker_changed/broker_changed_cubit.dart';
 import 'broker_data_widget.dart';
 import '../../widgets/contact_info_widget.dart';
 

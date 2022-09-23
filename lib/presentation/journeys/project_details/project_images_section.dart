@@ -4,10 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/di/git_it.dart';
-import 'package:remax_mapstate/presentation/cubit/project_scrollable_indicator/indicator_position_cubit.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:responsive_framework/responsive_value.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
+
+import '../../logic/cubit/project_scrollable_indicator/indicator_position_cubit.dart';
 
 class ProjectImagesSection extends StatefulWidget {
   ProjectImagesSection({Key? key}) : super(key: key);

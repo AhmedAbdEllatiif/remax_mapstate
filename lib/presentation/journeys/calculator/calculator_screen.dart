@@ -9,7 +9,8 @@ import 'package:remax_mapstate/presentation/widgets/city_background_widget.dart'
 import '../../../common/constants/sizes.dart';
 import '../../../domain/entities/params/calculator_input.dart';
 import '../../../router/route_hepler.dart';
-import '../../bloc/calculator_validation/calculator_validation_bloc.dart';
+import '../../logic/bloc/calculator_validation/calculator_validation_bloc.dart';
+
 
 class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({Key? key}) : super(key: key);

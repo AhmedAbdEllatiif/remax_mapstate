@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
-import 'package:multi_select_flutter/util/multi_select_item.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
-import 'package:remax_mapstate/presentation/cubit/choose_favorite_area/choose_favorite_area_cubit.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/choose_favorite_area/choose_favorite_area_cubit.dart';
 import 'package:remax_mapstate/presentation/widgets/selected_areas_widget.dart';
 
 import '../../common/constants/sizes.dart';
+
+
 import '../themes/theme_color.dart';
 import 'MultiSelectionHelper.dart';
 

@@ -4,12 +4,12 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/fav_project_entity.dart';
+import 'package:remax_mapstate/domain/entities/params/no_params.dart';
 import 'package:remax_mapstate/domain/entities/params/project_param_entity.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/check_for_favorite_project.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/delete_fav_project.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/get_fav_projects.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/save_fav_project.dart';
-import '../../../domain/entities/params/no_params.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
 
 part 'favorite_projects_event.dart';

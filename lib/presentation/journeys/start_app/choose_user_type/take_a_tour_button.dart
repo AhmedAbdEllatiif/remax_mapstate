@@ -10,7 +10,7 @@ import '../../../../common/constants/translate_constatns.dart';
 import '../../../../common/enums/user_types.dart';
 import '../../../../domain/entities/current_user.dart';
 import '../../../../router/route_hepler.dart';
-import '../../../cubit/current_user/current_user_cubit.dart';
+import '../../../logic/cubit/current_user/current_user_cubit.dart';
 
 class TakeATourButton extends StatelessWidget {
   const TakeATourButton({Key? key}) : super(key: key);

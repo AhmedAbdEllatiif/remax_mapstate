@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
-import 'package:remax_mapstate/domain/entities/area_entity.dart';
-import 'package:remax_mapstate/presentation/bloc/areas_bloc/areas_bloc.dart';
 import 'package:remax_mapstate/presentation/journeys/home/area/area_grid_view.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
+
+import '../../../logic/bloc/areas_bloc/areas_bloc.dart';
 
 class AreaSectionWidget extends StatelessWidget {
   //final List<AreaEntity> areas;

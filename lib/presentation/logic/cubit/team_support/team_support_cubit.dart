@@ -3,12 +3,12 @@ import 'package:equatable/equatable.dart';
 import 'package:remax_mapstate/domain/entities/params/no_params.dart';
 import 'package:remax_mapstate/domain/entities/team_support_entity.dart';
 
-import '../../../domain/entities/app_error.dart';
-import '../../../domain/entities/params/phone_call.dart';
-import '../../../domain/entities/params/whatsapp_params.dart';
-import '../../../domain/use_cases/get_team_support.dart';
-import '../../../domain/use_cases/make_phone_call.dart';
-import '../../../domain/use_cases/open_whats_app.dart';
+import '../../../../domain/entities/app_error.dart';
+import '../../../../domain/entities/params/phone_call.dart';
+import '../../../../domain/entities/params/whatsapp_params.dart';
+import '../../../../domain/use_cases/get_team_support.dart';
+import '../../../../domain/use_cases/make_phone_call.dart';
+import '../../../../domain/use_cases/open_whats_app.dart';
 
 part 'team_support_state.dart';
 

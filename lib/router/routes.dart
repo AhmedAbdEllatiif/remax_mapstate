@@ -12,18 +12,16 @@ import 'package:remax_mapstate/presentation/journeys/start_app/choose_user_type/
 import 'package:remax_mapstate/presentation/journeys/start_app/spotter_registration/spotter_registration_screen.dart';
 
 import '../common/constants/route_list.dart';
-import '../presentation/bloc/calculator_validation/calculator_validation_bloc.dart';
 import '../presentation/journeys/choose_broker/arguments/choose_broker_argument.dart';
 import '../presentation/journeys/project_details/project_details_argument.dart';
 import '../presentation/journeys/projects/projects_argument.dart';
 import '../presentation/journeys/start_app/client_registration/client_login_or_registration_screen.dart';
-import '../presentation/journeys/start_app/login/login_screen.dart';
+import '../presentation/logic/bloc/calculator_validation/calculator_validation_bloc.dart';
 
 class Routes{
 
   static Map<String,WidgetBuilder> getRoutes(RouteSettings settings)=>{
     RouteList.mainScreen : (context) => const MainScreen(),
-    RouteList.loginScreen : (context) => const LoginScreen(),
     RouteList.chooseUserScreen : (context) => const ChooseUserScreen(),
     RouteList.projectsScreen : (context) => const ProjectsScreen(),
     RouteList.clientRegistration : (context) => const ClientLoginOrRegistrationScreen(),

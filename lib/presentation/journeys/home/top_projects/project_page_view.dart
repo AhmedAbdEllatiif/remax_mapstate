@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
-import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
-import 'package:remax_mapstate/presentation/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
 import 'package:remax_mapstate/presentation/journeys/home/top_projects/animated_project_card.dart';
+
+import '../../../logic/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
 
 class ProjectPageView extends StatefulWidget {
   final List<ProjectStatusEntity> projectStatusList;

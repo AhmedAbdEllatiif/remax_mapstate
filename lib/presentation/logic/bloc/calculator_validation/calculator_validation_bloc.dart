@@ -6,9 +6,10 @@ import 'package:remax_mapstate/presentation/journeys/calculator/formz/downpaymen
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/number_of_years.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/unit_price.dart';
 
-import '../../journeys/calculator/formz/first_down_payment.dart';
-import '../../journeys/calculator/formz/second_down_payment.dart';
-import '../../journeys/calculator/formz/third_down_payment.dart';
+import '../../../journeys/calculator/formz/first_down_payment.dart';
+import '../../../journeys/calculator/formz/second_down_payment.dart';
+import '../../../journeys/calculator/formz/third_down_payment.dart';
+
 
 part 'calculator_validation_event.dart';
 

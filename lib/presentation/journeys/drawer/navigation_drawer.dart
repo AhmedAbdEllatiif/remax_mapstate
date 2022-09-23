@@ -5,15 +5,16 @@ import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
-import 'package:remax_mapstate/presentation/cubit/current_user/current_user_cubit.dart';
-import 'package:remax_mapstate/presentation/cubit/language/language_cubit.dart';
 import 'package:remax_mapstate/presentation/journeys/drawer/navgation_expanded_list_tile.dart';
 import 'package:remax_mapstate/presentation/journeys/drawer/navigation_list_item.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/widgets/logo.dart';
 import 'package:remax_mapstate/router/route_hepler.dart';
 
-import '../../cubit/auto_login/auto_login_cubit.dart';
+import '../../logic/cubit/auto_login/auto_login_cubit.dart';
+import '../../logic/cubit/current_user/current_user_cubit.dart';
+import '../../logic/cubit/language/language_cubit.dart';
+
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);

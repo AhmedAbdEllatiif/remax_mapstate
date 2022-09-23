@@ -7,7 +7,7 @@ import '../../../../common/constants/sizes.dart';
 import '../../../../common/constants/translate_constatns.dart';
 import '../../../../domain/entities/params/app_text_form_field_params.dart';
 import '../../../../router/route_hepler.dart';
-import '../../../cubit/auto_login/auto_login_cubit.dart';
+import '../../../logic/cubit/auto_login/auto_login_cubit.dart';
 import '../../../widgets/app_text_form_field.dart';
 import '../../../widgets/btn_with_box_shadow.dart';
 

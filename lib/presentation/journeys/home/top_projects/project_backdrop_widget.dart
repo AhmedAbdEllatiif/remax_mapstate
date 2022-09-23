@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
-import 'package:remax_mapstate/presentation/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
+
+import '../../../logic/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
+
 
 class ProjectBackDropWidget extends StatelessWidget {
   const ProjectBackDropWidget({Key? key}) : super(key: key);
