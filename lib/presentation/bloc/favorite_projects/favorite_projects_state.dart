@@ -17,7 +17,7 @@ class FavoriteProjectsNoProjectsToShow extends FavoriteProjectsState {}
 
 /// FavoriteProjectsLoadedState
 class FavoriteProjectsLoadedState extends FavoriteProjectsState {
-  final List<ProjectEntity> projects;
+  final List<FavProjectEntity> projects;
 
   const FavoriteProjectsLoadedState({
     required this.projects,

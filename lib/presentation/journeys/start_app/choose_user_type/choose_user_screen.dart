@@ -10,6 +10,8 @@ import 'package:remax_mapstate/presentation/journeys/start_app/choose_user_type/
 import 'package:remax_mapstate/presentation/journeys/start_app/choose_user_type/toggle_language_widget.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
+import 'package:remax_mapstate/presentation/widgets/city_background_widget.dart';
+import 'package:remax_mapstate/presentation/widgets/logo_with_slogan.dart';
 
 import 'choose_user_list_widget.dart';
 import '../../../../common/constants/sizes.dart';
@@ -22,50 +24,49 @@ class ChooseUserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Container(
-            padding: EdgeInsets.symmetric(vertical: Sizes.dimen_8.h,horizontal: Sizes.dimen_10.h ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+        body: Stack(
+          children: [
+            const CityBackgroundWidget(),
+            SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                    vertical: Sizes.dimen_8.h, horizontal: Sizes.dimen_10.h),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    /// toggle language
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const [
+                        ToggleLanguageWidget(),
+                      ],
+                    ),
 
-                /// toggle language
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    ToggleLanguageWidget(),
+                    /// Logo with slogan
+                    const LogoWithSlogan(),
+
+                    /// list of userTypes
+                    ChooseUserListWidget(),
+
+                    /// button take a tour
+                    Container(
+                      margin: EdgeInsets.only(top: Sizes.dimen_16.h),
+                      height: Sizes.dimen_18.h,
+                      width: ScreenUtil.screenWidth * 0.5 - 15,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(Sizes.dimen_16.w)),
+                          border: Border.all(
+                              color: AppColor.absoluteTransparentGeeBung,
+                              width: 0.4)),
+                      child: const TakeATourButton(),
+                    ),
                   ],
                 ),
-
-                /// Lottie animation
-                /*Container(
-                  width: ScreenUtil.screenWidth,
-                  height: ScreenUtil.screenHeight * 0.20,
-                  margin: EdgeInsets.only(top:Sizes.dimen_10.h ),
-                  child: const ChooseUserAnimation(),
-                ),*/
-
-
-                /// list of userTypes
-                Container(
-                    margin: EdgeInsets.only(top: Sizes.dimen_64.h),
-                    child: ChooseUserListWidget()),
-
-                /// button take a tour
-                Container(
-                  margin: EdgeInsets.only(top: Sizes.dimen_22.h),
-                  height: Sizes.dimen_18.h,
-                  width: ScreenUtil.screenWidth * 0.5 - 15,
-                  decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(Sizes.dimen_16.w)),
-                      border: Border.all(color: AppColor.absoluteTransparentGeeBung, width: 0.4)),
-                  child: const TakeATourButton(),
-                ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

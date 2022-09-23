@@ -13,24 +13,27 @@ import 'package:remax_mapstate/domain/entities/team_support_entity.dart';
 import 'package:remax_mapstate/domain/entities/unit_type_entity.dart';
 import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 
-class ProjectApiRepoImpl extends ApiRepo {
+class RemoteRepositoryImpl extends RemoteRepository {
 
   final RemoteDataSource remoteDataSource;
 
-   ProjectApiRepoImpl({
+  RemoteRepositoryImpl({
     required this.remoteDataSource,
   });
 
   /// return list of TopProject
   @override
-  Future<Either<AppError, List<ProjectEntity>>> getTopProject() async {
+  Future<Either<AppError, List<ProjectEntity>>> fetchProjects() async {
     try {
-      final projects = await remoteDataSource.getTopProjects();
+      final projects = await remoteDataSource.fetchProjects();
+      print(".........\nProjects: $projects \n.......");
       return Right(projects);
     } on SocketException catch(e){
+      print("Error: SocketException >> $e");
       return Left(AppError(AppErrorType.network,message: e.message));
     }
     on Exception catch (e) {
+      print("Error: Exception >> $e");
       return Left(AppError(AppErrorType.api,message: e.toString()));
     }
   }
@@ -75,14 +78,14 @@ class ProjectApiRepoImpl extends ApiRepo {
 
   @override
   Future<Either<AppError, List<ProjectEntity>>> getCommercialProjects(int areaId) async {
-     try {
-    final projects = await remoteDataSource.getCommercialProjects(areaId);
-    return Right(projects);
+    try {
+      final projects = await remoteDataSource.getCommercialProjects(areaId);
+      return Right(projects);
     } on SocketException catch(e){
-    return Left(AppError(AppErrorType.network,message: e.message));
+      return Left(AppError(AppErrorType.network,message: e.message));
     }
     on Exception catch (e) {
-    return Left(AppError(AppErrorType.api,message: e.toString()));
+      return Left(AppError(AppErrorType.api,message: e.toString()));
     }
   }
 

@@ -10,7 +10,7 @@ class AppRepository{
 
   /// To make a phoneCall
   Future<Either<AppError,void>> makeAPhoneCall(PhoneNumParams phoneCallParams) async {
-     // launch(urlString)
+    // launch(urlString)
     final phoneNum = phoneCallParams.phoneNum;
     try{
       return Right(await launch('tel:$phoneNum'));

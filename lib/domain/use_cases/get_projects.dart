@@ -6,11 +6,11 @@ import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 import 'package:remax_mapstate/domain/use_cases/use_case.dart';
 
 class GetProjectsCase extends UseCase<List<ProjectEntity>, NoParams> {
-  final ApiRepo projectApiRepo;
+  final RemoteRepository projectApiRepo;
 
   GetProjectsCase({required this.projectApiRepo});
 
   @override
   Future<Either<AppError, List<ProjectEntity>>> call(NoParams params) async =>
-      await projectApiRepo.getTopProject();
+      await projectApiRepo.fetchProjects();
 }

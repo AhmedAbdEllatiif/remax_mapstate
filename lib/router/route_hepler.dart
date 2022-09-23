@@ -11,34 +11,34 @@ class RouteHelper {
 
   /// To MainScreen \\\
   void mainScreen(
-    BuildContext context, {
-    required isClearStack,
-  }) {
+      BuildContext context, {
+        required isClearStack,
+      }) {
     isClearStack
         ? Navigator.pushNamedAndRemoveUntil(
-            context, RouteList.mainScreen, (routePredicate) => false)
+        context, RouteList.mainScreen, (routePredicate) => false)
         : Navigator.of(context).pushNamed(RouteList.mainScreen);
   }
 
   /// To LoginScreen \\\
   void loginScreen(BuildContext context) => Navigator.of(context).pushNamed(
-        RouteList.loginScreen,
-      );
+    RouteList.loginScreen,
+  );
 
   /// To ChooseUserTypeScreen \\\
   void chooseUserTypeScreen(
-    BuildContext context, {
-    required isClearStack,
-  }) {
+      BuildContext context, {
+        required isClearStack,
+      }) {
     isClearStack
         ? Navigator.pushNamedAndRemoveUntil(
-            context, RouteList.chooseUserScreen, (routePredicate) => false)
+        context, RouteList.chooseUserScreen, (routePredicate) => false)
         : Navigator.of(context).pushNamed(RouteList.chooseUserScreen);
   }
 
   /// To ProjectDetailScreen \\\
   void projectDetailScreen(BuildContext context,
-          {required ProjectDetailsArgument projectDetailsArgument}) =>
+      {required ProjectDetailsArgument projectDetailsArgument}) =>
       Navigator.of(context).pushNamed(
         RouteList.projectDetailsScreen,
         arguments: projectDetailsArgument,
@@ -51,13 +51,13 @@ class RouteHelper {
 
   /// To BrokersScreen \\\
   void chooseBrokerScreen(BuildContext context,
-          {required ChooseBrokerArgument chooseBrokerArgument}) =>
+      {required ChooseBrokerArgument chooseBrokerArgument}) =>
       Navigator.of(context).pushNamed(RouteList.chooseBrokerScreen,
           arguments: chooseBrokerArgument);
 
   /// To ContactDeveloperScreen \\\
   void contactDeveloper(BuildContext context,
-          {required ContactDeveloperParam contactDeveloperParam}) =>
+      {required ContactDeveloperParam contactDeveloperParam}) =>
       Navigator.of(context).pushNamed(RouteList.developerContact,
           arguments: contactDeveloperParam);
 
@@ -67,14 +67,14 @@ class RouteHelper {
 
   /// To ClientRegistrationScreen \\\
   void clientRegistrationScreen(BuildContext context) =>
-      Navigator.of(context).pushReplacementNamed(RouteList.clientRegistration);
+      Navigator.of(context).pushNamed(RouteList.clientRegistration);
 
   /// To SpotterRegistrationScreen \\\
   void spotterRegistrationScreen(BuildContext context) =>
-      Navigator.of(context).pushReplacementNamed(RouteList.spotterRegistration);
+      Navigator.of(context).pushNamed(RouteList.spotterRegistration);
 
   /// To BrokerRegistrationScreen \\\
   void brokerRegistrationScreen(BuildContext context) =>
-      Navigator.of(context).pushReplacementNamed(RouteList.brokerRegistration);
+      Navigator.of(context).pushNamed(RouteList.brokerRegistration);
 }
 //Navigator.pushNamed(context, AppRouter.chooseBrokerScreen)

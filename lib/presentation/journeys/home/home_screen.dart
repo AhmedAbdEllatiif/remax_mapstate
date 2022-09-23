@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/di/git_it.dart';
+import 'package:remax_mapstate/domain/repositories/api_repository.dart';
+import 'package:remax_mapstate/domain/repositories/app_repository.dart';
 import 'package:remax_mapstate/presentation/bloc/areas_bloc/areas_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/project_status/project_status_bloc.dart';
 import 'package:remax_mapstate/presentation/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
@@ -61,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     _areasBloc = getItInstance<AreasBloc>();
     _areasBloc.add(LoadAreasEvent());
+
   }
 
   @override
@@ -71,50 +74,10 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  void ss() async {
-    List<ProductEdge> productEdges;
-    try {
-      final HttpLink httpLink = HttpLink(
-        'https://demo.saleor.io/graphql/',
-      );
-      GraphQLClient client = GraphQLClient(
-        link: httpLink,
-        // The default store is the InMemoryStore, which does NOT persist to disk
-        cache: GraphQLCache(store: InMemoryStore()),
-      );
-      final result =
-          await client.query(QueryOptions(document: gql(productsGraphQL)));
-      if (result.hasException) {
-        if (result.exception?.graphqlErrors != null) {
-          print("ExceptionGraphqlErrors: ${result.exception?.graphqlErrors}");
-        }
-
-        if (result.exception?.linkException != null) {
-          print("ExceptionLinkException: ${result.exception?.linkException}");
-        }
-      } else {
-        final myEdges = result.data!["products"]["edges"] as List<dynamic>;
-
-        productEdges = [];
-        productEdges = myEdges.map((edgeNode) => ProductEdge(
-            id: edgeNode['node']['id'] as String,
-            edgeName: edgeNode['node']['name'] as String)).toList();
-
-        productEdges.forEach((element) {
-          print("Id: ${element.id} , Name: ${element.edgeName} \n");
-        });
-
-       /* print("Result myEdges >> ${myEdges[0]['node']['name']}");
-        print("Result productEdges >> $productEdges}");*/
-      }
-    } on Exception catch (e) {
-      print("Exception >> $e");
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    ss();
+
 
     return MultiBlocProvider(
       providers: [

@@ -16,7 +16,7 @@ import '../presentation/bloc/calculator_validation/calculator_validation_bloc.da
 import '../presentation/journeys/choose_broker/arguments/choose_broker_argument.dart';
 import '../presentation/journeys/project_details/project_details_argument.dart';
 import '../presentation/journeys/projects/projects_argument.dart';
-import '../presentation/journeys/start_app/client_registration/client_registration_screen.dart';
+import '../presentation/journeys/start_app/client_registration/client_login_or_registration_screen.dart';
 import '../presentation/journeys/start_app/login/login_screen.dart';
 
 class Routes{
@@ -26,7 +26,7 @@ class Routes{
     RouteList.loginScreen : (context) => const LoginScreen(),
     RouteList.chooseUserScreen : (context) => const ChooseUserScreen(),
     RouteList.projectsScreen : (context) => const ProjectsScreen(),
-    RouteList.clientRegistration : (context) => const ClientRegistrationScreen(),
+    RouteList.clientRegistration : (context) => const ClientLoginOrRegistrationScreen(),
     RouteList.spotterRegistration : (context) => const SpotterRegistrationScreen(),
     RouteList.brokerRegistration : (context) => const BrokerRegistrationScreen(),
     RouteList.calculationResult : (context) =>  CalculationResultScreen(calculatorValidationBloc: settings.arguments as CalculatorValidationBloc),

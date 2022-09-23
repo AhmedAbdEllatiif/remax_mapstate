@@ -1,4 +1,7 @@
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:remax_mapstate/common/constants/assets_constants.dart';
+import 'package:remax_mapstate/data/api/clients/api_client.dart';
+import 'package:remax_mapstate/data/api/queries/projects.dart';
 import 'package:remax_mapstate/data/models/area_model.dart';
 import 'package:remax_mapstate/data/models/broker_model.dart';
 import 'package:remax_mapstate/data/models/contact_developer.dart';
@@ -8,8 +11,8 @@ import 'package:remax_mapstate/data/models/team_support_model.dart';
 import 'package:remax_mapstate/data/models/unit_type_model.dart';
 
 abstract class RemoteDataSource {
-  /// return top projects
-  Future<List<ProjectModel>> getTopProjects();
+  /// return  projects
+  Future<List<ProjectModel>> fetchProjects();
 
   /// return residential projects
   Future<List<ProjectModel>> getResidentialProjects(int areaId);
@@ -37,65 +40,9 @@ abstract class RemoteDataSource {
 }
 
 class RemoteDateSourceImpl extends RemoteDataSource {
-  List<ProjectModel> projects() {
-    return [
-      const ProjectModel(
-          id: 0,
-          imageUrl: AssetsConstants.mountainViewImagePath,
-          name: "Mountain View",
-          description: "No Desc"),
-      const ProjectModel(
-          id: 1,
-          imageUrl: AssetsConstants.promotionImagePath,
-          name: "Promotion",
-          description: "No Desc"),
-      const ProjectModel(
-          id: 2,
-          imageUrl: AssetsConstants.mountainViewImagePath,
-          name: "Mountain View",
-          description: "No Desc"),
-      const ProjectModel(
-          id: 3,
-          imageUrl: AssetsConstants.promotionImagePath,
-          name: "Promotion",
-          description: "No Desc"),
-      const ProjectModel(
-          id: 4,
-          imageUrl: AssetsConstants.mountainViewImagePath,
-          name: "Mountain View",
-          description: "No Desc"),
-      const ProjectModel(
-          id: 5,
-          imageUrl: AssetsConstants.promotionImagePath,
-          name: "Promotion",
-          description: "No Desc"),
-      const ProjectModel(
-          id: 6,
-          imageUrl: AssetsConstants.mountainViewImagePath,
-          name: "Mountain View",
-          description: "No Desc"),
-      const ProjectModel(
-          id: 7,
-          imageUrl: AssetsConstants.promotionImagePath,
-          name: "Promotion",
-          description: "No Desc"),
-      const ProjectModel(
-          id: 8,
-          imageUrl: AssetsConstants.mountainViewImagePath,
-          name: "Mountain View",
-          description: "No Desc"),
-      const ProjectModel(
-          id: 9,
-          imageUrl: AssetsConstants.promotionImagePath,
-          name: "Promotion",
-          description: "No Desc"),
-      const ProjectModel(
-          id: 10,
-          imageUrl: AssetsConstants.mountainViewImagePath,
-          name: "Mountain View",
-          description: "No Desc"),
-    ];
-  }
+  final ApiClient apiClient;
+
+  RemoteDateSourceImpl({required this.apiClient});
 
   List<AreaModel> areas() {
     return [
@@ -257,10 +204,11 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     return myAreas;
   }
 
+  /// fetch projects
   @override
-  Future<List<ProjectModel>> getTopProjects() async {
-    final myProjects = await projects();
-    return myProjects;
+  Future<List<ProjectModel>> fetchProjects() async {
+    final QueryResult result = await apiClient.get(fetchProjectsQuery());
+    return listOfProjectModel(result.data!);
   }
 
   @override
@@ -278,8 +226,8 @@ class RemoteDateSourceImpl extends RemoteDataSource {
 
   @override
   Future<List<ProjectModel>> getResidentialProjects(int areaId) async {
-    final myProjects = await projects();
-    return myProjects;
+    //final myProjects = await projects();
+    return [];
   }
 
   /// return list project status

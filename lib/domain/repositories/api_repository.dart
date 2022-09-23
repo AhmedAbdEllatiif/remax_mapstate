@@ -8,12 +8,12 @@ import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
 import 'package:remax_mapstate/domain/entities/team_support_entity.dart';
 import 'package:remax_mapstate/domain/entities/unit_type_entity.dart';
 
-abstract class ApiRepo {
+abstract class RemoteRepository {
 
 
   ///******************************** Projects ******************************** \\\\
   /// return list of TopProjects
-  Future<Either<AppError,List<ProjectEntity>>> getTopProject();
+  Future<Either<AppError,List<ProjectEntity>>> fetchProjects();
 
   /// return list of ResidentialProjects
   Future<Either<AppError,List<ProjectEntity>>> getResidentialProjects(int areaId);
@@ -40,7 +40,7 @@ abstract class ApiRepo {
   Future<Either<AppError,List<UnitTypeEntity>>> getResidentialUnitTypesByArea();
 
 
-///******************************** Developer Contact ******************************** \\\\
+  ///******************************** Developer Contact ******************************** \\\\
   Future<Either<AppError,ContactDeveloperEntity>> getDeveloperContact(int developerId);
 
 

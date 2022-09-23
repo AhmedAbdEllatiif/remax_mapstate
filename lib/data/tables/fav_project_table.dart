@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:remax_mapstate/domain/entities/fav_project_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
 
 part 'fav_project_table.g.dart';
@@ -15,7 +16,7 @@ part 'fav_project_table.g.dart';
 // Hive.init(appDocumentDir.path);
 // Hive.registerAdapter(FavProjectTableAdapter());
 @HiveType(typeId: 0)
-class FavProjectTable extends ProjectEntity{
+class FavProjectTable extends FavProjectEntity{
 
   @HiveField(0)
   final int id;
@@ -26,13 +27,13 @@ class FavProjectTable extends ProjectEntity{
   @HiveField(2)
   final String imageUrl;
 
-  const FavProjectTable({
+  FavProjectTable({
     required this.id,
     required this.name,
     required this.imageUrl,
   }) : super(id: id,name: name,imageUrl: imageUrl,description: '');
 
-  factory FavProjectTable.fromProjectEntity(ProjectEntity projectEntity){
+  factory FavProjectTable.fromProjectEntity(FavProjectEntity projectEntity){
     return FavProjectTable(id: projectEntity.id, name: projectEntity.name, imageUrl: projectEntity.imageUrl);
   }
 }

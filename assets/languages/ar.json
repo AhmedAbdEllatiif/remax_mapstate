@@ -31,7 +31,7 @@
   "logout": "تسجيل خروج",
   "enjoyATour": "استمتع بجولة",
   "selectUserType": "حدد المستخدم",
-  "client": "عميل",
+  "client": "مشترى",
   "broker": "وسيط",
   "ambassador": "سفير",
   "searchCountryLabel": "ابحث عن طريق الرمز أو الدولة",
@@ -58,7 +58,7 @@
   "friendlyPhoneCall": "مكالمة هاتفية",
   "getDirections": "الموقع على الخريطة",
   "headOffice": "المكتب الرئيسي",
-  "clientRegistration": "انشاء حساب عميل",
+  "buyerRegistration": "انشاء حساب مشترى",
   "firstName": "الاسم الاول",
   "lastName": "الاسم الاخير",
   "email": "البريد الالكتروتى",
@@ -73,6 +73,10 @@
   "chooseFavoriteAreas": "اختر المناطق المفضلة",
   "selectYourFavoriteAreas": "حدد المناطق المفضلة لديك",
   "searchForArea": "ابحث عن المنطقة",
+  "password": "كلمة السر",
+  "alreadyHaveAbAccount": "لديك حساب بالفعل ",
+  "notHaveAbAccount": "ليس لديك حساب ",
+
 
   "arabic": "العربية",
   "english": "English",

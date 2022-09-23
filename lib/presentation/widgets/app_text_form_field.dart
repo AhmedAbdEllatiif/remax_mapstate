@@ -8,8 +8,9 @@ import '../themes/theme_color.dart';
 class AppTextFormField extends StatelessWidget {
 
   final TextFormFieldParams params;
+  final bool isPassword;
 
-  const AppTextFormField({Key? key, required this.params}) : super(key: key);
+  const AppTextFormField({Key? key, required this.params,  this.isPassword= false}) : super(key: key);
 
 
   @override
@@ -27,6 +28,7 @@ class AppTextFormField extends StatelessWidget {
         textInputAction: params.nextInputAction,
         initialValue: '',
         cursorColor: AppColor.geeBung,
+        obscureText: isPassword,
         style: const TextStyle(color: AppColor.geeBung),
         /*onFieldSubmitted:(_) {
           if(calculatorInputParams.inputType ==

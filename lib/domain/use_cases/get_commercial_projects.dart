@@ -7,7 +7,7 @@ import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 import 'package:remax_mapstate/domain/use_cases/use_case.dart';
 
 class GetCommercialProjectsCase extends UseCase<List<ProjectEntity>, AreaProjectsParam> {
-  final ApiRepo apiRepo;
+  final RemoteRepository apiRepo;
 
   GetCommercialProjectsCase({required this.apiRepo});
 

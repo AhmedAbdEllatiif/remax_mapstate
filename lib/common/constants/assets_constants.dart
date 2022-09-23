@@ -18,9 +18,11 @@ class AssetsConstants{
   static const String offPlan = "${_pngPath}offPlan.jpg";
   static const String underConstruction = "${_pngPath}underConstruction.jpg";
   static const String city = "${_pngPath}img_city.jpg";
+  static const String cityModified = "${_pngPath}img_city_modified.jpg";
   static const String whiteLogo = "${_pngPath}white_logo.png";
   static const String personPlaceHolder = "${_pngPath}person_placeHolder.png";
   static const String phoneIcon = "${_pngPath}phone_icon.png";
+  static const String whiteGoldLogo = "${_pngPath}white_gold_log.png";
 
   static const String loading = "${_jsonPath}loading.json";
   static const String emptyBox = "${_jsonPath}empty_box.json";

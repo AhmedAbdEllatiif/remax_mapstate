@@ -6,7 +6,7 @@ import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 import 'package:remax_mapstate/domain/use_cases/use_case.dart';
 
 class GetTeamSupportCase extends UseCase<TeamSupportEntity, NoParams> {
-  final ApiRepo apiRepo;
+  final RemoteRepository apiRepo;
 
   GetTeamSupportCase({
     required this.apiRepo,

@@ -34,7 +34,7 @@
   "logout": "Logout",
   "enjoyATour": "Enjoy a tour",
   "selectUserType": "Select User Type",
-  "client": "client",
+  "client": "Buyer",
   "broker": "broker",
   "ambassador": "ambassador",
   "searchCountryLabel": "Search by code or country",
@@ -61,7 +61,7 @@
   "friendlyPhoneCall": "Friendly Phone call",
   "getDirections": "Get Directions",
   "headOffice": "Head office",
-  "clientRegistration": "Client Registration",
+  "buyerRegistration": "Buyer Registration",
   "firstName": "First name",
   "lastName": "Last name",
   "email": "Email",
@@ -76,6 +76,9 @@
   "chooseFavoriteAreas": "Choose Favorite Areas",
   "selectYourFavoriteAreas": "Select Your Favorite Areas",
   "searchForArea": "Search for Area",
+  "password": "password",
+  "alreadyHaveAbAccount": "Already have an account ",
+  "notHaveAbAccount": "Not have an account ",
 
 
 

@@ -7,7 +7,7 @@ import 'package:remax_mapstate/domain/use_cases/use_case.dart';
 
 class GetDeveloperContactCase
     extends UseCase<ContactDeveloperEntity, ContactDeveloperParam> {
-  final ApiRepo apiRepo;
+  final RemoteRepository apiRepo;
 
   GetDeveloperContactCase({
     required this.apiRepo,

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
+import 'package:remax_mapstate/domain/entities/fav_project_entity.dart';
 import 'package:remax_mapstate/domain/entities/params/project_param_entity.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/check_for_favorite_project.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/delete_fav_project.dart';

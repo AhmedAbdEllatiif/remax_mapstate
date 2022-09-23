@@ -65,7 +65,7 @@ class TranslateConstants{
   static const String friendlyPhoneCall = 'friendlyPhoneCall';
   static const String headOffice = 'headOffice';
   static const String test = 'test';
-  static const String clientRegistration = 'clientRegistration';
+  static const String buyerRegistration = 'buyerRegistration';
   static const String spotterRegistration = 'spotterRegistration';
   static const String brokerRegistration = 'brokerRegistration';
   static const String firstName = 'firstName';
@@ -73,6 +73,7 @@ class TranslateConstants{
   static const String email = 'email';
   static const String currentJob = 'currentJob';
   static const String experienceYears = 'experienceYears';
+  static const String password = 'password';
   static const String selectedAreas = 'selectedAreas';
   static const String okay = 'okay';
   static const String cancel = 'cancel';
@@ -80,5 +81,7 @@ class TranslateConstants{
   static const String chooseFavoriteAreas = 'chooseFavoriteAreas';
   static const String selectYourFavoriteAreas = 'selectYourFavoriteAreas';
   static const String searchForArea = 'searchForArea';
+  static const String alreadyHaveAbAccount = 'alreadyHaveAbAccount';
+  static const String notHaveAbAccount = 'notHaveAbAccount';
 
 }

@@ -4,6 +4,7 @@ import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/calculator_form_input.dart';
 import 'package:remax_mapstate/presentation/widgets/btn_with_box_shadow.dart';
+import 'package:remax_mapstate/presentation/widgets/city_background_widget.dart';
 
 import '../../../common/constants/sizes.dart';
 import '../../../domain/entities/params/calculator_input.dart';
@@ -49,108 +50,118 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => _calculatorValidationBloc,
-      child: BlocListener<CalculatorValidationBloc, CalculatorValidationState>(
-        listener: (context, state) {
-          _moveToErrorPosition(state.calculatorValidationEnum);
+    return Stack(
+      children: [
 
-          if (state.calculatorValidationEnum ==
-              CalculatorValidationEnum.successForm) {
-            /// navigate to CalculationScreen result
-            _navigateToCalculationResultScreen(state);
-            /* print("Success: \n "
-                "UnitPrice: ${state.unitPrice.value} \n "
-                "DownPayment: ${state.downPayment.value} \n "
-                "NumberOfYears: ${state.numberOfYears.value}\n "
-                "FirstDownPayment: ${state.firstDownPayment.value}\n "
-                "SecondDownPayment: ${state.secondDownPayment.value}\n "
-                "ThirdDownPayment: ${state.thirdDownPayment.value}\n");*/
-          }
-        },
-        child: Builder(builder: (context) {
-          return Scrollbar(
-            child: Padding(
-              padding: EdgeInsets.only(
-                  top: Sizes.dimen_10.h,
-                  left: Sizes.dimen_32.w,
-                  right: Sizes.dimen_32.w),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    /// unitPrice
-                    CalculatorFormInput(
-                      key: unitTypeKey,
-                      calculatorInputParams:
-                          CalculatorInputParams.formInputType(
-                              CalculatorInputType.unitPrice),
+        CityBackgroundWidget(),
+
+        BlocProvider(
+          create: (context) => _calculatorValidationBloc,
+          child: BlocListener<CalculatorValidationBloc, CalculatorValidationState>(
+            listener: (context, state) {
+              _moveToErrorPosition(state.calculatorValidationEnum);
+
+              if (state.calculatorValidationEnum ==
+                  CalculatorValidationEnum.successForm) {
+                /// navigate to CalculationScreen result
+                _navigateToCalculationResultScreen(state);
+                /* print("Success: \n "
+                    "UnitPrice: ${state.unitPrice.value} \n "
+                    "DownPayment: ${state.downPayment.value} \n "
+                    "NumberOfYears: ${state.numberOfYears.value}\n "
+                    "FirstDownPayment: ${state.firstDownPayment.value}\n "
+                    "SecondDownPayment: ${state.secondDownPayment.value}\n "
+                    "ThirdDownPayment: ${state.thirdDownPayment.value}\n");*/
+              }
+            },
+            child: Builder(builder: (context) {
+              return Scrollbar(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: Sizes.dimen_10.h,
+                      left: Sizes.dimen_32.w,
+                      right: Sizes.dimen_32.w),
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: Sizes.dimen_16.h),
+                      child: Column(
+                        children: [
+                          /// unitPrice
+                          CalculatorFormInput(
+                            key: unitTypeKey,
+                            calculatorInputParams:
+                            CalculatorInputParams.formInputType(
+                                CalculatorInputType.unitPrice),
+                          ),
+                          SizedBox(height: Sizes.dimen_5.h),
+
+                          /// downPayment
+                          CalculatorFormInput(
+                            key: downPaymentKey,
+                            calculatorInputParams:
+                            CalculatorInputParams.formInputType(
+                                CalculatorInputType.downPayment),
+                          ),
+                          SizedBox(height: Sizes.dimen_5.h),
+
+                          /// numberOfYears
+                          CalculatorFormInput(
+                            key: numberOfYearsKey,
+                            calculatorInputParams:
+                            CalculatorInputParams.formInputType(
+                                CalculatorInputType.numberOfYears),
+                          ),
+                          SizedBox(height: Sizes.dimen_5.h),
+
+                          /// firstDownPayment
+                          CalculatorFormInput(
+                            key: firstDownPaymentKey,
+                            calculatorInputParams:
+                            CalculatorInputParams.formInputType(
+                                CalculatorInputType.firstDownPayment),
+                          ),
+                          SizedBox(height: Sizes.dimen_5.h),
+
+                          /// secondDownPayment
+                          CalculatorFormInput(
+                            key: secondDownPaymentKey,
+                            calculatorInputParams:
+                            CalculatorInputParams.formInputType(
+                                CalculatorInputType.secondDownPayment),
+                          ),
+                          SizedBox(height: Sizes.dimen_5.h),
+
+                          /// thirdDownPayment
+                          CalculatorFormInput(
+                            key: thirdDownPaymentKey,
+                            calculatorInputParams:
+                            CalculatorInputParams.formInputType(
+                                CalculatorInputType.thirdDownPayment),
+                          ),
+                          SizedBox(height: Sizes.dimen_5.h),
+
+                          /// Button Calculate
+                          ButtonWithBoxShadow(
+                            text: "Calculate",
+                            onPressed: () {
+                              context
+                                  .read<CalculatorValidationBloc>()
+                                  .add(SubmitCalculatorFormEvent());
+
+                              _navigateToCalculationResultScreen(
+                                  context.read<CalculatorValidationBloc>().state);
+                            },
+                          )
+                        ],
+                      ),
                     ),
-                    SizedBox(height: Sizes.dimen_5.h),
-
-                    /// downPayment
-                    CalculatorFormInput(
-                      key: downPaymentKey,
-                      calculatorInputParams:
-                          CalculatorInputParams.formInputType(
-                              CalculatorInputType.downPayment),
-                    ),
-                    SizedBox(height: Sizes.dimen_5.h),
-
-                    /// numberOfYears
-                    CalculatorFormInput(
-                      key: numberOfYearsKey,
-                      calculatorInputParams:
-                          CalculatorInputParams.formInputType(
-                              CalculatorInputType.numberOfYears),
-                    ),
-                    SizedBox(height: Sizes.dimen_5.h),
-
-                    /// firstDownPayment
-                    CalculatorFormInput(
-                      key: firstDownPaymentKey,
-                      calculatorInputParams:
-                          CalculatorInputParams.formInputType(
-                              CalculatorInputType.firstDownPayment),
-                    ),
-                    SizedBox(height: Sizes.dimen_5.h),
-
-                    /// secondDownPayment
-                    CalculatorFormInput(
-                      key: secondDownPaymentKey,
-                      calculatorInputParams:
-                          CalculatorInputParams.formInputType(
-                              CalculatorInputType.secondDownPayment),
-                    ),
-                    SizedBox(height: Sizes.dimen_5.h),
-
-                    /// thirdDownPayment
-                    CalculatorFormInput(
-                      key: thirdDownPaymentKey,
-                      calculatorInputParams:
-                          CalculatorInputParams.formInputType(
-                              CalculatorInputType.thirdDownPayment),
-                    ),
-                    SizedBox(height: Sizes.dimen_5.h),
-
-                    /// Button Calculate
-                    ButtonWithBoxShadow(
-                      text: "Calculate",
-                      onPressed: () {
-                        context
-                            .read<CalculatorValidationBloc>()
-                            .add(SubmitCalculatorFormEvent());
-
-                        _navigateToCalculationResultScreen(
-                            context.read<CalculatorValidationBloc>().state);
-                      },
-                    )
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          );
-        }),
-      ),
+              );
+            }),
+          ),
+        ),
+      ],
     );
   }
 
@@ -164,7 +175,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
       case CalculatorValidationEnum.successForm:
         return;
 
-      /// UnitPrice
+    /// UnitPrice
       case CalculatorValidationEnum.emptyUnitPrice:
       case CalculatorValidationEnum.invalidUnitPrice:
       case CalculatorValidationEnum.maxLengthUnitPrice:
@@ -172,7 +183,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         currentKey = unitTypeKey;
         break;
 
-      /// emptyDownPayment
+    /// emptyDownPayment
       case CalculatorValidationEnum.emptyDownPayment:
       case CalculatorValidationEnum.invalidDownPayment:
       case CalculatorValidationEnum.maxLengthDownPayment:
@@ -180,7 +191,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         currentKey = downPaymentKey;
         break;
 
-      /// emptyNumberOfYears
+    /// emptyNumberOfYears
       case CalculatorValidationEnum.emptyNumberOfYears:
       case CalculatorValidationEnum.largeNumOfYears:
       case CalculatorValidationEnum.invalidNumberOfYears:
@@ -189,7 +200,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         currentKey = numberOfYearsKey;
         break;
 
-      /// FirstDownPayment
+    /// FirstDownPayment
       case CalculatorValidationEnum.emptyFirstDownPayment:
       case CalculatorValidationEnum.invalidFirstDownPayment:
       case CalculatorValidationEnum.maxLengthFirstDownPayment:
@@ -197,7 +208,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         currentKey = firstDownPaymentKey;
         break;
 
-      ///SecondDownPayment
+    ///SecondDownPayment
       case CalculatorValidationEnum.emptySecondDownPayment:
       case CalculatorValidationEnum.invalidSecondDownPayment:
       case CalculatorValidationEnum.maxLengthSecondDownPayment:
@@ -205,7 +216,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         currentKey = secondDownPaymentKey;
         break;
 
-      /// ThirdDownPayment
+    /// ThirdDownPayment
       case CalculatorValidationEnum.emptyThirdDownPayment:
       case CalculatorValidationEnum.invalidThirdDownPayment:
       case CalculatorValidationEnum.maxLengthThirdDownPayment:

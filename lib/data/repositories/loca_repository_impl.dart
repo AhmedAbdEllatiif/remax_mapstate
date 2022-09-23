@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:remax_mapstate/data/data_sources/local_data_source.dart';
 import 'package:remax_mapstate/data/tables/fav_project_table.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
+import 'package:remax_mapstate/domain/entities/fav_project_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/domain/repositories/local_repository.dart';
 
@@ -52,7 +53,7 @@ class LocalRepositoryImpl extends LocalRepository{
 
   /// To save a project into favoriteProjects localDB
   @override
-  Future<Either<AppError, void>> saveFavoriteProject(ProjectEntity projectEntity) async {
+  Future<Either<AppError, void>> saveFavoriteProject(FavProjectEntity projectEntity) async {
     try {
       final response = await localDataSource.saveProject(FavProjectTable.fromProjectEntity(projectEntity));
       return Right(response);

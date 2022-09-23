@@ -5,8 +5,7 @@ import '../../../../common/enums/user_types.dart';
 import '../../../../domain/entities/current_user.dart';
 
 class ChooseUserListWidget extends StatelessWidget {
-
-   ChooseUserListWidget({Key? key}) : super(key: key);
+  ChooseUserListWidget({Key? key}) : super(key: key);
 
   final double runSpacing = 15;
   final double spacing = 15;
@@ -22,18 +21,15 @@ class ChooseUserListWidget extends StatelessWidget {
         columns;
     return Center(
       child: SingleChildScrollView(
-        child: Wrap(
-          runSpacing: runSpacing,
-          spacing: spacing,
-          //alignment: WrapAlignment.center,
-          alignment: WrapAlignment.spaceAround,
+        child: Column(
+
           children: List.generate(
             listSize,
                 (index) {
               return SizedBox(
                 //margin: EdgeInsets.symmetric(horizontal: 2),
-                width: w - 50,
-                height: w - 50,
+                width: w ,
+                // height: w - 50,
                 //color: Colors.green[200],
                 child: UserTypeCard(
                   currentUserEntity: CurrentUserEntity(

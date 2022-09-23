@@ -28,7 +28,7 @@ class DeleteFavoriteProjectEvent  extends FavoriteProjectsEvent {
 /// ToggleFavoriteProjectEvent
 class ToggleFavoriteProjectEvent extends FavoriteProjectsEvent{
 
-  final ProjectEntity projectEntity;
+  final FavProjectEntity projectEntity;
   final bool isFavorite;
 
 

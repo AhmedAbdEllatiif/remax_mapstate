@@ -25,8 +25,8 @@ class AreaCardWidget extends StatelessWidget {
             area.title,
             maxLines: 2,
             style: Theme.of(context).textTheme.bodyText2!.copyWith(
-              color: AppColor.black,
-              fontWeight: FontWeight.bold
+                color: AppColor.black,
+                fontWeight: FontWeight.bold
             ),
           ),
         ),

@@ -7,7 +7,7 @@ import 'package:remax_mapstate/domain/use_cases/use_case.dart';
 
 class GetProjectStatusCase extends UseCase<List<ProjectStatusEntity>,NoParams>{
 
-  final ApiRepo apiRepo;
+  final RemoteRepository apiRepo;
 
 
    GetProjectStatusCase({

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 
-enum AppTextInput { lastName, firstName, email, job, numOfExperienceYears }
+enum AppTextInput { lastName, firstName, email, job, numOfExperienceYears,password }
 
 class TextFormFieldParams {
   final TextInputType keyboardType;
@@ -22,7 +22,7 @@ class TextFormFieldParams {
   }) {
     switch (appTextInput) {
 
-      /// firstName
+    /// firstName
       case AppTextInput.firstName:
         return  TextFormFieldParams(
           label: TranslateConstants.firstName.t(context),
@@ -30,7 +30,7 @@ class TextFormFieldParams {
           nextInputAction: TextInputAction.next,
         );
 
-      /// lastName
+    /// lastName
       case AppTextInput.lastName:
         return  TextFormFieldParams(
           label: TranslateConstants.lastName.t(context),
@@ -38,7 +38,7 @@ class TextFormFieldParams {
           nextInputAction: TextInputAction.next,
         );
 
-      /// email
+    /// email
       case AppTextInput.email:
         return  TextFormFieldParams(
           label: TranslateConstants.email.t(context),
@@ -46,7 +46,7 @@ class TextFormFieldParams {
           nextInputAction: TextInputAction.next,
         );
 
-      /// job
+    /// job
       case AppTextInput.job:
         return  TextFormFieldParams(
           label: TranslateConstants.currentJob.t(context),
@@ -54,11 +54,18 @@ class TextFormFieldParams {
           nextInputAction: TextInputAction.next,
         );
 
-      /// numOfExperienceYears
+    /// numOfExperienceYears
       case AppTextInput.numOfExperienceYears:
         return  TextFormFieldParams(
           label: TranslateConstants.experienceYears.t(context),
           keyboardType: TextInputType.number,
+          nextInputAction: TextInputAction.next,
+        );
+
+      case AppTextInput.password:
+        return  TextFormFieldParams(
+          label: TranslateConstants.password.t(context),
+          keyboardType: TextInputType.visiblePassword,
           nextInputAction: TextInputAction.next,
         );
     }
