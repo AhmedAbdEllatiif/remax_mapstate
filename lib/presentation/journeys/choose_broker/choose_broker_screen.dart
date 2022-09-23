@@ -11,7 +11,7 @@ import 'package:remax_mapstate/presentation/widgets/loading_animation_widget.dar
 import 'package:responsive_framework/responsive_value.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
-import '../../logic/bloc/brokers_by_area/area_brokers_bloc.dart';
+import '../../logic/cubit/brokers_by_area/get_area_brokers_cubit.dart';
 import '../../logic/cubit/broker_changed/broker_changed_cubit.dart';
 import 'bottom_card_data_holder.dart';
 
@@ -25,7 +25,7 @@ class ChooseBrokerScreen extends StatefulWidget {
 
 class _ChooseBrokerScreenState extends State<ChooseBrokerScreen> {
   late PageController _pageController;
-  late final AreaBrokersBloc areaBrokersBloc;
+  late final GetAreaBrokersCubit areaBrokersCubit;
   late final BrokerChangedCubit brokerChangedCubit;
 
   @override
@@ -40,8 +40,8 @@ class _ChooseBrokerScreenState extends State<ChooseBrokerScreen> {
     );
 
     /// init areaBrokersBloc
-    areaBrokersBloc = getItInstance<AreaBrokersBloc>();
-    areaBrokersBloc.add(LoadAreaBrokersEvent());
+    areaBrokersCubit = getItInstance<GetAreaBrokersCubit>();
+    areaBrokersCubit.fetchBrokers();
 
     /// init brokerChangedCubit
     brokerChangedCubit = getItInstance<BrokerChangedCubit>();
@@ -49,7 +49,7 @@ class _ChooseBrokerScreenState extends State<ChooseBrokerScreen> {
 
   @override
   void dispose() {
-    areaBrokersBloc.close();
+    areaBrokersCubit.close();
     brokerChangedCubit.close();
     super.dispose();
   }
@@ -58,7 +58,7 @@ class _ChooseBrokerScreenState extends State<ChooseBrokerScreen> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AreaBrokersBloc>(create: (_) => areaBrokersBloc),
+        BlocProvider<GetAreaBrokersCubit>(create: (_) => areaBrokersCubit),
         BlocProvider<BrokerChangedCubit>(create: (_) => brokerChangedCubit),
       ],
       child: Scaffold(
@@ -70,10 +70,10 @@ class _ChooseBrokerScreenState extends State<ChooseBrokerScreen> {
 
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: BlocConsumer<AreaBrokersBloc, AreaBrokersState>(
+          child: BlocConsumer<GetAreaBrokersCubit, GetAreaBrokersState>(
             /// listener on AreaBrokersBloc
             listener: (context, state) {
-              if (state is AreaBrokersLoadedState) {
+              if (state is AreaBrokersFetched) {
                 /// add change broker to show BottomCardDataHolder with current broker
                 brokerChangedCubit.changeBroker(state.brokers[0]);
               }
@@ -82,7 +82,7 @@ class _ChooseBrokerScreenState extends State<ChooseBrokerScreen> {
             /// builder of AreaBrokersBloc
             builder: (context, state) {
               /// loading
-              if (state is AreaBrokersLoadingState) {
+              if (state is LoadingAreaBrokers) {
                 return const Center(child: LoadingAnimationWidget());
               }
 
@@ -94,7 +94,7 @@ class _ChooseBrokerScreenState extends State<ChooseBrokerScreen> {
               }
 
               /// error
-              if (state is AreaBrokersErrorState) {
+              if (state is ErrorWhileLoadingAreaBrokers) {
                 return Center(
                   child: Text(
                     'Error: ${state.appError.appErrorType} , Message: ${state.appError.message}',
@@ -103,7 +103,7 @@ class _ChooseBrokerScreenState extends State<ChooseBrokerScreen> {
               }
 
               /// loaded
-              if (state is AreaBrokersLoadedState) {
+              if (state is AreaBrokersFetched) {
                 final brokers = state.brokers;
                 return Column(
                   children: [

@@ -43,13 +43,12 @@ import '../domain/use_cases/local_usecases/auto_login/save_auto_login.dart';
 import '../domain/use_cases/make_phone_call.dart';
 import '../domain/use_cases/open_map.dart';
 import '../domain/use_cases/open_whats_app.dart';
-import '../presentation/logic/bloc/areas_bloc/areas_bloc.dart';
-import '../presentation/logic/bloc/brokers_by_area/area_brokers_bloc.dart';
+import '../presentation/logic/cubit/areas/areas_cubit.dart';
+import '../presentation/logic/cubit/brokers_by_area/get_area_brokers_cubit.dart';
 import '../presentation/logic/bloc/calculator_validation/calculator_validation_bloc.dart';
-import '../presentation/logic/bloc/login/login_bloc.dart';
 import '../presentation/logic/bloc/project_status/project_status_bloc.dart';
 import '../presentation/logic/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
-import '../presentation/logic/bloc/projects/fetch_projects_bloc.dart';
+import '../presentation/logic/cubit/projects/get_projects_cubit.dart';
 import '../presentation/logic/cubit/auto_login/auto_login_cubit.dart';
 import '../presentation/logic/cubit/broker_changed/broker_changed_cubit.dart';
 import '../presentation/logic/cubit/change_login_view/change_login_view_cubit.dart';
@@ -71,7 +70,6 @@ import '../presentation/logic/cubit/project_scrollable_indicator/indicator_posit
 final getItInstance = GetIt.I;
 
 Future init() async {
-
   ///********************************** init ApiClient *********************************************\\\
 
   /// GraphQLClient
@@ -79,59 +77,59 @@ Future init() async {
 
   /// ApiClient
   getItInstance.registerFactory<ApiClient>(
-        () => ApiClient(
+    () => ApiClient(
       graphQLClient: getItInstance(),
     ),
   );
 
   ///********************************** SharedPreferences *********************************************\\\
   getItInstance.registerSingletonAsync<SharedPreferences>(
-        () => SharedPreferences.getInstance(),
+    () => SharedPreferences.getInstance(),
   );
 
   ///********************************** DataSource *********************************************\\\
   /// Instance of RemoteDataSource
   getItInstance.registerLazySingleton<RemoteDataSource>(
-        () => RemoteDateSourceImpl(apiClient: getItInstance()),
+    () => RemoteDateSourceImpl(apiClient: getItInstance()),
   );
 
   ///********************************** Local_DataSource *********************************************\\\
 
   /// Instance of LocalDataSource
   getItInstance.registerLazySingleton<LocalDataSource>(
-        () => LocalDataSourceImpl(),
+    () => LocalDataSourceImpl(),
   );
 
   /// Instance of AppSettingsLocalDataSource
   getItInstance.registerLazySingleton<AppSettingsLocalDataSource>(
-        () => AppSettingsLocalDataSourceImpl(),
+    () => AppSettingsLocalDataSourceImpl(),
   );
 
   ///********************************** Repositories *********************************************\\\
 
   /// Instance of ProjectsApiRepo
   getItInstance.registerLazySingleton<RemoteRepository>(
-        () => RemoteRepositoryImpl(
+    () => RemoteRepositoryImpl(
       remoteDataSource: getItInstance(),
     ),
   );
 
   /// Instance of ProjectsApiRepo
   getItInstance.registerLazySingleton<AppRepository>(
-        () => AppRepository(),
+    () => AppRepository(),
   );
 
   ///********************************** Local_Repositories *********************************************\\\
   /// Instance of LocalRepository
   getItInstance.registerLazySingleton<LocalRepository>(
-        () => LocalRepositoryImpl(
+    () => LocalRepositoryImpl(
       localDataSource: getItInstance(),
     ),
   );
 
   /// Instance of AppSettingsRepository
   getItInstance.registerLazySingleton<AppSettingsRepository>(
-        () => AppSettingsRepositoryImpl(
+    () => AppSettingsRepositoryImpl(
       appSettingsLocalDataSource: getItInstance(),
     ),
   );
@@ -139,97 +137,97 @@ Future init() async {
   ///********************************** Remote_Use_Cases *********************************************\\\
   /// GetDeveloperContactCase
   getItInstance.registerFactory<GetDeveloperContactCase>(
-        () => GetDeveloperContactCase(
+    () => GetDeveloperContactCase(
       apiRepo: getItInstance(),
     ),
   );
 
   /// GetAutoLogin
   getItInstance.registerLazySingleton<GetAutoLogin>(() => GetAutoLogin(
-    appSettingsRepository: getItInstance(),
-  ));
+        appSettingsRepository: getItInstance(),
+      ));
 
   /// SaveAutoLogin
   getItInstance.registerLazySingleton<SaveAutoLogin>(() => SaveAutoLogin(
-    appSettingsRepository: getItInstance(),
-  ));
+        appSettingsRepository: getItInstance(),
+      ));
 
   /// DeleteAutoLogin
   getItInstance.registerLazySingleton<DeleteAutoLogin>(() => DeleteAutoLogin(
-    appSettingsRepository: getItInstance(),
-  ));
+        appSettingsRepository: getItInstance(),
+      ));
 
   /// GetTopProjects
   getItInstance.registerLazySingleton<GetProjectsCase>(
-        () => GetProjectsCase(projectApiRepo: getItInstance()),
+    () => GetProjectsCase(projectApiRepo: getItInstance()),
   );
 
   /// GetAreasCase
   getItInstance.registerLazySingleton<GetAreasCase>(
-        () => GetAreasCase(
+    () => GetAreasCase(
       projectApiRepo: getItInstance(),
     ),
   );
 
   /// GetAreasBrokersCase
   getItInstance.registerLazySingleton<GetAreaBrokersCase>(
-        () => GetAreaBrokersCase(
+    () => GetAreaBrokersCase(
       apiRepo: getItInstance(),
     ),
   );
 
   /// GetResidentialProjectsCase
   getItInstance.registerLazySingleton<GetResidentialProjectsCase>(
-        () => GetResidentialProjectsCase(
+    () => GetResidentialProjectsCase(
       apiRepo: getItInstance(),
     ),
   );
 
   /// GetCommercialProjectsCase
   getItInstance.registerLazySingleton<GetCommercialProjectsCase>(
-        () => GetCommercialProjectsCase(
+    () => GetCommercialProjectsCase(
       apiRepo: getItInstance(),
     ),
   );
 
   /// GetProjectStatusCase
   getItInstance.registerLazySingleton<GetProjectStatusCase>(
-        () => GetProjectStatusCase(
+    () => GetProjectStatusCase(
       apiRepo: getItInstance(),
     ),
   );
 
   /// GetProjectStatusCase
   getItInstance.registerLazySingleton<GetResidentialUnitTypesByAreaCase>(
-        () => GetResidentialUnitTypesByAreaCase(
+    () => GetResidentialUnitTypesByAreaCase(
       apiRepo: getItInstance(),
     ),
   );
 
   /// OpenWhatsappCase
   getItInstance.registerLazySingleton<OpenWhatsappCase>(
-        () => OpenWhatsappCase(
+    () => OpenWhatsappCase(
       appRepository: getItInstance(),
     ),
   );
 
   /// OpenMapCase
   getItInstance.registerLazySingleton<OpenMapCase>(
-        () => OpenMapCase(
+    () => OpenMapCase(
       appRepository: getItInstance(),
     ),
   );
 
   /// MakePhoneCallCase
   getItInstance.registerLazySingleton<MakePhoneCallCase>(
-        () => MakePhoneCallCase(
+    () => MakePhoneCallCase(
       appRepository: getItInstance(),
     ),
   );
 
   /// GetTeamSupportCase
   getItInstance.registerLazySingleton<GetTeamSupportCase>(
-        () => GetTeamSupportCase(
+    () => GetTeamSupportCase(
       apiRepo: getItInstance(),
     ),
   );
@@ -238,35 +236,35 @@ Future init() async {
 
   /// GetPreferredLanguage
   getItInstance.registerLazySingleton<GetPreferredLanguage>(
-          () => GetPreferredLanguage(appSettingsRepository: getItInstance()));
+      () => GetPreferredLanguage(appSettingsRepository: getItInstance()));
 
   /// UpdateLanguage
   getItInstance.registerLazySingleton<UpdateLanguage>(
-          () => UpdateLanguage(appSettingsRepository: getItInstance()));
+      () => UpdateLanguage(appSettingsRepository: getItInstance()));
 
   /// GetCurrentUserCase
   getItInstance.registerLazySingleton<GetCurrentUserCase>(
-          () => GetCurrentUserCase(appSettingsRepository: getItInstance()));
+      () => GetCurrentUserCase(appSettingsRepository: getItInstance()));
 
   /// UpdateCurrentUserCase
   getItInstance.registerLazySingleton<UpdateCurrentUserCase>(
-          () => UpdateCurrentUserCase(appSettingsRepository: getItInstance()));
+      () => UpdateCurrentUserCase(appSettingsRepository: getItInstance()));
 
   /// GetFavProject
   getItInstance.registerLazySingleton<GetFavProjects>(
-          () => GetFavProjects(localRepository: getItInstance()));
+      () => GetFavProjects(localRepository: getItInstance()));
 
   /// DeleteFavProject
   getItInstance.registerLazySingleton<DeleteFavProject>(
-          () => DeleteFavProject(localRepository: getItInstance()));
+      () => DeleteFavProject(localRepository: getItInstance()));
 
   /// SaveFavProject
   getItInstance.registerLazySingleton<SaveFavProject>(
-          () => SaveFavProject(localRepository: getItInstance()));
+      () => SaveFavProject(localRepository: getItInstance()));
 
   /// CheckForFavProject
   getItInstance.registerLazySingleton<CheckForFavProjectUseCase>(
-          () => CheckForFavProjectUseCase(localRepository: getItInstance()));
+      () => CheckForFavProjectUseCase(localRepository: getItInstance()));
 
   ///********************************** init cubit *********************************************\\\
 
@@ -292,7 +290,7 @@ Future init() async {
 
   /// init BrokerChangeCubit
   getItInstance.registerFactory<BrokerChangedCubit>(
-        () => BrokerChangedCubit(
+    () => BrokerChangedCubit(
       openWhatsappCase: getItInstance(),
       makePhoneCallCase: getItInstance(),
     ),
@@ -300,7 +298,7 @@ Future init() async {
 
   /// init ResidentialProjectsCubit
   getItInstance.registerFactory<ResidentialCubit>(
-        () => ResidentialCubit(
+    () => ResidentialCubit(
       residentialProjectsCase: getItInstance(),
       getUnitTypesByAreaCase: getItInstance(),
     ),
@@ -308,7 +306,7 @@ Future init() async {
 
   /// init CommercialProjectsCubit
   getItInstance.registerFactory<CommercialProjectsCubit>(
-        () => CommercialProjectsCubit(
+    () => CommercialProjectsCubit(
       commercialProjectsCase: getItInstance(),
     ),
   );
@@ -323,17 +321,17 @@ Future init() async {
 
   /// init CountDownCubit
   getItInstance.registerFactory(
-        () => CountDownCubit(),
+    () => CountDownCubit(),
   );
 
   /// init ChangeLoginViewCubit
   getItInstance.registerFactory<ChangeLoginViewCubit>(
-        () => ChangeLoginViewCubit(),
+    () => ChangeLoginViewCubit(),
   );
 
   /// init DeveloperContactCubit
   getItInstance.registerFactory<DeveloperContactCubit>(
-        () => DeveloperContactCubit(
+    () => DeveloperContactCubit(
       getDeveloperContactCase: getItInstance(),
       makePhoneCallCase: getItInstance(),
       openMapCase: getItInstance(),
@@ -352,44 +350,39 @@ Future init() async {
 
   /// ChooseFavoriteAreaCubit
   getItInstance.registerFactory<ChooseFavoriteAreaCubit>(
-        ()=> ChooseFavoriteAreaCubit(),
+    () => ChooseFavoriteAreaCubit(),
   );
 
   ///********************************** init blocs *********************************************\\\
 
-  ///==> init LoginBloc
-  getItInstance.registerFactory<LoginBloc>(
-        () => LoginBloc(countDownCubit: getItInstance()),
-  );
-
   ///==> init ProjectBackdropBloc
   getItInstance.registerFactory<ProjectStatusBackdropBloc>(
-        () => ProjectStatusBackdropBloc(),
+    () => ProjectStatusBackdropBloc(),
   );
 
   ///==> init ProjectStatusBloc
   getItInstance.registerFactory<ProjectStatusBloc>(
-        () => ProjectStatusBloc(
+    () => ProjectStatusBloc(
       backdropBloc: getItInstance(),
       getProjectStatusCase: getItInstance(),
     ),
   );
 
   ///==> init FetchProjectsBloc
-  getItInstance.registerFactory<FetchProjectsBloc>(() => FetchProjectsBloc(
-    getProjects: getItInstance(),
-  ));
+  getItInstance.registerFactory<GetProjectsCubit>(() => GetProjectsCubit(
+        getProjects: getItInstance(),
+      ));
 
   /// init areas bloc
-  getItInstance.registerFactory<AreasBloc>(
-        () => AreasBloc(
+  getItInstance.registerFactory<AreasCubit>(
+    () => AreasCubit(
       getAreas: getItInstance(),
     ),
   );
 
   /// init favoriteProjects bloc
   getItInstance.registerFactory<FavoriteProjectsBloc>(
-        () => FavoriteProjectsBloc(
+    () => FavoriteProjectsBloc(
       getFavProjects: getItInstance(),
       deleteFavProject: getItInstance(),
       saveFavProject: getItInstance(),
@@ -402,17 +395,17 @@ Future init() async {
       .registerFactory<IndicatorPositionCubit>(() => IndicatorPositionCubit());
 
   /// init AreaBrokersBloc
-  getItInstance.registerFactory<AreaBrokersBloc>(
-          () => AreaBrokersBloc(getAreaBrokersCase: getItInstance()));
+  getItInstance
+      .registerFactory<GetAreaBrokersCubit>(() => GetAreaBrokersCubit());
 
   /// init CalculatorValidationBloc
   getItInstance
       .registerFactory<CalculatorValidationBloc>(() => CalculatorValidationBloc(
-    unitPrice: const UnitPrice.dirty(value: ''),
-    downPayment: const DownPaymentForm.dirty(value: ''),
-    numberOfYears: const NumberOfYears.dirty(value: ''),
-    firstDownPaymentForm: const FirstDownPaymentForm.dirty(value: ''),
-    secondDownPaymentForm: const SecondDownPaymentForm.dirty(value: ''),
-    thirdDownPaymentForm: const ThirdDownPaymentForm.dirty(value: ''),
-  ));
+            unitPrice: const UnitPrice.dirty(value: ''),
+            downPayment: const DownPaymentForm.dirty(value: ''),
+            numberOfYears: const NumberOfYears.dirty(value: ''),
+            firstDownPaymentForm: const FirstDownPaymentForm.dirty(value: ''),
+            secondDownPaymentForm: const SecondDownPaymentForm.dirty(value: ''),
+            thirdDownPaymentForm: const ThirdDownPaymentForm.dirty(value: ''),
+          ));
 }

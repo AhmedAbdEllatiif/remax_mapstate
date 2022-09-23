@@ -8,7 +8,7 @@ import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
-import '../../../logic/bloc/areas_bloc/areas_bloc.dart';
+import '../../../logic/cubit/areas/areas_cubit.dart';
 
 class AreaSectionWidget extends StatelessWidget {
   //final List<AreaEntity> areas;
@@ -17,7 +17,7 @@ class AreaSectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AreasBloc, AreasState>(
+    return BlocBuilder<AreasCubit, AreasState>(
       builder: (context, state) {
         return Padding(
           padding: EdgeInsets.only(top: Sizes.dimen_4.h),
@@ -51,7 +51,7 @@ class AreaSectionWidget extends StatelessWidget {
 
 
               /// loading
-              if (state is AreasLoadingState)
+              if (state is LoadingAreas)
                 const Expanded(
                   child: Center(
                     child: CircularProgressIndicator(
@@ -62,13 +62,13 @@ class AreaSectionWidget extends StatelessWidget {
                 ),
 
               /// loaded
-              if (state is AreasLoadedState)
+              if (state is AreasFetched)
                 Expanded(child: Padding(
                   padding:  EdgeInsets.symmetric(vertical: Sizes.dimen_8.h,horizontal: Sizes.dimen_8.w),
                   child: AreaGridView(areas: state.areas),
                 )),
 
-              if (state is AreasErrorState)
+              if (state is ErrorWhileLoadingAreas)
                 Expanded(
                   child: Center(
                     child: Text(

@@ -1,4 +1,4 @@
-part of 'areas_bloc.dart';
+part of 'areas_cubit.dart';
 
 abstract class AreasState extends Equatable {
   const AreasState();
@@ -8,14 +8,14 @@ abstract class AreasState extends Equatable {
 
 
 /// loading
-class AreasLoadingState extends AreasState {}
+class LoadingAreas extends AreasState {}
 
 /// loaded
-class AreasLoadedState extends AreasState{
+class AreasFetched extends AreasState{
 
   final List<AreaEntity> areas;
 
-  const AreasLoadedState({
+  const AreasFetched({
     required this.areas,
   });
 
@@ -24,11 +24,11 @@ class AreasLoadedState extends AreasState{
 }
 
 /// Error
-class AreasErrorState extends AreasState{
+class ErrorWhileLoadingAreas extends AreasState{
 
   final AppError appError;
 
-  const AreasErrorState({
+  const ErrorWhileLoadingAreas({
     required this.appError,
   });
 

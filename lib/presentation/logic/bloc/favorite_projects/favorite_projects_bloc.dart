@@ -10,7 +10,7 @@ import 'package:remax_mapstate/domain/use_cases/local_usecases/check_for_favorit
 import 'package:remax_mapstate/domain/use_cases/local_usecases/delete_fav_project.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/get_fav_projects.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/save_fav_project.dart';
-import 'package:remax_mapstate/domain/entities/project_entity.dart';
+
 
 part 'favorite_projects_event.dart';
 
