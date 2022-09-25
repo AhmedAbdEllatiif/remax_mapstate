@@ -7,7 +7,7 @@ import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/presentation/journeys/choose_broker/arguments/choose_broker_argument.dart';
 import 'package:remax_mapstate/presentation/journeys/choose_broker/brokers_page_view/top_broker_page_view_widget.dart';
 import 'package:remax_mapstate/presentation/widgets/empty_list_widegt.dart';
-import 'package:remax_mapstate/presentation/widgets/loading_animation_widget.dart';
+import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 import 'package:responsive_framework/responsive_value.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
@@ -83,7 +83,7 @@ class _ChooseBrokerScreenState extends State<ChooseBrokerScreen> {
             builder: (context, state) {
               /// loading
               if (state is LoadingAreaBrokers) {
-                return const Center(child: LoadingAnimationWidget());
+                return const Center(child: LoadingWidget());
               }
 
               /// empty list

@@ -24,9 +24,9 @@ class AssetsConstants{
   static const String phoneIcon = "${_pngPath}phone_icon.png";
   static const String whiteGoldLogo = "${_pngPath}white_gold_log.png";
 
-  static const String loading = "${_jsonPath}loading.json";
+
   static const String emptyBox = "${_jsonPath}empty_box.json";
-  static const String loadingBuilding = "${_jsonPath}loading-building.json";
+  static const String loading = "${_jsonPath}loading.json";
   static const String waitingAnimation = "${_jsonPath}waiting.json";
   static const String otpLotti = "${_jsonPath}otp.json";
   static const String phoneNumLotti = "${_jsonPath}phone_number_animation.json";

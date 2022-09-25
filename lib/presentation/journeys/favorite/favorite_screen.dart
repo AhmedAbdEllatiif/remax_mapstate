@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/presentation/widgets/empty_list_widegt.dart';
-import 'package:remax_mapstate/presentation/widgets/loading_animation_widget.dart';
+import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 
 import '../../logic/bloc/favorite_projects/favorite_projects_bloc.dart';
@@ -45,7 +45,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         builder: (context, state) {
 
           if(state is FavoriteProjectsLoading){
-            return const Center(child: LoadingAnimationWidget());
+            return const Center(child: LoadingWidget());
           }
 
           if(state is FavoriteProjectsNoProjectsToShow){

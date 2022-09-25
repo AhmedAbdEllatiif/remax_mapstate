@@ -76,5 +76,9 @@ class RouteHelper {
   /// To BrokerRegistrationScreen \\\
   void brokerRegistrationScreen(BuildContext context) =>
       Navigator.of(context).pushNamed(RouteList.brokerRegistration);
+
+  /// To AllAreas screen \\\
+  void allAreasScreen(BuildContext context) =>
+      Navigator.of(context).pushNamed(RouteList.allAreas);
 }
 //Navigator.pushNamed(context, AppRouter.chooseBrokerScreen)

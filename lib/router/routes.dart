@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_developer.dart';
+import 'package:remax_mapstate/presentation/journeys/all_areas/all_areas_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/area_projects/area_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/calculation_result/calculation_result_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/choose_broker/choose_broker_screen.dart';
@@ -32,6 +33,7 @@ class Routes{
     RouteList.chooseBrokerScreen : (context) =>  ChooseBrokerScreen(chooseBrokerArgument: settings.arguments as ChooseBrokerArgument),
     RouteList.areaScreen : (context) =>  AreaScreen(areaArgument: settings.arguments as AreaArgument),
     RouteList.projectDetailsScreen : (context) =>  ProjectDetailsScreen( projectDetailsArgument:  settings.arguments as ProjectDetailsArgument),
+    RouteList.allAreas : (context) => const AllAreasScreen(),
   };
 
 }

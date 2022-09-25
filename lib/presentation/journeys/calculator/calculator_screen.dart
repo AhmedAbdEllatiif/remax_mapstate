@@ -54,7 +54,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     return Stack(
       children: [
 
-        CityBackgroundWidget(),
+        const CityBackgroundWidget(),
 
         BlocProvider(
           create: (context) => _calculatorValidationBloc,

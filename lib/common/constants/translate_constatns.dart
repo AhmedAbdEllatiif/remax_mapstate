@@ -83,5 +83,6 @@ class TranslateConstants{
   static const String searchForArea = 'searchForArea';
   static const String alreadyHaveAbAccount = 'alreadyHaveAbAccount';
   static const String notHaveAbAccount = 'notHaveAbAccount';
+  static const String allCities = 'allCities';
 
 }

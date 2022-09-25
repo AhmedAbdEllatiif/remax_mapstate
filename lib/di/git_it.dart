@@ -36,7 +36,7 @@ import 'package:remax_mapstate/presentation/journeys/calculator/formz/unit_price
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/api/clients/graphql_client.dart';
-import '../data/repositories/project_api_repo_impl.dart';
+import '../data/repositories/remote_repository_impl.dart';
 import '../domain/use_cases/local_usecases/auto_login/delete_auto_login.dart';
 import '../domain/use_cases/local_usecases/auto_login/get_auto_login.dart';
 import '../domain/use_cases/local_usecases/auto_login/save_auto_login.dart';
@@ -89,7 +89,7 @@ Future init() async {
 
   ///********************************** DataSource *********************************************\\\
   /// Instance of RemoteDataSource
-  getItInstance.registerLazySingleton<RemoteDataSource>(
+  getItInstance.registerFactory<RemoteDataSource>(
     () => RemoteDateSourceImpl(apiClient: getItInstance()),
   );
 
@@ -108,7 +108,7 @@ Future init() async {
   ///********************************** Repositories *********************************************\\\
 
   /// Instance of ProjectsApiRepo
-  getItInstance.registerLazySingleton<RemoteRepository>(
+  getItInstance.registerFactory<RemoteRepository>(
     () => RemoteRepositoryImpl(
       remoteDataSource: getItInstance(),
     ),
@@ -163,7 +163,7 @@ Future init() async {
   );
 
   /// GetAreasCase
-  getItInstance.registerLazySingleton<GetAreasCase>(
+  getItInstance.registerFactory<GetAreasCase>(
     () => GetAreasCase(
       projectApiRepo: getItInstance(),
     ),

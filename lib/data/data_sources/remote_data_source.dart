@@ -1,6 +1,9 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:remax_mapstate/common/constants/assets_constants.dart';
+import 'package:remax_mapstate/common/enums/app_language.dart';
 import 'package:remax_mapstate/data/api/clients/api_client.dart';
+import 'package:remax_mapstate/data/api/queries/areas/ar_areas.dart';
+import 'package:remax_mapstate/data/api/queries/areas/en_areas.dart';
 import 'package:remax_mapstate/data/api/queries/projects.dart';
 import 'package:remax_mapstate/data/models/area_model.dart';
 import 'package:remax_mapstate/data/models/broker_model.dart';
@@ -9,6 +12,9 @@ import 'package:remax_mapstate/data/models/project_model.dart';
 import 'package:remax_mapstate/data/models/project_status.dart';
 import 'package:remax_mapstate/data/models/team_support_model.dart';
 import 'package:remax_mapstate/data/models/unit_type_model.dart';
+import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
+
+import '../../common/constants/api_constants.dart';
 
 abstract class RemoteDataSource {
   /// return  projects
@@ -21,7 +27,7 @@ abstract class RemoteDataSource {
   Future<List<ProjectModel>> getCommercialProjects(int areaId);
 
   /// return areas
-  Future<List<AreaModel>> getAreas();
+  Future<List<AreaModel>> getAreas(FetchAreaParams params);
 
   /// return list of brokers
   Future<List<BrokerModel>> getAreaBrokers();
@@ -44,7 +50,7 @@ class RemoteDateSourceImpl extends RemoteDataSource {
 
   RemoteDateSourceImpl({required this.apiClient});
 
-  List<AreaModel> areas() {
+  /* List<AreaModel> areas() {
     return [
       const AreaModel(id: 0, title: 'New Cairo'),
       const AreaModel(id: 1, title: 'New Capital'),
@@ -52,12 +58,12 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       const AreaModel(id: 3, title: 'New Zayed'),
       const AreaModel(id: 4, title: 'October'),
       const AreaModel(id: 5, title: 'Sokhna'),
-      /*const AreaModel(id: 6,title: 'New Cairo'),
+      */ /*const AreaModel(id: 6,title: 'New Cairo'),
     const AreaModel(id: 7,title: 'October'),
     const AreaModel(id: 8,title: 'New October'),
-    const AreaModel(id: 9,title: 'New Cairo'),*/
+    const AreaModel(id: 9,title: 'New Cairo'),*/ /*
     ];
-  }
+  }*/
 
   List<ProjectStatusModel> projectStatus() {
     return [
@@ -199,9 +205,20 @@ class RemoteDateSourceImpl extends RemoteDataSource {
   }
 
   @override
-  Future<List<AreaModel>> getAreas() async {
-    final myAreas = await areas();
-    return myAreas;
+  Future<List<AreaModel>> getAreas(FetchAreaParams params) async {
+    final query = params.appLanguage == AppLanguage.en
+        ? fetchEnglishAreasQuery()
+        : fetchArabicAreasQuery();
+    final QueryResult result = await apiClient.get(
+      query,
+      variables: {
+        VariablesConstants.limit: params.limit,
+        VariablesConstants.offset: params.offset,
+        VariablesConstants.orderBy: params.orderBy,
+      },
+    );
+    final areasList = listOfAreasFromJson(result.data!);
+    return areasList;
   }
 
   /// fetch projects

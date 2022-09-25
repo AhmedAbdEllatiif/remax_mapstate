@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/presentation/journeys/projects/project_card.dart';
 import 'package:remax_mapstate/presentation/widgets/empty_list_widegt.dart';
-import 'package:remax_mapstate/presentation/widgets/loading_animation_widget.dart';
+import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 
 import '../../../logic/cubit/commercial_projects/commercial_projects_cubit.dart';
 
@@ -38,7 +38,7 @@ class _CommercialPageState extends State<CommercialPage>
       child: BlocBuilder<CommercialProjectsCubit, CommercialProjectsState>(
         builder: (context, state) {
           if (state is CommercialProjectsLoadingState) {
-            return const LoadingAnimationWidget();
+            return const LoadingWidget();
           }
 
           if (state is CommercialProjectsErrorState) {

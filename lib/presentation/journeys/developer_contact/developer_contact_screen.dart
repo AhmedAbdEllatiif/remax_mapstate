@@ -6,7 +6,7 @@ import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_developer.dart';
 import 'package:remax_mapstate/presentation/journeys/developer_contact/developer_contact_image.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
-import 'package:remax_mapstate/presentation/widgets/loading_animation_widget.dart';
+import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 
 import '../../../common/constants/sizes.dart';
 import '../../../common/screen_utils/screen_util.dart';
@@ -60,7 +60,7 @@ class _DeveloperContactScreenState extends State<DeveloperContactScreen> {
                 /// loading
                 if (state is LoadingDeveloperContactState) {
                   return const Center(
-                    child: LoadingAnimationWidget(),
+                    child: LoadingWidget(),
                   );
                 }
 

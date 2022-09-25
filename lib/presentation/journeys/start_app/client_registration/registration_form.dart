@@ -63,17 +63,17 @@ class RegistrationFrom extends StatelessWidget {
           ),
         ),
         SizedBox(height: Sizes.dimen_5.h),
-
-        ChooseFavoriteAreaWidget(
+        ///TODO fetch areas
+        /*ChooseFavoriteAreaWidget(
           allAreas: const [
-            AreaEntity(id: 1, title: "Zayed"),
-            AreaEntity(id: 2, title: "October"),
-            AreaEntity(id: 3, title: "Sokhna"),
-            AreaEntity(id: 4, title: "Sahel"),
-            AreaEntity(id: 5, title: "New Capital"),
+            AreaEntity(id: 1, name: "Zayed"),
+            AreaEntity(id: 2, name: "October"),
+            AreaEntity(id: 3, name: "Sokhna"),
+            AreaEntity(id: 4, name: "Sahel"),
+            AreaEntity(id: 5, name: "New Capital"),
           ],
           chooseFavoriteAreaCubit: chooseFavoriteAreaCubit,
-        ),
+        ),*/
 
       ],
     );

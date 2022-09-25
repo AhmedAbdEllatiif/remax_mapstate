@@ -7,7 +7,7 @@ import 'package:remax_mapstate/presentation/journeys/area_projects/unit_types_li
 import 'package:remax_mapstate/presentation/journeys/projects/project_card.dart';
 
 import 'package:remax_mapstate/presentation/widgets/empty_list_widegt.dart';
-import 'package:remax_mapstate/presentation/widgets/loading_animation_widget.dart';
+import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 
 import '../../../logic/cubit/residential_projects/residential_projects_cubit.dart';
 
@@ -44,7 +44,7 @@ class _ResidentialPageState extends State<ResidentialPage>
         builder: (context, state) {
           /// loading
           if (state is ResidentialLoadingState) {
-            return const LoadingAnimationWidget();
+            return const LoadingWidget();
           }
 
           /// Error

@@ -111,7 +111,7 @@ class MultiSelectionHelper {
   List<MultiSelectItem> _getItems(List<AreaEntity> areas) {
     return areas
         .map(
-          (area) => MultiSelectItem<AreaEntity>(area, area.title),
+          (area) => MultiSelectItem<AreaEntity>(area, area.name),
         )
         .toList();
   }

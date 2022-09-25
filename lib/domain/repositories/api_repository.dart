@@ -8,6 +8,8 @@ import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
 import 'package:remax_mapstate/domain/entities/team_support_entity.dart';
 import 'package:remax_mapstate/domain/entities/unit_type_entity.dart';
 
+import '../../data/params/fetch_areas_params.dart';
+
 abstract class RemoteRepository {
 
 
@@ -26,7 +28,7 @@ abstract class RemoteRepository {
 
 
   /// return list of areas
-  Future<Either<AppError,List<AreaEntity>>> getAreas();
+  Future<Either<AppError,List<AreaEntity>>> getAreas(FetchAreaParams params);
 
 
   /// return list of broker according to specific area

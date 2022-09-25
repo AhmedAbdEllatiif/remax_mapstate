@@ -7,8 +7,12 @@ import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
+import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
+import 'package:remax_mapstate/router/route_hepler.dart';
 
 import '../../../logic/cubit/areas/areas_cubit.dart';
+import '../../../widgets/app_error_widget.dart';
+import '../../../widgets/see_all_widget.dart';
 
 class AreaSectionWidget extends StatelessWidget {
   //final List<AreaEntity> areas;
@@ -18,61 +22,47 @@ class AreaSectionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AreasCubit, AreasState>(
-      builder: (context, state) {
+      builder: (_, state) {
         return Padding(
           padding: EdgeInsets.only(top: Sizes.dimen_4.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              /// see all widget
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: Sizes.dimen_20.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      TranslateConstants.findByArea.t(context),
-                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                        color: AppColor.geeBung,
-                        fontWeight: FontWeight.w600
-                      ),
-                    ),
-
-                    Text(
-                      TranslateConstants.seeAll.t(context),
-                      style: Theme.of(context).textTheme.whiteSubtitle1.copyWith(
-                          color: AppColor.geeBung,
-                        fontWeight: FontWeight.w600
-                      ),
-                    ),
-                  ],
+                padding: EdgeInsets.symmetric(horizontal: Sizes.dimen_16.w),
+                child: SeeAllWidget(
+                  title: TranslateConstants.findByArea.t(context),
+                  onSeeAllPressed: () => _navigateToAllAreas(context),
                 ),
               ),
-
-
 
               /// loading
               if (state is LoadingAreas)
                 const Expanded(
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      value: 15,
-                      semanticsLabel: 'Linear progress indicator',
-                    ),
-                  ),
+                  child: Center(child: LoadingWidget()),
                 ),
 
               /// loaded
               if (state is AreasFetched)
-                Expanded(child: Padding(
-                  padding:  EdgeInsets.symmetric(vertical: Sizes.dimen_8.h,horizontal: Sizes.dimen_8.w),
+                Expanded(
+                    child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: Sizes.dimen_8.h, horizontal: Sizes.dimen_8.w),
                   child: AreaGridView(areas: state.areas),
                 )),
 
               if (state is ErrorWhileLoadingAreas)
                 Expanded(
                   child: Center(
-                    child: Text(
-                        "Error: ${state.appError.appErrorType}, Message: ${state.appError.message}"),
+                    child: AppErrorWidget(
+                      appTypeError: state.appError.appErrorType,
+                      onPressedRetry: () {
+                        context
+                            .read<AreasCubit>()
+                            .fetchAreas(context, limit: 6);
+                      },
+                    ),
                   ),
                 ),
             ],
@@ -81,4 +71,8 @@ class AreaSectionWidget extends StatelessWidget {
       },
     );
   }
+
+  /// To navigate to all areas
+  void _navigateToAllAreas(BuildContext context) =>
+      RouteHelper().allAreasScreen(context);
 }

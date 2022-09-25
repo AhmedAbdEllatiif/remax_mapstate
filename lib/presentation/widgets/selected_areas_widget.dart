@@ -55,7 +55,7 @@ class SelectedAreasWidget extends StatelessWidget {
                 .subtitle1!
                 .copyWith(color: AppColor.black, fontWeight: FontWeight.bold),
             items:
-                selectedAreas.map((e) => MultiSelectItem(e, e.title)).toList(),
+                selectedAreas.map((e) => MultiSelectItem(e, e.name)).toList(),
             onTap: (value) => onRemoveAreaPressed(value),
           ),
         ),

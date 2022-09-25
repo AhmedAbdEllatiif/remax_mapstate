@@ -94,7 +94,7 @@ class _MainAppState extends State<MainApp> {
                   ),
                   scaffoldBackgroundColor: AppColor.black,
                   textTheme: ThemeText.getTextTheme(),
-                  appBarTheme: const AppBarTheme(
+                  appBarTheme:  AppBarTheme(
                     centerTitle: true,
                     systemOverlayStyle: SystemUiOverlayStyle(
                       // Status bar color
@@ -105,13 +105,17 @@ class _MainAppState extends State<MainApp> {
                       // statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
                       // statusBarBrightness: Brightness.light, // For iOS (dark icons)
                     ),
-                    iconTheme: IconThemeData(color: AppColor.geeBung),
+                    iconTheme: const IconThemeData(color: AppColor.geeBung),
                     elevation: 0,
-                    titleTextStyle: TextStyle(
+                    titleTextStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      color: AppColor.geeBung,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    /*titleTextStyle: TextStyle(
                       color: AppColor.geeBung,
                       fontSize: Sizes.dimen_18,
                       fontWeight: FontWeight.bold,
-                    ),
+                    ),*/
                     color: AppColor.fadeBlack,
                   ),
 

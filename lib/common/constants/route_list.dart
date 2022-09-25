@@ -13,4 +13,5 @@ class RouteList{
   static const String clientRegistration = "/clientRegistrationScreen";
   static const String spotterRegistration = "/spotterRegistrationScreen";
   static const String brokerRegistration = "/brokerRegistrationScreen";
+  static const String allAreas = "/allAreas";
 }

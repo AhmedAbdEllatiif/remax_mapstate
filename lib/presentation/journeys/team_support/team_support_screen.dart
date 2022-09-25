@@ -4,7 +4,7 @@ import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/presentation/journeys/developer_contact/developer_contact_image.dart';
 import 'package:remax_mapstate/presentation/journeys/team_support/team_support_info_card.dart';
-import 'package:remax_mapstate/presentation/widgets/loading_animation_widget.dart';
+import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 
 import '../../../common/constants/sizes.dart';
 import '../../../common/screen_utils/screen_util.dart';
@@ -49,7 +49,7 @@ class _TeamSupportScreen extends State<TeamSupportScreen> {
               /// loading
               if (state is LoadingTeamSupportState) {
                 return const Center(
-                  child: LoadingAnimationWidget(),
+                  child: LoadingWidget(),
                 );
               }
 

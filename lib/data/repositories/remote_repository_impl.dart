@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/data/data_sources/remote_data_source.dart';
+import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
 import 'package:remax_mapstate/domain/entities/broker_entity.dart';
@@ -40,9 +41,9 @@ class RemoteRepositoryImpl extends RemoteRepository {
 
   /// return list of Areas
   @override
-  Future<Either<AppError, List<AreaEntity>>> getAreas() async {
+  Future<Either<AppError, List<AreaEntity>>> getAreas(FetchAreaParams params) async {
     try {
-      final areas = await remoteDataSource.getAreas();
+      final areas = await remoteDataSource.getAreas(params);
       return Right(areas);
     } on SocketException catch(e){
       return Left(AppError(AppErrorType.network,message: e.message));

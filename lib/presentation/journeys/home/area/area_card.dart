@@ -21,12 +21,17 @@ class AreaCardWidget extends StatelessWidget {
       child: CircleAvatar(
         backgroundColor: AppColor.geeBung,
         child: Center(
-          child: Text(
-            area.title,
-            maxLines: 2,
-            style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                color: AppColor.black,
-                fontWeight: FontWeight.bold
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              area.name,
+              maxLines: 2,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  color: AppColor.black,
+                  fontWeight: FontWeight.bold
+              ),
             ),
           ),
         ),

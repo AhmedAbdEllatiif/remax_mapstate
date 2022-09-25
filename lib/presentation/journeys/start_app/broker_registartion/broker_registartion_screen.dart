@@ -102,17 +102,18 @@ class _BrokerRegistrationScreenState extends State<BrokerRegistrationScreen> {
 
 
                 /// Choose favorite areas
-                ChooseFavoriteAreaWidget(
+                /// TODO: fetch areas
+               /* ChooseFavoriteAreaWidget(
                   chooseFavoriteAreaCubit: _chooseFavoriteAreaCubit,
                   allAreas: const [
-                    AreaEntity(id: 1, title: "Zayed"),
-                    AreaEntity(id: 2, title: "October"),
-                    AreaEntity(id: 3, title: "Sokhna"),
-                    AreaEntity(id: 4, title: "Sahel"),
-                    AreaEntity(id: 5, title: "New Capital"),
+                    AreaEntity(id: 1, name: "Zayed"),
+                    AreaEntity(id: 2, name: "October"),
+                    AreaEntity(id: 3, name: "Sokhna"),
+                    AreaEntity(id: 4, name: "Sahel"),
+                    AreaEntity(id: 5, name: "New Capital"),
                   ],
 
-                ),
+                ),*/
 
                 /// Button Register a new client
                 ButtonWithBoxShadow(

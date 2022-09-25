@@ -20,7 +20,7 @@ class AreaScreen extends StatelessWidget {
         /// Appbar
         appBar: AppBar(
           centerTitle: true,
-          title: Text(areaArgument.area.title
+          title: Text(areaArgument.area.name
             //TranslateConstants.projects.t(context),
           ),
           bottom:  TabBar(
