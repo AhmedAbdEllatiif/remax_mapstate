@@ -6,14 +6,17 @@ import '../themes/theme_color.dart';
 
 class ContainerWithGradient extends StatelessWidget {
   final Widget child;
+  final BoxShape shape;
 
-  const ContainerWithGradient({Key? key, required this.child})
+  const ContainerWithGradient(
+      {Key? key, required this.child, this.shape = BoxShape.rectangle})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        shape: shape,
         gradient: const LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
@@ -23,8 +26,9 @@ class ContainerWithGradient extends StatelessWidget {
             AppColor.geeBung,
           ],
         ),
-        borderRadius:
-            BorderRadius.all(Radius.circular(AppUtils.cornerRadius.w)),
+        borderRadius: shape == BoxShape.rectangle
+            ? BorderRadius.all(Radius.circular(AppUtils.cornerRadius.w))
+            : null,
       ),
       child: child,
     );

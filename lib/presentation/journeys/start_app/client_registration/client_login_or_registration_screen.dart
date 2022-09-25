@@ -8,6 +8,7 @@ import 'package:remax_mapstate/presentation/journeys/start_app/client_registrati
 import 'package:remax_mapstate/presentation/journeys/start_app/client_registration/text_login_instead.dart';
 import 'package:remax_mapstate/presentation/widgets/city_background_widget.dart';
 import 'package:remax_mapstate/presentation/widgets/logo_with_slogan.dart';
+import 'package:remax_mapstate/presentation/widgets/stack_with_full_background.dart';
 import 'package:remax_mapstate/router/route_hepler.dart';
 
 import '../../../../common/constants/sizes.dart';
@@ -51,72 +52,65 @@ class _ClientLoginOrRegistrationScreenState
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => _chooseFavoriteAreaCubit,
-      child: Scaffold(
-        appBar: AppBar(
-          title: isLoginForm
-              ? Text(TranslateConstants.login.t(context))
-              : Text(TranslateConstants.buyerRegistration.t(context)),
-          backgroundColor: Colors.transparent,
-        ),
-        body: Stack(
-          children: [
-            const CityBackgroundWidget(),
-            Scrollbar(
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: Sizes.dimen_10.h,
-                  left: Sizes.dimen_32.w,
-                  right: Sizes.dimen_32.w,
-                ),
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      /// Logo with slogan
-                      LogoWithSlogan(
-                        margin: EdgeInsets.only(
-                          top: Sizes.dimen_12.h,
-                          bottom: Sizes.dimen_20.h,
-                        ),
-                      ),
+    return StackScaffoldWithFullBackground(
 
+      /// appBar Title
+      appBarTitle: isLoginForm
+          ? Text(TranslateConstants.login.t(context))
+          : Text(TranslateConstants.buyerRegistration.t(context)),
 
-                      /// RegistrationFrom
-                      if (!isLoginForm)
-                        RegistrationFrom(
-                          chooseFavoriteAreaCubit: _chooseFavoriteAreaCubit,
-                        ),
-
-                      /// loginForm
-                      if (isLoginForm) LoginForm(),
-
-                      /// Button Register a new client
-                      ButtonWithBoxShadow(
-                        text: isLoginForm
-                            ? TranslateConstants.login.t(context).toUpperCase()
-                            : TranslateConstants.register.t(context).toUpperCase(),
-                        onPressed: () {
-                          _saveAutoLogin();
-
-                          _navigateToMainScreen();
-                        },
-                      ),
-
-
-                      TextLoginInstead(isLogin: isLoginForm,
-                      onPressed: ()=> _changeBetweenLoginAndRegistration() ,
-                      ),
-
-
-                    ],
+      /// body
+      body: BlocProvider(
+        create: (_) => _chooseFavoriteAreaCubit,
+        child: Scrollbar(
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: Sizes.dimen_10.h,
+              left: Sizes.dimen_32.w,
+              right: Sizes.dimen_32.w,
+            ),
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  /// Logo with slogan
+                  LogoWithSlogan(
+                    margin: EdgeInsets.only(
+                      top: Sizes.dimen_12.h,
+                      bottom: Sizes.dimen_20.h,
+                    ),
                   ),
-                ),
+
+                  /// RegistrationFrom
+                  if (!isLoginForm)
+                    RegistrationFrom(
+                      chooseFavoriteAreaCubit: _chooseFavoriteAreaCubit,
+                    ),
+
+                  /// loginForm
+                  if (isLoginForm) LoginForm(),
+
+                  /// Button Register a new client
+                  ButtonWithBoxShadow(
+                    text: isLoginForm
+                        ? TranslateConstants.login.t(context).toUpperCase()
+                        : TranslateConstants.register.t(context).toUpperCase(),
+                    onPressed: () {
+                      _saveAutoLogin();
+
+                      _navigateToMainScreen();
+                    },
+                  ),
+
+                  TextLoginInstead(
+                    isLogin: isLoginForm,
+                    onPressed: () => _changeBetweenLoginAndRegistration(),
+                  ),
+                ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );
