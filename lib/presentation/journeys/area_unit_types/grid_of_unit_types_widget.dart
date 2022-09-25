@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
-import 'package:remax_mapstate/presentation/journeys/area_unit_types/unit_type_card_widget.dart';
+import 'package:remax_mapstate/presentation/journeys/area_unit_types/unit_type_item.dart';
 import 'package:responsive_framework/responsive_value.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
@@ -35,7 +35,7 @@ class UnitTypeListWidget extends StatelessWidget {
           crossAxisSpacing: Sizes.dimen_20.w,
         ),
         itemBuilder: (context, index) {
-          return  UnitTypeCardWidget(unitTypeName: unitTypeList[index].name,);
+          return  UnitTypeItem(unitTypeName: unitTypeList[index].name,);
         });
   }
 }

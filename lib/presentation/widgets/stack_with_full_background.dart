@@ -5,9 +5,10 @@ import 'city_background_widget.dart';
 class StackScaffoldWithFullBackground extends StatelessWidget {
   final Widget? appBarTitle;
   final Widget body;
+  final PreferredSizeWidget? bottomAppBar;
 
   const StackScaffoldWithFullBackground(
-      {Key? key, this.appBarTitle, required this.body})
+      {Key? key, this.appBarTitle, required this.body, this.bottomAppBar})
       : super(key: key);
 
   @override
@@ -29,7 +30,10 @@ class StackScaffoldWithFullBackground extends StatelessWidget {
               : AppBar(
                   title: appBarTitle,
                   backgroundColor: Colors.transparent,
+
                 ),
+
+
 
           //==> body
           body: body,

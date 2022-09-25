@@ -1,7 +1,7 @@
 import '../../../../common/constants/api_constants.dart';
 
 String fetchArabicUnitTypeNamesQuery() => """
-query ArabicUnitTypeNames(\$${VariablesConstants.filters}:[DjangoFilterInput],\$${VariablesConstants.limit}:Int,\$${VariablesConstants.offset}:Int,\$${VariablesConstants.orderBy}:String){
+query ArabicUnitTypeNames(\$${VariablesConstants.filters}:[DjangoFilterInput],\$${VariablesConstants.pageInfo}:PageInfo){
   
   # query 
   unitTypeNames
@@ -9,11 +9,7 @@ query ArabicUnitTypeNames(\$${VariablesConstants.filters}:[DjangoFilterInput],\$
   ######### Query params #########
   (
      #==> Page info
-     pageInfo:{
-         limit:\$${VariablesConstants.limit},
-         offset:\$${VariablesConstants.offset},
-         orderBy:\$${VariablesConstants.orderBy}
-            }
+     pageInfo: \$${VariablesConstants.pageInfo}
       #==> filters      
      filters:\$${VariablesConstants.filters}
   )

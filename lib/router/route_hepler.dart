@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:remax_mapstate/common/constants/route_list.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_developer.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_details_argument.dart';
-import 'package:remax_mapstate/presentation/journeys/projects/projects_argument.dart';
+import 'package:remax_mapstate/presentation/arguments/area_unit_types_args.dart';
 import '../presentation/journeys/choose_broker/arguments/choose_broker_argument.dart';
 import '../presentation/logic/bloc/calculator_validation/calculator_validation_bloc.dart';
 
@@ -45,7 +45,7 @@ class RouteHelper {
       );
 
   /// To AreaScreen \\\
-  void areaScreen(BuildContext context, {required AreaArgument areaArgument}) =>
+  void areaScreen(BuildContext context, {required AreaUnitTypesArguments areaArgument}) =>
       Navigator.of(context)
           .pushNamed(RouteList.areaScreen, arguments: areaArgument);
 

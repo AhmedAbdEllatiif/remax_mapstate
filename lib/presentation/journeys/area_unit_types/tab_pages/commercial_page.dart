@@ -1,36 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/presentation/journeys/projects/project_card.dart';
-import 'package:remax_mapstate/presentation/logic/cubit/unitType_names/unit_type_names_cubit.dart';
-
 import 'package:remax_mapstate/presentation/widgets/empty_list_widegt.dart';
 import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 
+import '../../../../common/constants/sizes.dart';
+import '../../../logic/cubit/commercial_projects/commercial_projects_cubit.dart';
+import '../../../logic/cubit/unitType_names/unit_type_names_cubit.dart';
+import '../../../widgets/app_error_widget.dart';
+import '../../area_unit_types/grid_of_unit_types_widget.dart';
 
-import '../../area_unit_types/unit_types_list_widget.dart';
-
-class ResidentialPage extends StatefulWidget {
-  const ResidentialPage({Key? key}) : super(key: key);
+class CommercialUnitTypesPage extends StatefulWidget {
+  const CommercialUnitTypesPage({Key? key}) : super(key: key);
 
   @override
-  _ResidentialPageState createState() => _ResidentialPageState();
+  _CommercialUnitTypesPageState createState() => _CommercialUnitTypesPageState();
 }
 
-class _ResidentialPageState extends State<ResidentialPage>
-    with AutomaticKeepAliveClientMixin<ResidentialPage> {
+class _CommercialUnitTypesPageState extends State<CommercialUnitTypesPage>
+    with AutomaticKeepAliveClientMixin<CommercialUnitTypesPage> {
+
+  // UnitTypeNamesCubit
   late final UnitTypeNamesCubit unitTypeNamesCubit;
 
   @override
   void initState() {
+    // init UnitTypeNamesCubit
     unitTypeNamesCubit = getItInstance<UnitTypeNamesCubit>();
 
-    unitTypeNamesCubit.loadUnitTypes(
-      context,
-      isCommercial: false,
-    );
+    // fetch unit type names
+    _fetchUnitTypeNames();
+
     super.initState();
   }
 
@@ -39,6 +41,7 @@ class _ResidentialPageState extends State<ResidentialPage>
     unitTypeNamesCubit.close();
     super.dispose();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,18 +57,21 @@ class _ResidentialPageState extends State<ResidentialPage>
           /// Error
           if (state is ErrorWhileLoadingUnitTypeNames) {
             return Center(
-              child: Text(
-                  "Error: ${state.appError.appErrorType}, Message: ${state.appError.message}"),
+              child: AppErrorWidget(
+                appTypeError: state.appError.appErrorType,
+                onPressedRetry: () => _fetchUnitTypeNames(),
+              ),
             );
           }
-
 
           ///No UnitTypes to show
           if (state is EmptyUnitTypeNames) {
             return Container(
               margin: const EdgeInsets.all(10),
               child: const Center(
-                child: EmptyListWidget(text: "No unit types to show",),
+                child: EmptyListWidget(
+                  text: "No unit types to show",
+                ),
               ),
             );
           }
@@ -87,6 +93,14 @@ class _ResidentialPageState extends State<ResidentialPage>
       ),
     );
   }
+
+  /// To fetch unit types names
+  void _fetchUnitTypeNames() =>
+      unitTypeNamesCubit.loadUnitTypes(
+        context,
+        isCommercial: true,
+      );
+
 
   @override
   bool get wantKeepAlive => true;

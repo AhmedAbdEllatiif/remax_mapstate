@@ -1,6 +1,8 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/data/data_sources/remote_data_source.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
@@ -47,8 +49,10 @@ class RemoteRepositoryImpl extends RemoteRepository {
       final areas = await remoteDataSource.getAreas(params);
       return Right(areas);
     } on SocketException catch (e) {
+      log("RepoImpl >> getAreas >> SocketException >> $e");
       return Left(AppError(AppErrorType.network, message: e.message));
     } on Exception catch (e) {
+      log("RepoImpl >> getAreas >> Exception >> $e");
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
   }
@@ -68,7 +72,10 @@ class RemoteRepositoryImpl extends RemoteRepository {
       return Right(brokers);
     } on SocketException catch (e) {
       return Left(AppError(AppErrorType.network, message: e.message));
-    } on Exception catch (e) {
+    } on OperationException catch (e) {
+      log("RepoImpl >> fetchUnitTypeNames >> OperationException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.toString()));
+    }  on Exception catch (e) {
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
   }
@@ -125,8 +132,13 @@ class RemoteRepositoryImpl extends RemoteRepository {
       );
       return Right(unitTypes);
     } on SocketException catch (e) {
+      log("RepoImpl >> fetchUnitTypeNames >> SocketException >> $e");
       return Left(AppError(AppErrorType.network, message: e.message));
+    } on OperationException catch (e) {
+      log("RepoImpl >> fetchUnitTypeNames >> OperationException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.toString()));
     } on Exception catch (e) {
+      log("RepoImpl >> fetchUnitTypeNames >> Exception >> $e");
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
   }

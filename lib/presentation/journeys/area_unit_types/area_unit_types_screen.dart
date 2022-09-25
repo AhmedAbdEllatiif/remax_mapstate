@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
+import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
-import 'package:remax_mapstate/presentation/journeys/projects/projects_argument.dart';
-import 'package:remax_mapstate/presentation/journeys/projects/projects_screen.dart';
+import 'package:remax_mapstate/presentation/arguments/area_unit_types_args.dart';
+import 'package:remax_mapstate/presentation/journeys/area_unit_types/tab_pages/commercial_page.dart';
+
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/widgets/city_background_widget.dart';
 
+import '../../../common/constants/sizes.dart';
+import 'tab_pages/residentail_page.dart';
+
 class AreaUnitTypesScreen extends StatelessWidget {
-  final AreaArgument areaArgument;
+  final AreaUnitTypesArguments areaArgument;
 
-
-
-  const AreaUnitTypesScreen({Key? key,required this.areaArgument}) : super(key: key);
+  const AreaUnitTypesScreen({Key? key, required this.areaArgument})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +26,18 @@ class AreaUnitTypesScreen extends StatelessWidget {
         DefaultTabController(
           length: 2,
           child: Scaffold(
+            backgroundColor: Colors.transparent,
+
             /// Appbar
             appBar: AppBar(
               centerTitle: true,
               backgroundColor: Colors.transparent,
               title: Text(areaArgument.area.name
-                //TranslateConstants.projects.t(context),
-              ),
-              bottom:  TabBar(
+                  //TranslateConstants.projects.t(context),
+                  ),
+
+              //==> tabs
+              bottom: TabBar(
                 indicatorColor: AppColor.geeBung,
                 labelColor: AppColor.geeBung,
                 unselectedLabelColor: AppColor.absoluteTransparentGeeBung,
@@ -48,7 +56,15 @@ class AreaUnitTypesScreen extends StatelessWidget {
             ),
 
             /// body
-            body: ProjectsScreen(),
+            body: Padding(
+              padding: EdgeInsets.symmetric(horizontal: Sizes.dimen_16.w),
+              child: const TabBarView(
+                children: [
+                  ResidentialUnitTypesPage(),
+                  CommercialUnitTypesPage(),
+                ],
+              ),
+            ),
           ),
         ),
       ],
