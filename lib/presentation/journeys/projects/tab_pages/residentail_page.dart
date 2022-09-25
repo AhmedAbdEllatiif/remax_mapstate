@@ -3,13 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/di/git_it.dart';
-import 'package:remax_mapstate/presentation/journeys/area_projects/unit_types_list_widget.dart';
 import 'package:remax_mapstate/presentation/journeys/projects/project_card.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/unitType_names/unit_type_names_cubit.dart';
 
 import 'package:remax_mapstate/presentation/widgets/empty_list_widegt.dart';
 import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 
-import '../../../logic/cubit/residential_projects/residential_projects_cubit.dart';
+
+import '../../area_unit_types/unit_types_list_widget.dart';
 
 class ResidentialPage extends StatefulWidget {
   const ResidentialPage({Key? key}) : super(key: key);
@@ -20,71 +21,51 @@ class ResidentialPage extends StatefulWidget {
 
 class _ResidentialPageState extends State<ResidentialPage>
     with AutomaticKeepAliveClientMixin<ResidentialPage> {
-  late final ResidentialCubit residentialProjectsCubit;
+  late final UnitTypeNamesCubit unitTypeNamesCubit;
 
   @override
   void initState() {
-    residentialProjectsCubit = getItInstance<ResidentialCubit>();
+    unitTypeNamesCubit = getItInstance<UnitTypeNamesCubit>();
 
-    residentialProjectsCubit.loadUnitTypes(0);
+    unitTypeNamesCubit.loadUnitTypes(
+      context,
+      isCommercial: false,
+    );
     super.initState();
   }
 
   @override
   void dispose() {
-    residentialProjectsCubit.close();
+    unitTypeNamesCubit.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => residentialProjectsCubit,
-      child: BlocBuilder<ResidentialCubit, ResidentialState>(
+      create: (context) => unitTypeNamesCubit,
+      child: BlocBuilder<UnitTypeNamesCubit, UnitTypeNamesState>(
         builder: (context, state) {
           /// loading
-          if (state is ResidentialLoadingState) {
+          if (state is LoadingUnitTypeNames) {
             return const LoadingWidget();
           }
 
           /// Error
-          if (state is ResidentialCubitErrorState) {
+          if (state is ErrorWhileLoadingUnitTypeNames) {
             return Center(
               child: Text(
                   "Error: ${state.appError.appErrorType}, Message: ${state.appError.message}"),
             );
           }
 
-          /// No Projects to show
-          if (state is NoProjectsToShowState) {
-            return Container(
-              margin: const EdgeInsets.all(10),
-              child: const Center(
-                child: EmptyListWidget(
-                    text: "No Residential projects in this area"),
-              ),
-            );
-          }
-
-          /// Projects loaded
-          if (state is ProjectsLoadedState) {
-            return ListView.builder(
-                scrollDirection: Axis.vertical,
-                physics: const BouncingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: state.projects.length,
-                itemBuilder: (context, index) => ProjectCardWidget(
-                      projectEntity: state.projects[index],
-                  testingIndex: index,
-                    ));
-          }
 
           ///No UnitTypes to show
-          if (state is NoUnitTypesToShowState) {
+          if (state is EmptyUnitTypeNames) {
             return Container(
               margin: const EdgeInsets.all(10),
               child: const Center(
-                child: EmptyListWidget(text: "No unit types to show"),
+                child: EmptyListWidget(text: "No unit types to show",),
               ),
             );
           }
@@ -93,7 +74,9 @@ class _ResidentialPageState extends State<ResidentialPage>
           if (state is UnitTypesLoadedState) {
             return Padding(
               padding: EdgeInsets.all(Sizes.dimen_30.w),
-              child: const UnitTypeListWidget(),
+              child: UnitTypeListWidget(
+                unitTypeList: state.unitTypes,
+              ),
             );
           }
 

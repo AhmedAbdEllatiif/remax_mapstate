@@ -33,6 +33,7 @@ import 'package:remax_mapstate/domain/use_cases/local_usecases/update_language.d
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/downpayment.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/number_of_years.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/unit_price.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/unitType_names/unit_type_names_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/api/clients/graphql_client.dart';
@@ -59,7 +60,7 @@ import '../presentation/logic/cubit/current_user/current_user_cubit.dart';
 import '../presentation/logic/cubit/developer_contact/developer_contact_cubit.dart';
 import '../presentation/logic/cubit/language/language_cubit.dart';
 import '../presentation/logic/cubit/navigation/navigation_cubit.dart';
-import '../presentation/logic/cubit/residential_projects/residential_projects_cubit.dart';
+import '../presentation/logic/cubit/unitType_names/unit_type_names_cubit.dart';
 import '../presentation/logic/cubit/team_support/team_support_cubit.dart';
 import '../presentation/journeys/calculator/formz/first_down_payment.dart';
 import '../presentation/journeys/calculator/formz/second_down_payment.dart';
@@ -198,8 +199,8 @@ Future init() async {
   );
 
   /// GetProjectStatusCase
-  getItInstance.registerLazySingleton<GetResidentialUnitTypesByAreaCase>(
-    () => GetResidentialUnitTypesByAreaCase(
+  getItInstance.registerLazySingleton<GetUnitTypeNamesCase>(
+    () => GetUnitTypeNamesCase(
       apiRepo: getItInstance(),
     ),
   );
@@ -297,8 +298,8 @@ Future init() async {
   );
 
   /// init ResidentialProjectsCubit
-  getItInstance.registerFactory<ResidentialCubit>(
-    () => ResidentialCubit(
+  getItInstance.registerFactory<UnitTypeNamesCubit>(
+    () => UnitTypeNamesCubit(
       residentialProjectsCase: getItInstance(),
       getUnitTypesByAreaCase: getItInstance(),
     ),

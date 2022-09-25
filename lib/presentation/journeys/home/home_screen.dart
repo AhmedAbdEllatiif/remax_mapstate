@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/enums/app_language.dart';
+import 'package:remax_mapstate/data/data_sources/remote_data_source.dart';
 import 'package:remax_mapstate/di/git_it.dart';
+import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 import 'package:remax_mapstate/presentation/journeys/home/area/area_section.dart';
 import 'package:remax_mapstate/presentation/journeys/home/top_projects/top_projects_widget.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/language/language_cubit.dart';

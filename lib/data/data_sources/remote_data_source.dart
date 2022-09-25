@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/common/enums/app_language.dart';
@@ -5,9 +7,12 @@ import 'package:remax_mapstate/data/api/clients/api_client.dart';
 import 'package:remax_mapstate/data/api/queries/areas/ar_areas.dart';
 import 'package:remax_mapstate/data/api/queries/areas/en_areas.dart';
 import 'package:remax_mapstate/data/api/queries/projects.dart';
+import 'package:remax_mapstate/data/api/queries/unit_type_names/ar_unit_type_names.dart';
+import 'package:remax_mapstate/data/api/queries/unit_type_names/en_unit_type_names.dart';
 import 'package:remax_mapstate/data/models/area_model.dart';
 import 'package:remax_mapstate/data/models/broker_model.dart';
 import 'package:remax_mapstate/data/models/contact_developer.dart';
+import 'package:remax_mapstate/data/models/page_info.dart';
 import 'package:remax_mapstate/data/models/project_model.dart';
 import 'package:remax_mapstate/data/models/project_status.dart';
 import 'package:remax_mapstate/data/models/team_support_model.dart';
@@ -15,6 +20,7 @@ import 'package:remax_mapstate/data/models/unit_type_model.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
 
 import '../../common/constants/api_constants.dart';
+import '../models/filter_model.dart';
 
 abstract class RemoteDataSource {
   /// return  projects
@@ -36,7 +42,11 @@ abstract class RemoteDataSource {
   Future<List<ProjectStatusModel>> getProjectStatus();
 
   /// return list unitTypes status
-  Future<List<UnitTypeModel>> getResidentialUnitTypesByArea();
+  Future<List<UnitTypeModel>> getUnitTypesNames({
+    required AppLanguage appLanguage,
+    required PageInfo pageInfo,
+    required List<FilterModel> filtersList,
+  });
 
   /// return the developer contact data
   Future<ContactDeveloperModel> getDeveloperContact(int developerId);
@@ -155,19 +165,6 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     ];
   }
 
-  List<UnitTypeModel> unitTypes() {
-    return [
-      const UnitTypeModel(id: 0, name: 'Twin House'),
-      const UnitTypeModel(id: 1, name: 'Villa'),
-      const UnitTypeModel(id: 2, name: 'Town House'),
-      const UnitTypeModel(id: 2, name: 'Duplex'),
-      const UnitTypeModel(id: 0, name: 'Twin House'),
-      const UnitTypeModel(id: 1, name: 'Villa'),
-      const UnitTypeModel(id: 2, name: 'Town House'),
-      const UnitTypeModel(id: 2, name: 'Duplex'),
-    ];
-  }
-
   ContactDeveloperModel developerContact() {
     return const ContactDeveloperModel(
       id: 0,
@@ -256,9 +253,25 @@ class RemoteDateSourceImpl extends RemoteDataSource {
 
   /// return list unitTypes status
   @override
-  Future<List<UnitTypeModel>> getResidentialUnitTypesByArea() async {
-    final uniTypes = await unitTypes();
-    return uniTypes;
+  Future<List<UnitTypeModel>> getUnitTypesNames({
+    required AppLanguage appLanguage,
+    required PageInfo pageInfo,
+    required List<FilterModel> filtersList,
+  }) async {
+    final query = appLanguage == AppLanguage.en
+        ? fetchEnglishUnitTypeNamesQuery()
+        : fetchArabicUnitTypeNamesQuery();
+
+    final QueryResult result = await apiClient.get(
+      query,
+      variables: {
+        VariablesConstants.pageInfo: pageInfo.toJson(),
+        VariablesConstants.filters: listOfFilterToJson(filtersList),
+      },
+    );
+
+    log("UnitTypeNames >> Data >> ..........\n ${result.data}.......");
+    return listOfUnitTypeNamesFromJson(result.data!);
   }
 
   /// return the developer contact data

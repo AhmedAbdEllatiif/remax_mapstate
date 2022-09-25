@@ -11,4 +11,7 @@ class VariablesConstants {
   static String limit = 'limit';
   static String offset = 'offset';
   static String orderBy = 'orderBy';
+
+  static String filters = 'filters';
+  static String pageInfo = 'pageInfo';
 }

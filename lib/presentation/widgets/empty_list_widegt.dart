@@ -34,7 +34,7 @@ class EmptyListWidget extends StatelessWidget {
               text,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                color: AppColor.black
+                color: AppColor.geeBung
               ),
             ),
           )

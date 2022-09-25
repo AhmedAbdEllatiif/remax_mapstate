@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:remax_mapstate/data/params/fetch_unit_type_names.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
 import 'package:remax_mapstate/domain/entities/broker_entity.dart';
@@ -39,7 +40,7 @@ abstract class RemoteRepository {
   Future<Either<AppError,List<ProjectStatusEntity>>> getProjectStatus();
 
   /// return list unitTypes status
-  Future<Either<AppError,List<UnitTypeEntity>>> getResidentialUnitTypesByArea();
+  Future<Either<AppError,List<UnitTypeEntity>>> fetchUnitTypeNames(FetchUnitTypeNamesParams params);
 
 
   ///******************************** Developer Contact ******************************** \\\\
