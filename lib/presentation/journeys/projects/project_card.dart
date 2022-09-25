@@ -18,7 +18,7 @@ import '../../../router/route_hepler.dart';
 class ProjectCardWidget extends StatelessWidget {
   final ProjectEntity projectEntity;
   ///TODO remove this after testing is end
-  final int testingIndex;
+  final String testingIndex;
 
   const ProjectCardWidget({Key? key, required this.projectEntity, required this.testingIndex})
       : super(key: key);

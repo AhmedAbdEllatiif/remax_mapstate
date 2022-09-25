@@ -9,8 +9,8 @@ import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import '../../../logic/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
 
 
-class ProjectBackDropWidget extends StatelessWidget {
-  const ProjectBackDropWidget({Key? key}) : super(key: key);
+class ProjectStatusBackDropWidget extends StatelessWidget {
+  const ProjectStatusBackDropWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

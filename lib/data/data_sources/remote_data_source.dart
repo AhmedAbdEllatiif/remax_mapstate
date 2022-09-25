@@ -6,6 +6,8 @@ import 'package:remax_mapstate/common/enums/app_language.dart';
 import 'package:remax_mapstate/data/api/clients/api_client.dart';
 import 'package:remax_mapstate/data/api/queries/areas/ar_areas.dart';
 import 'package:remax_mapstate/data/api/queries/areas/en_areas.dart';
+import 'package:remax_mapstate/data/api/queries/project_status/ar_project_status.dart';
+import 'package:remax_mapstate/data/api/queries/project_status/en_project_status.dart';
 import 'package:remax_mapstate/data/api/queries/projects.dart';
 import 'package:remax_mapstate/data/api/queries/unit_type_names/ar_unit_type_names.dart';
 import 'package:remax_mapstate/data/api/queries/unit_type_names/en_unit_type_names.dart';
@@ -39,7 +41,11 @@ abstract class RemoteDataSource {
   Future<List<BrokerModel>> getAreaBrokers();
 
   /// return list project status
-  Future<List<ProjectStatusModel>> getProjectStatus();
+  Future<List<ProjectStatusModel>> getProjectStatus({
+    required AppLanguage appLanguage,
+    required PageInfo pageInfo,
+    required List<FilterModel> filtersList,
+  });
 
   /// return list unitTypes status
   Future<List<UnitTypeModel>> getUnitTypesNames({
@@ -49,7 +55,7 @@ abstract class RemoteDataSource {
   });
 
   /// return the developer contact data
-  Future<ContactDeveloperModel> getDeveloperContact(int developerId);
+  Future<ContactDeveloperModel> getDeveloperContact(String developerId);
 
   /// return team support data
   Future<TeamSupportModel> getTeamSupport();
@@ -60,33 +66,8 @@ class RemoteDateSourceImpl extends RemoteDataSource {
 
   RemoteDateSourceImpl({required this.apiClient});
 
-  /* List<AreaModel> areas() {
-    return [
-      const AreaModel(id: 0, title: 'New Cairo'),
-      const AreaModel(id: 1, title: 'New Capital'),
-      const AreaModel(id: 2, title: 'Zayed'),
-      const AreaModel(id: 3, title: 'New Zayed'),
-      const AreaModel(id: 4, title: 'October'),
-      const AreaModel(id: 5, title: 'Sokhna'),
-      */ /*const AreaModel(id: 6,title: 'New Cairo'),
-    const AreaModel(id: 7,title: 'October'),
-    const AreaModel(id: 8,title: 'New October'),
-    const AreaModel(id: 9,title: 'New Cairo'),*/ /*
-    ];
-  }*/
 
-  List<ProjectStatusModel> projectStatus() {
-    return [
-      const ProjectStatusModel(
-          id: 0, name: 'Ready To move', image: AssetsConstants.readyToMove),
-      const ProjectStatusModel(
-          id: 1,
-          name: 'Under Construction',
-          image: AssetsConstants.underConstruction),
-      const ProjectStatusModel(
-          id: 2, name: 'Off Plans', image: AssetsConstants.offPlan),
-    ];
-  }
+
 
   List<BrokerModel> areaBrokers() {
     return const [
@@ -246,9 +227,26 @@ class RemoteDateSourceImpl extends RemoteDataSource {
 
   /// return list project status
   @override
-  Future<List<ProjectStatusModel>> getProjectStatus() async {
-    final status = await projectStatus();
-    return status;
+  Future<List<ProjectStatusModel>> getProjectStatus({
+    required AppLanguage appLanguage,
+    required PageInfo pageInfo,
+    required List<FilterModel> filtersList,
+  }) async {
+    final query = appLanguage == AppLanguage.en
+        ? fetchEnglishProjectStatusQuery()
+        : fetchArabicProjectStatusQuery();
+
+    final QueryResult result = await apiClient.get(
+      query,
+      variables: {
+        VariablesConstants.pageInfo: pageInfo.toJson(),
+        VariablesConstants.filters: listOfFilterToJson(filtersList),
+      },
+    );
+
+    log("UnitTypeNames >> Data >> ..........\n ${result.data}.......");
+    return listOfProjectStatusFromJson(result.data!);
+    //return [];
   }
 
   /// return list unitTypes status
@@ -276,8 +274,8 @@ class RemoteDateSourceImpl extends RemoteDataSource {
 
   /// return the developer contact data
   @override
-  Future<ContactDeveloperModel> getDeveloperContact(int developerId) async {
-    final developerContactData = developerId % 2 == 0
+  Future<ContactDeveloperModel> getDeveloperContact(String developerId) async {
+    final developerContactData = int.parse(developerId) % 2 == 0
         ? await developerContact()
         : await developerContactWithOutImage();
     return developerContactData;

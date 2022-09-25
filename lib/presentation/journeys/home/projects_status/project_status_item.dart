@@ -9,11 +9,11 @@ import 'package:remax_mapstate/presentation/journeys/project_details/project_det
 
 import '../../../../router/route_hepler.dart';
 
-class TopProjectCardWidget extends StatelessWidget {
-  final int projectId;
+class ProjectStatusItem extends StatelessWidget {
+  final String projectId;
   final String posterPath;
 
-  const TopProjectCardWidget(
+  const ProjectStatusItem(
       {Key? key, required this.projectId, required this.posterPath})
       : super(key: key);
 

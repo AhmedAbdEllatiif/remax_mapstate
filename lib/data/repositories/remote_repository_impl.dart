@@ -16,7 +16,7 @@ import 'package:remax_mapstate/domain/entities/team_support_entity.dart';
 import 'package:remax_mapstate/domain/entities/unit_type_entity.dart';
 import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 
-import '../params/fetch_unit_type_names.dart';
+import '../params/fetch_list_params.dart';
 
 class RemoteRepositoryImpl extends RemoteRepository {
   final RemoteDataSource remoteDataSource;
@@ -75,7 +75,7 @@ class RemoteRepositoryImpl extends RemoteRepository {
     } on OperationException catch (e) {
       log("RepoImpl >> fetchUnitTypeNames >> OperationException >> $e");
       return Left(AppError(AppErrorType.network, message: e.toString()));
-    }  on Exception catch (e) {
+    } on Exception catch (e) {
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
   }
@@ -109,13 +109,23 @@ class RemoteRepositoryImpl extends RemoteRepository {
 
   /// return list project status
   @override
-  Future<Either<AppError, List<ProjectStatusEntity>>> getProjectStatus() async {
+  Future<Either<AppError, List<ProjectStatusEntity>>> getProjectStatus(
+      FetchListParams params) async {
     try {
-      final status = await remoteDataSource.getProjectStatus();
+      final status = await remoteDataSource.getProjectStatus(
+        pageInfo: params.pageInfo,
+        filtersList: params.filters,
+        appLanguage: params.appLanguage,
+      );
       return Right(status);
     } on SocketException catch (e) {
+      log("RepoImpl >> getProjectStatus >> SocketException >> $e");
       return Left(AppError(AppErrorType.network, message: e.message));
-    } on Exception catch (e) {
+    } on OperationException catch (e) {
+      log("RepoImpl >> getProjectStatus >> OperationException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.toString()));
+    }on Exception catch (e) {
+      log("RepoImpl >> getProjectStatus >> Exception >> $e");
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
   }
@@ -123,7 +133,7 @@ class RemoteRepositoryImpl extends RemoteRepository {
   /// return list unitTypes status
   @override
   Future<Either<AppError, List<UnitTypeEntity>>> fetchUnitTypeNames(
-      FetchUnitTypeNamesParams params) async {
+      FetchListParams params) async {
     try {
       final unitTypes = await remoteDataSource.getUnitTypesNames(
         pageInfo: params.pageInfo,
@@ -146,7 +156,7 @@ class RemoteRepositoryImpl extends RemoteRepository {
   /// return developer contact data
   @override
   Future<Either<AppError, ContactDeveloperEntity>> getDeveloperContact(
-      int developerId) async {
+      String developerId) async {
     try {
       final developerDataModel =
           await remoteDataSource.getDeveloperContact(developerId);

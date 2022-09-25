@@ -5,8 +5,11 @@ import 'package:remax_mapstate/domain/entities/params/no_params.dart';
 import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
 import 'package:remax_mapstate/domain/use_cases/get_project_status.dart';
 
+import '../../../../common/enums/app_language.dart';
+import '../../../../data/models/page_info.dart';
+import '../../../../data/params/fetch_list_params.dart';
+import '../../cubit/language/language_cubit.dart';
 import '../project_status_backdrop/project_status_backdrop_bloc.dart';
-
 
 part 'project_status_event.dart';
 
@@ -19,32 +22,51 @@ class ProjectStatusBloc extends Bloc<ProjectStatusEvent, ProjectStatusState> {
   ProjectStatusBloc({
     required this.getProjectStatusCase,
     required this.backdropBloc,
-  }) : super(ProjectStatusLoadingState()) {
+  }) : super(LoadingProjectStatus()) {
     on<ProjectStatusEvent>((event, emit) async {
-
-      void _emitIfNotClosed(ProjectStatusState state){
-        if(!isClosed){
+      void _emitIfNotClosed(ProjectStatusState state) {
+        if (!isClosed) {
           emit(state);
         }
       }
 
       if (event is LoadProjectStatusEvent) {
+        // init current language
 
-        final either = await getProjectStatusCase(NoParams());
+        final appLanguage =
+            event.languageCode == "en" ? AppLanguage.en : AppLanguage.ar;
+
+        // init params
+        final params = FetchListParams(
+          appLanguage: appLanguage,
+          pageInfo: PageInfo(),
+          filters: [],
+        );
+
+        // send request fetch project status
+        final either = await getProjectStatusCase(params);
+
         either.fold(
           (appError) {
-
             _emitIfNotClosed(ErrorLoadingProjectStatus(appError: appError));
           },
-          (projectStatus) {
-            // add BackdropChangedEvent
-            backdropBloc.add(ProjectBackdropChangedEvent(
-                projectStatusEntity: projectStatus[event.defaultIndex]));
+          (projectStatusList) {
+            if (projectStatusList.isEmpty) {
+              // add BackdropChangedEvent
+              backdropBloc.add(ProjectBackdropChangedEvent(
+                  projectStatusEntity: ProjectStatusEntity.empty()));
+              // emit empty
+              _emitIfNotClosed(EmptyProjectStatus());
+            } else {
+              // add BackdropChangedEvent
+              backdropBloc.add(ProjectBackdropChangedEvent(
+                  projectStatusEntity: projectStatusList[event.defaultIndex]));
 
-            // emit TopProjectsLoadedState
-            _emitIfNotClosed(ProjectStatusLoadedState(
-                projectStatus: projectStatus,
-                defaultIndex: event.defaultIndex));
+              // emit TopProjectsLoadedState
+              _emitIfNotClosed(ProjectStatusLoadedState(
+                  projectStatusList: projectStatusList,
+                  defaultIndex: event.defaultIndex));
+            }
           },
         );
       }

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:remax_mapstate/common/constants/translate_constatns.dart';
+import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 
 import '../../../logic/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
 
-class TopProjectDataWidget extends StatelessWidget {
-  const TopProjectDataWidget({Key? key}) : super(key: key);
+class ProjectStatusDataWidget extends StatelessWidget {
+  const ProjectStatusDataWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +15,7 @@ class TopProjectDataWidget extends StatelessWidget {
       builder: (blocContext,state){
         if (state is ProjectBackdropChangedState){
           return Text(
-            state.projectStatusEntity.name,
+            _getText(context,state.projectStatusEntity.name),
             textAlign: TextAlign.center,
             maxLines: 1,
             overflow: TextOverflow.fade,
@@ -26,5 +28,13 @@ class TopProjectDataWidget extends StatelessWidget {
         return const SizedBox.shrink();
       },
     );
+  }
+
+  /// To translate the default name if the received list from server is empty
+  String _getText(BuildContext context,String name){
+    if(name == TranslateConstants.allProjects){
+      return TranslateConstants.allProjects.t(context);
+    }
+    return  name;
   }
 }

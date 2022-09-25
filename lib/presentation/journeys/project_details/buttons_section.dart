@@ -17,7 +17,7 @@ import '../choose_broker/arguments/choose_broker_argument.dart';
 
 class ButtonSection extends StatelessWidget {
 
-  final int developerId;
+  final String developerId;
 
   const ButtonSection({Key? key, required this.developerId}) : super(key: key);
 

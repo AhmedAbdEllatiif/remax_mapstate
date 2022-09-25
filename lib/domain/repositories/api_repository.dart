@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:remax_mapstate/data/params/fetch_unit_type_names.dart';
+import 'package:remax_mapstate/data/params/fetch_list_params.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
 import 'package:remax_mapstate/domain/entities/broker_entity.dart';
@@ -12,44 +12,40 @@ import 'package:remax_mapstate/domain/entities/unit_type_entity.dart';
 import '../../data/params/fetch_areas_params.dart';
 
 abstract class RemoteRepository {
-
-
   ///******************************** Projects ******************************** \\\\
   /// return list of TopProjects
-  Future<Either<AppError,List<ProjectEntity>>> fetchProjects();
+  Future<Either<AppError, List<ProjectEntity>>> fetchProjects();
 
   /// return list of ResidentialProjects
-  Future<Either<AppError,List<ProjectEntity>>> getResidentialProjects(int areaId);
+  Future<Either<AppError, List<ProjectEntity>>> getResidentialProjects(
+      int areaId);
 
   /// return list of CommercialProjects
-  Future<Either<AppError,List<ProjectEntity>>> getCommercialProjects(int areaId);
+  Future<Either<AppError, List<ProjectEntity>>> getCommercialProjects(
+      int areaId);
 
   /// return list of FavoriteProjects
-  Future<Either<AppError,List<ProjectEntity>>> getFavoriteProject();
-
+  Future<Either<AppError, List<ProjectEntity>>> getFavoriteProject();
 
   /// return list of areas
-  Future<Either<AppError,List<AreaEntity>>> getAreas(FetchAreaParams params);
-
+  Future<Either<AppError, List<AreaEntity>>> getAreas(FetchAreaParams params);
 
   /// return list of broker according to specific area
-  Future<Either<AppError,List<BrokerEntity>>> getAreaBrokers();
-
+  Future<Either<AppError, List<BrokerEntity>>> getAreaBrokers();
 
   /// return list project status
-  Future<Either<AppError,List<ProjectStatusEntity>>> getProjectStatus();
+  Future<Either<AppError, List<ProjectStatusEntity>>> getProjectStatus(
+      FetchListParams params);
 
   /// return list unitTypes status
-  Future<Either<AppError,List<UnitTypeEntity>>> fetchUnitTypeNames(FetchUnitTypeNamesParams params);
-
+  Future<Either<AppError, List<UnitTypeEntity>>> fetchUnitTypeNames(
+      FetchListParams params);
 
   ///******************************** Developer Contact ******************************** \\\\
-  Future<Either<AppError,ContactDeveloperEntity>> getDeveloperContact(int developerId);
-
-
+  Future<Either<AppError, ContactDeveloperEntity>> getDeveloperContact(
+      String developerId);
 
   ///******************************** Team Support ******************************** \\\\
   /// return team support
-  Future<Either<AppError,TeamSupportEntity>> getTeamSupport();
-
+  Future<Either<AppError, TeamSupportEntity>> getTeamSupport();
 }

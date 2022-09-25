@@ -4,25 +4,26 @@ import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
-import 'package:remax_mapstate/presentation/journeys/home/top_projects/animated_project_card.dart';
+
 
 import '../../../logic/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
+import 'animated_project_card.dart';
 
-class ProjectPageView extends StatefulWidget {
+class ProjectStatusPageView extends StatefulWidget {
   final List<ProjectStatusEntity> projectStatusList;
   final int initialPage;
 
-  const ProjectPageView({
+  const ProjectStatusPageView({
     Key? key,
     required this.projectStatusList,
     required this.initialPage,
   }) : super(key: key);
 
   @override
-  _ProjectPageViewState createState() => _ProjectPageViewState();
+  _ProjectStatusPageViewState createState() => _ProjectStatusPageViewState();
 }
 
-class _ProjectPageViewState extends State<ProjectPageView> {
+class _ProjectStatusPageViewState extends State<ProjectStatusPageView> {
   late PageController _pageController;
 
   // viewportFraction how much screen share each item of pageView will take

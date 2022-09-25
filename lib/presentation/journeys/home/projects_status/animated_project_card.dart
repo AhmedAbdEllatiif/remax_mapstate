@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
-import 'package:remax_mapstate/presentation/journeys/home/top_projects/top_project_card_widget.dart';
+import 'package:remax_mapstate/presentation/journeys/home/projects_status/project_status_item.dart';
+
+
+
 
 class AnimatedProjectCard extends StatelessWidget {
   final int index;
-  final int projectId;
+  final String projectId;
   final String imagePath;
   final PageController pageController;
 
@@ -46,7 +49,7 @@ class AnimatedProjectCard extends StatelessWidget {
           );
         }
       },
-      child: TopProjectCardWidget(
+      child: ProjectStatusItem(
         projectId: projectId,
         posterPath: imagePath,
       ),

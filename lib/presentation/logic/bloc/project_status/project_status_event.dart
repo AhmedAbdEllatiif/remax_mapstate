@@ -8,11 +8,13 @@ abstract class ProjectStatusEvent extends Equatable {
 }
 class LoadProjectStatusEvent extends ProjectStatusEvent {
   final int defaultIndex;
+  final String languageCode;
 
   const LoadProjectStatusEvent({
     this.defaultIndex = 0,
+    required this.languageCode
   });
 
   @override
-  List<Object?> get props => [defaultIndex];
+  List<Object?> get props => [defaultIndex,languageCode];
 }

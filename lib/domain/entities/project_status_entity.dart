@@ -1,6 +1,9 @@
-class ProjectStatusEntity{
+import 'package:remax_mapstate/common/constants/assets_constants.dart';
 
-  final int id;
+import '../../common/constants/translate_constatns.dart';
+
+class ProjectStatusEntity {
+  final String id;
   final String name;
   final String image;
 
@@ -9,4 +12,10 @@ class ProjectStatusEntity{
     required this.name,
     required this.image,
   });
+
+  factory ProjectStatusEntity.empty() => const ProjectStatusEntity(
+        id: "-1",
+        name: TranslateConstants.allProjects,
+        image: AssetsConstants.offPlan,
+      );
 }

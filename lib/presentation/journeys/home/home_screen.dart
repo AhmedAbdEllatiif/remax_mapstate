@@ -5,7 +5,7 @@ import 'package:remax_mapstate/data/data_sources/remote_data_source.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 import 'package:remax_mapstate/presentation/journeys/home/area/area_section.dart';
-import 'package:remax_mapstate/presentation/journeys/home/top_projects/top_projects_widget.dart';
+import 'package:remax_mapstate/presentation/journeys/home/projects_status/project_status_widget.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/language/language_cubit.dart';
 import 'package:remax_mapstate/presentation/widgets/app_error_widget.dart';
 import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     _projectStatusBloc = getItInstance<ProjectStatusBloc>();
 
-    _projectStatusBloc.add(const LoadProjectStatusEvent());
+    _fetchProjectStatus();
 
     _backdropBloc = _projectStatusBloc.backdropBloc;
 
@@ -68,6 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       listener: (context, state) {
         _fetchAreas();
+        _fetchProjectStatus();
       },
 
       // screen content
@@ -79,53 +80,25 @@ class _HomeScreenState extends State<HomeScreen> {
           BlocProvider(create: (context) => _backdropBloc),
           BlocProvider(create: (context) => _areasCubit),
         ],
-        child: BlocBuilder<ProjectStatusBloc, ProjectStatusState>(
-          builder: (context, state) {
-            /// TopProjectsLoading
-            if (state is LoadingProjects) {
-              return const Center(
-                child: LoadingWidget(),
-              );
-            }
+        child: Stack(
+          fit: StackFit.expand,
+          children: const [
+            /// ProjectStatusWidget
+            FractionallySizedBox(
+              alignment: Alignment.topCenter,
+              heightFactor: 0.6,
+              child: ProjectStatusWidget(),
+            ),
 
-            /// TopProjectsLoadedState
-            else if (state is ProjectStatusLoadedState) {
-              return Stack(
-                fit: StackFit.expand,
-                children: [
-                  FractionallySizedBox(
-                    alignment: Alignment.topCenter,
-                    heightFactor: 0.6,
-                    child: TopProjectWidget(
-                      projectStausList: state.projectStatus,
-                      defaultIndex: state.defaultIndex,
-                    ),
-                  ),
+            /// AreaSectionWidget
+            FractionallySizedBox(
+              alignment: Alignment.bottomCenter,
+              heightFactor: 0.4,
+              child: AreaSectionWidget(),
 
-                  /// AreaSectionWidget
-                  const FractionallySizedBox(
-                    alignment: Alignment.bottomCenter,
-                    heightFactor: 0.4,
-                    child: AreaSectionWidget(),
-
-                    // child: Placeholder(color: AppColor.royalBlue,),
-                  ),
-                ],
-              );
-            }
-
-            /// ErrorLoadingTopProjects
-            else if (state is ErrorLoadingProjectStatus) {
-              return Center(
-                child: AppErrorWidget(
-                  appTypeError: state.appError.appErrorType,
-                  onPressedRetry: () {},
-                ),
-              );
-            }
-
-            return const SizedBox.shrink();
-          },
+              // child: Placeholder(color: AppColor.royalBlue,),
+            ),
+          ],
         ),
       ),
     );
@@ -135,4 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void _fetchAreas() {
     _areasCubit.fetchAreas(context, limit: 6);
   }
+
+  /// To fetch project status
+  void _fetchProjectStatus() => _projectStatusBloc.add(LoadProjectStatusEvent(
+        languageCode: context.read<LanguageCubit>().state.languageCode,
+      ));
 }

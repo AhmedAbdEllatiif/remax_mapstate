@@ -3,12 +3,12 @@ import 'package:remax_mapstate/data/models/page_info.dart';
 
 import '../../common/enums/app_language.dart';
 
-class FetchUnitTypeNamesParams {
+class FetchListParams {
   final AppLanguage appLanguage;
   final PageInfo pageInfo;
   final List<FilterModel> filters;
 
-  FetchUnitTypeNamesParams({
+  FetchListParams({
     required this.appLanguage,
     required this.pageInfo,
     required this.filters,

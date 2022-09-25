@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class ContactDeveloperParam extends Equatable{
-  final int developerId;
+  final String developerId;
   final String name;
 
   const ContactDeveloperParam({

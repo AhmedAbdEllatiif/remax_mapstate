@@ -1,5 +1,5 @@
 class ProjectDetailsArgument{
-  final int projectId;
+  final String projectId;
 
   const ProjectDetailsArgument({
     required this.projectId,

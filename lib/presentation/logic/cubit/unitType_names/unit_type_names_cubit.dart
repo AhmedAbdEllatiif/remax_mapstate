@@ -13,7 +13,7 @@ import 'package:remax_mapstate/domain/use_cases/get_residential_projects.dart';
 import 'package:remax_mapstate/domain/use_cases/get_unit_types_by_area.dart';
 
 import '../../../../common/enums/app_language.dart';
-import '../../../../data/params/fetch_unit_type_names.dart';
+import '../../../../data/params/fetch_list_params.dart';
 import '../language/language_cubit.dart';
 
 part 'unit_type_name_state.dart';
@@ -50,7 +50,7 @@ class UnitTypeNamesCubit extends Cubit<UnitTypeNamesState> {
     ];
 
     // init params
-    final params = FetchUnitTypeNamesParams(
+    final params = FetchListParams(
         appLanguage: appLanguage, pageInfo: pageInfo, filters: filters);
 
     // fetch unit type names
