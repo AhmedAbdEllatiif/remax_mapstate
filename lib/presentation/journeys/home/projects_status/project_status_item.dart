@@ -4,25 +4,26 @@ import 'package:remax_mapstate/common/constants/argument_constants.dart';
 import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
+import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
+import 'package:remax_mapstate/presentation/arguments/project_by_status_args.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_details_argument.dart';
 
 
 import '../../../../router/route_hepler.dart';
 
 class ProjectStatusItem extends StatelessWidget {
-  final String projectId;
-  final String posterPath;
+  final ProjectStatusEntity statusEntity;
 
   const ProjectStatusItem(
-      {Key? key, required this.projectId, required this.posterPath})
+      {Key? key, required this.statusEntity})
       : super(key: key);
 
   /// to navigate to ProjectDetailsScreen
-  void _navigateToProjectsScreen(BuildContext context) =>
-      RouteHelper().projectDetailScreen(
+  void _navigateToProjectByStatusScreen(BuildContext context) =>
+      RouteHelper().projectByStatus(
         context,
-        projectDetailsArgument : ProjectDetailsArgument(
-          projectId: projectId,
+        projectByStatusArguments : ProjectByStatusArguments(
+          projectStatusEntity: statusEntity,
         ),
       );
 
@@ -32,11 +33,11 @@ class ProjectStatusItem extends StatelessWidget {
       elevation: 32.0,
       color: Colors.transparent,
       child: GestureDetector(
-        onTap: () => _navigateToProjectsScreen(context),
+        onTap: () => _navigateToProjectByStatusScreen(context),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
           child: Image.asset(
-            posterPath,
+            statusEntity.image,
             fit: BoxFit.cover,
           ),
           /*CachedNetworkImage(

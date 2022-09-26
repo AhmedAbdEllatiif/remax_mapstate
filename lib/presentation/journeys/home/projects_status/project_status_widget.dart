@@ -22,7 +22,7 @@ class ProjectStatusWidget extends StatelessWidget {
     return BlocBuilder<ProjectStatusBloc, ProjectStatusState>(
       builder: (_, state) {
         /// loading
-        if (state is LoadingProjects) {
+        if (state is LoadingProjectStatus) {
           return const Center(
             child: LoadingWidget(),
           );

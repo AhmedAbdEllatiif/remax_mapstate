@@ -49,10 +49,9 @@ class _ProjectStatusPageViewState extends State<ProjectStatusPageView> {
         controller: _pageController,
         itemCount: widget.projectStatusList.length,
         itemBuilder: (context, index) {
-          final project = widget.projectStatusList[index];
+          final statusEntity = widget.projectStatusList[index];
           return AnimatedProjectCard(
-            projectId: project.id,
-            imagePath: project.image,
+            statusEntity: statusEntity,
             index: index,
             pageController: _pageController,
           );
