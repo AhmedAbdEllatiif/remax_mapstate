@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:remax_mapstate/data/models/project_model.dart';
 
@@ -5,39 +6,41 @@ class ProjectEntity extends Equatable {
   const ProjectEntity({
     required this.id,
     required this.name,
-    required this.arabicName,
     required this.description,
-    required this.descriptionArabic,
+    required this.finishingType,
     required this.priceFrom,
     required this.areaFrom,
     required this.deliveryYear,
+    required this.deliveryMonth,
     required this.type,
     required this.status,
     required this.region,
     required this.zone,
     required this.services,
     required this.unitTypeSet,
-    required this.paymentPlan,
+    required this.planPercentage,
+    required this.planNumberOfYears,
     required this.location,
     required this.developer,
   });
 
   final String id;
   final String name;
-  final String arabicName;
   final String description;
-  final String descriptionArabic;
+  final String finishingType;
   final String priceFrom;
   final String areaFrom;
   final String deliveryYear;
+  final String deliveryMonth;
   final ProjectType type;
-  final DifferentLanguagesEntity status;
-  final DifferentLanguagesEntity region;
-  final DifferentLanguagesEntity zone;
-  final List<DifferentLanguagesEntity> services;
+  final String status;
+  final String region;
+  final String zone;
+  final List<String> services;
   final List<UnitTypeSetEntity> unitTypeSet;
-  final PaymentPlanEntity paymentPlan;
-  final dynamic location;
+  final int planPercentage;
+  final int planNumberOfYears;
+  final LocationEntity location;
   final DeveloperEntity developer;
 
   @override
@@ -51,13 +54,21 @@ class ProjectEntity extends Equatable {
 
 class DeveloperEntity extends Equatable {
   const DeveloperEntity({
+    required this.id,
     required this.name,
+    required this.logo,
+    required this.developerContactEntity,
+    required this.locationEntity,
   });
 
+  final String id;
   final String name;
+  final String logo;
+  final DeveloperContactEntity developerContactEntity;
+  final LocationEntity locationEntity;
 
   @override
-  List<Object> get props => [name];
+  List<Object> get props => [id];
 }
 
 class PaymentPlanEntity extends Equatable {
@@ -88,7 +99,7 @@ class DifferentLanguagesEntity extends Equatable {
 
 class UnitTypeSetEntity extends Equatable {
   const UnitTypeSetEntity({
-    required this.unitTypeName,
+    required this.name,
     required this.layout,
     required this.priceFrom,
     required this.areaFrom,
@@ -96,22 +107,60 @@ class UnitTypeSetEntity extends Equatable {
     required this.finishingType,
   });
 
-  final DifferentLanguagesEntity unitTypeName;
-  final DifferentLanguagesEntity layout;
+  final String name;
+  final String layout;
   final String priceFrom;
   final String areaFrom;
   final int percentage;
-  final DifferentLanguagesEntity finishingType;
+  final String finishingType;
 
   @override
   List<Object?> get props => [
-    unitTypeName,
+    name,
     layout,
     priceFrom,
     areaFrom,
     percentage,
     finishingType,
   ];
+}
+
+class DeveloperContactEntity extends Equatable{
+  const DeveloperContactEntity({
+    required this.id,
+    required this.firstName,
+    required this.lastName,
+    required this.phone,
+    required this.image,
+  });
+
+  final String id;
+  final String firstName;
+  final String lastName;
+  final String phone;
+  final String image;
+
+  @override
+  List<Object?> get props => [id];
+}
+
+class LocationEntity extends Equatable{
+  const LocationEntity({
+    required this.id,
+    required this.locationText,
+    required this.address,
+    required this.geometry,
+
+  });
+
+  final String id;
+  final String locationText;
+  final String address;
+  final dynamic geometry;
+
+
+  @override
+  List<Object?> get props => [id];
 }
 
 class EnumValues<T> {

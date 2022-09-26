@@ -22,6 +22,8 @@ import 'package:remax_mapstate/data/models/unit_type_model.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
 
 import '../../common/constants/api_constants.dart';
+import '../api/queries/projects_by_status/ar_project_by_status.dart';
+import '../api/queries/projects_by_status/en_project_by_status.dart';
 import '../models/filter_model.dart';
 
 abstract class RemoteDataSource {
@@ -47,8 +49,16 @@ abstract class RemoteDataSource {
     required List<FilterModel> filtersList,
   });
 
+
   /// return list unitTypes status
   Future<List<UnitTypeModel>> getUnitTypesNames({
+    required AppLanguage appLanguage,
+    required PageInfo pageInfo,
+    required List<FilterModel> filtersList,
+  });
+
+  /// return list of projects by their status
+  Future<List<ProjectModel>> getProjectByStatus({
     required AppLanguage appLanguage,
     required PageInfo pageInfo,
     required List<FilterModel> filtersList,
@@ -272,6 +282,28 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     return listOfUnitTypeNamesFromJson(result.data!);
   }
 
+
+  /// projects by their status
+  @override
+  Future<List<ProjectModel>> getProjectByStatus({required AppLanguage appLanguage, required PageInfo pageInfo, required List<FilterModel> filtersList}) async {
+    final query = appLanguage == AppLanguage.en
+        ? fetchArabicProjectByStatusQuery()
+        : fetchEnglishProjectByStatusQuery();
+
+    final QueryResult result = await apiClient.get(
+      query,
+      variables: {
+        VariablesConstants.pageInfo: pageInfo.toJson(),
+        VariablesConstants.filters: listOfFilterToJson(filtersList),
+      },
+    );
+
+    log("getProjectByStatus >> Data >> ..........\n ${result.data}.......");
+    return listOfProjectModel(result.data!);
+  }
+
+
+
   /// return the developer contact data
   @override
   Future<ContactDeveloperModel> getDeveloperContact(String developerId) async {
@@ -286,4 +318,5 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     final teamSupport = await teamSupportModel();
     return teamSupport;
   }
+
 }

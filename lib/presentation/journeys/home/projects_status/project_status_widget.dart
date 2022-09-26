@@ -5,10 +5,8 @@ import 'package:remax_mapstate/presentation/journeys/home/projects_status/projec
 import 'package:remax_mapstate/presentation/journeys/home/projects_status/top_project_data.dart';
 import 'package:remax_mapstate/presentation/widgets/separator.dart';
 
-import '../../../../domain/entities/project_status_entity.dart';
 import '../../../logic/bloc/project_status/project_status_bloc.dart';
 import '../../../logic/cubit/language/language_cubit.dart';
-import '../../../logic/cubit/projects/get_projects_cubit.dart';
 import '../../../widgets/app_error_widget.dart';
 import '../../../widgets/loading_widget.dart';
 
