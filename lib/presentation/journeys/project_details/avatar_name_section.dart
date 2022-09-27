@@ -5,13 +5,21 @@ import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
-class ProjectAvatarNameSection extends StatelessWidget {
+import '../../widgets/cached_image_widget.dart';
 
+class ProjectAvatarNameSection extends StatelessWidget {
   final String name;
   final String avatarUrl;
-  final String district;
+  final String region;
+  final String zone;
 
-  const ProjectAvatarNameSection({Key? key, required this.name, required this.avatarUrl, required this.district}) : super(key: key);
+  const ProjectAvatarNameSection({
+    Key? key,
+    required this.name,
+    required this.avatarUrl,
+    required this.region,
+    required this.zone,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +30,11 @@ class ProjectAvatarNameSection extends StatelessWidget {
         Row(
           children: [
             /// Avatar Image
-            const CircleAvatar(
-              backgroundImage: AssetImage(
-                  AssetsConstants.mountainViewImagePath),
+            CachedImageWidget(
+              imageUrl: avatarUrl,
+              height: 50,
+              width: 50,
+              progressBarScale: 0.7,
             ),
 
             // SizedBox
@@ -37,25 +47,26 @@ class ProjectAvatarNameSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Cairo".intelliTrim(),
+                  region.intelliTrim(),
                   style: Theme.of(context).textTheme.caption!.copyWith(
-                    color: AppColor.geeBung,
-                  ),
+                        color: AppColor.geeBung,
+                      ),
                 ),
                 Text(
-                  "New Cairo".intelliTrim(),
-                  style:
-                  Theme.of(context).textTheme.caption!.copyWith(
-                    color: AppColor.fadeGeeBung,
-                  ),
-
+                  zone.intelliTrim(),
+                  style: Theme.of(context).textTheme.caption!.copyWith(
+                        color: AppColor.fadeGeeBung,
+                      ),
                 )
               ],
             )
           ],
         ),
 
-        const Icon(Icons.favorite_border,color: AppColor.geeBung,),
+        const Icon(
+          Icons.favorite_border,
+          color: AppColor.geeBung,
+        ),
 
         /// Column of Starting price
         /*  Column(

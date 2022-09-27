@@ -9,7 +9,6 @@ class ProjectEntity extends Equatable {
     required this.id,
     required this.name,
     required this.description,
-    required this.finishingType,
     required this.priceFrom,
     required this.areaFrom,
     required this.deliveryYear,
@@ -19,7 +18,7 @@ class ProjectEntity extends Equatable {
     required this.region,
     required this.zone,
     required this.services,
-    required this.unitTypeSet,
+    required this.unitTypeSets,
     required this.planPercentage,
     required this.planNumberOfYears,
     required this.location,
@@ -32,14 +31,13 @@ class ProjectEntity extends Equatable {
 
     final doublePriceFrom = double.tryParse(priceFrom);
 
-    formattedPrice =
+    formattedStartingPrice =
         doublePriceFrom == null ? priceFrom : display(doublePriceFrom);
   }
 
   final String id;
   final String name;
   final String description;
-  final String finishingType;
   final String priceFrom;
   final String areaFrom;
   final String deliveryYear;
@@ -49,12 +47,12 @@ class ProjectEntity extends Equatable {
   final String region;
   final String zone;
   final List<String> services;
-  final List<UnitTypeSetEntity> unitTypeSet;
+  final List<UnitTypeSetEntity> unitTypeSets;
   final int planPercentage;
   final int planNumberOfYears;
   final LocationEntity location;
   final DeveloperEntity developer;
-  late final String formattedPrice;
+  late final String formattedStartingPrice;
 
   @override
   List<Object> get props => [id];

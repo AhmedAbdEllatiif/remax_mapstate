@@ -6,7 +6,8 @@ import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 import '../../themes/theme_color.dart';
 
 class OverViewSection extends StatelessWidget {
-  const OverViewSection({Key? key}) : super(key: key);
+  final String description;
+  const OverViewSection({Key? key, required this.description}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class OverViewSection extends StatelessWidget {
           margin: const EdgeInsets.only(top: 5, bottom: 0),
         ),
         Text(
-          TranslateConstants.test.t(context),
+         description,
           textAlign: TextAlign.start,
           style: Theme.of(context).textTheme.bodyText2!.copyWith(
             color: AppColor.geeBung

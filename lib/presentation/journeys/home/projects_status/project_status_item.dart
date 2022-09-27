@@ -6,7 +6,7 @@ import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
 import 'package:remax_mapstate/presentation/arguments/project_by_status_args.dart';
-import 'package:remax_mapstate/presentation/journeys/project_details/project_details_argument.dart';
+import 'package:remax_mapstate/presentation/arguments/project_details_argument.dart';
 
 
 import '../../../../router/route_hepler.dart';

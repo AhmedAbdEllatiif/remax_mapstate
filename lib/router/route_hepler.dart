@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:remax_mapstate/common/constants/route_list.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_developer.dart';
 import 'package:remax_mapstate/presentation/arguments/project_by_status_args.dart';
-import 'package:remax_mapstate/presentation/journeys/project_details/project_details_argument.dart';
+import 'package:remax_mapstate/presentation/arguments/project_details_argument.dart';
 import 'package:remax_mapstate/presentation/arguments/area_unit_types_args.dart';
 import '../presentation/journeys/choose_broker/arguments/choose_broker_argument.dart';
 import '../presentation/logic/bloc/calculator_validation/calculator_validation_bloc.dart';

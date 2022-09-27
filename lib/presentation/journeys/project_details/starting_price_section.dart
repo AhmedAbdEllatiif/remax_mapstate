@@ -27,7 +27,7 @@ class ProjectStartingPriceSection extends StatelessWidget {
               style: Theme.of(context).textTheme.caption!.copyWith(
                 color: AppColor.absoluteTransparentGeeBung,
               ),),
-            Text('1,927,000 EGP',style: Theme.of(context).textTheme.letterSpaceHeadLine6.copyWith(
+            Text(startingPrice,style: Theme.of(context).textTheme.letterSpaceHeadLine6.copyWith(
               color: AppColor.geeBung
             )),
 

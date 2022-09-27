@@ -25,7 +25,6 @@ class ProjectModel extends ProjectEntity {
     required this.projectDescription,
     required this.projectDescriptionArabic,
     required this.projectType,
-    required this.projectFinishingType,
     required this.projectPriceFrom,
     required this.projectAreaFrom,
     required this.projectDeliveryYear,
@@ -57,11 +56,11 @@ class ProjectModel extends ProjectEntity {
           type: projectType,
 
           //==> finishingType
-          finishingType: projectFinishingType.name.isNotEmpty
+          /*finishingType: projectFinishingType.name.isNotEmpty
               ? projectFinishingType.name
               : projectFinishingType.arabicName.isNotEmpty
                   ? projectFinishingType.arabicName
-                  : AppUtils.undefined,
+                  : AppUtils.undefined,*/
 
           //==> status
           status: projectStatus.name.isNotEmpty
@@ -93,7 +92,7 @@ class ProjectModel extends ProjectEntity {
                       : AppUtils.undefined)
               .toList(),
 
-          unitTypeSet: projectUnitTypeSet,
+          unitTypeSets: projectUnitTypeSet,
           planPercentage: projectPaymentPlan.planPercentage,
           planNumberOfYears: projectPaymentPlan.planNumberOfYears,
           location: projectLocation,
@@ -113,7 +112,6 @@ class ProjectModel extends ProjectEntity {
   final ProjectStatus projectStatus;
   final Region projectRegion;
   final Zone projectZone;
-  final FinishingType projectFinishingType;
   final List<ProjectService> projectServices;
   final List<UnitTypeSet> projectUnitTypeSet;
   final PaymentPlan projectPaymentPlan;
@@ -152,10 +150,10 @@ class ProjectModel extends ProjectEntity {
             ? typeValues.map[json["type"]] ?? ProjectType.unDefined
             : ProjectType.unDefined,
 
-        // finishingType
+        /*// finishingType
         projectFinishingType: json["finishingType"] != null
             ? FinishingType.fromJson(json["finishingType"])
-            : FinishingType.empty(),
+            : FinishingType.empty(),*/
 
         // status
         projectStatus: json["status"] != null

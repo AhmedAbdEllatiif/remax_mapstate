@@ -15,7 +15,7 @@ import 'package:remax_mapstate/presentation/journeys/start_app/spotter_registrat
 
 import '../common/constants/route_list.dart';
 import '../presentation/journeys/choose_broker/arguments/choose_broker_argument.dart';
-import '../presentation/journeys/project_details/project_details_argument.dart';
+import '../presentation/arguments/project_details_argument.dart';
 import '../presentation/arguments/area_unit_types_args.dart';
 import '../presentation/journeys/start_app/client_registration/client_login_or_registration_screen.dart';
 import '../presentation/logic/bloc/calculator_validation/calculator_validation_bloc.dart';

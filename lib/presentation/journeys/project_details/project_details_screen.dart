@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
+import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/avatar_name_section.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/layout_section.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/overview_section.dart';
 
-import 'package:remax_mapstate/presentation/journeys/project_details/project_details_argument.dart';
+import 'package:remax_mapstate/presentation/arguments/project_details_argument.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_images_section.dart';
@@ -27,6 +28,16 @@ class ProjectDetailsScreen extends StatefulWidget {
 }
 
 class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
+
+  late final ProjectEntity projectEntity;
+
+
+  @override
+  void initState() {
+    super.initState();
+    projectEntity = widget.projectDetailsArgument.projectEntity;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,16 +61,17 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
                       padding: EdgeInsets.symmetric(
                           horizontal: Sizes.dimen_16.w,
                           vertical: Sizes.dimen_12.w),
-                      child: const ProjectAvatarNameSection(
-                        name: '',
-                        district: '',
-                        avatarUrl: '',
+                      child:  ProjectAvatarNameSection(
+                        name: projectEntity.name,
+                        region: projectEntity.region,
+                        zone: projectEntity.zone,
+                        avatarUrl: projectEntity.developer.logoFullPath,
                       ),
                     ),
 
                     /// Starting price section
-                    const ProjectStartingPriceSection(
-                      startingPrice: '',
+                     ProjectStartingPriceSection(
+                      startingPrice: projectEntity.formattedStartingPrice,
                     ),
 
                     /// projectData paymentPlan, startingArea, FinishingType, DeliveryYear
@@ -67,10 +79,11 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
                       padding: EdgeInsets.symmetric(
                           horizontal: Sizes.dimen_32.w,
                           vertical: Sizes.dimen_12.w),
-                      child: const ProjectDataSection(
-                        deliveryYear: '',
-                        startingArea: '',
-                        paymentPlan: '',
+                      child:  ProjectDataSection(
+                        deliveryYear: projectEntity.deliveryYear,
+                        startingArea: projectEntity.areaFrom,
+                        planPercentage: projectEntity.planPercentage.toString(),
+                        planYears: projectEntity.planNumberOfYears.toString(),
                         finishingType: '',
                       ),
                     ),
@@ -80,7 +93,7 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
                       padding: EdgeInsets.symmetric(
                           horizontal: Sizes.dimen_10.w,
                           vertical: Sizes.dimen_12.w),
-                      child: const ServicesSection(),
+                      child:  ServicesSection(services: projectEntity.services,),
                     ),
 
                     /// overView and layout section
@@ -101,12 +114,12 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
                         color: AppColor.fadeBlack,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children:  [
                             /// overview section
-                            OverViewSection(),
+                            OverViewSection(description: projectEntity.description,),
 
                             /// layout section
-                            LayoutSection(),
+                            LayoutSection(unitTypeSets: projectEntity.unitTypeSets,),
                           ],
                         ),
                       ),
@@ -126,4 +139,5 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
           ],
         ));
   }
+
 }

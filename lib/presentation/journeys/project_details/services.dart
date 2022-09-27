@@ -10,7 +10,9 @@ import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
 class ServicesSection extends StatelessWidget {
-  const ServicesSection({Key? key}) : super(key: key);
+  final List<String> services;
+
+  const ServicesSection({Key? key, required this.services}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,25 +21,28 @@ class ServicesSection extends StatelessWidget {
       children: [
         Text(
           TranslateConstants.services.t(context),
-          style: Theme.of(context).textTheme.caption!.copyWith(
-            color: AppColor.absoluteTransparentGeeBung
-          ),
+          style: Theme.of(context)
+              .textTheme
+              .caption!
+              .copyWith(color: AppColor.absoluteTransparentGeeBung),
         ),
-
-        const SizedBox(height: 5,),
-
+        const SizedBox(
+          height: 5,
+        ),
         Container(
           width: ScreenUtil.screenWidth,
           height: ScreenUtil.screenHeight * .11,
-
-          constraints: BoxConstraints(minHeight: ScreenUtil.screenHeight * 0.11,maxHeight:ScreenUtil.screenHeight * .15 ),
+          constraints: BoxConstraints(
+              minHeight: ScreenUtil.screenHeight * 0.11,
+              maxHeight: ScreenUtil.screenHeight * .15),
           child: ListView.builder(
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
-              itemCount: 10,
-              itemBuilder: (context, index) => const ServiceItemCard(
+              itemCount: services.length,
+              itemBuilder: (context, index) => ServiceItemCard(
                     projectServices: ProjectServices.gym,
+                    serviceName: services[index],
                   )),
         ),
       ],
@@ -47,9 +52,13 @@ class ServicesSection extends StatelessWidget {
 
 class ServiceItemCard extends StatelessWidget {
   final ProjectServices projectServices;
+  final String serviceName;
 
-  const ServiceItemCard({Key? key, required this.projectServices})
-      : super(key: key);
+  const ServiceItemCard({
+    Key? key,
+    required this.projectServices,
+    required this.serviceName,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,23 +72,23 @@ class ServiceItemCard extends StatelessWidget {
             foregroundColor: AppColor.geeBung,
             backgroundColor: AppColor.geeBung,
             child: Padding(
-              padding:  const EdgeInsets.all(Sizes.dimen_12),
+              padding: const EdgeInsets.all(Sizes.dimen_12),
               child: Image.asset(
                 AssetsConstants.gymIcon,
                 fit: BoxFit.cover,
                 color: AppColor.black,
               ),
             ),
-
           ),
-
-          const SizedBox(height: 5,),
-
+          const SizedBox(
+            height: 5,
+          ),
           Text(
-            'GYM',
-            style: Theme.of(context).textTheme.caption!.copyWith(
-              color: AppColor.black
-            ),
+            serviceName.toUpperCase(),
+            style: Theme.of(context)
+                .textTheme
+                .caption!
+                .copyWith(color: AppColor.geeBung),
           )
         ],
       ),

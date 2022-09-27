@@ -4,9 +4,9 @@ import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_data_item_card.dart';
 
 class ProjectDataSection extends StatelessWidget {
-  final String paymentPlan, startingArea, finishingType, deliveryYear;
+  final String planPercentage,planYears, startingArea, finishingType, deliveryYear;
 
-  const ProjectDataSection({Key? key, required this.paymentPlan, required this.startingArea, required this.finishingType, required this.deliveryYear}) : super(key: key);
+  const ProjectDataSection({Key? key,  required this.startingArea, required this.finishingType, required this.deliveryYear, required this.planPercentage, required this.planYears}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,21 +18,21 @@ class ProjectDataSection extends StatelessWidget {
           children: [
             ProjectDataItemCard(
               title: TranslateConstants.paymentPlan.t(context),
-              data: '10% - 8 years',
+              data: '$planPercentage% - $planYears years',
             ),
             ProjectDataItemCard(
               title: TranslateConstants.deliveryYear.t(context),
-              data: '2022',
+              data: deliveryYear,
             )
           ],
         ),
         ProjectDataItemCard(
           title: TranslateConstants.startingArea.t(context),
-          data: '95',
+          data: startingArea,
         ),
         ProjectDataItemCard(
           title: TranslateConstants.finishingType.t(context),
-          data: 'Core & Shell',
+          data: finishingType
         ),
       ],
     );

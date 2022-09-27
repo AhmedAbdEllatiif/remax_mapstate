@@ -4,7 +4,7 @@ import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
-import 'package:remax_mapstate/presentation/journeys/project_details/project_details_argument.dart';
+import 'package:remax_mapstate/presentation/arguments/project_details_argument.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
@@ -16,7 +16,6 @@ import '../../router/route_hepler.dart';
 
 class ProjectItemWidget extends StatelessWidget {
   final ProjectEntity projectEntity;
-
 
   const ProjectItemWidget({Key? key, required this.projectEntity})
       : super(key: key);
@@ -35,7 +34,6 @@ class ProjectItemWidget extends StatelessWidget {
           ]).value,
       width: ScreenUtil.screenWidth,
       child: Card(
-
         //color: colors[index],
         semanticContainer: true,
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -95,14 +93,15 @@ class ProjectItemWidget extends StatelessWidget {
                                 Text(
                                   projectEntity.name.intelliTrim(),
                                   style: const TextStyle(
-                                    color: AppColor.fadeGeeBung
-                                  ),
+                                      color: AppColor.fadeGeeBung),
                                 ),
                                 Text(
                                   projectEntity.zone.intelliTrim(),
-                                  style:
-                                      Theme.of(context).textTheme.bodyText2!.copyWith(
-                                        color:AppColor.geeBung,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2!
+                                      .copyWith(
+                                        color: AppColor.geeBung,
                                       ),
                                 )
                               ],
@@ -120,16 +119,21 @@ class ProjectItemWidget extends StatelessWidget {
                                   .intelliTrim_14(),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                                color: AppColor.fadeGeeBung,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(
+                                    color: AppColor.fadeGeeBung,
+                                  ),
                             ),
                             Text(
-                              projectEntity.formattedPrice,
-                              style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                                color: AppColor.geeBung,
-                                fontWeight: FontWeight.w600
-                              ),
+                              projectEntity.formattedStartingPrice,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(
+                                      color: AppColor.geeBung,
+                                      fontWeight: FontWeight.w600),
                             )
                           ],
                         )
@@ -182,10 +186,9 @@ class ProjectItemWidget extends StatelessWidget {
   void _navigateToProjectsScreen(BuildContext context) =>
       RouteHelper().projectDetailScreen(
         context,
-        projectDetailsArgument : const ProjectDetailsArgument(
-          //projectId: projectEntity.id,
+        projectDetailsArgument: ProjectDetailsArgument(
+          projectEntity: projectEntity,
           projectId: "0",
         ),
       );
-
 }
