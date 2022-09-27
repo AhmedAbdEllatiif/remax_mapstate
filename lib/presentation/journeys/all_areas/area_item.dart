@@ -8,8 +8,9 @@ import '../../widgets/container_with_gradient.dart';
 
 class AreaItem extends StatelessWidget {
   final String areaName;
+  final Function() onPressed;
 
-  const AreaItem({Key? key, required this.areaName}) : super(key: key);
+  const AreaItem({Key? key, required this.areaName, required this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class AreaItem extends StatelessWidget {
           borderRadius:
               BorderRadius.all(Radius.circular(AppUtils.cornerRadius.w))),
       child: InkWell(
-        onTap: () {},
+        onTap: onPressed,
         splashColor: AppColor.geeBung,
         borderRadius: BorderRadius.all(
           Radius.circular(AppUtils.cornerRadius.w),

@@ -2,6 +2,7 @@ import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
 
 class ProjectByStatusArguments {
   final ProjectStatusEntity projectStatusEntity;
+  final String areaId;
 
-  ProjectByStatusArguments({required this.projectStatusEntity});
+  ProjectByStatusArguments({ this.areaId = "",required this.projectStatusEntity});
 }

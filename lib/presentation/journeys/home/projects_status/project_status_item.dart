@@ -19,13 +19,26 @@ class ProjectStatusItem extends StatelessWidget {
       : super(key: key);
 
   /// to navigate to ProjectDetailsScreen
-  void _navigateToProjectByStatusScreen(BuildContext context) =>
-      RouteHelper().projectByStatus(
+  void _navigateToProjectByStatusScreen(BuildContext context) {
+    if(statusEntity.name =="Oppurtunities" || statusEntity.name =="Offers" ){
+      RouteHelper().projectsByStatus(
         context,
         projectByStatusArguments : ProjectByStatusArguments(
           projectStatusEntity: statusEntity,
         ),
       );
+    }else{
+      RouteHelper().areasByStatusScreen(
+        context,
+        projectByStatusArguments : ProjectByStatusArguments(
+          projectStatusEntity: statusEntity,
+        ),
+      );
+    }
+
+
+  }
+
 
   @override
   Widget build(BuildContext context) {

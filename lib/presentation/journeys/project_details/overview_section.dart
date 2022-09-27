@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
+import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
@@ -14,15 +16,16 @@ class OverViewSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          TranslateConstants.overview.t(context),
-          style: Theme.of(context).textTheme.subtitle2!.copyWith(
-            color: AppColor.absoluteTransparentGeeBung,
+        Padding(
+          padding:  EdgeInsets.only(bottom: Sizes.dimen_2.h),
+          child: Text(
+            TranslateConstants.overview.t(context),
+            style: Theme.of(context).textTheme.subtitle2!.copyWith(
+              color: AppColor.absoluteTransparentGeeBung,
+            ),
           ),
         ),
-        Container(
-          margin: const EdgeInsets.only(top: 5, bottom: 0),
-        ),
+
         Text(
          description,
           textAlign: TextAlign.start,

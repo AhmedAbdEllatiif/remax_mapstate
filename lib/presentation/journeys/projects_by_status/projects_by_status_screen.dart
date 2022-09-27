@@ -76,6 +76,11 @@ class _ProjectsByStatusScreenState extends State<ProjectsByStatusScreen> {
             print(
                 "ProjectsByStatusScreen >> listener >> Projects >> ....\n${state.projects}\n......");
           }
+          if (state is LastPageProjectsByStatusReached) {
+            projectsList.addAll(state.projects);
+            print(
+                "ProjectsByStatusScreen >> listener >> Projects >> ....\n${state.projects}\n......");
+          }
         },
         builder: (context, state) {
           return StackScaffoldWithFullBackground(
@@ -149,11 +154,13 @@ class _ProjectsByStatusScreenState extends State<ProjectsByStatusScreen> {
   /// To send request fetch projects
   void _fetchProjects({
     required int limit,
+
   }) {
     final currentListLength = projectsList.length;
     _projectsByStatusCubit.fetchProjectByStatus(
       context,
       statusId: statusId,
+      areaId: widget.projectByStatusArguments.areaId,
       limit: limit,
       currentListLength: currentListLength,
     );

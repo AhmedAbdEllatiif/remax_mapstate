@@ -8,6 +8,7 @@ import 'package:remax_mapstate/presentation/journeys/choose_broker/choose_broker
 import 'package:remax_mapstate/presentation/journeys/developer_contact/developer_contact_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/main/main_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_details_screen.dart';
+import 'package:remax_mapstate/presentation/journeys/projects_by_status/areas/all_areas_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/projects_by_status/projects_by_status_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/broker_registartion/broker_registartion_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/choose_user_type/choose_user_screen.dart';
@@ -68,6 +69,12 @@ class Routes {
 
         /// projectByStatus
         RouteList.projectByStatus: (context) => ProjectsByStatusScreen(
+              projectByStatusArguments:
+                  settings.arguments as ProjectByStatusArguments,
+            ),
+
+        /// projectByStatus
+        RouteList.projectByStatusAreasScreen: (context) => ProjectStatusAreasScreen(
               projectByStatusArguments:
                   settings.arguments as ProjectByStatusArguments,
             ),

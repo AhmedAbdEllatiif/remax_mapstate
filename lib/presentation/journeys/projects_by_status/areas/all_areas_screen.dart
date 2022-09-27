@@ -8,21 +8,27 @@ import 'package:remax_mapstate/presentation/widgets/stack_with_full_background.d
 import 'package:responsive_framework/responsive_value.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
-import '../../../common/constants/sizes.dart';
-import '../../../common/constants/translate_constatns.dart';
-import '../../../di/git_it.dart';
-import '../../logic/cubit/areas/areas_cubit.dart';
-import '../../widgets/app_error_widget.dart';
-import '../../widgets/loading_widget.dart';
+import '../../../../common/constants/sizes.dart';
+import '../../../../common/constants/translate_constatns.dart';
+import '../../../../di/git_it.dart';
+import '../../../../router/route_hepler.dart';
+import '../../../arguments/project_by_status_args.dart';
+import '../../../logic/cubit/areas/areas_cubit.dart';
+import '../../../widgets/app_error_widget.dart';
+import '../../../widgets/loading_widget.dart';
 
-class AllAreasScreen extends StatefulWidget {
-  const AllAreasScreen({Key? key}) : super(key: key);
+class ProjectStatusAreasScreen extends StatefulWidget {
+  final ProjectByStatusArguments projectByStatusArguments;
+
+  const ProjectStatusAreasScreen(
+      {Key? key, required this.projectByStatusArguments})
+      : super(key: key);
 
   @override
-  State<AllAreasScreen> createState() => _AllAreasScreenState();
+  State<ProjectStatusAreasScreen> createState() => _AllAreasScreenState();
 }
 
-class _AllAreasScreenState extends State<AllAreasScreen> {
+class _AllAreasScreenState extends State<ProjectStatusAreasScreen> {
   late AreasCubit _areasCubit;
 
   @override
@@ -87,8 +93,12 @@ class _AllAreasScreenState extends State<AllAreasScreen> {
                               ]).value!,
                           crossAxisSpacing: Sizes.dimen_20.w,
                         ),
-                        itemBuilder: (context, index) {
-                          return AreaItem(areaName: state.areas[index].name, onPressed: () { },);
+                        itemBuilder: (_, index) {
+                          return AreaItem(
+                            areaName: state.areas[index].name,
+                            onPressed: () => _navigateToProjectByStatusScreen(
+                                context, state.areas[index].id),
+                          );
                         },
                       ),
                     ),
@@ -117,4 +127,13 @@ class _AllAreasScreenState extends State<AllAreasScreen> {
   void _fetchAreas() {
     _areasCubit.fetchAreas(context, limit: 50);
   }
+
+  /// to navigate to ProjectDetailsScreen
+  void _navigateToProjectByStatusScreen(BuildContext context, String areaId) =>
+      RouteHelper().projectsByStatus(context,
+          projectByStatusArguments: ProjectByStatusArguments(
+            areaId: areaId,
+            projectStatusEntity:
+                widget.projectByStatusArguments.projectStatusEntity,
+          ));
 }

@@ -86,9 +86,14 @@ class RouteHelper {
       Navigator.of(context).pushNamed(RouteList.allAreas);
 
   /// To ProjectByStatusArguments \\\
-  void projectByStatus(BuildContext context,
+  void projectsByStatus(BuildContext context,
           {required ProjectByStatusArguments projectByStatusArguments}) =>
       Navigator.of(context).pushNamed(RouteList.projectByStatus,
+          arguments: projectByStatusArguments);
+
+  void areasByStatusScreen(BuildContext context,
+      {required ProjectByStatusArguments projectByStatusArguments}) =>
+      Navigator.of(context).pushNamed(RouteList.projectByStatusAreasScreen,
           arguments: projectByStatusArguments);
 }
 //Navigator.pushNamed(context, AppRouter.chooseBrokerScreen)

@@ -22,6 +22,7 @@ class ProjectsByStatusCubit extends Cubit<ProjectsByStatusState> {
   void fetchProjectByStatus(
     BuildContext context, {
     required String statusId,
+    required String areaId,
     required int limit,
     required currentListLength,
   }) async {
@@ -46,12 +47,13 @@ class ProjectsByStatusCubit extends Cubit<ProjectsByStatusState> {
 
     // init filters
     final statusIdFilter = FilterModel(field: "status__id", value: statusId);
+    final areaFilter = FilterModel(field: "region__id", value: areaId);
 
     // init params
     final params = FetchListParams(
       appLanguage: appLanguage,
       pageInfo: pageInfo,
-      filters: [statusIdFilter],
+      filters: [statusIdFilter,areaFilter],
     );
 
     // init useCase

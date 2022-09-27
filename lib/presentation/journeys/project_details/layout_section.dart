@@ -7,6 +7,7 @@ import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
 import '../../../domain/entities/project_entity.dart';
+import 'layout_item.dart';
 
 class LayoutSection extends StatelessWidget {
   final List<UnitTypeSetEntity> unitTypeSets;
@@ -19,23 +20,23 @@ class LayoutSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 10),
+          margin: EdgeInsets.only(top: Sizes.dimen_5.h),
         ),
-        Text(
-          TranslateConstants.layouts.t(context),
-          style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                color: AppColor.absoluteTransparentGeeBung,
-              ),
+        Padding(
+          padding:  EdgeInsets.only(bottom: Sizes.dimen_2.h),
+          child: Text(
+            TranslateConstants.layouts.t(context),
+            style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                  color: AppColor.absoluteTransparentGeeBung,
+                ),
+          ),
         ),
         ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: unitTypeSets.length,
             itemBuilder: (context, index) => ExpansionItem(
-                  title: unitTypeSets[index].name,
-                  finishingType: unitTypeSets[index].finishingType,
-              areaFrom: unitTypeSets[index].areaFrom,
-              layout: unitTypeSets[index].layout,
+                  unitTypeSetEntity: unitTypeSets[index],
                 )),
       ],
     );
@@ -43,17 +44,9 @@ class LayoutSection extends StatelessWidget {
 }
 
 class ExpansionItem extends StatelessWidget {
-  final String title;
-  final String finishingType;
-  final String areaFrom;
-  final String layout;
+  final UnitTypeSetEntity unitTypeSetEntity;
 
-  const ExpansionItem(
-      {Key? key,
-      required this.title,
-      required this.finishingType,
-      required this.areaFrom,
-      required this.layout})
+  const ExpansionItem({Key? key, required this.unitTypeSetEntity})
       : super(key: key);
 
   @override
@@ -63,14 +56,15 @@ class ExpansionItem extends StatelessWidget {
         dividerColor: Colors.transparent,
       ),
       child: ExpansionTile(
-        title: Text(title),
+        title: Text(unitTypeSetEntity.name + " - " + "( ${unitTypeSetEntity.layout} )"),
         collapsedTextColor: AppColor.geeBung,
         backgroundColor: AppColor.black,
         collapsedIconColor: AppColor.geeBung,
         collapsedBackgroundColor: AppColor.black,
         textColor: AppColor.absoluteTransparentGeeBung,
         iconColor: AppColor.absoluteTransparentGeeBung,
-        childrenPadding: EdgeInsets.only(left: Sizes.dimen_4.w, right: Sizes.dimen_4.w, bottom: 10),
+        childrenPadding: EdgeInsets.only(
+            left: Sizes.dimen_4.w, right: Sizes.dimen_4.w, bottom: 10),
         children: [
           Container(
             // margin: EdgeInsets.only(left: 10,right: 10,bottom: 10),
@@ -84,10 +78,8 @@ class ExpansionItem extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-
-
                 // finishing type
-                Expanded(
+                /*Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
@@ -96,12 +88,12 @@ class ExpansionItem extends StatelessWidget {
                       const Text(
                         "Finishing Type",
                         overflow: TextOverflow.ellipsis,
-                        style:  TextStyle(
+                        style: TextStyle(
                           color: AppColor.absoluteTransparentGeeBung,
                         ),
                       ),
                       Text(
-                        finishingType,
+                        unitTypeSetEntity.finishingType,
                         maxLines: 2,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
@@ -111,30 +103,25 @@ class ExpansionItem extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
+                ),*/
 
-                // area from
+                /// area
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Text(
-                        "Area From",
-                        overflow: TextOverflow.ellipsis,
-                        style:  TextStyle(
-                          color: AppColor.absoluteTransparentGeeBung,
-                        ),
+                      LayoutItem(
+                        layoutKey:  "Area From",
+                        value: unitTypeSetEntity.areaFrom,
                       ),
-                      Text(
-                        areaFrom,
-                        maxLines: 2,
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: AppColor.fadeGeeBung,
-                        ),
+                      SizedBox(
+                        height: Sizes.dimen_1.h,
+                      ),
+                      LayoutItem(
+                        layoutKey:    "Area To",
+                        value:   unitTypeSetEntity.areaTo,
                       ),
                     ],
                   ),
@@ -142,28 +129,47 @@ class ExpansionItem extends StatelessWidget {
 
 
 
-                // layout
+                /// prices
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Text(
-                        "Layout",
-                        overflow: TextOverflow.ellipsis,
-                        style:  TextStyle(
-                          color: AppColor.absoluteTransparentGeeBung,
-                        ),
+                      LayoutItem(
+                        layoutKey:  "Price From",
+                        value: unitTypeSetEntity.formattedPriceFrom,
                       ),
-                      Text(
-                       layout,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: AppColor.fadeGeeBung,
-                        ),
+                      SizedBox(
+                        height: Sizes.dimen_1.h,
+                      ),
+                      LayoutItem(
+                        layoutKey:  "Price To",
+                        value:   unitTypeSetEntity.formattedPriceTo,
+                      ),
+                    ],
+                  ),
+                ),
+
+
+
+                /// payment plan
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      LayoutItem(
+                        layoutKey: "Down-payment",
+                        value: "${unitTypeSetEntity.percentage}%",
+                      ),
+                      SizedBox(
+                        height: Sizes.dimen_1.h,
+                      ),
+                      LayoutItem(
+                        layoutKey: "No. Years",
+                        value: unitTypeSetEntity.numberOfYears.toString(),
                       ),
                     ],
                   ),

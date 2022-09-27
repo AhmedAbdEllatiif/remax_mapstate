@@ -29,7 +29,7 @@ class AreasCubit extends Cubit<AreasState> {
     _emitIfNotClosed(LoadingAreas());
 
     final response = await getAreas(
-        FetchAreaParams(limit: limit, orderBy: "id", appLanguage: appLanguage));
+        FetchAreaParams(limit: limit, orderBy: "priority", appLanguage: appLanguage));
     response.fold(
       (appError) =>
           _emitIfNotClosed(ErrorWhileLoadingAreas(appError: appError)),

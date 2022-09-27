@@ -116,6 +116,7 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children:  [
                             /// overview section
+                            if(projectEntity.description.isNotEmpty)
                             OverViewSection(description: projectEntity.description,),
 
                             /// layout section

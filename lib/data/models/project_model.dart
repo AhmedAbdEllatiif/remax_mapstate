@@ -480,8 +480,11 @@ class UnitTypeSet extends UnitTypeSetEntity {
     required this.unitTypeName,
     required this.unitLayout,
     required this.unitPriceFrom,
+    required this.unitPriceTo,
     required this.unitAreaFrom,
+    required this.unitAreaTo,
     required this.unitPercentage,
+    required this.unitNumberOfYears,
     required this.unitFinishingType,
   }) : super(
           //==> unitTypeName
@@ -499,8 +502,11 @@ class UnitTypeSet extends UnitTypeSetEntity {
                   : AppUtils.undefined,
 
           priceFrom: unitPriceFrom,
+          priceTo: unitPriceTo,
           areaFrom: unitAreaFrom,
+          areaTo: unitAreaTo,
           percentage: unitPercentage,
+          numberOfYears: unitNumberOfYears,
 
           finishingType: unitFinishingType.name.isNotEmpty
               ? unitFinishingType.name
@@ -512,8 +518,11 @@ class UnitTypeSet extends UnitTypeSetEntity {
   final UnitTypeName unitTypeName;
   final UnitTypeLayout unitLayout;
   final String unitPriceFrom;
+  final String unitPriceTo;
   final String unitAreaFrom;
+  final String unitAreaTo;
   final int unitPercentage;
+  final int unitNumberOfYears;
   final UnitFinishingType unitFinishingType;
 
   factory UnitTypeSet.fromJson(Map<String, dynamic> json) => UnitTypeSet(
@@ -531,10 +540,16 @@ class UnitTypeSet extends UnitTypeSetEntity {
             : UnitFinishingType.empty(),
         // unitPriceFrom
         unitPriceFrom: json["priceFrom"] ?? AppUtils.undefined,
+        // unitPriceTo
+        unitPriceTo: json["priceTo"] ?? AppUtils.undefined,
         // unitAreaFrom
         unitAreaFrom: json["areaFrom"] ?? AppUtils.undefined,
+        // unitAreaTo
+        unitAreaTo: json["areaTo"] ?? AppUtils.undefined,
         // unitPercentage
         unitPercentage: json["percentage"] ?? -1,
+        // numberOfYears
+        unitNumberOfYears: json["numberOfYears"] ?? -1,
       );
 }
 

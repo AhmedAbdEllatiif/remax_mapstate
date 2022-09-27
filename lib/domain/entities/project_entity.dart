@@ -25,7 +25,7 @@ class ProjectEntity extends Equatable {
     required this.developer,
   }) {
     final display = createDisplay(
-      length: 12,
+      length: 15,
       decimal: 0,
     );
 
@@ -112,21 +112,42 @@ class DifferentLanguagesEntity extends Equatable {
 }
 
 class UnitTypeSetEntity extends Equatable {
-  const UnitTypeSetEntity({
+   UnitTypeSetEntity({
     required this.name,
     required this.layout,
     required this.priceFrom,
+    required this.priceTo,
     required this.areaFrom,
+    required this.areaTo,
     required this.percentage,
+    required this.numberOfYears,
     required this.finishingType,
-  });
+  }){
+     final display = createDisplay(
+       length: 15,
+       decimal: 0,
+     );
+     final doublePriceFrom = double.tryParse(priceFrom);
+     final doublePriceTo = double.tryParse(priceTo);
+
+     formattedPriceFrom =
+     doublePriceFrom == null ? priceFrom : display(doublePriceFrom);
+
+     formattedPriceTo =
+     doublePriceTo == null ? priceTo : display(doublePriceTo);
+   }
 
   final String name;
   final String layout;
   final String priceFrom;
+  final String priceTo;
   final String areaFrom;
+  final String areaTo;
   final int percentage;
+  final int numberOfYears;
   final String finishingType;
+  late final String formattedPriceFrom;
+  late final String formattedPriceTo;
 
   @override
   List<Object?> get props => [
