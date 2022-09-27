@@ -28,12 +28,12 @@ query ArabicProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput],
      # region
      region{
        id
-       name
+       arabicName
      }
      # zone
      zone{
        id
-       name
+       arabicName
      }
   }
   ########## end of body #########

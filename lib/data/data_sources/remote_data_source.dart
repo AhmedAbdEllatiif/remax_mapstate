@@ -49,7 +49,6 @@ abstract class RemoteDataSource {
     required List<FilterModel> filtersList,
   });
 
-
   /// return list unitTypes status
   Future<List<UnitTypeModel>> getUnitTypesNames({
     required AppLanguage appLanguage,
@@ -75,9 +74,6 @@ class RemoteDateSourceImpl extends RemoteDataSource {
   final ApiClient apiClient;
 
   RemoteDateSourceImpl({required this.apiClient});
-
-
-
 
   List<BrokerModel> areaBrokers() {
     return const [
@@ -282,13 +278,15 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     return listOfUnitTypeNamesFromJson(result.data!);
   }
 
-
   /// projects by their status
   @override
-  Future<List<ProjectModel>> getProjectByStatus({required AppLanguage appLanguage, required PageInfo pageInfo, required List<FilterModel> filtersList}) async {
+  Future<List<ProjectModel>> getProjectByStatus(
+      {required AppLanguage appLanguage,
+      required PageInfo pageInfo,
+      required List<FilterModel> filtersList}) async {
     final query = appLanguage == AppLanguage.en
-        ? fetchArabicProjectByStatusQuery()
-        : fetchEnglishProjectByStatusQuery();
+        ? fetchEnglishProjectByStatusQuery()
+        : fetchArabicProjectByStatusQuery();
 
     final QueryResult result = await apiClient.get(
       query,
@@ -301,8 +299,6 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     log("getProjectByStatus >> Data >> ..........\n ${result.data}.......");
     return listOfProjectModel(result.data!);
   }
-
-
 
   /// return the developer contact data
   @override
@@ -318,5 +314,4 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     final teamSupport = await teamSupportModel();
     return teamSupport;
   }
-
 }

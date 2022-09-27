@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/data/data_sources/remote_data_source.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
@@ -124,7 +123,7 @@ class RemoteRepositoryImpl extends RemoteRepository {
     } on OperationException catch (e) {
       log("RepoImpl >> getProjectStatus >> OperationException >> $e");
       return Left(AppError(AppErrorType.network, message: e.toString()));
-    }on Exception catch (e) {
+    } on Exception catch (e) {
       log("RepoImpl >> getProjectStatus >> Exception >> $e");
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
@@ -180,6 +179,29 @@ class RemoteRepositoryImpl extends RemoteRepository {
     } on SocketException catch (e) {
       return Left(AppError(AppErrorType.network, message: e.message));
     } on Exception catch (e) {
+      return Left(AppError(AppErrorType.api, message: e.toString()));
+    }
+  }
+
+  /// return a list of projects by their status
+  @override
+  Future<Either<AppError, List<ProjectEntity>>> fetchProjectsByStatus (
+      FetchListParams params) async {
+    try {
+      final projectList = await remoteDataSource.getProjectByStatus(
+        pageInfo: params.pageInfo,
+        filtersList: params.filters,
+        appLanguage: params.appLanguage,
+      );
+      return Right(projectList);
+    } on SocketException catch (e) {
+      log("RepoImpl >> fetchProjectsByStatus >> SocketException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.message));
+    } on OperationException catch (e) {
+      log("RepoImpl >> fetchProjectsByStatus >> OperationException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.toString()));
+    } on Exception catch (e) {
+      log("RepoImpl >> fetchProjectsByStatus >> Exception >> $e");
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
   }

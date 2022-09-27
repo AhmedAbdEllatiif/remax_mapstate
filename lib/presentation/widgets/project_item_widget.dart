@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:remax_mapstate/common/constants/argument_constants.dart';
 import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
@@ -7,20 +6,19 @@ import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_details_argument.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
-import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
+import 'package:remax_mapstate/presentation/widgets/cached_image_widget.dart';
 import 'package:responsive_framework/responsive_value.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
-import '../../../router/route_hepler.dart';
+import '../../router/route_hepler.dart';
 
-class ProjectCardWidget extends StatelessWidget {
+class ProjectItemWidget extends StatelessWidget {
   final ProjectEntity projectEntity;
-  ///TODO remove this after testing is end
-  final String testingIndex;
 
-  const ProjectCardWidget({Key? key, required this.projectEntity, required this.testingIndex})
+
+  const ProjectItemWidget({Key? key, required this.projectEntity})
       : super(key: key);
 
   @override
@@ -37,8 +35,7 @@ class ProjectCardWidget extends StatelessWidget {
           ]).value,
       width: ScreenUtil.screenWidth,
       child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        elevation: 5,
+
         //color: colors[index],
         semanticContainer: true,
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -78,9 +75,12 @@ class ProjectCardWidget extends StatelessWidget {
                         Row(
                           children: [
                             /// Avatar Image
-                            const CircleAvatar(
-                              backgroundImage: AssetImage(
-                                  AssetsConstants.mountainViewImagePath),
+
+                            CachedImageWidget(
+                              imageUrl: projectEntity.developer.logoFullPath,
+                              height: 50,
+                              width: 50,
+                              progressBarScale: 0.7,
                             ),
 
                             // SizedBox
@@ -93,13 +93,13 @@ class ProjectCardWidget extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Cairo".intelliTrim(),
+                                  projectEntity.name.intelliTrim(),
                                   style: const TextStyle(
                                     color: AppColor.fadeGeeBung
                                   ),
                                 ),
                                 Text(
-                                  "New Cairo".intelliTrim(),
+                                  projectEntity.zone.intelliTrim(),
                                   style:
                                       Theme.of(context).textTheme.bodyText2!.copyWith(
                                         color:AppColor.geeBung,
@@ -125,7 +125,7 @@ class ProjectCardWidget extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "1,300,000",
+                              projectEntity.formattedPrice,
                               style: Theme.of(context).textTheme.bodyText2!.copyWith(
                                 color: AppColor.geeBung,
                                 fontWeight: FontWeight.w600
@@ -182,9 +182,9 @@ class ProjectCardWidget extends StatelessWidget {
   void _navigateToProjectsScreen(BuildContext context) =>
       RouteHelper().projectDetailScreen(
         context,
-        projectDetailsArgument : ProjectDetailsArgument(
+        projectDetailsArgument : const ProjectDetailsArgument(
           //projectId: projectEntity.id,
-          projectId: testingIndex
+          projectId: "0",
         ),
       );
 

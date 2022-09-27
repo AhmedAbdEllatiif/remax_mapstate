@@ -33,12 +33,16 @@ abstract class RemoteRepository {
   /// return list of broker according to specific area
   Future<Either<AppError, List<BrokerEntity>>> getAreaBrokers();
 
-  /// return list project status
+  /// return a list of project status
   Future<Either<AppError, List<ProjectStatusEntity>>> getProjectStatus(
       FetchListParams params);
 
-  /// return list unitTypes status
+  /// return a list of unitTypes status
   Future<Either<AppError, List<UnitTypeEntity>>> fetchUnitTypeNames(
+      FetchListParams params);
+
+  /// return a list of projects by status
+  Future<Either<AppError, List<ProjectEntity>>> fetchProjectsByStatus(
       FetchListParams params);
 
   ///******************************** Developer Contact ******************************** \\\\

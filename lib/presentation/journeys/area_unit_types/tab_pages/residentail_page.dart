@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/di/git_it.dart';
-import 'package:remax_mapstate/presentation/journeys/projects/project_card.dart';
+import 'package:remax_mapstate/presentation/widgets/project_item_widget.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/unitType_names/unit_type_names_cubit.dart';
 import 'package:remax_mapstate/presentation/widgets/app_error_widget.dart';
 

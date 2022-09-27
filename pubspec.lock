@@ -665,6 +665,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.0+1"
+  number_display:
+    dependency: "direct main"
+    description:
+      name: number_display
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   octo_image:
     dependency: transitive
     description:
