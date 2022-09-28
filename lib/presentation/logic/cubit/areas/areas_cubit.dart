@@ -20,7 +20,7 @@ class AreasCubit extends Cubit<AreasState> {
 
   AreasCubit({required this.getAreas}) : super(LoadingAreas());
 
-  /// fetch areas
+  /// fetch areas_by_status
   void fetchAreas(BuildContext context, {int limit = 6}) async {
     // init current language
     final languageCode = context.read<LanguageCubit>().state.languageCode;

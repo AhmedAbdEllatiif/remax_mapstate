@@ -85,5 +85,12 @@ class TranslateConstants{
   static const String notHaveAbAccount = 'notHaveAbAccount';
   static const String allCities = 'allCities';
   static const String allProjects = 'allProjects';
+  static const String areaFrom = 'areaFrom';
+  static const String areaTo = 'areaTo';
+  static const String priceFrom = 'priceFrom';
+  static const String priceTo = 'priceTo';
+  static const String downPayment = 'downPayment';
+  static const String numberOfYears = 'numberOfYears';
+  static const String years = 'years';
 
 }

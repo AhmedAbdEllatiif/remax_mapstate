@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/app_utils.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
-import 'package:remax_mapstate/presentation/journeys/all_areas/area_item.dart';
+import 'package:remax_mapstate/presentation/widgets/area_item.dart';
 import 'package:remax_mapstate/presentation/widgets/stack_with_full_background.dart';
 import 'package:responsive_framework/responsive_value.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
@@ -17,18 +17,18 @@ import '../../../logic/cubit/areas/areas_cubit.dart';
 import '../../../widgets/app_error_widget.dart';
 import '../../../widgets/loading_widget.dart';
 
-class ProjectStatusAreasScreen extends StatefulWidget {
+class AreasByStatusScreen extends StatefulWidget {
   final ProjectByStatusArguments projectByStatusArguments;
 
-  const ProjectStatusAreasScreen(
+  const AreasByStatusScreen(
       {Key? key, required this.projectByStatusArguments})
       : super(key: key);
 
   @override
-  State<ProjectStatusAreasScreen> createState() => _AllAreasScreenState();
+  State<AreasByStatusScreen> createState() => _AllAreasScreenState();
 }
 
-class _AllAreasScreenState extends State<ProjectStatusAreasScreen> {
+class _AllAreasScreenState extends State<AreasByStatusScreen> {
   late AreasCubit _areasCubit;
 
   @override
@@ -123,7 +123,7 @@ class _AllAreasScreenState extends State<ProjectStatusAreasScreen> {
     );
   }
 
-  /// To fetch areas
+  /// To fetch areas_by_status
   void _fetchAreas() {
     _areasCubit.fetchAreas(context, limit: 50);
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:remax_mapstate/common/constants/app_utils.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
@@ -23,7 +24,7 @@ class LayoutSection extends StatelessWidget {
           margin: EdgeInsets.only(top: Sizes.dimen_5.h),
         ),
         Padding(
-          padding:  EdgeInsets.only(bottom: Sizes.dimen_2.h),
+          padding: EdgeInsets.only(bottom: Sizes.dimen_2.h),
           child: Text(
             TranslateConstants.layouts.t(context),
             style: Theme.of(context).textTheme.subtitle2!.copyWith(
@@ -56,7 +57,7 @@ class ExpansionItem extends StatelessWidget {
         dividerColor: Colors.transparent,
       ),
       child: ExpansionTile(
-        title: Text(unitTypeSetEntity.name + " - " + "( ${unitTypeSetEntity.layout} )"),
+        title: Text(unitTypeSetEntity.unitTypeTitle),
         collapsedTextColor: AppColor.geeBung,
         backgroundColor: AppColor.black,
         collapsedIconColor: AppColor.geeBung,
@@ -78,33 +79,6 @@ class ExpansionItem extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // finishing type
-                /*Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "Finishing Type",
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: AppColor.absoluteTransparentGeeBung,
-                        ),
-                      ),
-                      Text(
-                        unitTypeSetEntity.finishingType,
-                        maxLines: 2,
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: AppColor.fadeGeeBung,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),*/
-
                 /// area
                 Expanded(
                   child: Column(
@@ -113,21 +87,19 @@ class ExpansionItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       LayoutItem(
-                        layoutKey:  "Area From",
+                        layoutKey: TranslateConstants.areaFrom.t(context),
                         value: unitTypeSetEntity.areaFrom,
                       ),
                       SizedBox(
                         height: Sizes.dimen_1.h,
                       ),
                       LayoutItem(
-                        layoutKey:    "Area To",
-                        value:   unitTypeSetEntity.areaTo,
+                        layoutKey: TranslateConstants.areaTo.t(context),
+                        value: unitTypeSetEntity.areaTo,
                       ),
                     ],
                   ),
                 ),
-
-
 
                 /// prices
                 Expanded(
@@ -137,21 +109,19 @@ class ExpansionItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       LayoutItem(
-                        layoutKey:  "Price From",
+                        layoutKey: TranslateConstants.priceFrom.t(context),
                         value: unitTypeSetEntity.formattedPriceFrom,
                       ),
                       SizedBox(
                         height: Sizes.dimen_1.h,
                       ),
                       LayoutItem(
-                        layoutKey:  "Price To",
-                        value:   unitTypeSetEntity.formattedPriceTo,
+                        layoutKey: TranslateConstants.priceTo.t(context),
+                        value: unitTypeSetEntity.formattedPriceTo,
                       ),
                     ],
                   ),
                 ),
-
-
 
                 /// payment plan
                 Expanded(
@@ -161,14 +131,14 @@ class ExpansionItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       LayoutItem(
-                        layoutKey: "Down-payment",
+                        layoutKey: TranslateConstants.downPayment.t(context),
                         value: "${unitTypeSetEntity.percentage}%",
                       ),
                       SizedBox(
                         height: Sizes.dimen_1.h,
                       ),
                       LayoutItem(
-                        layoutKey: "No. Years",
+                        layoutKey: TranslateConstants.numberOfYears.t(context),
                         value: unitTypeSetEntity.numberOfYears.toString(),
                       ),
                     ],
@@ -181,4 +151,5 @@ class ExpansionItem extends StatelessWidget {
       ),
     );
   }
+
 }

@@ -104,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  /// To fetch areas
+  /// To fetch areas_by_status
   void _fetchAreas() {
     _areasCubit.fetchAreas(context, limit: 6);
   }

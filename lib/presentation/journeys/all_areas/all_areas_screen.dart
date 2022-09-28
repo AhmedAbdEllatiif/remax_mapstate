@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/app_utils.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
-import 'package:remax_mapstate/presentation/journeys/all_areas/area_item.dart';
+import 'package:remax_mapstate/presentation/widgets/area_item.dart';
 import 'package:remax_mapstate/presentation/widgets/stack_with_full_background.dart';
 import 'package:responsive_framework/responsive_value.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
@@ -113,7 +113,7 @@ class _AllAreasScreenState extends State<AllAreasScreen> {
     );
   }
 
-  /// To fetch areas
+  /// To fetch areas_by_status
   void _fetchAreas() {
     _areasCubit.fetchAreas(context, limit: 50);
   }

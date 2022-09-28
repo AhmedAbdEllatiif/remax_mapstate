@@ -508,6 +508,8 @@ class UnitTypeSet extends UnitTypeSetEntity {
           percentage: unitPercentage,
           numberOfYears: unitNumberOfYears,
 
+          isCommercial: unitTypeName.isCommercial,
+
           finishingType: unitFinishingType.name.isNotEmpty
               ? unitFinishingType.name
               : unitFinishingType.arabicName.isNotEmpty

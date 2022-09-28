@@ -390,7 +390,7 @@ Future init() async {
         getProjects: getItInstance(),
       ));
 
-  /// init areas bloc
+  /// init areas_by_status bloc
   getItInstance.registerFactory<AreasCubit>(
     () => AreasCubit(
       getAreas: getItInstance(),

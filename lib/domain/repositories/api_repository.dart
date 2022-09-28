@@ -27,7 +27,7 @@ abstract class RemoteRepository {
   /// return list of FavoriteProjects
   Future<Either<AppError, List<ProjectEntity>>> getFavoriteProject();
 
-  /// return list of areas
+  /// return list of areas_by_status
   Future<Either<AppError, List<AreaEntity>>> getAreas(FetchAreaParams params);
 
   /// return list of broker according to specific area

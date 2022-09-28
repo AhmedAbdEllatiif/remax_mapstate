@@ -18,7 +18,7 @@ class ProjectDataSection extends StatelessWidget {
           children: [
             ProjectDataItemCard(
               title: TranslateConstants.paymentPlan.t(context),
-              data: '$planPercentage% - $planYears years',
+              data: '$planPercentage% - $planYears ${TranslateConstants.years.t(context)}',
             ),
             ProjectDataItemCard(
               title: TranslateConstants.deliveryYear.t(context),

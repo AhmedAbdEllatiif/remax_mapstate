@@ -15,5 +15,5 @@ class RouteList{
   static const String brokerRegistration = "/brokerRegistrationScreen";
   static const String allAreas = "/allAreas";
   static const String projectByStatus = "/projectByStatus";
-  static const String projectByStatusAreasScreen = "/projectByStatusAreasScreen";
+  static const String areasByStatusScreen = "/projectByStatusAreasScreen";
 }

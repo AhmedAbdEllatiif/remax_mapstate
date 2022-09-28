@@ -4,5 +4,6 @@ class ProjectByStatusArguments {
   final ProjectStatusEntity projectStatusEntity;
   final String areaId;
 
-  ProjectByStatusArguments({ this.areaId = "",required this.projectStatusEntity});
+  ProjectByStatusArguments(
+      {this.areaId = "", required this.projectStatusEntity});
 }

@@ -36,7 +36,7 @@ abstract class RemoteDataSource {
   /// return commercial projects
   Future<List<ProjectModel>> getCommercialProjects(int areaId);
 
-  /// return areas
+  /// return areas_by_status
   Future<List<AreaModel>> getAreas(FetchAreaParams params);
 
   /// return list of brokers

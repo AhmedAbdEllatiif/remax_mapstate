@@ -15,7 +15,7 @@ import '../../../widgets/app_error_widget.dart';
 import '../../../widgets/see_all_widget.dart';
 
 class AreaSectionWidget extends StatelessWidget {
-  //final List<AreaEntity> areas;
+  //final List<AreaEntity> areas_by_status;
 
   const AreaSectionWidget({Key? key}) : super(key: key);
 
@@ -52,6 +52,7 @@ class AreaSectionWidget extends StatelessWidget {
                   child: AreaGridView(areas: state.areas),
                 )),
 
+              /// error
               if (state is ErrorWhileLoadingAreas)
                 Expanded(
                   child: Center(
@@ -72,7 +73,7 @@ class AreaSectionWidget extends StatelessWidget {
     );
   }
 
-  /// To navigate to all areas
+  /// To navigate to all areas_by_status
   void _navigateToAllAreas(BuildContext context) =>
       RouteHelper().allAreasScreen(context);
 }

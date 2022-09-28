@@ -4,6 +4,8 @@ import 'package:number_display/number_display.dart';
 import 'package:remax_mapstate/common/constants/api_constants.dart';
 import 'package:remax_mapstate/data/models/project_model.dart';
 
+import '../../common/constants/app_utils.dart';
+
 class ProjectEntity extends Equatable {
   ProjectEntity({
     required this.id,
@@ -122,6 +124,7 @@ class UnitTypeSetEntity extends Equatable {
     required this.percentage,
     required this.numberOfYears,
     required this.finishingType,
+    required this.isCommercial,
   }){
      final display = createDisplay(
        length: 15,
@@ -130,11 +133,21 @@ class UnitTypeSetEntity extends Equatable {
      final doublePriceFrom = double.tryParse(priceFrom);
      final doublePriceTo = double.tryParse(priceTo);
 
+     // init formattedPriceFrom
      formattedPriceFrom =
      doublePriceFrom == null ? priceFrom : display(doublePriceFrom);
 
+     // init formattedPriceTo
      formattedPriceTo =
      doublePriceTo == null ? priceTo : display(doublePriceTo);
+
+
+      // init unitTypeTitle (used for ui)
+     if (layout == AppUtils.undefined) {
+       unitTypeTitle =  name;
+     } else {
+       unitTypeTitle = name + " - " + "( $layout )";
+     }
    }
 
   final String name;
@@ -146,8 +159,10 @@ class UnitTypeSetEntity extends Equatable {
   final int percentage;
   final int numberOfYears;
   final String finishingType;
+  final bool isCommercial;
   late final String formattedPriceFrom;
   late final String formattedPriceTo;
+  late final String unitTypeTitle;
 
   @override
   List<Object?> get props => [

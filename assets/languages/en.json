@@ -81,6 +81,13 @@
   "notHaveAbAccount": "Not have an account ",
   "allCities": "All Cities",
   "allProjects": "Projects",
+  "areaFrom": "Area From",
+  "areaTo": "Area To",
+  "priceFrom": "Price from",
+  "priceTo": "Price To",
+  "downPayment": "Down-Payment",
+  "numberOfYears": "No. Years",
+  "years": "Years",
 
 
   "arabic": "العربية",

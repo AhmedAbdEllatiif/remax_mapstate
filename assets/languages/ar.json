@@ -78,6 +78,13 @@
   "notHaveAbAccount": "ليس لديك حساب ",
   "allCities": "كل المدن",
   "allProjects": "المشروعات",
+  "areaFrom": "المساحة من",
+  "areaTo": "المساحة الى",
+  "priceFrom": "السعر من",
+  "priceTo": "السعر الى",
+  "downPayment": "المقدم",
+  "numberOfYears": "عدد السنوات",
+  "years": "سنوات",
 
 
   "arabic": "العربية",
