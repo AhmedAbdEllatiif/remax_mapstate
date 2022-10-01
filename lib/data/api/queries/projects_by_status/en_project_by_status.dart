@@ -24,6 +24,9 @@ query EnglishProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput]
     descriptionArabic
     type
     
+     # images
+    images
+    
     # region
     region{
       id

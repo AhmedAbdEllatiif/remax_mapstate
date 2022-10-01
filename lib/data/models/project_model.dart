@@ -37,6 +37,7 @@ class ProjectModel extends ProjectEntity {
     required this.projectPaymentPlan,
     required this.projectLocation,
     required this.projectDeveloper,
+    required this.projectImages,
   }) : super(
           id: projectId,
           name: projectName.isNotEmpty
@@ -92,6 +93,9 @@ class ProjectModel extends ProjectEntity {
                       : AppUtils.undefined)
               .toList(),
 
+          //==> images
+          imageList: projectImages,
+
           unitTypeSets: projectUnitTypeSet,
           planPercentage: projectPaymentPlan.planPercentage,
           planNumberOfYears: projectPaymentPlan.planNumberOfYears,
@@ -114,6 +118,7 @@ class ProjectModel extends ProjectEntity {
   final Zone projectZone;
   final List<ProjectService> projectServices;
   final List<UnitTypeSet> projectUnitTypeSet;
+  final List<String> projectImages;
   final PaymentPlan projectPaymentPlan;
   final LocationModel projectLocation;
   final DeveloperModel projectDeveloper;
@@ -194,6 +199,10 @@ class ProjectModel extends ProjectEntity {
         projectDeveloper: json["developer"] != null
             ? DeveloperModel.fromJson(json["developer"])
             : DeveloperModel.empty(),
+
+        projectImages: json["images"] != null
+            ? List<String>.from(json["images"].map((x) => x))
+            : [],
       );
 }
 

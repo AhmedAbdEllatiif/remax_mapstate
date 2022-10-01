@@ -14,6 +14,9 @@ query Projects {
     # Project Type
     type
     
+     # images
+    images
+    
     # Status
     status{
       name

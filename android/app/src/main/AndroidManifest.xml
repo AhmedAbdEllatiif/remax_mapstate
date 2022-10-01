@@ -22,6 +22,7 @@
             <data android:mimeType="*/*" />
         </intent>
     </queries>
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="remax_mapstate"
         android:icon="@mipmap/ic_launcher">

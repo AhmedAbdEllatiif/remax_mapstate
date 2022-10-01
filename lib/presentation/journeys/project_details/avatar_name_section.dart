@@ -35,6 +35,7 @@ class ProjectAvatarNameSection extends StatelessWidget {
               height: 50,
               width: 50,
               progressBarScale: 0.7,
+              isCircle: true,
             ),
 
             // SizedBox

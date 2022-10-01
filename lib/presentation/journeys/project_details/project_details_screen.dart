@@ -54,7 +54,7 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
                 child: Column(
                   children: [
                     /// Project Images section
-                    ProjectImagesSection(),
+                    ProjectImagesSection(imageList: projectEntity.images,),
 
                     /// Project avatar, name, isFavorite, district
                     Padding(

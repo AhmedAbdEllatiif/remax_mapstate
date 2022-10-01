@@ -25,7 +25,15 @@ class ProjectEntity extends Equatable {
     required this.planNumberOfYears,
     required this.location,
     required this.developer,
+    required List<String> imageList
   }) {
+
+    // init images
+    images = [];
+    for (var element in imageList) {
+      images.add(ApiConstants.baseMediaWithoutUrl + element);
+    }
+
     final display = createDisplay(
       length: 15,
       decimal: 0,
@@ -50,6 +58,7 @@ class ProjectEntity extends Equatable {
   final String zone;
   final List<String> services;
   final List<UnitTypeSetEntity> unitTypeSets;
+  late List<String> images;
   final int planPercentage;
   final int planNumberOfYears;
   final LocationEntity location;

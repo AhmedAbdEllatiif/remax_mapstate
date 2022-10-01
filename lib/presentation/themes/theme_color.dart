@@ -16,7 +16,7 @@ class AppColor{
 
   static const Color black = Color(0xFF000000);
   static const Color fadeBlack = Color(0xFF111111);
-  static const Color transparentBlack = Color(0xC1111111);
+  static const Color transparentBlack = Color(0xD3111111);
   static const Color geeBung = Color(0xFFDD9936);
   static const Color fadeGeeBung = Color(0xFFF3BE57);
   static const Color extraFadeGeeBung = Color(0xC9F6D187);

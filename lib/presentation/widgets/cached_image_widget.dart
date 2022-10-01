@@ -11,6 +11,8 @@ class CachedImageWidget extends StatelessWidget {
   final double width;
   final double height;
   final double progressBarScale;
+  final bool isCircle;
+  final BoxFit boxFit;
 
   const CachedImageWidget({
     Key? key,
@@ -18,6 +20,8 @@ class CachedImageWidget extends StatelessWidget {
     required this.height,
     required this.width,
     required this.progressBarScale,
+    required this.isCircle,
+     this.boxFit = BoxFit.cover,
   }) : super(key: key);
 
   @override
@@ -31,11 +35,11 @@ class CachedImageWidget extends StatelessWidget {
       /// imageBuilder
       imageBuilder: (context, imageProvider) => Container(
         decoration: BoxDecoration(
-          shape: BoxShape.circle,
+          shape: isCircle ? BoxShape.circle:BoxShape.rectangle,
           //borderRadius: BorderRadius.all(Radius.circular(Sizes.dimen_10.w)),
           image: DecorationImage(
             image: imageProvider,
-            fit: BoxFit.cover,
+            fit: boxFit,
             // colorFilter: ColorFilter.mode(
             //   Colors.red,
             //   BlendMode.colorBurn,

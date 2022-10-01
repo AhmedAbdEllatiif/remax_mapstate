@@ -9,9 +9,13 @@ import 'package:responsive_framework/responsive_value.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
 import '../../logic/cubit/project_scrollable_indicator/indicator_position_cubit.dart';
+import '../../widgets/cached_image_widget.dart';
 
 class ProjectImagesSection extends StatefulWidget {
-  ProjectImagesSection({Key? key}) : super(key: key);
+  final List<String> imageList;
+
+  const ProjectImagesSection({Key? key, required this.imageList})
+      : super(key: key);
 
   @override
   State<ProjectImagesSection> createState() => _ProjectImagesSectionState();
@@ -48,34 +52,26 @@ class _ProjectImagesSectionState extends State<ProjectImagesSection> {
       child: SizedBox(
         width: ScreenUtil.screenWidth,
         //height: ScreenUtil.screenHeight * 0.6,
-        height: ScreenUtil.screenHeight * ResponsiveValue<double>(
-            context,
-            defaultValue: 0.35,
-            valueWhen: const [
-              Condition.equals(
-                  name: TABLET, value: 0.4),
-              Condition.largerThan(
-                  name: TABLET, value: 0.4),
-              Condition.equals(
-                  name: MOBILE, value: 0.5),
-              Condition.smallerThan(
-                  name: MOBILE, value: 0.6),
-            ]
-        ).value!,
+        height: ScreenUtil.screenHeight *
+            ResponsiveValue<double>(context,
+                defaultValue: 0.35,
+                valueWhen: const [
+                  Condition.equals(name: TABLET, value: 0.3),
+                  Condition.largerThan(name: TABLET, value: 0.3),
+                  Condition.equals(name: MOBILE, value: 0.3),
+                  Condition.smallerThan(name: MOBILE, value: 0.3),
+                ]).value!,
         child: Stack(
           fit: StackFit.expand,
           children: [
-
-
             /// Images PageView
             PageView.builder(
               physics: const BouncingScrollPhysics(),
               pageSnapping: true,
               controller: _pageController,
-              itemCount: 5,
+              itemCount: widget.imageList.length,
               itemBuilder: (context, index) {
-                return const ProjectImageCard(
-                    imageUrl: AssetsConstants.mountainViewImagePath);
+                return ProjectImageCard(imageUrl: widget.imageList[index]);
               },
               onPageChanged: (index) {
                 indicatorPositionCubit.updatePosition(index.toDouble());
@@ -87,7 +83,8 @@ class _ProjectImagesSectionState extends State<ProjectImagesSection> {
               left: 0,
               right: 0,
               bottom: 2,
-              child: BlocBuilder<IndicatorPositionCubit, IndicatorPositionState>(
+              child:
+                  BlocBuilder<IndicatorPositionCubit, IndicatorPositionState>(
                 builder: (context, state) {
                   return DotsIndicator(
                     dotsCount: 5,
@@ -119,9 +116,13 @@ class ProjectImageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      imageUrl,
-      fit: BoxFit.cover,
+    return CachedImageWidget(
+      height: double.infinity,
+      imageUrl: imageUrl,
+      width: double.infinity,
+      progressBarScale: 0.2,
+      isCircle: false,
+      boxFit: BoxFit.cover,
     );
   }
 }

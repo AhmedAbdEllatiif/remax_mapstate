@@ -75,7 +75,7 @@ class AppSettingsLocalDataSourceImpl extends AppSettingsLocalDataSource {
   /// return LoginStatus
   @override
   Future<AutoLoginEntity> getAutoLogin() async{
-    final SharedPreferences preferences = await getItInstance<SharedPreferences>();
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
     final currentLoginStatusStr =  preferences.getString("isLoggedIn") ??
         LoginStatus.notLoggedIn.toShortString();
     return AutoLoginEntity(currentLoginStatusStr: currentLoginStatusStr);
@@ -84,14 +84,14 @@ class AppSettingsLocalDataSourceImpl extends AppSettingsLocalDataSource {
   /// return save LoginStatus
   @override
   Future<void> saveLoginStatus(AutoLoginEntity autoLoginEntity) async {
-    final SharedPreferences preferences = await getItInstance<SharedPreferences>();
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString("isLoggedIn", autoLoginEntity.loginStatus.toShortString());
   }
 
   /// to remove auto login
   @override
   Future<void> deleteAutoLogin() async {
-    final SharedPreferences preferences = await getItInstance<SharedPreferences>();
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString("isLoggedIn", LoginStatus.notLoggedIn.toShortString());
   }
 

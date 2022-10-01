@@ -5,6 +5,7 @@ class ApiConstants{
   static String xApiKey = 'da2-e2vxynvtpzdmhl7fvjl3ysvkye';
 
   static String baseMediaUrl = "http://109.205.183.245:8000/media/";
+  static String baseMediaWithoutUrl = "http://109.205.183.245:8000";
 }
 
 

@@ -83,9 +83,10 @@ class _ProjectsByStatusScreenState extends State<ProjectsByStatusScreen> {
           }
         },
         builder: (context, state) {
-          return StackScaffoldWithFullBackground(
+          return Scaffold(
             /// appBar title
-            appBarTitle: Text(title),
+            //appBarTitle: Text(title),
+            appBar: AppBar(title: Text(title),),
             body: Padding(
               padding:  EdgeInsets.symmetric(horizontal:Sizes.dimen_4.w),
               child: _body(state),
