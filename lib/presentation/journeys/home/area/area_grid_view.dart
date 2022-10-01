@@ -11,35 +11,54 @@ import 'package:responsive_framework/responsive_wrapper.dart';
 
 class AreaGridView extends StatelessWidget {
   final List<AreaEntity> areas;
+
   const AreaGridView({Key? key, required this.areas}) : super(key: key);
-
-
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      scrollDirection: Axis.horizontal,
+        scrollDirection: Axis.horizontal,
         shrinkWrap: true,
         itemCount: areas.length,
         physics: const BouncingScrollPhysics(),
-        gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          mainAxisSpacing:  Sizes.dimen_8.w,
+          mainAxisSpacing: Sizes.dimen_8.w,
           //childAspectRatio: 0.9,
-          childAspectRatio: ResponsiveValue<double>(context,defaultValue: 0.9,valueWhen: const [
-            Condition.equals(
-                name: TABLET, value:0.7),
-            Condition.largerThan(
-                name: TABLET, value: 0.7),
-            Condition.equals(
-                name: MOBILE, value: 0.9),
-            Condition.smallerThan(
-                name: MOBILE, value: 0.9),
-          ]).value!,
+          childAspectRatio: ResponsiveValue<double>(context,
+              defaultValue: 0.9,
+              valueWhen: const [
+                Condition.equals(name: TABLET, value: 0.7),
+                Condition.largerThan(name: TABLET, value: 0.7),
+                Condition.equals(name: MOBILE, value: 0.9),
+                Condition.smallerThan(name: MOBILE, value: 0.9),
+              ]).value!,
           crossAxisSpacing: Sizes.dimen_8.w,
         ),
         itemBuilder: (context, index) {
-          return  AreaCardWidget(area: areas[index],);
+          if (index == 1) {
+            return AreaCardWidget(
+              area: areas[3],
+            );
+          }
+          if (index == 2) {
+            return AreaCardWidget(
+              area: areas[1],
+            );
+          }
+          if (index == 3) {
+            return AreaCardWidget(
+              area: areas[4],
+            );
+          }
+          if (index == 4) {
+            return AreaCardWidget(
+              area: areas[2],
+            );
+          }
+          return AreaCardWidget(
+            area: areas[index],
+          );
         });
   }
 }

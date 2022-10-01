@@ -52,7 +52,7 @@ class ButtonSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 AppButtonGradient(
-                  text: TranslateConstants.submitInquiry.t(context).toUpperCase(),
+                  text: TranslateConstants.requestACall.t(context).toUpperCase(),
                   onPressed: () {},
                 ),
                 AppButtonGradient(

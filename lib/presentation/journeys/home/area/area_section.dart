@@ -13,6 +13,7 @@ import 'package:remax_mapstate/router/route_hepler.dart';
 import '../../../logic/cubit/areas/areas_cubit.dart';
 import '../../../widgets/app_error_widget.dart';
 import '../../../widgets/see_all_widget.dart';
+import 'area_card.dart';
 
 class AreaSectionWidget extends StatelessWidget {
   //final List<AreaEntity> areas_by_status;
@@ -50,6 +51,25 @@ class AreaSectionWidget extends StatelessWidget {
                   padding: EdgeInsets.symmetric(
                       vertical: Sizes.dimen_8.h, horizontal: Sizes.dimen_8.w),
                   child: AreaGridView(areas: state.areas),
+                      /*child: Column(
+                        children: [
+                          Expanded(
+                            child: Row(children: [
+                              Container(width: 100,height: 100,child: Expanded(child: AreaCardWidget(area: state.areas[0],))),
+                              Expanded(child: AreaCardWidget(area: state.areas[1],)),
+                              Expanded(child: AreaCardWidget(area: state.areas[2],)),
+
+                            ],),
+                          ),
+                          Expanded(
+                            child: Row(children: [
+                              Expanded(child: AreaCardWidget(area: state.areas[3],)),
+                              Expanded(child: AreaCardWidget(area: state.areas[4],)),
+                              Expanded(child: AreaCardWidget(area: state.areas[5],)),
+                            ],),
+                          )
+                        ],
+                      ),*/
                 )),
 
               /// error

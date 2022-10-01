@@ -6,6 +6,7 @@ import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/presentation/arguments/project_by_status_args.dart';
+import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/widgets/project_item_widget.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/projects_by_status/projects_by_status_cubit.dart';
 import 'package:remax_mapstate/presentation/widgets/app_error_widget.dart';
@@ -26,7 +27,8 @@ class ProjectsByStatusScreen extends StatefulWidget {
 }
 
 class _ProjectsByStatusScreenState extends State<ProjectsByStatusScreen> {
-  late final String title;
+  late final String projectsStatusTitle;
+  late final String areaName;
 
   late final String statusId;
 
@@ -49,11 +51,13 @@ class _ProjectsByStatusScreenState extends State<ProjectsByStatusScreen> {
     statusId = widget.projectByStatusArguments.projectStatusEntity.id;
 
     // init title
-    title = widget.projectByStatusArguments.projectStatusEntity.name;
+    projectsStatusTitle =
+        widget.projectByStatusArguments.projectStatusEntity.name;
+
+    areaName = widget.projectByStatusArguments.areaName;
 
     // fetch the projects list
     _fetchProjects(limit: 10);
-
 
     /// listener on controller
     _listenerOnScrollController();
@@ -86,9 +90,18 @@ class _ProjectsByStatusScreenState extends State<ProjectsByStatusScreen> {
           return Scaffold(
             /// appBar title
             //appBarTitle: Text(title),
-            appBar: AppBar(title: Text(title),),
+            appBar: AppBar(
+              title: Column(
+                children: [
+                  Text(areaName),
+                  Text(projectsStatusTitle,style: Theme.of(context).textTheme.caption!.copyWith(
+                    color: AppColor.geeBung.withOpacity(0.9)
+                  ),),
+                ],
+              ),
+            ),
             body: Padding(
-              padding:  EdgeInsets.symmetric(horizontal:Sizes.dimen_4.w),
+              padding: EdgeInsets.symmetric(horizontal: Sizes.dimen_4.w),
               child: _body(state),
             ),
           );
@@ -141,6 +154,7 @@ class _ProjectsByStatusScreenState extends State<ProjectsByStatusScreen> {
             projectEntity: projectsList[index],
           );
         }
+
         /// loading or end of list
         return LoadingMoreProjectsByStatusWidget(
           projectsByStatusCubit: _projectsByStatusCubit,
@@ -151,11 +165,9 @@ class _ProjectsByStatusScreenState extends State<ProjectsByStatusScreen> {
     return const SizedBox.shrink();
   }
 
-
   /// To send request fetch projects
   void _fetchProjects({
     required int limit,
-
   }) {
     final currentListLength = projectsList.length;
     _projectsByStatusCubit.fetchProjectByStatus(

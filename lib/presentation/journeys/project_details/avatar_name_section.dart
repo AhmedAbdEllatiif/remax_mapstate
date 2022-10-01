@@ -5,20 +5,19 @@ import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
+import '../../../common/constants/sizes.dart';
 import '../../widgets/cached_image_widget.dart';
 
 class ProjectAvatarNameSection extends StatelessWidget {
   final String name;
   final String avatarUrl;
-  final String region;
-  final String zone;
+  final String developerName;
 
   const ProjectAvatarNameSection({
     Key? key,
     required this.name,
     required this.avatarUrl,
-    required this.region,
-    required this.zone,
+    required this.developerName,
   }) : super(key: key);
 
   @override
@@ -27,41 +26,49 @@ class ProjectAvatarNameSection extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         /// Row (Avatar and District data)
-        Row(
-          children: [
-            /// Avatar Image
-            CachedImageWidget(
-              imageUrl: avatarUrl,
-              height: 50,
-              width: 50,
-              progressBarScale: 0.7,
-              isCircle: true,
-            ),
+        Expanded(
+          child: Row(
+            children: [
+              /// Avatar Image
+              CachedImageWidget(
+                imageUrl: avatarUrl,
+                height: 50,
+                width: 50,
+                progressBarScale: 0.7,
+                isCircle: true,
+              ),
 
-            // SizedBox
-            const SizedBox(
-              width: 5,
-            ),
+              // SizedBox
+               SizedBox(
+                width: Sizes.dimen_10.w,
+              ),
 
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  region.intelliTrim(),
-                  style: Theme.of(context).textTheme.caption!.copyWith(
-                        color: AppColor.geeBung,
-                      ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.caption!.copyWith(
+                            color: AppColor.geeBung,
+                          ),
+                    ),
+                    Text(
+                      developerName,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.caption!.copyWith(
+                            color: AppColor.fadeGeeBung,
+                          ),
+                    )
+                  ],
                 ),
-                Text(
-                  zone.intelliTrim(),
-                  style: Theme.of(context).textTheme.caption!.copyWith(
-                        color: AppColor.fadeGeeBung,
-                      ),
-                )
-              ],
-            )
-          ],
+              )
+            ],
+          ),
         ),
 
         const Icon(

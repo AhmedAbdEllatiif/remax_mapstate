@@ -24,35 +24,44 @@ class ProjectItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       // height: Sizes.dimen_100.h,
-      height: ResponsiveValue<double>(context,
+      /* height: ResponsiveValue<double>(context,
           defaultValue: Sizes.dimen_100.h,
           valueWhen: [
             Condition.equals(name: TABLET, value: Sizes.dimen_230.h),
             Condition.largerThan(name: TABLET, value: Sizes.dimen_230.h),
             Condition.equals(name: MOBILE, value: Sizes.dimen_100.h),
             Condition.smallerThan(name: MOBILE, value: Sizes.dimen_80.h),
-          ]).value,
+          ]).value,*/
       width: ScreenUtil.screenWidth,
-      child: Container(
-        //color: colors[index],
-
-        child: GestureDetector(
+      child: GestureDetector(
           onTap: () => _navigateToProjectsScreen(context),
-          child: GridTile(
-              child: /*Image.network(projectEntity.images[0],),*/CachedImageWidget(
-                height: double.infinity,
+          child: Column(
+            children: [
+              CachedImageWidget(
                 imageUrl: projectEntity.images[0],
                 width: double.infinity,
                 progressBarScale: 0.2,
                 isCircle: false,
                 boxFit: BoxFit.cover,
+                height: ResponsiveValue<double>(context,
+                    defaultValue: Sizes.dimen_100.h,
+                    valueWhen: [
+                      Condition.equals(name: TABLET, value: Sizes.dimen_230.h),
+                      Condition.largerThan(
+                          name: TABLET, value: Sizes.dimen_230.h),
+                      Condition.equals(name: MOBILE, value: Sizes.dimen_100.h),
+                      Condition.smallerThan(
+                          name: MOBILE, value: Sizes.dimen_80.h),
+                    ]).value!,
               ),
-
-
-              // grid tile footer
-              footer: Container(
-                color: AppColor.black.withOpacity(0.7),
-                padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 8),
+              Container(
+                decoration: BoxDecoration(
+                    color: AppColor.white,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20))),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -70,7 +79,6 @@ class ProjectItemWidget extends StatelessWidget {
                             isCircle: true,
                           ),
 
-
                           // SizedBox
                           const SizedBox(
                             width: 5,
@@ -84,18 +92,18 @@ class ProjectItemWidget extends StatelessWidget {
                                 Text(
                                   projectEntity.name,
                                   overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                      color: AppColor.white),
+                                  style: const TextStyle(color: AppColor.black),
                                 ),
                                 Text(
-                                  projectEntity.zone,
+                                  projectEntity.developer.name,
                                   overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText2!
                                       .copyWith(
-                                    color: AppColor.geeBung,
-                                  ),
+                                        color: AppColor.geeBung,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                 )
                               ],
                             ),
@@ -114,12 +122,10 @@ class ProjectItemWidget extends StatelessWidget {
                               .intelliTrim_14(),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(
-                            color: AppColor.white,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodyText2!.copyWith(
+                                    color: AppColor.black,
+                                  ),
                         ),
                         Text(
                           projectEntity.formattedStartingPrice,
@@ -127,18 +133,115 @@ class ProjectItemWidget extends StatelessWidget {
                               .textTheme
                               .bodyText2!
                               .copyWith(
-                              color: AppColor.geeBung,
-                              fontWeight: FontWeight.w600),
+                                  color: AppColor.geeBung,
+                                  fontWeight: FontWeight.w600),
                         )
                       ],
                     )
                   ],
                 ),
-              )),
-        ),
-        // stack
+              ),
+            ],
+          )
 
-      ),
+          /*GridTile(
+            child:   CachedImageWidget(
+              height: double.infinity,
+              imageUrl: projectEntity.images[0],
+              width: double.infinity,
+              progressBarScale: 0.2,
+              isCircle: false,
+              boxFit: BoxFit.cover,
+            ),
+
+
+            // grid tile footer
+            footer: Container(
+              color: AppColor.black.withOpacity(0.7),
+              padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  /// Row (Avatar and District data)
+                  Expanded(
+                    child: Row(
+                      children: [
+                        /// Avatar Image
+
+                        CachedImageWidget(
+                          imageUrl: projectEntity.developer.logoFullPath,
+                          height: 50,
+                          width: 50,
+                          progressBarScale: 0.7,
+                          isCircle: true,
+                        ),
+
+
+                        // SizedBox
+                        const SizedBox(
+                          width: 5,
+                        ),
+
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                projectEntity.name,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    color: AppColor.white),
+                              ),
+                              Text(
+                                projectEntity.developer.name,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2!
+                                    .copyWith(
+                                  color: AppColor.geeBung,
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
+                  /// Column of Starting price
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        TranslateConstants.startingPrice
+                            .t(context)
+                            .intelliTrim_14(),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2!
+                            .copyWith(
+                          color: AppColor.white,
+                        ),
+                      ),
+                      Text(
+                        projectEntity.formattedStartingPrice,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2!
+                            .copyWith(
+                            color: AppColor.geeBung,
+                            fontWeight: FontWeight.w600),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            )),*/
+          ),
     );
   }
 

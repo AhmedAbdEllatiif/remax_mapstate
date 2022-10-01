@@ -28,7 +28,7 @@ class TranslateConstants{
   static const String finishingType = 'finishingType';
   static const String deliveryYear = 'deliveryYear';
   static const String services = 'services';
-  static const String submitInquiry = 'submitInquiry';
+  static const String requestACall = 'requestCall';
   static const String overview = 'overview';
   static const String layouts = 'layouts';
   static const String projectDetails = 'projectDetails';

@@ -20,8 +20,7 @@ import '../../../widgets/loading_widget.dart';
 class AreasByStatusScreen extends StatefulWidget {
   final ProjectByStatusArguments projectByStatusArguments;
 
-  const AreasByStatusScreen(
-      {Key? key, required this.projectByStatusArguments})
+  const AreasByStatusScreen({Key? key, required this.projectByStatusArguments})
       : super(key: key);
 
   @override
@@ -51,7 +50,7 @@ class _AllAreasScreenState extends State<AreasByStatusScreen> {
       create: (context) => _areasCubit,
       child: StackScaffoldWithFullBackground(
         appBarTitle: Text(
-          TranslateConstants.allCities.t(context),
+          widget.projectByStatusArguments.projectStatusEntity.name,
         ),
         body: BlocBuilder<AreasCubit, AreasState>(
           builder: (_, state) {
@@ -65,6 +64,7 @@ class _AllAreasScreenState extends State<AreasByStatusScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+
                   /// loading
                   if (state is LoadingAreas)
                     const Expanded(
@@ -96,8 +96,11 @@ class _AllAreasScreenState extends State<AreasByStatusScreen> {
                         itemBuilder: (_, index) {
                           return AreaItem(
                             areaName: state.areas[index].name,
-                            onPressed: () => _navigateToProjectByStatusScreen(
-                                context, state.areas[index].id),
+                            onPressed: () =>
+                                _navigateToProjectByStatusScreen(
+                                  context: context,
+                                  areaId: state.areas[index].id,
+                                  areaName: state.areas[index].name,),
                           );
                         },
                       ),
@@ -129,11 +132,13 @@ class _AllAreasScreenState extends State<AreasByStatusScreen> {
   }
 
   /// to navigate to ProjectDetailsScreen
-  void _navigateToProjectByStatusScreen(BuildContext context, String areaId) =>
+  void _navigateToProjectByStatusScreen(
+      {required BuildContext context, required String areaName, required String areaId}) =>
       RouteHelper().projectsByStatus(context,
           projectByStatusArguments: ProjectByStatusArguments(
             areaId: areaId,
+            areaName:areaName,
             projectStatusEntity:
-                widget.projectByStatusArguments.projectStatusEntity,
+            widget.projectByStatusArguments.projectStatusEntity,
           ));
 }
