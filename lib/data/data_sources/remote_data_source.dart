@@ -6,6 +6,7 @@ import 'package:remax_mapstate/common/enums/app_language.dart';
 import 'package:remax_mapstate/data/api/clients/api_client.dart';
 import 'package:remax_mapstate/data/api/queries/areas/ar_areas.dart';
 import 'package:remax_mapstate/data/api/queries/areas/en_areas.dart';
+import 'package:remax_mapstate/data/api/queries/get_filter_data/en_get_filter_data.dart';
 import 'package:remax_mapstate/data/api/queries/project_status/ar_project_status.dart';
 import 'package:remax_mapstate/data/api/queries/project_status/en_project_status.dart';
 import 'package:remax_mapstate/data/api/queries/projects.dart';
@@ -14,6 +15,7 @@ import 'package:remax_mapstate/data/api/queries/unit_type_names/en_unit_type_nam
 import 'package:remax_mapstate/data/models/area_model.dart';
 import 'package:remax_mapstate/data/models/broker_model.dart';
 import 'package:remax_mapstate/data/models/contact_developer.dart';
+import 'package:remax_mapstate/data/models/get_filter_data.dart';
 import 'package:remax_mapstate/data/models/page_info.dart';
 import 'package:remax_mapstate/data/models/project_model.dart';
 import 'package:remax_mapstate/data/models/project_status.dart';
@@ -22,6 +24,7 @@ import 'package:remax_mapstate/data/models/unit_type_model.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
 
 import '../../common/constants/api_constants.dart';
+import '../api/queries/get_filter_data/ar_get_filter_data.dart';
 import '../api/queries/projects_by_status/ar_project_by_status.dart';
 import '../api/queries/projects_by_status/en_project_by_status.dart';
 import '../models/filter_model.dart';
@@ -61,6 +64,11 @@ abstract class RemoteDataSource {
     required AppLanguage appLanguage,
     required PageInfo pageInfo,
     required List<FilterModel> filtersList,
+  });
+
+  /// return filter data model
+  Future<FilterDataModel> getFilterDataModel({
+    required AppLanguage appLanguage,
   });
 
   /// return the developer contact data
@@ -313,5 +321,26 @@ class RemoteDateSourceImpl extends RemoteDataSource {
   Future<TeamSupportModel> getTeamSupport() async {
     final teamSupport = await teamSupportModel();
     return teamSupport;
+  }
+
+  @override
+  Future<FilterDataModel> getFilterDataModel({
+    required AppLanguage appLanguage,
+  }) async {
+    final query = appLanguage == AppLanguage.en
+        ? fetchEnFilterDataQuery()
+        : fetchArFilterDataQuery();
+
+    final QueryResult result = await apiClient.get(
+      query,
+      // variables: {
+      //   VariablesConstants.pageInfo: pageInfo.toJson(),
+      //   VariablesConstants.filters: listOfFilterToJson(filtersList),
+      // },
+    );
+
+    log("getProjectByStatus >> Data >> ..........\n ${result.data}.......");
+    log("getProjectByStatus >> Data String >> ..........\n ${filterDataModelFromJson(result.data!)}.......");
+    return filterDataModelFromJson(result.data!);
   }
 }

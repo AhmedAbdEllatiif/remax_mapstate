@@ -120,6 +120,8 @@ dependencies:
   # number_display
   number_display: ^3.0.0
 
+  # intl
+  intl: ^0.17.0
 
 
   # wiredash

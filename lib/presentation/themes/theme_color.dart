@@ -32,5 +32,6 @@ class AppColor{
   //static const Color royalBlue = Color(0xFF604FEF);
   static const Color royalBlue = Color(0xFF1482ff);
   static const Color violet = Color(0xFFA74DBC);
+  static const Color red = Color(0xFFD2082C);
 
 }

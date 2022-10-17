@@ -92,5 +92,6 @@ class TranslateConstants{
   static const String downPayment = 'downPayment';
   static const String numberOfYears = 'numberOfYears';
   static const String years = 'years';
+  static const String advancedSearch = 'advancedSearch';
 
 }

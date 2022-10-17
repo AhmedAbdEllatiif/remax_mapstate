@@ -33,12 +33,14 @@ import 'package:remax_mapstate/domain/use_cases/local_usecases/update_language.d
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/downpayment.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/number_of_years.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/unit_price.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/get_filter_data/get_filter_data_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/projects_by_status/projects_by_status_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/unitType_names/unit_type_names_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/api/clients/graphql_client.dart';
 import '../data/repositories/remote_repository_impl.dart';
+import '../domain/use_cases/get_filter_data.dart';
 import '../domain/use_cases/get_projects_by_status.dart';
 import '../domain/use_cases/local_usecases/auto_login/delete_auto_login.dart';
 import '../domain/use_cases/local_usecases/auto_login/get_auto_login.dart';
@@ -174,14 +176,21 @@ Future init() async {
 
   /// GetProjectStatusCase
   getItInstance.registerFactory<GetProjectStatusCase>(
-        () => GetProjectStatusCase(
+    () => GetProjectStatusCase(
+      apiRepo: getItInstance(),
+    ),
+  );
+
+  /// GetProjectStatusCase
+  getItInstance.registerFactory<GetFilterDataCase>(
+    () => GetFilterDataCase(
       apiRepo: getItInstance(),
     ),
   );
 
   /// GetProjectsByStatusCase
   getItInstance.registerFactory<GetProjectsByStatusCase>(
-        () => GetProjectsByStatusCase(
+    () => GetProjectsByStatusCase(
       apiRepo: getItInstance(),
     ),
   );
@@ -206,8 +215,6 @@ Future init() async {
       apiRepo: getItInstance(),
     ),
   );
-
-
 
   /// GetProjectStatusCase
   getItInstance.registerLazySingleton<GetUnitTypeNamesCase>(
@@ -323,6 +330,11 @@ Future init() async {
     ),
   );
 
+  /// init GetFilterDataCubit
+  getItInstance.registerFactory<GetFilterDataCubit>(
+    () => GetFilterDataCubit(),
+  );
+
   /// init LanguageCubit
   getItInstance.registerSingleton<LanguageCubit>(
     LanguageCubit(
@@ -367,7 +379,7 @@ Future init() async {
 
   /// ProjectsByStatusCubit
   getItInstance.registerFactory<ProjectsByStatusCubit>(
-        () => ProjectsByStatusCubit(),
+    () => ProjectsByStatusCubit(),
   );
 
   ///********************************** init blocs *********************************************\\\

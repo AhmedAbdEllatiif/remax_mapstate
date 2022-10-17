@@ -9,6 +9,7 @@ import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
 import 'package:remax_mapstate/domain/entities/broker_entity.dart';
 import 'package:remax_mapstate/domain/entities/contact_developer.dart';
+import 'package:remax_mapstate/domain/entities/filter_data_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
 import 'package:remax_mapstate/domain/entities/team_support_entity.dart';
@@ -16,6 +17,7 @@ import 'package:remax_mapstate/domain/entities/unit_type_entity.dart';
 import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 
 import '../params/fetch_list_params.dart';
+import '../params/filter_data_params.dart';
 
 class RemoteRepositoryImpl extends RemoteRepository {
   final RemoteDataSource remoteDataSource;
@@ -185,7 +187,7 @@ class RemoteRepositoryImpl extends RemoteRepository {
 
   /// return a list of projects by their status
   @override
-  Future<Either<AppError, List<ProjectEntity>>> fetchProjectsByStatus (
+  Future<Either<AppError, List<ProjectEntity>>> fetchProjectsByStatus(
       FetchListParams params) async {
     try {
       final projectList = await remoteDataSource.getProjectByStatus(
@@ -202,6 +204,27 @@ class RemoteRepositoryImpl extends RemoteRepository {
       return Left(AppError(AppErrorType.network, message: e.toString()));
     } on Exception catch (e) {
       log("RepoImpl >> fetchProjectsByStatus >> Exception >> $e");
+      return Left(AppError(AppErrorType.api, message: e.toString()));
+    }
+  }
+
+  /// fetchFilterData
+  @override
+  Future<Either<AppError, FilterDataEntity>> fetchFilterData(
+      FilterDataParams params) async {
+    try {
+      final filterData = await remoteDataSource.getFilterDataModel(
+        appLanguage: params.appLanguage,
+      );
+      return Right(filterData);
+    } on SocketException catch (e) {
+      log("RepoImpl >> fetchFilterData >> SocketException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.message));
+    } on OperationException catch (e) {
+      log("RepoImpl >> fetchFilterData >> OperationException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.toString()));
+    } on Exception catch (e) {
+      log("RepoImpl >> fetchFilterData >> Exception >> $e");
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
   }

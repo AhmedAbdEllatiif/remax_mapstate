@@ -13,6 +13,7 @@ import 'package:remax_mapstate/presentation/journeys/drawer/navigation_drawer.da
 import 'package:remax_mapstate/presentation/journeys/home/home_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/main/bottom_navigation.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
+import 'package:remax_mapstate/router/route_hepler.dart';
 
 import '../../logic/cubit/current_user/current_user_cubit.dart';
 import '../../logic/cubit/navigation/navigation_cubit.dart';
@@ -54,6 +55,19 @@ class _MainScreenState extends State<MainScreen> {
               return Text(state.title.t(context));
             },
           ),
+          actions: [
+            // filter icon
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: IconButton(
+                onPressed: () => _navigateToFilterProjectsScreen(context),
+                icon: const Icon(
+                  Icons.filter_list_outlined,
+                  color: AppColor.geeBung,
+                ),
+              ),
+            )
+          ],
         ),
 
         body: Stack(
@@ -99,4 +113,8 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
+
+  /// to navigate to filter projects screen
+  void _navigateToFilterProjectsScreen(BuildContext context) =>
+      RouteHelper().filterProjectsScreen(context);
 }

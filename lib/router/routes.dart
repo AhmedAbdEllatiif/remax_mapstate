@@ -6,6 +6,7 @@ import 'package:remax_mapstate/presentation/journeys/area_unit_types/area_unit_t
 import 'package:remax_mapstate/presentation/journeys/calculation_result/calculation_result_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/choose_broker/choose_broker_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/developer_contact/developer_contact_screen.dart';
+import 'package:remax_mapstate/presentation/journeys/filter_projects/filter_projects_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/main/main_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_details_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/projects_by_status/projects_by_status_screen.dart';
@@ -66,6 +67,9 @@ class Routes {
 
         /// allAreas
         RouteList.allAreas: (context) => const AllAreasScreen(),
+
+        /// filterProjects
+        RouteList.filterProjects: (context) => const FilterProjectsScreen(),
 
         /// projectByStatus
         RouteList.projectByStatus: (context) => ProjectsByStatusScreen(

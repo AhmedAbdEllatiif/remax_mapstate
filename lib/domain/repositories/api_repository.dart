@@ -1,9 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:remax_mapstate/data/params/fetch_list_params.dart';
+import 'package:remax_mapstate/data/params/filter_data_params.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
 import 'package:remax_mapstate/domain/entities/broker_entity.dart';
 import 'package:remax_mapstate/domain/entities/contact_developer.dart';
+import 'package:remax_mapstate/domain/entities/filter_data_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
 import 'package:remax_mapstate/domain/entities/team_support_entity.dart';
@@ -44,6 +46,9 @@ abstract class RemoteRepository {
   /// return a list of projects by status
   Future<Either<AppError, List<ProjectEntity>>> fetchProjectsByStatus(
       FetchListParams params);
+
+  /// return a filter data
+  Future<Either<AppError, FilterDataEntity>> fetchFilterData(FilterDataParams params);
 
   ///******************************** Developer Contact ******************************** \\\\
   Future<Either<AppError, ContactDeveloperEntity>> getDeveloperContact(
