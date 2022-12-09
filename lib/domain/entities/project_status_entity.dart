@@ -16,6 +16,6 @@ class ProjectStatusEntity {
   factory ProjectStatusEntity.empty() => const ProjectStatusEntity(
         id: "-1",
         name: TranslateConstants.allProjects,
-        image: AssetsConstants.offPlan,
+        image: AssetsConstants.readyToMoveImg,
       );
 }

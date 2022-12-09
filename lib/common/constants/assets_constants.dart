@@ -25,6 +25,13 @@ class AssetsConstants{
   static const String whiteGoldLogo = "${_pngPath}white_gold_log.png";
 
 
+  static const String investment = "${_pngPath}investment.jpeg";
+  static const String offPlanImg = "${_pngPath}off_plan.jpeg";
+  static const String offers = "${_pngPath}offers.jpeg";
+  static const String readyToMoveImg = "${_pngPath}ready_to_move.jpeg";
+  static const String underConstructionImg = "${_pngPath}under_construction.jpeg";
+
+
   static const String emptyBox = "${_jsonPath}empty_box.json";
   static const String loading = "${_jsonPath}loading.json";
   static const String waitingAnimation = "${_jsonPath}waiting.json";

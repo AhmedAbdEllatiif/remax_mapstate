@@ -33,6 +33,17 @@ class ProjectStatusModel extends ProjectStatusEntity {
         statusId: json["id"] ?? AppUtils.undefined,
         statusName: json["name"] ?? "",
         statusArabicName: json["arabicName"] ?? "",
-        statusImage: json["image"] ?? AssetsConstants.offPlan,
+        statusImage: json["image"] ??
+            json["name"] == "Under Construction"
+            ? AssetsConstants.underConstructionImg
+            : json["name"] == "Offers"
+                ? AssetsConstants.offers
+                : json["name"] == "Oppurtunities"
+                    ? AssetsConstants.investment
+                    : json["name"] == "Ready To Move"
+                        ? AssetsConstants.readyToMoveImg
+                        : json["name"] == "Off Plan"
+                            ? AssetsConstants.offPlanImg
+                            : AssetsConstants.underConstructionImg,
       );
 }
