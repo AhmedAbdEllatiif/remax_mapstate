@@ -10,13 +10,11 @@ import 'package:remax_mapstate/presentation/arguments/advanced_filter_result_arg
 import 'package:remax_mapstate/presentation/logic/cubit/advanced_filter_projects/advanced_filter_projects_cubit.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/widgets/app_error_widget.dart';
-import 'package:remax_mapstate/presentation/widgets/empty_list_widegt.dart';
 import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 import 'package:remax_mapstate/presentation/widgets/project_item_widget.dart';
 
 import '../../../common/constants/translate_constatns.dart';
 import '../../../router/route_hepler.dart';
-import '../../logic/cubit/advanced_filter_builder/advanced_filter_builder_cubit.dart';
 import 'loading_more_result_projects.dart';
 
 class AdvancedFilterResultScreen extends StatefulWidget {
@@ -46,17 +44,24 @@ class _AdvancedFilterResultScreenState
   @override
   void initState() {
     super.initState();
+
+    // init AdvancedFilterProjectsCubit
     _advancedFilterProjectsCubit = getItInstance<AdvancedFilterProjectsCubit>();
+
+    // init ScrollController
     _controller = ScrollController();
+
+    // listen on scroll position
     _listenerOnScrollController();
+
+    // search for projects
     _searchProjects();
   }
 
   @override
   void dispose() {
-    final AdvancedFilterBuilderCubit advancedFilterBuilderCubit =
-    getItInstance<AdvancedFilterBuilderCubit>();
-    advancedFilterBuilderCubit.reset();
+    _advancedFilterProjectsCubit.close();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -65,7 +70,6 @@ class _AdvancedFilterResultScreenState
     return BlocProvider(
       create: (context) => _advancedFilterProjectsCubit,
       child: Scaffold(
-
         /// appBar
         appBar: AppBar(
           title: Column(
@@ -78,8 +82,7 @@ class _AdvancedFilterResultScreenState
                 builder: (context, state) {
                   return Text(
                     "\" ${projects.length} \"",
-                    style: Theme
-                        .of(context)
+                    style: Theme.of(context)
                         .textTheme
                         .caption!
                         .copyWith(color: AppColor.fadeGeeBung),
@@ -104,14 +107,14 @@ class _AdvancedFilterResultScreenState
           child: BlocBuilder<AdvancedFilterProjectsCubit,
               AdvancedFilterProjectsState>(
             builder: (context, state) {
-              //==> loading
+              ///==> loading
               if (state is LoadingAdvancedFilterProjects) {
                 return const Center(
                   child: LoadingWidget(),
                 );
               }
 
-              //==> unAuthorized
+              ///==> unAuthorized
               if (state is UnAuthorizedFilterProjects) {
                 return Center(
                   child: AppErrorWidget(
@@ -121,7 +124,7 @@ class _AdvancedFilterResultScreenState
                 );
               }
 
-              //==> error
+              ///==> error
               if (state is ErrorWhileLoadingAdvancedFilterProjects) {
                 return Center(
                   child: AppErrorWidget(
@@ -183,7 +186,7 @@ class _AdvancedFilterResultScreenState
     _controller.addListener(() {
       if (_controller.position.maxScrollExtent == _controller.offset) {
         if (_advancedFilterProjectsCubit.state
-        is! LastPageAdvancedFilterProjectsReached) {
+            is! LastPageAdvancedFilterProjectsReached) {
           _searchProjects();
         }
       }

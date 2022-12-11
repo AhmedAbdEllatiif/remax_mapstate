@@ -1,0 +1,4 @@
+enum RangeFormat {
+  currency,
+  decimal,
+}

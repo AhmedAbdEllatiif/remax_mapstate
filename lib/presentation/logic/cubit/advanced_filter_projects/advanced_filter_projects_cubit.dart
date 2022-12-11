@@ -11,15 +11,15 @@ import '../../../../di/git_it.dart';
 import '../../../../domain/entities/app_error.dart';
 import '../../../../domain/entities/project_entity.dart';
 import '../../../../domain/use_cases/advanced_filter_projects.dart';
-import '../advanced_filter_builder/advanced_filter_builder_cubit.dart';
 import '../language/language_cubit.dart';
+import '../search_filter_builder/search_filter_builder_cubit.dart';
 
 part 'advanced_filter_projects_state.dart';
 
 class AdvancedFilterProjectsCubit extends Cubit<AdvancedFilterProjectsState> {
-  final AdvancedFilterBuilderCubit advancedFilterBuilderCubit;
+  final SearchFilterBuilderCubit searchFilterBuilderCubit;
 
-  AdvancedFilterProjectsCubit({required this.advancedFilterBuilderCubit})
+  AdvancedFilterProjectsCubit({required this.searchFilterBuilderCubit})
       : super(AdvancedFilterProjectsInitial());
 
   void searchProjects(
@@ -46,7 +46,7 @@ class AdvancedFilterProjectsCubit extends Cubit<AdvancedFilterProjectsState> {
     final pageInfo =
         PageInfo(limit: limit, offset: nextOffset, orderBy: "price_from");
 
-    //log("Filter To send >> ${advancedFilterBuilderCubit.state.filters}");
+    //log("Filter To send >> ${searchFilterBuilderCubit.state.filters}");
     // init params
     final params = FetchListParams(
       appLanguage: appLanguage,

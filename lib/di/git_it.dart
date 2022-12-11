@@ -50,7 +50,6 @@ import '../domain/use_cases/local_usecases/auto_login/save_auto_login.dart';
 import '../domain/use_cases/make_phone_call.dart';
 import '../domain/use_cases/open_map.dart';
 import '../domain/use_cases/open_whats_app.dart';
-import '../presentation/logic/cubit/advanced_filter_builder/advanced_filter_builder_cubit.dart';
 import '../presentation/logic/cubit/areas/areas_cubit.dart';
 import '../presentation/logic/cubit/brokers_by_area/get_area_brokers_cubit.dart';
 import '../presentation/logic/bloc/calculator_validation/calculator_validation_bloc.dart';
@@ -67,6 +66,7 @@ import '../presentation/logic/cubit/current_user/current_user_cubit.dart';
 import '../presentation/logic/cubit/developer_contact/developer_contact_cubit.dart';
 import '../presentation/logic/cubit/language/language_cubit.dart';
 import '../presentation/logic/cubit/navigation/navigation_cubit.dart';
+import '../presentation/logic/cubit/search_filter_builder/search_filter_builder_cubit.dart';
 import '../presentation/logic/cubit/unitType_names/unit_type_names_cubit.dart';
 import '../presentation/logic/cubit/team_support/team_support_cubit.dart';
 import '../presentation/journeys/calculator/formz/first_down_payment.dart';
@@ -393,14 +393,14 @@ Future init() async {
   );
 
   /// init AdvancedFilterBuilderCubit
-  getItInstance.registerFactory<AdvancedFilterBuilderCubit>(
-    () => AdvancedFilterBuilderCubit(),
+  getItInstance.registerFactory<SearchFilterBuilderCubit>(
+    () => SearchFilterBuilderCubit(),
   );
 
   /// init AdvancedFilterProjectsCubit
   getItInstance.registerFactory(
-    () => AdvancedFilterProjectsCubit(
-        advancedFilterBuilderCubit: getItInstance()),
+    () =>
+        AdvancedFilterProjectsCubit(searchFilterBuilderCubit: getItInstance()),
   );
 
   ///**************************** init blocs *******************************\\\
