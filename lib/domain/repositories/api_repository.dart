@@ -48,13 +48,18 @@ abstract class RemoteRepository {
       FetchListParams params);
 
   /// return a filter data
-  Future<Either<AppError, FilterDataEntity>> fetchFilterData(FilterDataParams params);
+  Future<Either<AppError, FilterDataEntity>> fetchFilterData(
+      FilterDataParams params);
 
-  ///******************************** Developer Contact ******************************** \\\\
+  /// return a list of projects
+  Future<Either<AppError, List<ProjectEntity>>> advancedFilterProjects(
+      FetchListParams params);
+
+  ///**************************** Developer Contact *********************** \\\\
   Future<Either<AppError, ContactDeveloperEntity>> getDeveloperContact(
       String developerId);
 
-  ///******************************** Team Support ******************************** \\\\
+  ///**************************** Team Support **************************** \\\\
   /// return team support
   Future<Either<AppError, TeamSupportEntity>> getTeamSupport();
 }

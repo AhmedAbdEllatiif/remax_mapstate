@@ -17,7 +17,7 @@
   "projects": "Projects",
   "startingPrice": "Starting Price",
   "seeAll": "see all",
-  "noFavProjectsToShow": "no favorite projects yet",
+  "noFavProjectsToShow": "no projects",
 
   "paymentPlan": "Payment Plan",
   "startingArea": "Starting Area",
@@ -89,6 +89,8 @@
   "numberOfYears": "No. Years",
   "years": "Years",
   "advancedSearch": "Advanced Search",
+  "searchResult": "Search Result",
+  "sessionExpired": "Session expired login again",
 
 
   "arabic": "العربية",

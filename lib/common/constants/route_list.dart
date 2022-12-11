@@ -17,4 +17,5 @@ class RouteList{
   static const String projectByStatus = "/projectByStatus";
   static const String areasByStatusScreen = "/projectByStatusAreasScreen";
   static const String filterProjects = "/filterProjects";
+  static const String advancedFilterResult = "/advancedFilterResult";
 }

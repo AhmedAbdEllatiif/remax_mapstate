@@ -86,7 +86,8 @@
   "numberOfYears": "عدد السنوات",
   "years": "سنوات",
   "advancedSearch": "بحث متقدم",
-
+  "searchResult": "نتائج البحث",
+  "sessionExpired": "انتهت الجلسة تسجيل الدخول مرة أخرى",
 
   "arabic": "العربية",
   "english": "English",

@@ -19,9 +19,9 @@ query EnglishProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput]
   {
    id
     name
-    arabicName
+    
     description
-    descriptionArabic
+    
     type
     
      # images
@@ -31,21 +31,21 @@ query EnglishProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput]
     region{
       id
       name
-      arabicName
+      
       priority
     }
     # zone 
     zone{
       id
       name
-      arabicName
+      
     }
     
     # services
     services{
       id
       name
-      arabicName
+      
     }
     
     # priceFrom
@@ -58,7 +58,7 @@ query EnglishProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput]
     finishingType{
       id
       name
-      arabicName
+      
     }
     
     # deliveryYear
@@ -71,7 +71,7 @@ query EnglishProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput]
     status{
       id
       name
-      arabicName
+      
     }
     
     # unittypeSet
@@ -81,13 +81,13 @@ query EnglishProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput]
       unitTypeName{
         id
         name
-        arabicName
+        
       }
       #==> unittypeSet.layout
       layout{
         id
         name
-        arabicName
+        
       }
       priceFrom
       priceTo
@@ -99,7 +99,7 @@ query EnglishProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput]
       finishingType{
         id
         name
-        arabicName
+        
       }
     } # end of unittypeSet
     
@@ -127,7 +127,7 @@ query EnglishProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput]
     developer{
       id
       name
-      arabicName
+      
       logo
       #==> developercontact
       developercontact{

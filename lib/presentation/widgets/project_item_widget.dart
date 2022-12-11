@@ -38,7 +38,7 @@ class ProjectItemWidget extends StatelessWidget {
           child: Column(
             children: [
               CachedImageWidget(
-                imageUrl: projectEntity.images[0],
+                imageUrl: projectEntity.images.isNotEmpty ? projectEntity.images[0]: "",
                 width: double.infinity,
                 progressBarScale: 0.2,
                 isCircle: false,

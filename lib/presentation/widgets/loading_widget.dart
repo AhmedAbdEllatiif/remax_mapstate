@@ -1,13 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:remax_mapstate/common/constants/assets_constants.dart';
+
+import '../../common/constants/assets_constants.dart';
+import '../themes/theme_color.dart';
+
+
 
 class LoadingWidget extends StatelessWidget {
-  const LoadingWidget({Key? key}) : super(key: key);
+  final double size;
+  final String text;
+
+  const LoadingWidget({
+    Key? key,
+    this.size = 100,
+    this.text = "",
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Lottie.asset(
-        AssetsConstants.loading,
-        frameRate: FrameRate.max,
-      );
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          height: size,
+          width: size,
+          child: Lottie.asset(AssetsConstants.loading),
+        ),
+
+        // text
+        Text(
+          text,
+          style: Theme.of(context)
+              .textTheme
+              .caption!
+              .copyWith(color: AppColor.fadeGeeBung),
+        )
+      ],
+    );
+  }
 }

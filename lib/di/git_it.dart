@@ -33,6 +33,7 @@ import 'package:remax_mapstate/domain/use_cases/local_usecases/update_language.d
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/downpayment.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/number_of_years.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/unit_price.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/advanced_filter_projects/advanced_filter_projects_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/get_filter_data/get_filter_data_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/projects_by_status/projects_by_status_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/unitType_names/unit_type_names_cubit.dart';
@@ -40,6 +41,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/api/clients/graphql_client.dart';
 import '../data/repositories/remote_repository_impl.dart';
+import '../domain/use_cases/advanced_filter_projects.dart';
 import '../domain/use_cases/get_filter_data.dart';
 import '../domain/use_cases/get_projects_by_status.dart';
 import '../domain/use_cases/local_usecases/auto_login/delete_auto_login.dart';
@@ -48,6 +50,7 @@ import '../domain/use_cases/local_usecases/auto_login/save_auto_login.dart';
 import '../domain/use_cases/make_phone_call.dart';
 import '../domain/use_cases/open_map.dart';
 import '../domain/use_cases/open_whats_app.dart';
+import '../presentation/logic/cubit/advanced_filter_builder/advanced_filter_builder_cubit.dart';
 import '../presentation/logic/cubit/areas/areas_cubit.dart';
 import '../presentation/logic/cubit/brokers_by_area/get_area_brokers_cubit.dart';
 import '../presentation/logic/bloc/calculator_validation/calculator_validation_bloc.dart';
@@ -251,7 +254,14 @@ Future init() async {
     ),
   );
 
-  ///********************************** Local_Use_Cases *********************************************\\\
+  /// GetTeamSupportCase
+  getItInstance.registerFactory<AdvancedFilterProjectsCase>(
+    () => AdvancedFilterProjectsCase(
+      apiRepo: getItInstance(),
+    ),
+  );
+
+  ///************************** Local_Use_Cases *****************************\\\
 
   /// GetPreferredLanguage
   getItInstance.registerLazySingleton<GetPreferredLanguage>(
@@ -285,7 +295,7 @@ Future init() async {
   getItInstance.registerLazySingleton<CheckForFavProjectUseCase>(
       () => CheckForFavProjectUseCase(localRepository: getItInstance()));
 
-  ///********************************** init cubit *********************************************\\\
+  ///*************************** init cubit *********************************\\\
 
   /// init AutoLoginCubit
   getItInstance.registerSingleton<AutoLoginCubit>(
@@ -382,7 +392,18 @@ Future init() async {
     () => ProjectsByStatusCubit(),
   );
 
-  ///********************************** init blocs *********************************************\\\
+  /// init AdvancedFilterBuilderCubit
+  getItInstance.registerFactory<AdvancedFilterBuilderCubit>(
+    () => AdvancedFilterBuilderCubit(),
+  );
+
+  /// init AdvancedFilterProjectsCubit
+  getItInstance.registerFactory(
+    () => AdvancedFilterProjectsCubit(
+        advancedFilterBuilderCubit: getItInstance()),
+  );
+
+  ///**************************** init blocs *******************************\\\
 
   ///==> init ProjectBackdropBloc
   getItInstance.registerFactory<ProjectStatusBackdropBloc>(

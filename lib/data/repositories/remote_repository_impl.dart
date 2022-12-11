@@ -228,4 +228,27 @@ class RemoteRepositoryImpl extends RemoteRepository {
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
   }
+
+  /// advancedFilterProjects
+  @override
+  Future<Either<AppError, List<ProjectEntity>>> advancedFilterProjects(
+      FetchListParams params) async {
+    try {
+      final projectList = await remoteDataSource.advancedFilterProject(
+        pageInfo: params.pageInfo,
+        filtersList: params.filters,
+        appLanguage: params.appLanguage,
+      );
+      return Right(projectList);
+    } on SocketException catch (e) {
+      log("RepoImpl >> fetchProjectsByStatus >> SocketException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.message));
+    } on OperationException catch (e) {
+      log("RepoImpl >> fetchProjectsByStatus >> OperationException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.toString()));
+    } on Exception catch (e) {
+      log("RepoImpl >> fetchProjectsByStatus >> Exception >> $e");
+      return Left(AppError(AppErrorType.api, message: e.toString()));
+    }
+  }
 }

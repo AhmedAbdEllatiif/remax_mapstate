@@ -82,7 +82,7 @@ class LoadingMoreProjectsByStatusWidget extends StatelessWidget {
             }
 
             ///==> loading
-            return SizedBox(height: Sizes.dimen_40.h,child: const LoadingWidget());
+            return const LoadingWidget();
           },
         ),
       ),

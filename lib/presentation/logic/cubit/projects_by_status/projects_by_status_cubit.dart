@@ -26,14 +26,12 @@ class ProjectsByStatusCubit extends Cubit<ProjectsByStatusState> {
     required int limit,
     required currentListLength,
   }) async {
-
-      // emit loading
-    if(currentListLength == 0){
+    // emit loading
+    if (currentListLength == 0) {
       _emitIfNotClosed(LoadingProjectsByStatus());
-    }else{
+    } else {
       _emitIfNotClosed(LoadingMoreProjectsByStatus());
     }
-
 
     // init current language
     final languageCode = context.read<LanguageCubit>().state.languageCode;
@@ -53,7 +51,7 @@ class ProjectsByStatusCubit extends Cubit<ProjectsByStatusState> {
     final params = FetchListParams(
       appLanguage: appLanguage,
       pageInfo: pageInfo,
-      filters: [statusIdFilter,areaFilter],
+      filters: [statusIdFilter, areaFilter],
     );
 
     // init useCase
@@ -71,7 +69,10 @@ class ProjectsByStatusCubit extends Cubit<ProjectsByStatusState> {
 
         //==> projects fetched
         (projectsList) => _emitIfNotClosed(
-              _statusToEmit(projectsList: projectsList, limit: limit),
+              _statusToEmit(
+                  projectsList: projectsList,
+                  limit: limit,
+                  currentListSize: currentListLength),
             ));
   }
 
@@ -94,14 +95,22 @@ class ProjectsByStatusCubit extends Cubit<ProjectsByStatusState> {
   /// * if the length of fetched projects is less than the sent limit,
   /// this means last page reached
   ProjectsByStatusState _statusToEmit(
-      {required List<ProjectEntity> projectsList, required int limit}) {
-    //==> empty list
-    if (projectsList.isEmpty) {
-      return EmptyProjectsByStatus();
+      {required List<ProjectEntity> projectsList,
+      required int limit,
+      required int currentListSize}) {
+
+    if (projectsList.isEmpty && currentListSize > 0) {
+      return LastPageProjectsByStatusReached(projects: projectsList);
     }
+
     //==> last page reached
     else if (projectsList.length < limit) {
       return LastPageProjectsByStatusReached(projects: projectsList);
+    }
+
+    //==> empty list
+    else if (projectsList.isEmpty) {
+      return EmptyProjectsByStatus();
     }
     //==> projects fetched
     else {

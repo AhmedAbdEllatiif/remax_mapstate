@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:remax_mapstate/common/constants/route_list.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_developer.dart';
+import 'package:remax_mapstate/presentation/arguments/advanced_filter_result_args.dart';
 import 'package:remax_mapstate/presentation/arguments/project_by_status_args.dart';
 import 'package:remax_mapstate/presentation/arguments/project_details_argument.dart';
 import 'package:remax_mapstate/presentation/arguments/area_unit_types_args.dart';
@@ -97,8 +98,14 @@ class RouteHelper {
 
   /// To AreasByStatusScreen \\\
   void areasByStatusScreen(BuildContext context,
-      {required ProjectByStatusArguments projectByStatusArguments}) =>
+          {required ProjectByStatusArguments projectByStatusArguments}) =>
       Navigator.of(context).pushNamed(RouteList.areasByStatusScreen,
           arguments: projectByStatusArguments);
+
+  /// To AdvancedFilterResultScreen \\\
+  void advancedFilterResultScreen(BuildContext context,
+          {required AdvancedFilterResultArgs advancedFilterResultArgs}) =>
+      Navigator.of(context).pushNamed(RouteList.advancedFilterResult,
+          arguments: advancedFilterResultArgs);
 }
 //Navigator.pushNamed(context, AppRouter.chooseBrokerScreen)

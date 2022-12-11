@@ -1,16 +1,16 @@
+import 'package:equatable/equatable.dart';
+
 import '../../common/enums/filter_clause.dart';
 
-List<Map<String,dynamic>> listOfFilterToJson(List<FilterModel> filters) =>
+List<Map<String, dynamic>> listOfFilterToJson(List<FilterModel> filters) =>
     filters.map((singleFilter) => singleFilter.toJson()).toList();
 
-
-
-class FilterModel {
+class FilterModel extends Equatable {
   final String field;
   final dynamic value;
   final FilterClause clause;
 
-  FilterModel({
+  const FilterModel({
     required this.field,
     required this.value,
     this.clause = FilterClause.icontains,
@@ -23,4 +23,11 @@ class FilterModel {
       "clause": clause.toShortString(),
     };
   }
+
+  @override
+  List<Object?> get props => [
+        field,
+        value,
+        clause,
+      ];
 }

@@ -76,6 +76,13 @@ abstract class RemoteDataSource {
 
   /// return team support data
   Future<TeamSupportModel> getTeamSupport();
+
+  /// return list of projects
+  Future<List<ProjectModel>> advancedFilterProject({
+    required AppLanguage appLanguage,
+    required PageInfo pageInfo,
+    required List<FilterModel> filtersList,
+  });
 }
 
 class RemoteDateSourceImpl extends RemoteDataSource {
@@ -339,8 +346,30 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       // },
     );
 
-    log("getProjectByStatus >> Data >> ..........\n ${result.data}.......");
-    log("getProjectByStatus >> Data String >> ..........\n ${filterDataModelFromJson(result.data!)}.......");
+    //log("getProjectByStatus >> Data >> ..........\n ${result.data}.......");
+    //log("getProjectByStatus >> Data String >> ..........\n ${filterDataModelFromJson(result.data!)}.......");
     return filterDataModelFromJson(result.data!);
+  }
+
+  /// advancedFilterProject
+  @override
+  Future<List<ProjectModel>> advancedFilterProject(
+      {required AppLanguage appLanguage,
+      required PageInfo pageInfo,
+      required List<FilterModel> filtersList}) async {
+    final query = appLanguage == AppLanguage.en
+        ? fetchEnglishProjectByStatusQuery()
+        : fetchArabicProjectByStatusQuery();
+
+    final QueryResult result = await apiClient.get(
+      query,
+      variables: {
+        VariablesConstants.pageInfo: pageInfo.toJson(),
+        VariablesConstants.filters: listOfFilterToJson(filtersList),
+      },
+    );
+
+    //log("getProjectByStatus >> Data >> ..........\n ${result.data}.......");
+    return listOfProjectModel(result.data!);
   }
 }

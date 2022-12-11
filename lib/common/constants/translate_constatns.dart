@@ -93,5 +93,7 @@ class TranslateConstants{
   static const String numberOfYears = 'numberOfYears';
   static const String years = 'years';
   static const String advancedSearch = 'advancedSearch';
+  static const String searchResult = 'searchResult';
+  static const String sessionExpired = 'sessionExpired';
 
 }
