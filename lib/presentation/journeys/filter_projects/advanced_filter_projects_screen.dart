@@ -125,7 +125,7 @@ class _AdvancedFilterProjectsScreenState
                         children: [
                           /// project type
                           AppDropDownField(
-                              hintText: "Choose Project Type",
+                              hintText: TranslateConstants.chooseProjectType.t(context),
                               itemsList: [
                                 TranslateConstants.commercial.t(context),
                                 TranslateConstants.residential.t(context)
@@ -141,7 +141,7 @@ class _AdvancedFilterProjectsScreenState
 
                           /// city
                           AppDropDownField(
-                              hintText: "Choose City",
+                              hintText: TranslateConstants.chooseCity.t(context),
                               itemsList: state.filterDataEntity.cities,
                               onChanged: (value) {
                                 if (value != null) {
@@ -154,7 +154,7 @@ class _AdvancedFilterProjectsScreenState
 
                           /// finishingTypes
                           AppDropDownField(
-                              hintText: "Choose Finishing Type",
+                              hintText: TranslateConstants.chooseFinishingType.t(context),
                               itemsList: state.filterDataEntity.finishingTypes,
                               onChanged: (value) {
                                 if (value != null) {
@@ -167,7 +167,7 @@ class _AdvancedFilterProjectsScreenState
 
                           /// unitType
                           AppDropDownField(
-                              hintText: "Choose Unit Type",
+                              hintText: TranslateConstants.chooseUnitType.t(context),
                               itemsList: state.filterDataEntity.unitTypes,
                               onChanged: (value) {
                                 if (value != null) {
@@ -180,7 +180,7 @@ class _AdvancedFilterProjectsScreenState
 
                           /// delivery date
                           AppDropDownField(
-                              hintText: "Choose Delivery Date",
+                              hintText: TranslateConstants.chooseDeliveryDate.t(context),
                               itemsList: yearsList(countOfYears: 8),
                               onChanged: (value) {
                                 if (value != null) {
@@ -193,7 +193,7 @@ class _AdvancedFilterProjectsScreenState
 
                           /// price slider
                           RangeSliderWidget(
-                              title: "Price Range (EGP)",
+                              title: TranslateConstants.priceRange.t(context),
                               start: startPrice,
                               end: endPrice,
                               divisions: 20,
@@ -208,7 +208,7 @@ class _AdvancedFilterProjectsScreenState
 
                           /// area slider
                           RangeSliderWidget(
-                              title: "Area Range (m)",
+                              title: TranslateConstants.areaRange.t(context),
                               start: startArea,
                               end: endArea,
                               divisions: 1000,

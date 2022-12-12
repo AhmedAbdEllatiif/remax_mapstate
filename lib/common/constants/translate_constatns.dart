@@ -95,5 +95,13 @@ class TranslateConstants{
   static const String advancedSearch = 'advancedSearch';
   static const String searchResult = 'searchResult';
   static const String sessionExpired = 'sessionExpired';
+  static const String chooseProjectType = 'chooseProjectType';
+  static const String chooseCity = 'chooseCity';
+  static const String chooseFinishingType = 'chooseFinishingType';
+  static const String chooseUnitType = 'chooseUnitType';
+  static const String chooseDeliveryDate = 'chooseDeliveryDate';
+  static const String priceRange = 'priceRange';
+  static const String areaRange = 'areaRange';
+  static const String toStr = 'to';
 
 }

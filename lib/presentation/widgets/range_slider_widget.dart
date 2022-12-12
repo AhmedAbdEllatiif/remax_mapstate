@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:remax_mapstate/common/enums/range_format.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
+import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 
 import '../../common/constants/app_utils.dart';
 import '../../common/constants/sizes.dart';
+import '../../common/constants/translate_constatns.dart';
 import '../themes/theme_color.dart';
 
 class RangeSliderWidget extends StatefulWidget {
@@ -111,7 +113,7 @@ class _RangeSliderWidgetState extends State<RangeSliderWidget> {
                   ),
                 ),
                 Text(
-                  "To",
+                  TranslateConstants.toStr.t(context),
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       color: AppColor.white, fontWeight: FontWeight.bold),
                 ),

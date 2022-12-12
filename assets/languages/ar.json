@@ -88,6 +88,15 @@
   "advancedSearch": "بحث متقدم",
   "searchResult": "نتائج البحث",
   "sessionExpired": "انتهت الجلسة تسجيل الدخول مرة أخرى",
+  "chooseProjectType": "اختر نوع المشروع",
+  "chooseCity": "اختر المدينة",
+  "chooseFinishingType": "اختر نوع التشطيب",
+  "chooseUnitType": "اختر نوع الوحدة",
+  "chooseDeliveryDate": "اختر تاريخ التسليم",
+  "priceRange": "نطاق السعر (جنيه)",
+  "areaRange": "نطاق المساحة (متر)",
+  "to": "الى",
+
 
   "arabic": "العربية",
   "english": "English",

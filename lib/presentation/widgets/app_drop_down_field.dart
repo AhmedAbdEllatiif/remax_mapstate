@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
+import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 
 
 import '../../common/constants/app_utils.dart';
@@ -43,6 +44,7 @@ class _AppDropDownFieldState extends State<AppDropDownField> {
       width: widget.width,
       margin: widget.margin,
       child: DropdownButtonFormField<String>(
+        menuMaxHeight: ScreenUtil.screenHeight * .30,
         isExpanded: true,
         //value: "A",
         value: widget.initialValue,

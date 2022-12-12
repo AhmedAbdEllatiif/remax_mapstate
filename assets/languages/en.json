@@ -91,6 +91,16 @@
   "advancedSearch": "Advanced Search",
   "searchResult": "Search Result",
   "sessionExpired": "Session expired login again",
+  "chooseProjectType": "Choose Project Type",
+  "chooseCity": "Choose City",
+  "chooseFinishingType": "Choose Finishing Type",
+  "chooseUnitType": "Choose Unit Type",
+  "chooseDeliveryDate": "Choose Delivery Date",
+  "priceRange": "Price Range (EGP)",
+  "areaRange": "Area Range (m)",
+  "to": "to",
+
+
 
 
   "arabic": "العربية",
