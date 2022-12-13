@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:remax_mapstate/data/api/clients/api_client.dart';
@@ -78,6 +79,19 @@ import '../presentation/logic/cubit/project_scrollable_indicator/indicator_posit
 final getItInstance = GetIt.I;
 
 Future init() async {
+
+
+  ///********************** init Notification channel ***********************\\\
+  /// Default android notification channel
+  getItInstance.registerFactory<AndroidNotificationChannel>(
+          () => const AndroidNotificationChannel(
+        'default_channel', // id
+        'Default Notifications', // title
+        description: 'This channel is used for important notifications.',
+        importance: Importance.high,
+      ));
+
+
   ///********************************** init ApiClient *********************************************\\\
 
   /// GraphQLClient

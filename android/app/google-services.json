@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "384651653028",
+    "project_id": "remaxmapstate-11c74",
+    "storage_bucket": "remaxmapstate-11c74.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:384651653028:android:a7efb30982a372c7151b31",
+        "android_client_info": {
+          "package_name": "com.remax.remax_mapstate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "384651653028-skv3cafe64hfeq4km37aveftdbfbekod.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCt0XLAx85ZVj-QEigt3H_Tt53ULxXQCWc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "384651653028-skv3cafe64hfeq4km37aveftdbfbekod.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

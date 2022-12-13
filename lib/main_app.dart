@@ -1,6 +1,9 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:remax_mapstate/common/constants/language_constants.dart';
 import 'package:remax_mapstate/common/constants/route_list.dart';
 import 'package:remax_mapstate/common/enums/login_status.dart';
@@ -20,6 +23,8 @@ import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
+
+import 'main.dart';
 
 class MainApp extends StatefulWidget {
   final UserType userType;
@@ -46,6 +51,15 @@ class _MainAppState extends State<MainApp> {
 
     /// loadCurrentUser of currentUserCubit
     widget.currentUserCubit.loadCurrentUser();
+
+    /// interactedMessageWhenAppIsTerminated
+    _interactedMessageWhenAppIsTerminated();
+
+    /// setupInteractedMessage
+    _interactedMessageWhenAppIsOpenedInBackground();
+
+    /// showReceivedNotification
+    _showReceivedNotification();
 
     ///init screen util
     ScreenUtil.init();
@@ -163,4 +177,59 @@ class _MainAppState extends State<MainApp> {
       ),
     );
   }
+
+
+  /// To interact with clicked notification when app is open in background
+  Future<void> _interactedMessageWhenAppIsOpenedInBackground() async {
+    ///==> Also handle any interaction when the app is in the background via a
+    ///==> Stream listener
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print("_interactedMessageWhenAppIsOpenedInBackground");
+     // _handleMessage(message);
+    });
+  }
+
+  /// To interact with clicked notification when app is terminated
+  Future<void> _interactedMessageWhenAppIsTerminated() async {
+    ///==> Get any messages which caused the application to open from
+    ///==> a terminated state.
+    RemoteMessage? initialMessage =
+    await FirebaseMessaging.instance.getInitialMessage();
+
+    ///==> If the message also contains a data property with a "type" of "chat",
+    ///==> navigate to a chat screen
+    if (initialMessage != null) {
+      print("_interactedMessageWhenAppIsTerminated");
+      //_handleMessage(initialMessage);
+    }
+  }
+
+  /// show received notification banner
+  void _showReceivedNotification() {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+
+      if (notification != null && android != null && !kIsWeb) {
+        /// insert into local data base
+       // _insertNotificationIntoLocalDB(message);
+
+        /// show notification
+        flutterLocalNotificationsPlugin.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(channel.id, channel.name,
+                channelDescription: channel.description,
+                // TODO add a proper drawable resource to android, for now using
+                //      one that already exists in example app.
+                icon: 'launch_background',
+                visibility: NotificationVisibility.public),
+          ),
+        );
+      }
+    });
+  }
+
 }
