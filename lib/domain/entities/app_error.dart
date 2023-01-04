@@ -8,7 +8,10 @@ enum AppErrorType {
   sharedPreferences,
   validation,
   canNotMakePhoneCall,
-  canOpenWhatsapp
+  canOpenWhatsapp,
+
+  emailAlreadyExists,
+  passwordIsMissing,
 }
 
 class AppError extends Equatable {

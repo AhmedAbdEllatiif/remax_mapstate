@@ -3,26 +3,23 @@ import 'dart:async';
 import 'package:hive/hive.dart';
 import 'package:remax_mapstate/common/enums/login_status.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
-import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/domain/entities/auto_login_entity.dart';
+import 'package:remax_mapstate/domain/entities/user_entity.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../tables/current_user_table.dart';
-
 abstract class AppSettingsLocalDataSource {
-  ///********************************** Language *********************************\\\\
+  ///**************************** Language *********************************\\\\
   /// update current preferred language
   Future<void> updateLanguage(String languageCode);
 
   /// return the current preferred language
   Future<String> getPreferredLanguage();
 
-  ///********************************** currentUser *********************************\\\\
-  /// update current preferred language
-  Future<void> updateCurrentUser(CurrentUserTable userType);
+  ///****************************** currentUser ****************************\\\\
+  Future<void> saveCurrentUser(UserEntity userEntity);
 
   /// return the current preferred language
-  Future<CurrentUserTable> getCurrentUser();
+  Future<UserEntity> getCurrentUser();
 
   /// return LoginStatus
   Future<AutoLoginEntity> getAutoLogin();
@@ -35,8 +32,7 @@ abstract class AppSettingsLocalDataSource {
 }
 
 class AppSettingsLocalDataSourceImpl extends AppSettingsLocalDataSource {
-
-  ///********************************** Language *********************************\\\\
+  ///**************************** Language *********************************\\\\
   /// return the current preferred language
   /// return 'en' as default if no language box in local DB
   @override
@@ -52,31 +48,84 @@ class AppSettingsLocalDataSourceImpl extends AppSettingsLocalDataSource {
     unawaited(languageBox.put('preferred_language', languageCode));
   }
 
+  //=============================>  User Date   <=============================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
+  /// to remove current user data
+  @override
+  Future<void> deleteCurrentUser() async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setStringList("userData", []);
+  }
+
+  /// return UserEntity
+  @override
+  Future<UserEntity> getCurrentUser() async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    // userId
+    final userId = preferences.getInt("userId") ?? -1;
+
+    // userData
+    final data = preferences.getStringList("userData") ?? [];
+
+    // return user data
+    return data.isNotEmpty
+        ? UserEntity(
+            id: userId,
+            firstName: data[0],
+            lastName: data[1],
+            email: data[2],
+            userType: userTypeFromString(data[3]),
+            //phoneNum: data[4],
+            // acceptTerms: acceptTermsFromString(data[5]))
+            // : AuthorizedUserEntity.empty()
+          )
+        : UserEntity.empty();
+  }
+
+  /// save current user Entity
+  @override
+  Future<void> saveCurrentUser(UserEntity userEntity) async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setInt("userId", userEntity.id);
+    preferences.setStringList("userData", [
+      userEntity.firstName,
+      userEntity.lastName,
+      userEntity.email,
+      userEntity.userType.toShortString(),
+      //userEntity.phoneNum,
+      //userEntity.acceptTerms.toShortString(),
+    ]);
+  }
 
   ///********************************** currentUser *********************************\\\\
 
   /// update currentUser
-  @override
+  /* @override
   Future<void> updateCurrentUser(CurrentUserTable currentUser) async {
     final currentUserBox = await Hive.openBox('currentUserBox');
     await currentUserBox.put('currentUser', currentUser);
-  }
+  }*/
 
   /// return the currentUser
   /// return 'noUser' as default if no currentUserBox in local DB
-  @override
-  Future<CurrentUserTable> getCurrentUser() async {
-    final currentUserBox = await Hive.openBox('currentUserBox');
-    return currentUserBox.get('currentUser') ??
-        CurrentUserTable(currentUser: UserType.noUser.toShortString());
-  }
-
+  // @override
+  // Future<CurrentUserTable> getCurrentUser() async {
+  //   final currentUserBox = await Hive.openBox('currentUserBox');
+  //   return currentUserBox.get('currentUser') ??
+  //       CurrentUserTable(currentUser: UserType.noUser.toShortString());
+  // }
 
   /// return LoginStatus
   @override
-  Future<AutoLoginEntity> getAutoLogin() async{
+  Future<AutoLoginEntity> getAutoLogin() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    final currentLoginStatusStr =  preferences.getString("isLoggedIn") ??
+    final currentLoginStatusStr = preferences.getString("isLoggedIn") ??
         LoginStatus.notLoggedIn.toShortString();
     return AutoLoginEntity(currentLoginStatusStr: currentLoginStatusStr);
   }
@@ -85,15 +134,15 @@ class AppSettingsLocalDataSourceImpl extends AppSettingsLocalDataSource {
   @override
   Future<void> saveLoginStatus(AutoLoginEntity autoLoginEntity) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setString("isLoggedIn", autoLoginEntity.loginStatus.toShortString());
+    preferences.setString(
+        "isLoggedIn", autoLoginEntity.loginStatus.toShortString());
   }
 
   /// to remove auto login
   @override
   Future<void> deleteAutoLogin() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setString("isLoggedIn", LoginStatus.notLoggedIn.toShortString());
+    preferences.setString(
+        "isLoggedIn", LoginStatus.notLoggedIn.toShortString());
   }
-
-
 }

@@ -12,15 +12,18 @@ import 'package:remax_mapstate/data/api/queries/project_status/en_project_status
 import 'package:remax_mapstate/data/api/queries/projects.dart';
 import 'package:remax_mapstate/data/api/queries/unit_type_names/ar_unit_type_names.dart';
 import 'package:remax_mapstate/data/api/queries/unit_type_names/en_unit_type_names.dart';
+import 'package:remax_mapstate/data/api/requests/mutations/update_user.dart';
 import 'package:remax_mapstate/data/models/area_model.dart';
 import 'package:remax_mapstate/data/models/broker_model.dart';
 import 'package:remax_mapstate/data/models/contact_developer.dart';
 import 'package:remax_mapstate/data/models/get_filter_data.dart';
+import 'package:remax_mapstate/data/models/mutation/update_user.dart';
 import 'package:remax_mapstate/data/models/page_info.dart';
 import 'package:remax_mapstate/data/models/project_model.dart';
 import 'package:remax_mapstate/data/models/project_status.dart';
 import 'package:remax_mapstate/data/models/team_support_model.dart';
 import 'package:remax_mapstate/data/models/unit_type_model.dart';
+import 'package:remax_mapstate/data/models/user_model.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
 
 import '../../common/constants/api_constants.dart';
@@ -82,6 +85,10 @@ abstract class RemoteDataSource {
     required AppLanguage appLanguage,
     required PageInfo pageInfo,
     required List<FilterModel> filtersList,
+  });
+
+  Future<UserModel> updateDefaultUser({
+    required UpdateUserMutationModel updateUserMutationModel,
   });
 }
 
@@ -265,7 +272,7 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       },
     );
 
-    log("UnitTypeNames >> Data >> ..........\n ${result.data}.......");
+    //log("UnitTypeNames >> Data >> ..........\n ${result.data}.......");
     return listOfProjectStatusFromJson(result.data!);
     //return [];
   }
@@ -289,7 +296,7 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       },
     );
 
-    log("UnitTypeNames >> Data >> ..........\n ${result.data}.......");
+    //log("UnitTypeNames >> Data >> ..........\n ${result.data}.......");
     return listOfUnitTypeNamesFromJson(result.data!);
   }
 
@@ -311,7 +318,7 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       },
     );
 
-    log("getProjectByStatus >> Data >> ..........\n ${result.data}.......");
+    //log("getProjectByStatus >> Data >> ..........\n ${result.data}.......");
     return listOfProjectModel(result.data!);
   }
 
@@ -371,5 +378,26 @@ class RemoteDateSourceImpl extends RemoteDataSource {
 
     //log("getProjectByStatus >> Data >> ..........\n ${result.data}.......");
     return listOfProjectModel(result.data!);
+  }
+
+  /// updateUser
+  @override
+  Future<UserModel> updateDefaultUser({
+    required UpdateUserMutationModel updateUserMutationModel,
+  }) async {
+    final mutationFields = updateUserMutation();
+
+    final QueryResult result = await apiClient.mutate(
+      mutationFields,
+      variables: {
+        VariablesConstants.inputForm: updateUserMutationModel.toRegisterJson(),
+      },
+    );
+
+
+
+    log("updateUser >> ResultOnly >> ..........\n \n \n ${result}.......\n\n\n");
+    log("updateUser >> Data >> ..........\n ${result.data}.......");
+    return userModelFormJson(result.data!["updateUser"]);
   }
 }

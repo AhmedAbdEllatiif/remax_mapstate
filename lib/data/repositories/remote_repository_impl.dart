@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:remax_mapstate/data/data_sources/remote_data_source.dart';
+import 'package:remax_mapstate/data/models/mutation/update_user.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
@@ -16,6 +17,9 @@ import 'package:remax_mapstate/domain/entities/team_support_entity.dart';
 import 'package:remax_mapstate/domain/entities/unit_type_entity.dart';
 import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 
+import '../../common/classes/handle_operation_exceptions.dart';
+import '../../domain/entities/params/update_user_params.dart';
+import '../../domain/entities/user_entity.dart';
 import '../params/fetch_list_params.dart';
 import '../params/filter_data_params.dart';
 
@@ -248,6 +252,46 @@ class RemoteRepositoryImpl extends RemoteRepository {
       return Left(AppError(AppErrorType.network, message: e.toString()));
     } on Exception catch (e) {
       log("RepoImpl >> fetchProjectsByStatus >> Exception >> $e");
+      return Left(AppError(AppErrorType.api, message: e.toString()));
+    }
+  }
+
+  /*
+  *
+  *
+  * updateCurrentUser
+  *
+  *
+  * */
+  @override
+  Future<Either<AppError, UserEntity>> updateDefaultUser(
+      UpdateDefaultUserParams params) async {
+    try {
+      final userModel = await remoteDataSource.updateDefaultUser(
+        updateUserMutationModel: UpdateUserMutationModel(
+          email: params.email,
+          firstName: params.firstName,
+          lastName: params.lastName,
+          password: params.password,
+        ),
+      );
+      return Right(userModel);
+    }
+    //==> SocketException
+    on SocketException catch (e) {
+      log("RepoImpl >> updateCurrentUser >> SocketException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.message));
+    }
+    //==> OperationException
+    on OperationException catch (e) {
+      final appErrorType =
+          AppErrorTypeBuilder.formOperationException(e).appErrorType;
+      log("RepoImpl >> updateCurrentUser >> OperationException >> $e");
+      return Left(AppError(appErrorType, message: e.toString()));
+    }
+    //==> Exception
+    on Exception catch (e) {
+      log("RepoImpl >> updateCurrentUser >> Exception >> $e");
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
   }

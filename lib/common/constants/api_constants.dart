@@ -17,4 +17,5 @@ class VariablesConstants {
 
   static String filters = 'filters';
   static String pageInfo = 'pageInfo';
+  static String inputForm = 'inputForm';
 }

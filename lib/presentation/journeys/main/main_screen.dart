@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:remax_mapstate/data/tables/current_user_table.dart';
 import 'package:remax_mapstate/di/git_it.dart';
-import 'package:remax_mapstate/domain/entities/current_user.dart';
+import 'package:remax_mapstate/domain/entities/user_entity.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/calculator_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/favorite/favorite_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/not_user_login_first/not_a_user_login_first_screen.dart';
@@ -98,15 +97,13 @@ class _MainScreenState extends State<MainScreen> {
         ),
 
         // bottomNavigationBar
-        bottomNavigationBar: BlocBuilder<CurrentUserCubit, CurrentUserTable>(
+        bottomNavigationBar: BlocBuilder<CurrentUserCubit, UserEntity>(
           builder: (context, currentUser) {
             return Theme(
                 data:
                     Theme.of(context).copyWith(canvasColor: AppColor.fadeBlack),
                 child: BottomNavigation(
-                  userType:
-                      CurrentUserEntity(currentUserStr: currentUser.currentUser)
-                          .userType,
+                  userType: currentUser.userType,
                 ));
           },
         ),

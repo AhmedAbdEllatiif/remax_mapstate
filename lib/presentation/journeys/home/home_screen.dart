@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/enums/app_language.dart';
@@ -10,6 +12,8 @@ import 'package:remax_mapstate/presentation/logic/cubit/language/language_cubit.
 import 'package:remax_mapstate/presentation/widgets/app_error_widget.dart';
 import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 
+import '../../../data/models/mutation/update_user.dart';
+import '../../../domain/entities/params/update_user_params.dart';
 import '../../logic/cubit/areas/areas_cubit.dart';
 import '../../logic/bloc/project_status/project_status_bloc.dart';
 import '../../logic/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
@@ -49,6 +53,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
     _areasCubit = getItInstance<AreasCubit>();
     _fetchAreas();
+
+    _updateUser();
+  }
+
+  void _updateUser()async{
+    final remoteRepo = getItInstance<RemoteRepository>();
+    final result = await remoteRepo.updateDefaultUser(UpdateDefaultUserParams(
+        email: "ahmed11@gmail.com",
+        firstName: "Ahmed",
+        lastName: "Mohamed",
+        password: "1111111122221"));
+
+    result.fold((l) => log("Error: ${l.appErrorType.toString()}"),
+            (r) => log("Success"));
   }
 
   @override

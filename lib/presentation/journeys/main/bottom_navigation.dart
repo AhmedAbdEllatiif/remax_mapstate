@@ -53,7 +53,7 @@ class BottomNavigation extends StatelessWidget {
         return BottomNavigationItems().broker(context);
 
       /// noUser, tour or default
-      case UserType.noUser:
+      case UserType.unDefined:
       case UserType.tour:
       default:
         return BottomNavigationItems().clientItems(context);

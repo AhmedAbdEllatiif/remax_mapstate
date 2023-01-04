@@ -56,7 +56,7 @@ class NavigationCubit extends Cubit<NavigationState> {
     }
 
     ///==> emit NotAUser
-    if (userType == UserType.tour || userType == UserType.noUser) {
+    if (userType == UserType.tour || userType == UserType.unDefined) {
       _emitIfNotClosed(
           NotAUser(title: TranslateConstants.calculator, index: index));
     }
@@ -78,7 +78,7 @@ class NavigationCubit extends Cubit<NavigationState> {
     }
 
     ///==> emit NotAUser
-    if (userType == UserType.tour || userType == UserType.noUser) {
+    if (userType == UserType.tour || userType == UserType.unDefined) {
       _emitIfNotClosed(
           NotAUser(title: TranslateConstants.favorite, index: index));
     }
@@ -88,7 +88,7 @@ class NavigationCubit extends Cubit<NavigationState> {
   /// At index 3
   void _index3Pressed(UserType userType, int index) {
     ///==> emit NotAUser
-    if (userType == UserType.tour || userType == UserType.noUser) {
+    if (userType == UserType.tour || userType == UserType.unDefined) {
       _emitIfNotClosed(
           NotAUser(title: TranslateConstants.profile, index: index));
     }

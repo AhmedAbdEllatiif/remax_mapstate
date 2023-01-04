@@ -8,7 +8,7 @@ import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 import '../../../../common/constants/sizes.dart';
 import '../../../../common/constants/translate_constatns.dart';
 import '../../../../common/enums/user_types.dart';
-import '../../../../domain/entities/current_user.dart';
+import '../../../../domain/entities/user_entity.dart';
 import '../../../../router/route_hepler.dart';
 import '../../../logic/cubit/current_user/current_user_cubit.dart';
 
@@ -42,7 +42,14 @@ class TakeATourButton extends StatelessWidget {
   /// update currentUser
   Future<void> _updateCurrentUser(BuildContext context) async {
     BlocProvider.of<CurrentUserCubit>(context).changeUser(
-        CurrentUserEntity(currentUserStr: UserType.tour.toShortString()));
+      UserEntity(
+        userType: UserType.tour,
+        firstName: "",
+        lastName: "",
+        email: "",
+        id: -1,
+      ),
+    );
   }
 
   /// navigate to MainScreen

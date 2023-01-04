@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive/hive.dart';
-import 'package:remax_mapstate/data/tables/current_user_table.dart';
 import 'package:remax_mapstate/data/tables/fav_project_table.dart';
 import 'package:remax_mapstate/main_app.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/auto_login/auto_login_cubit.dart';
@@ -61,7 +60,6 @@ void main() async {
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   Hive.registerAdapter(FavProjectTableAdapter());
-  Hive.registerAdapter(CurrentUserTableAdapter());
 
   final currentUserType = await currentUserCubit.getCurrentUserType();
   await languageCubit.loadPreferredLanguage();

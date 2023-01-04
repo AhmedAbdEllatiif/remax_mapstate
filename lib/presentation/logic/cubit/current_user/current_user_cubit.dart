@@ -1,66 +1,53 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
-import 'package:remax_mapstate/data/tables/current_user_table.dart';
-import 'package:remax_mapstate/domain/entities/app_error.dart';
-import 'package:remax_mapstate/domain/entities/current_user.dart';
+import 'package:remax_mapstate/domain/entities/user_entity.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/current_user/get_current_user.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/current_user/update_current_user.dart';
 
 import '../../../../domain/entities/params/no_params.dart';
 
-
-
 part 'current_user_state.dart';
 
-class CurrentUserCubit extends Cubit<CurrentUserTable> {
+class CurrentUserCubit extends Cubit<UserEntity> {
   final GetCurrentUserCase getCurrentUserCase;
   final UpdateCurrentUserCase updateCurrentUserCase;
-
 
   CurrentUserCubit({
     required this.getCurrentUserCase,
     required this.updateCurrentUserCase,
-  }) : super(CurrentUserTable.fromCurrentUserEntity(
-             CurrentUserEntity(currentUserStr: UserType.noUser.toShortString())));
-
-
+  }) : super(UserEntity.empty());
 
   /// to remove currentUser
   Future<void> removeUser() async {
-    final noUser =
-    CurrentUserTable.fromCurrentUserEntity(CurrentUserEntity(currentUserStr: UserType.noUser.toShortString()));
-    await updateCurrentUserCase(noUser);
+    await updateCurrentUserCase(UserEntity.empty());
     loadCurrentUser();
   }
 
   /// to update currentUser
-  Future<void> changeUser(CurrentUserEntity currentUserEntity) async {
-    final currentUser =
-        CurrentUserTable.fromCurrentUserEntity(currentUserEntity);
-    await updateCurrentUserCase(currentUser);
+  Future<void> changeUser(UserEntity currentUserEntity) async {
+    await updateCurrentUserCase(currentUserEntity);
     loadCurrentUser();
   }
 
   /// to load currentUser
   Future<UserType> getCurrentUserType() async {
     final response = await getCurrentUserCase(NoParams());
-    final userType = response.fold(
-          (l) => CurrentUserTable.fromCurrentUserEntity( CurrentUserEntity(currentUserStr: UserType.noUser.toShortString())),
-          (currentUser) => currentUser,
+    final currentUser = response.fold(
+      (error) => UserEntity.empty(),
+      (currentUser) => currentUser,
     );
-    return CurrentUserEntity(currentUserStr: userType.currentUser).userType;
+    return currentUser.userType;
   }
-
 
   /// to load currentUser
   void loadCurrentUser() async {
     final response = await getCurrentUserCase(NoParams());
 
-    if(!isClosed){
+    if (!isClosed) {
       emit(response.fold(
-            (l) => CurrentUserTable.fromCurrentUserEntity( CurrentUserEntity(currentUserStr: UserType.noUser.toShortString())),
-            (currentUser) => currentUser,
+        (l) => UserEntity.empty(),
+        (currentUser) => currentUser,
       ));
     }
   }

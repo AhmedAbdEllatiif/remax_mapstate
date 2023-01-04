@@ -10,9 +10,25 @@ enum UserType {
   client,
   broker,
   ambassador,
-  noUser,
+  unDefined,
 }
 
+
+
+UserType userTypeFromString(String userTypeInString) {
+  switch (userTypeInString) {
+    case "client":
+      return UserType.client;
+    case "broker":
+      return UserType.broker;
+    case "tour":
+      return UserType.tour;
+    case "ambassador":
+      return UserType.ambassador;
+    default:
+      return UserType.unDefined;
+  }
+}
 
 /// Extension to convert UserType to string
 extension ToString on UserType {

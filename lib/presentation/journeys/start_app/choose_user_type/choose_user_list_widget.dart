@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/choose_user_type/user_type_card.dart';
 
 import '../../../../common/enums/user_types.dart';
-import '../../../../domain/entities/current_user.dart';
+import '../../../../domain/entities/user_entity.dart';
 
 class ChooseUserListWidget extends StatelessWidget {
   ChooseUserListWidget({Key? key}) : super(key: key);
@@ -22,18 +22,21 @@ class ChooseUserListWidget extends StatelessWidget {
     return Center(
       child: SingleChildScrollView(
         child: Column(
-
           children: List.generate(
             listSize,
-                (index) {
+            (index) {
               return SizedBox(
                 //margin: EdgeInsets.symmetric(horizontal: 2),
-                width: w ,
+                width: w,
                 // height: w - 50,
                 //color: Colors.green[200],
                 child: UserTypeCard(
-                  currentUserEntity: CurrentUserEntity(
-                    currentUserStr: usersList[index].toShortString(),
+                  currentUserEntity: UserEntity(
+                    userType: usersList[index],
+                    firstName: "",
+                    lastName: "",
+                    email: "",
+                    id: -1,
                   ),
                 ),
               );

@@ -4,8 +4,8 @@ import 'package:remax_mapstate/data/data_sources/app_settings_local_data_source.
 import 'package:remax_mapstate/domain/entities/auto_login_entity.dart';
 
 import 'package:remax_mapstate/domain/entities/app_error.dart';
+import 'package:remax_mapstate/domain/entities/user_entity.dart';
 import '../../domain/repositories/app_settings_repository.dart';
-import '../tables/current_user_table.dart';
 
 class AppSettingsRepositoryImpl extends AppSettingsRepository {
   final AppSettingsLocalDataSource appSettingsLocalDataSource;
@@ -39,7 +39,7 @@ class AppSettingsRepositoryImpl extends AppSettingsRepository {
 
   /// return currentUser
   @override
-  Future<Either<AppError, CurrentUserTable>> getCurrentUser() async {
+  Future<Either<AppError, UserEntity>> getCurrentUser() async {
     try {
       final response = await appSettingsLocalDataSource.getCurrentUser();
       return Right(response);
@@ -51,10 +51,10 @@ class AppSettingsRepositoryImpl extends AppSettingsRepository {
   /// update currentUser
   @override
   Future<Either<AppError, void>> updateCurrentUser(
-      CurrentUserTable currentUser) async {
+      UserEntity currentUser) async {
     try {
       final response =
-          await appSettingsLocalDataSource.updateCurrentUser(currentUser);
+          await appSettingsLocalDataSource.saveCurrentUser(currentUser);
       return Right(response);
     } on Exception {
       return const Left(AppError(AppErrorType.localDB));

@@ -6,15 +6,17 @@ import 'package:remax_mapstate/domain/entities/area_entity.dart';
 import 'package:remax_mapstate/domain/entities/broker_entity.dart';
 import 'package:remax_mapstate/domain/entities/contact_developer.dart';
 import 'package:remax_mapstate/domain/entities/filter_data_entity.dart';
+import 'package:remax_mapstate/domain/entities/params/update_user_params.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
 import 'package:remax_mapstate/domain/entities/team_support_entity.dart';
 import 'package:remax_mapstate/domain/entities/unit_type_entity.dart';
+import 'package:remax_mapstate/domain/entities/user_entity.dart';
 
 import '../../data/params/fetch_areas_params.dart';
 
 abstract class RemoteRepository {
-  ///******************************** Projects ******************************** \\\\
+  ///***************************** Projects ******************************* \\\\
   /// return list of TopProjects
   Future<Either<AppError, List<ProjectEntity>>> fetchProjects();
 
@@ -54,6 +56,9 @@ abstract class RemoteRepository {
   /// return a list of projects
   Future<Either<AppError, List<ProjectEntity>>> advancedFilterProjects(
       FetchListParams params);
+
+  Future<Either<AppError, UserEntity>> updateDefaultUser(
+      UpdateDefaultUserParams params);
 
   ///**************************** Developer Contact *********************** \\\\
   Future<Either<AppError, ContactDeveloperEntity>> getDeveloperContact(

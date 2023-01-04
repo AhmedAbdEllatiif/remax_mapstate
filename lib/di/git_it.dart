@@ -51,6 +51,7 @@ import '../domain/use_cases/local_usecases/auto_login/save_auto_login.dart';
 import '../domain/use_cases/make_phone_call.dart';
 import '../domain/use_cases/open_map.dart';
 import '../domain/use_cases/open_whats_app.dart';
+import '../domain/use_cases/update_default_user.dart';
 import '../presentation/logic/cubit/areas/areas_cubit.dart';
 import '../presentation/logic/cubit/brokers_by_area/get_area_brokers_cubit.dart';
 import '../presentation/logic/bloc/calculator_validation/calculator_validation_bloc.dart';
@@ -75,22 +76,20 @@ import '../presentation/journeys/calculator/formz/second_down_payment.dart';
 import '../presentation/journeys/calculator/formz/third_down_payment.dart';
 import '../presentation/logic/bloc/favorite_projects/favorite_projects_bloc.dart';
 import '../presentation/logic/cubit/project_scrollable_indicator/indicator_position_cubit.dart';
+import '../presentation/logic/cubit/update_default_user/update_default_user_cubit.dart';
 
 final getItInstance = GetIt.I;
 
 Future init() async {
-
-
   ///********************** init Notification channel ***********************\\\
   /// Default android notification channel
   getItInstance.registerFactory<AndroidNotificationChannel>(
-          () => const AndroidNotificationChannel(
-        'default_channel', // id
-        'Default Notifications', // title
-        description: 'This channel is used for important notifications.',
-        importance: Importance.high,
-      ));
-
+      () => const AndroidNotificationChannel(
+            'default_channel', // id
+            'Default Notifications', // title
+            description: 'This channel is used for important notifications.',
+            importance: Importance.high,
+          ));
 
   ///********************************** init ApiClient *********************************************\\\
 
@@ -272,6 +271,13 @@ Future init() async {
   getItInstance.registerFactory<AdvancedFilterProjectsCase>(
     () => AdvancedFilterProjectsCase(
       apiRepo: getItInstance(),
+    ),
+  );
+
+  /// UpdateDefaultUserCase
+  getItInstance.registerFactory<UpdateDefaultUserCase>(
+    () => UpdateDefaultUserCase(
+      remoteRepository: getItInstance(),
     ),
   );
 
@@ -461,6 +467,10 @@ Future init() async {
   /// init AreaBrokersBloc
   getItInstance
       .registerFactory<GetAreaBrokersCubit>(() => GetAreaBrokersCubit());
+
+  /// init UpdateDefaultUserCubit
+  getItInstance
+      .registerFactory<UpdateDefaultUserCubit>(() => UpdateDefaultUserCubit());
 
   /// init CalculatorValidationBloc
   getItInstance
