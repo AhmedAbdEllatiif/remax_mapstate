@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
+import 'package:remax_mapstate/common/extensions/widgetExtension.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
 import '../../common/constants/sizes.dart';
+import '../../common/enums/animation_type.dart';
 import '../themes/theme_color.dart';
 
 class ButtonWithBoxShadow extends StatelessWidget {
@@ -42,6 +44,18 @@ class ButtonWithBoxShadow extends StatelessWidget {
             BoxShadow(
                 color: AppColor.geeBung, offset: Offset(-1, 2), blurRadius: 5)
           ]),
-    );
+    ).animate(
+        slideDuration: const Duration(milliseconds: 300),
+        fadeDuration: const Duration(milliseconds: 300),
+        map: {
+          AnimationType.slide: {
+            SlideOffset.begin: const Offset(0.0, 0.5),
+            SlideOffset.end: const Offset(0.0, 0.0),
+          },
+          AnimationType.fade: {
+            FadeOpacity.begin: 0.5,
+            FadeOpacity.end: 1.0,
+          },
+        });
   }
 }

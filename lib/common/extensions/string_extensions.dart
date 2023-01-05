@@ -14,4 +14,10 @@ extension StringExtension on String {
     return AppLocalizations.of(context).translate(this);
   }
 
+  bool get containsUppercase => contains(RegExp(r'[A-Z]'));
+  bool get containsLowercase => contains(RegExp(r'[a-z]'));
+  bool get containsSpecialCharacter => contains(RegExp(r'(?=.*?[!@#\$&*~])'));
+  bool get containsNumber => contains(RegExp(r'(?=.*?[0-9])'));
+  bool get matchEmail => RegExp( r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(this);
+
 }

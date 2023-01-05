@@ -66,7 +66,7 @@ class TranslateConstants{
   static const String headOffice = 'headOffice';
   static const String test = 'test';
   static const String buyerRegistration = 'buyerRegistration';
-  static const String spotterRegistration = 'spotterRegistration';
+  static const String ambassadorRegistration = 'ambassadorRegistration';
   static const String brokerRegistration = 'brokerRegistration';
   static const String firstName = 'firstName';
   static const String lastName = 'lastName';
