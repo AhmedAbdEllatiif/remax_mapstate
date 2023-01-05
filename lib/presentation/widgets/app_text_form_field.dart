@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/common/extensions/widgetExtension.dart';
@@ -160,10 +161,10 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
                     ? widget.errorText
                     : null
                 : null,
-            errorStyle: Theme.of(context).textTheme.caption!.copyWith(
-              color: AppColor.geeBung,
-              fontWeight: FontWeight.bold
-            ),
+            errorStyle: Theme.of(context)
+                .textTheme
+                .caption!
+                .copyWith(color: AppColor.geeBung, fontWeight: FontWeight.bold),
 
             // icon
             suffixIcon: _icon,
@@ -238,21 +239,22 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
       }
       if (widget.minLength != null) {
         if (widget.minLength! > value.length) {
-          return "الحد الأدنى من الأحرف هو ${widget.minLength}";
+          return TranslateConstants.minRequiredCharacters.t(context) +
+              "${widget.minLength}";
         }
       }
     }
 
-    if (value == null) return "* مطلوب ادخاله";
-    if (value.isEmpty) return "* مطلوب ادخاله";
+    if (value == null) return TranslateConstants.requiredField.t(context);
+    if (value.isEmpty) return TranslateConstants.requiredField.t(context);
     return null;
   }
 
   /// return a nullable string of email validation
   String? emailValidation(String value) {
-    if (value.isEmpty) return "* الرجاء إدخال البريد الخاص بك";
+    if (value.isEmpty) return TranslateConstants.emailRequired.t(context);
 
-    if (!value.matchEmail) return "* عنوان البريد الإلكتروني غير صالح";
+    if (!value.matchEmail) return TranslateConstants.invalidEmailFormat.t(context);
 
     return null;
   }
@@ -266,28 +268,30 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
     }*/
 
     // empty value
-    if (value.isEmpty) return '* من فضلك أدخل كلمة مرور';
+    if (value.isEmpty) return TranslateConstants.passwordRequired.t(context);
 
     // not contains a uppercase
     if (!value.containsUppercase) {
-      return '* يجب تضمين حرف علوي واحد على الأقل';
+      return TranslateConstants.atLeastUpperCase.t(context);
     }
 
     // not contains a lowercase
     if (!value.containsLowercase) {
-      return '* يجب تضمين حرف سفلي واحد على الأقل';
+      return TranslateConstants.atLeastLowerCase.t(context);
     }
 
     // not contains a special character
-    if (!value.containsSpecialCharacter) {
+    /*if (!value.containsSpecialCharacter) {
       return '* يجب تضمين حرف خاص واحد على الأقل';
-    }
+    }*/
 
     // not contains a number
-    if (!value.containsNumber) return '* يجب تضمين رقم واحد على الأقل';
+    //if (!value.containsNumber) return '* يجب تضمين رقم واحد على الأقل';
 
     // less than 8 characters
-    if (value.length < 8) return '* يجب أن تكون كلمة المرور 8 أحرف على الأقل';
+    if (value.length < 6) {
+      return TranslateConstants.minRequiredCharacters.t(context) + "6";
+    }
 
     return null;
   }

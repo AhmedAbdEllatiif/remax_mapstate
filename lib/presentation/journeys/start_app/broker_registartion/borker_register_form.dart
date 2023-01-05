@@ -10,13 +10,16 @@ import '../../../widgets/btn_with_box_shadow.dart';
 class BrokerRegisterForm extends StatefulWidget {
   final Function() onRegistrationSuccess;
 
-  const BrokerRegisterForm({Key? key, required this.onRegistrationSuccess}) : super(key: key);
+  const BrokerRegisterForm({Key? key, required this.onRegistrationSuccess})
+      : super(key: key);
 
   @override
   State<BrokerRegisterForm> createState() => _BrokerRegisterFormState();
 }
 
 class _BrokerRegisterFormState extends State<BrokerRegisterForm> {
+
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -36,13 +39,11 @@ class _BrokerRegisterFormState extends State<BrokerRegisterForm> {
               textInputType: TextInputType.name,
             ),
 
-
             /// lastName
             AppTextFormField(
               label: TranslateConstants.lastName.t(context),
               textInputType: TextInputType.name,
             ),
-
 
             /// email
             AppTextFormField(
@@ -50,13 +51,11 @@ class _BrokerRegisterFormState extends State<BrokerRegisterForm> {
               textInputType: TextInputType.emailAddress,
             ),
 
-
             /// numOfExperienceYears
             AppTextFormField(
               label: TranslateConstants.experienceYears.t(context),
               textInputType: TextInputType.number,
             ),
-
 
             AppTextFormField(
               //key: passwordKey,
@@ -82,8 +81,9 @@ class _BrokerRegisterFormState extends State<BrokerRegisterForm> {
             ButtonWithBoxShadow(
               text: TranslateConstants.register.t(context),
               onPressed: () {
-                //widget.onRegistrationSuccess();
-                _validate();
+                if (_validate()) {
+                  widget.onRegistrationSuccess();
+                }
               },
             )
           ],
@@ -92,10 +92,11 @@ class _BrokerRegisterFormState extends State<BrokerRegisterForm> {
     );
   }
 
-
-  void _validate(){
-    if(_formKey.currentState != null){
-      _formKey.currentState!.validate();
+  bool _validate() {
+    //==> validate on form and received images list
+    if (_formKey.currentState != null) {
+      return _formKey.currentState!.validate();
     }
+    return false;
   }
 }

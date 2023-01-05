@@ -104,4 +104,13 @@ class TranslateConstants{
   static const String areaRange = 'areaRange';
   static const String toStr = 'to';
 
+
+  static const String emailAlreadyExists = 'emailAlreadyExists';
+  static const String requiredField = 'requiredField';
+  static const String invalidEmailFormat = 'invalidEmailFormat';
+  static const String emailRequired = 'emailRequired';
+  static const String passwordRequired = 'passwordRequired';
+  static const String minRequiredCharacters = 'minRequiredCharacters';
+  static const String atLeastUpperCase = 'atLeastUpperCase';
+  static const String atLeastLowerCase = 'atLeastLowerCase';
 }
