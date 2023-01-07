@@ -54,20 +54,9 @@ class _HomeScreenState extends State<HomeScreen> {
     _areasCubit = getItInstance<AreasCubit>();
     _fetchAreas();
 
-    _updateUser();
   }
 
-  void _updateUser()async{
-    final remoteRepo = getItInstance<RemoteRepository>();
-    final result = await remoteRepo.updateDefaultUser(UpdateDefaultUserParams(
-        email: "ahmed11@gmail.com",
-        firstName: "Ahmed",
-        lastName: "Mohamed",
-        password: "1111111122221"));
 
-    result.fold((l) => log("Error: ${l.appErrorType.toString()}"),
-            (r) => log("Success"));
-  }
 
   @override
   void dispose() {

@@ -19,5 +19,6 @@ extension StringExtension on String {
   bool get containsSpecialCharacter => contains(RegExp(r'(?=.*?[!@#\$&*~])'));
   bool get containsNumber => contains(RegExp(r'(?=.*?[0-9])'));
   bool get matchEmail => RegExp( r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(this);
+  bool get matchPhoneNumber => RegExp(r'^01[0125][0-9]{8}$').hasMatch(this);
 
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
-import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/broker_registartion/borker_register_form.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/login_form/login_form.dart';
 import 'package:remax_mapstate/presentation/widgets/stack_with_full_background.dart';
@@ -34,6 +33,7 @@ class _BrokerLoginOrRegistrationScreenState
   late final ChooseFavoriteAreaCubit _chooseFavoriteAreaCubit;
 
   bool isLoginForm = true;
+  String userEmail = "";
 
   @override
   void initState() {
@@ -74,15 +74,21 @@ class _BrokerLoginOrRegistrationScreenState
               Flexible(
                 child: isLoginForm
                     ? LoginForm(
-                        onSuccessLogin: () {
-                          _saveAutoLogin();
+                        email: userEmail,
+                        onSuccessLogin: () async {
+                          await _saveAutoLogin();
 
                           _navigateToMainScreen();
                         },
                       )
-                    : BrokerRegisterForm(onRegistrationSuccess: () {
-                        _saveAutoLogin();
-                        _navigateToMainScreen();
+                    : BrokerRegisterForm(
+                        onRegistrationSuccess: (userEntity) async {
+                        // await BlocProvider.of<CurrentUserCubit>(context)
+                        //     .changeUser(userEntity);
+                        // await _saveAutoLogin();
+                        // _navigateToMainScreen();
+                        userEmail = userEntity.email;
+                        _changeBetweenLoginAndRegistration();
                       }),
               ),
 
@@ -103,7 +109,7 @@ class _BrokerLoginOrRegistrationScreenState
       });
 
   /// Save auto login
-  void _saveAutoLogin() async => await context.read<AutoLoginCubit>().save();
+  Future<void> _saveAutoLogin() async => context.read<AutoLoginCubit>().save();
 
   /// Navigate to MainScreen
   void _navigateToMainScreen() =>

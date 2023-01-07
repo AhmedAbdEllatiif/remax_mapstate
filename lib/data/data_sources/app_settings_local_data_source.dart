@@ -68,7 +68,7 @@ class AppSettingsLocalDataSourceImpl extends AppSettingsLocalDataSource {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
 
     // userId
-    final userId = preferences.getInt("userId") ?? -1;
+    final userId = preferences.getString("userId") ?? "-1";
 
     // userData
     final data = preferences.getStringList("userData") ?? [];
@@ -80,7 +80,8 @@ class AppSettingsLocalDataSourceImpl extends AppSettingsLocalDataSource {
             firstName: data[0],
             lastName: data[1],
             email: data[2],
-            userType: userTypeFromString(data[3]),
+            phoneNumber: data[3],
+            userType: userTypeFromString(data[4]),
             //phoneNum: data[4],
             // acceptTerms: acceptTermsFromString(data[5]))
             // : AuthorizedUserEntity.empty()
@@ -92,11 +93,12 @@ class AppSettingsLocalDataSourceImpl extends AppSettingsLocalDataSource {
   @override
   Future<void> saveCurrentUser(UserEntity userEntity) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setInt("userId", userEntity.id);
+    preferences.setString("userId", userEntity.id);
     preferences.setStringList("userData", [
       userEntity.firstName,
       userEntity.lastName,
       userEntity.email,
+      userEntity.phoneNumber,
       userEntity.userType.toShortString(),
       //userEntity.phoneNum,
       //userEntity.acceptTerms.toShortString(),

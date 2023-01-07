@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:remax_mapstate/data/data_sources/remote_data_source.dart';
 import 'package:remax_mapstate/data/models/mutation/update_user.dart';
+import 'package:remax_mapstate/data/models/user_model.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
@@ -259,7 +260,7 @@ class RemoteRepositoryImpl extends RemoteRepository {
   /*
   *
   *
-  * updateCurrentUser
+  * updateDefaultUser
   *
   *
   * */
@@ -267,15 +268,19 @@ class RemoteRepositoryImpl extends RemoteRepository {
   Future<Either<AppError, UserEntity>> updateDefaultUser(
       UpdateDefaultUserParams params) async {
     try {
-      final userModel = await remoteDataSource.updateDefaultUser(
-        updateUserMutationModel: UpdateUserMutationModel(
+      final result = await remoteDataSource.updateDefaultUser(
+        updateUserMutationModel: UpdateUserMutationModel.forRegistration(
           email: params.email,
           firstName: params.firstName,
-          lastName: params.lastName,
+          phoneNumber: params.phoneNumber,
           password: params.password,
+          groups: params.groupId,
         ),
       );
-      return Right(userModel);
+      if (result is UserModel) {
+        return Right(result);
+      }
+      return Left(result);
     }
     //==> SocketException
     on SocketException catch (e) {

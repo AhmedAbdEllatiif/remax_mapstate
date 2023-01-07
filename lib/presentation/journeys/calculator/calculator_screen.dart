@@ -83,6 +83,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       left: Sizes.dimen_32.w,
                       right: Sizes.dimen_32.w),
                   child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
                     child: Padding(
                       padding: EdgeInsets.only(bottom: Sizes.dimen_16.h),
                       child: Column(

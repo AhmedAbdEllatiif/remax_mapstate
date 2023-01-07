@@ -80,7 +80,9 @@ class UserTypeCard extends StatelessWidget {
         firstName: "",
         lastName: "",
         email: "",
-        id: -1,
+        id: "-1",
+        phoneNumber: "",
+        favoriteAreas: [],
       ),
     );
   }

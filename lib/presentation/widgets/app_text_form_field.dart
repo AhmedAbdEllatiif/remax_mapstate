@@ -106,14 +106,11 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
               ? 1
               : widget.maxLength,
 
-          //initialValue: initialValue,
-
           // text style
           style: widget.textStyle ?? const TextStyle(color: AppColor.geeBung),
 
           textInputAction: widget.textInputAction,
 
-          initialValue: '',
           cursorColor: AppColor.geeBung,
 
           decoration: InputDecoration(
@@ -254,7 +251,8 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
   String? emailValidation(String value) {
     if (value.isEmpty) return TranslateConstants.emailRequired.t(context);
 
-    if (!value.matchEmail) return TranslateConstants.invalidEmailFormat.t(context);
+    if (!value.matchEmail)
+      return TranslateConstants.invalidEmailFormat.t(context);
 
     return null;
   }

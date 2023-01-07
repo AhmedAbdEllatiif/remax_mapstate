@@ -10,6 +10,8 @@ enum AppErrorType {
   canNotMakePhoneCall,
   canOpenWhatsapp,
 
+
+  unHandledError,
   emailAlreadyExists,
   passwordIsMissing,
 }

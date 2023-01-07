@@ -108,6 +108,9 @@
   "atLeastUpperCase": "* يجب تضمين حرف علوي واحد على الأقل",
   "atLeastLowerCase": "* يجب تضمين حرف سفلي واحد على الأقل",
 
+  "fullName": "الاسم بالكامل",
+  "phoneNumber": "رقم الهاتف",
+  "invalidPhoneNumber": "رقم الهاتف غير صحيح",
 
 
   "arabic": "العربية",

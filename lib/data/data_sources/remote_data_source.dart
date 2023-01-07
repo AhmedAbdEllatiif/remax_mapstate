@@ -27,6 +27,7 @@ import 'package:remax_mapstate/data/models/user_model.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
 
 import '../../common/constants/api_constants.dart';
+import '../../domain/entities/app_error.dart';
 import '../api/queries/get_filter_data/ar_get_filter_data.dart';
 import '../api/queries/projects_by_status/ar_project_by_status.dart';
 import '../api/queries/projects_by_status/en_project_by_status.dart';
@@ -87,7 +88,7 @@ abstract class RemoteDataSource {
     required List<FilterModel> filtersList,
   });
 
-  Future<UserModel> updateDefaultUser({
+  Future<dynamic> updateDefaultUser({
     required UpdateUserMutationModel updateUserMutationModel,
   });
 }
@@ -382,22 +383,26 @@ class RemoteDateSourceImpl extends RemoteDataSource {
 
   /// updateUser
   @override
-  Future<UserModel> updateDefaultUser({
+  Future<dynamic> updateDefaultUser({
     required UpdateUserMutationModel updateUserMutationModel,
   }) async {
-    final mutationFields = updateUserMutation();
+    try {
+      final mutationFields = updateUserMutation();
 
-    final QueryResult result = await apiClient.mutate(
-      mutationFields,
-      variables: {
-        VariablesConstants.inputForm: updateUserMutationModel.toRegisterJson(),
-      },
-    );
+      final QueryResult result = await apiClient.mutate(
+        mutationFields,
+        variables: {
+          VariablesConstants.inputForm:
+              updateUserMutationModel.toRegisterJson(),
+        },
+      );
 
-
-
-    log("updateUser >> ResultOnly >> ..........\n \n \n ${result}.......\n\n\n");
-    log("updateUser >> Data >> ..........\n ${result.data}.......");
-    return userModelFormJson(result.data!["updateUser"]);
+      log("updateUser >> ResultOnly >> ..........\n \n \n ${result}.......\n\n\n");
+      log("updateUser >> Data >> ..........\n ${result.data}.......");
+      return userModelFormJson(result.data!["updateUser"]);
+    } catch (e) {
+      return AppError(AppErrorType.unHandledError,
+          message: "updateDefaultUser UnHandledError >> $e");
+    }
   }
 }
