@@ -10,8 +10,8 @@ import '../../../../common/constants/sizes.dart';
 import '../../../../common/constants/translate_constatns.dart';
 import '../../../../di/git_it.dart';
 import '../../../../router/route_hepler.dart';
-import '../../../logic/cubit/auto_login/auto_login_cubit.dart';
 import '../../../logic/cubit/choose_favorite_area/choose_favorite_area_cubit.dart';
+import '../../../logic/cubit/user_token/user_token_cubit.dart';
 import '../../../widgets/logo_with_slogan.dart';
 import '../login_form/text_login_instead.dart';
 
@@ -75,8 +75,8 @@ class _BrokerLoginOrRegistrationScreenState
                 child: isLoginForm
                     ? LoginForm(
                         email: userEmail,
-                        onSuccessLogin: () async {
-                          await _saveAutoLogin();
+                        onSuccessLogin: (userToken) async {
+                          await _saveForAutoLogin(token: userToken);
 
                           _navigateToMainScreen();
                         },
@@ -108,8 +108,9 @@ class _BrokerLoginOrRegistrationScreenState
         isLoginForm = !isLoginForm;
       });
 
-  /// Save auto login
-  Future<void> _saveAutoLogin() async => context.read<AutoLoginCubit>().save();
+  /// to save token for auto login
+  Future<void> _saveForAutoLogin({required String token}) =>
+      context.read<UserTokenCubit>().save(token);
 
   /// Navigate to MainScreen
   void _navigateToMainScreen() =>

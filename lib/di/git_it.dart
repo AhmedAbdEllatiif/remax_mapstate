@@ -18,8 +18,6 @@ import 'package:remax_mapstate/domain/use_cases/get_areas.dart';
 import 'package:remax_mapstate/domain/use_cases/get_commercial_projects.dart';
 import 'package:remax_mapstate/domain/use_cases/get_developer_contact.dart';
 import 'package:remax_mapstate/domain/use_cases/get_team_support.dart';
-import 'package:remax_mapstate/domain/use_cases/local_usecases/current_user/get_current_user.dart';
-import 'package:remax_mapstate/domain/use_cases/local_usecases/current_user/update_current_user.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/get_preferred_language.dart';
 import 'package:remax_mapstate/domain/use_cases/get_project_status.dart';
 import 'package:remax_mapstate/domain/use_cases/get_residential_projects.dart';
@@ -38,33 +36,37 @@ import 'package:remax_mapstate/presentation/logic/cubit/advanced_filter_projects
 import 'package:remax_mapstate/presentation/logic/cubit/get_filter_data/get_filter_data_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/projects_by_status/projects_by_status_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/unitType_names/unit_type_names_cubit.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/user_token/user_token_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../data/api/clients/auth_client.dart';
 import '../data/api/clients/graphql_client.dart';
 import '../data/repositories/remote_repository_impl.dart';
 import '../domain/use_cases/advanced_filter_projects.dart';
 import '../domain/use_cases/get_filter_data.dart';
 import '../domain/use_cases/get_projects_by_status.dart';
-import '../domain/use_cases/local_usecases/auto_login/delete_auto_login.dart';
-import '../domain/use_cases/local_usecases/auto_login/get_auto_login.dart';
-import '../domain/use_cases/local_usecases/auto_login/save_auto_login.dart';
+import '../domain/use_cases/local_usecases/authorized_user/authorized_user_data/delete_user_data.dart';
+import '../domain/use_cases/local_usecases/authorized_user/authorized_user_data/get_user_data.dart';
+import '../domain/use_cases/local_usecases/authorized_user/authorized_user_data/save_user_data.dart';
+import '../domain/use_cases/local_usecases/authorized_user/user_token/delete_user_token.dart';
+import '../domain/use_cases/local_usecases/authorized_user/user_token/get_user_token.dart';
+import '../domain/use_cases/local_usecases/authorized_user/user_token/save_user_token.dart';
 import '../domain/use_cases/make_phone_call.dart';
 import '../domain/use_cases/open_map.dart';
 import '../domain/use_cases/open_whats_app.dart';
 import '../domain/use_cases/update_default_user.dart';
 import '../presentation/logic/cubit/areas/areas_cubit.dart';
+import '../presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
 import '../presentation/logic/cubit/brokers_by_area/get_area_brokers_cubit.dart';
 import '../presentation/logic/bloc/calculator_validation/calculator_validation_bloc.dart';
 import '../presentation/logic/bloc/project_status/project_status_bloc.dart';
 import '../presentation/logic/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
 import '../presentation/logic/cubit/projects/get_projects_cubit.dart';
-import '../presentation/logic/cubit/auto_login/auto_login_cubit.dart';
 import '../presentation/logic/cubit/broker_changed/broker_changed_cubit.dart';
 import '../presentation/logic/cubit/change_login_view/change_login_view_cubit.dart';
 import '../presentation/logic/cubit/choose_favorite_area/choose_favorite_area_cubit.dart';
 import '../presentation/logic/cubit/commercial_projects/commercial_projects_cubit.dart';
 import '../presentation/logic/cubit/count_down_cubit/count_down_cubit.dart';
-import '../presentation/logic/cubit/current_user/current_user_cubit.dart';
 import '../presentation/logic/cubit/developer_contact/developer_contact_cubit.dart';
 import '../presentation/logic/cubit/language/language_cubit.dart';
 import '../presentation/logic/cubit/navigation/navigation_cubit.dart';
@@ -103,6 +105,11 @@ Future init() async {
     ),
   );
 
+  /// AuthClient
+  getItInstance.registerFactory<AuthClient>(
+    () => AuthClient(),
+  );
+
   ///********************************** SharedPreferences *********************************************\\\
   getItInstance.registerSingletonAsync<SharedPreferences>(
     () => SharedPreferences.getInstance(),
@@ -111,7 +118,10 @@ Future init() async {
   ///********************************** DataSource *********************************************\\\
   /// Instance of RemoteDataSource
   getItInstance.registerFactory<RemoteDataSource>(
-    () => RemoteDateSourceImpl(apiClient: getItInstance()),
+    () => RemoteDateSourceImpl(
+      apiClient: getItInstance(),
+      authClient: getItInstance(),
+    ),
   );
 
   ///********************************** Local_DataSource *********************************************\\\
@@ -151,7 +161,7 @@ Future init() async {
   /// Instance of AppSettingsRepository
   getItInstance.registerLazySingleton<AppSettingsRepository>(
     () => AppSettingsRepositoryImpl(
-      appSettingsLocalDataSource: getItInstance(),
+      appSettingsDataSource: getItInstance(),
     ),
   );
 
@@ -162,21 +172,6 @@ Future init() async {
       apiRepo: getItInstance(),
     ),
   );
-
-  /// GetAutoLogin
-  getItInstance.registerLazySingleton<GetAutoLogin>(() => GetAutoLogin(
-        appSettingsRepository: getItInstance(),
-      ));
-
-  /// SaveAutoLogin
-  getItInstance.registerLazySingleton<SaveAutoLogin>(() => SaveAutoLogin(
-        appSettingsRepository: getItInstance(),
-      ));
-
-  /// DeleteAutoLogin
-  getItInstance.registerLazySingleton<DeleteAutoLogin>(() => DeleteAutoLogin(
-        appSettingsRepository: getItInstance(),
-      ));
 
   /// GetTopProjects
   getItInstance.registerLazySingleton<GetProjectsCase>(
@@ -282,6 +277,38 @@ Future init() async {
   );
 
   ///************************** Local_Use_Cases *****************************\\\
+//==> GetAutoLogin
+  getItInstance.registerLazySingleton<GetUserTokenCase>(() => GetUserTokenCase(
+        appSettingsRepository: getItInstance(),
+      ));
+
+  //==> SaveAutoLogin
+  getItInstance
+      .registerLazySingleton<SaveUserTokenCase>(() => SaveUserTokenCase(
+            appSettingsRepository: getItInstance(),
+          ));
+
+  //==> DeleteAutoLogin
+  getItInstance
+      .registerLazySingleton<DeleteUserTokenCase>(() => DeleteUserTokenCase(
+            appSettingsRepository: getItInstance(),
+          ));
+
+  //==> SaveUserDataCase
+  getItInstance.registerLazySingleton<SaveUserDataCase>(() => SaveUserDataCase(
+        appSettingsRepository: getItInstance(),
+      ));
+
+  //==> GetUserDataCase
+  getItInstance.registerLazySingleton<GetUserDataCase>(() => GetUserDataCase(
+        appSettingsRepository: getItInstance(),
+      ));
+
+  //==> DeleteUserDataCase
+  getItInstance
+      .registerLazySingleton<DeleteUserDataCase>(() => DeleteUserDataCase(
+            appSettingsRepository: getItInstance(),
+          ));
 
   /// GetPreferredLanguage
   getItInstance.registerLazySingleton<GetPreferredLanguage>(
@@ -290,14 +317,6 @@ Future init() async {
   /// UpdateLanguage
   getItInstance.registerLazySingleton<UpdateLanguage>(
       () => UpdateLanguage(appSettingsRepository: getItInstance()));
-
-  /// GetCurrentUserCase
-  getItInstance.registerLazySingleton<GetCurrentUserCase>(
-      () => GetCurrentUserCase(appSettingsRepository: getItInstance()));
-
-  /// UpdateCurrentUserCase
-  getItInstance.registerLazySingleton<UpdateCurrentUserCase>(
-      () => UpdateCurrentUserCase(appSettingsRepository: getItInstance()));
 
   /// GetFavProject
   getItInstance.registerLazySingleton<GetFavProjects>(
@@ -318,24 +337,18 @@ Future init() async {
   ///*************************** init cubit *********************************\\\
 
   /// init AutoLoginCubit
-  getItInstance.registerSingleton<AutoLoginCubit>(
-    AutoLoginCubit(
-      getAutoLogin: getItInstance(),
-      saveAutoLogin: getItInstance(),
-      deleteAutoLogin: getItInstance(),
+
+  //==> AutoLoginCubit
+  getItInstance.registerFactory<UserTokenCubit>(
+    () => UserTokenCubit(
+      saveUserTokenCase: getItInstance(),
+      getUserTokenCase: getItInstance(),
+      deleteUserTokenCase: getItInstance(),
     ),
   );
 
   /// init navigation cubit
   getItInstance.registerFactory<NavigationCubit>(() => NavigationCubit());
-
-  /// init CurrentUserCubit
-  getItInstance.registerSingleton<CurrentUserCubit>(
-    CurrentUserCubit(
-      getCurrentUserCase: getItInstance(),
-      updateCurrentUserCase: getItInstance(),
-    ),
-  );
 
   /// init BrokerChangeCubit
   getItInstance.registerFactory<BrokerChangedCubit>(
@@ -421,6 +434,15 @@ Future init() async {
   getItInstance.registerFactory(
     () =>
         AdvancedFilterProjectsCubit(searchFilterBuilderCubit: getItInstance()),
+  );
+
+  //==> AuthorizedUserCubit
+  getItInstance.registerFactory<AuthorizedUserCubit>(
+        () => AuthorizedUserCubit(
+      saveUserDataCase: getItInstance(),
+      getUserDataCase: getItInstance(),
+      deleteUserDataCase: getItInstance(),
+    ),
   );
 
   ///**************************** init blocs *******************************\\\

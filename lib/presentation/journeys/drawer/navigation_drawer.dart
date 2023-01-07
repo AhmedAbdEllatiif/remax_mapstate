@@ -7,14 +7,13 @@ import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/presentation/journeys/drawer/navgation_expanded_list_tile.dart';
 import 'package:remax_mapstate/presentation/journeys/drawer/navigation_list_item.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/user_token/user_token_cubit.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/widgets/logo.dart';
 import 'package:remax_mapstate/router/route_hepler.dart';
 
-import '../../logic/cubit/auto_login/auto_login_cubit.dart';
-import '../../logic/cubit/current_user/current_user_cubit.dart';
 import '../../logic/cubit/language/language_cubit.dart';
-
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
@@ -35,7 +34,6 @@ class NavigationDrawer extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             /// logo
             Padding(
               padding: EdgeInsets.only(
@@ -52,16 +50,20 @@ class NavigationDrawer extends StatelessWidget {
             /// Okay
             NavigationListItem(
               title: TranslateConstants.okay.t(context),
-              icon: const Icon(Icons.message_outlined,color: AppColor.geeBung,),
+              icon: const Icon(
+                Icons.message_outlined,
+                color: AppColor.geeBung,
+              ),
               onPressed: () {},
             ),
-
-
 
             /// Okay
             NavigationListItem(
               title: TranslateConstants.okay.t(context),
-              icon: const Icon(Icons.message_outlined,color: AppColor.geeBung,),
+              icon: const Icon(
+                Icons.message_outlined,
+                color: AppColor.geeBung,
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -70,7 +72,10 @@ class NavigationDrawer extends StatelessWidget {
             /// About
             NavigationListItem(
               title: TranslateConstants.about.t(context),
-              icon: const Icon(Icons.info_outline,color: AppColor.geeBung,),
+              icon: const Icon(
+                Icons.info_outline,
+                color: AppColor.geeBung,
+              ),
               onPressed: () {
                 // to close the drawer
                 Navigator.of(context).pop();
@@ -79,23 +84,23 @@ class NavigationDrawer extends StatelessWidget {
               },
             ),
 
-
             /// Change language
             NavigationExpandedListItem(
               title: TranslateConstants.language.t(context),
-              onPressed: (index) => _onLanguageSelected(index,context),
+              onPressed: (index) => _onLanguageSelected(index, context),
               children: LanguageConstants.supportedLanguages
                   .map((e) => e.value)
                   .toList(),
             ),
 
-
             /// Logout
             NavigationListItem(
               title: TranslateConstants.logout.t(context),
-              icon: const Icon(Icons.login_outlined,color: AppColor.geeBung,),
+              icon: const Icon(
+                Icons.login_outlined,
+                color: AppColor.geeBung,
+              ),
               onPressed: () async {
-
                 /// clear current user data
                 await _clearCurrentUser(context);
 
@@ -112,17 +117,16 @@ class NavigationDrawer extends StatelessWidget {
   /// To remove currentUser and autoLogin
   Future<void> _clearCurrentUser(BuildContext context) async {
     /// remove current user
-    await BlocProvider.of<CurrentUserCubit>(context).removeUser();
+    await BlocProvider.of<AuthorizedUserCubit>(context).delete();
+
     /// remove auto login
-    await context.read<AutoLoginCubit>().delete();
+    await context.read<UserTokenCubit>().delete();
   }
 
   /// To navigate to chooseUserScreen
-  void _navigateToChooseUserScreen(BuildContext context){
+  void _navigateToChooseUserScreen(BuildContext context) {
     RouteHelper().chooseUserTypeScreen(context, isClearStack: true);
   }
-
-
 
   void _onLanguageSelected(int index, BuildContext context) {
     BlocProvider.of<LanguageCubit>(context).toggleLanguage(

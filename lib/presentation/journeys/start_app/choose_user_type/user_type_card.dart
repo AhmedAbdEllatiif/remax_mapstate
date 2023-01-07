@@ -4,12 +4,13 @@ import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
+import 'package:remax_mapstate/domain/entities/authorized_user_entity.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 import 'package:remax_mapstate/router/route_hepler.dart';
 
 import '../../../../domain/entities/user_entity.dart';
 
-import '../../../logic/cubit/current_user/current_user_cubit.dart';
 import '../../../themes/theme_color.dart';
 
 class UserTypeCard extends StatelessWidget {
@@ -74,16 +75,8 @@ class UserTypeCard extends StatelessWidget {
 
   /// update currentUser
   Future<void> _updateCurrentUser(BuildContext context) async {
-    BlocProvider.of<CurrentUserCubit>(context).changeUser(
-      UserEntity(
-        userType: currentUserEntity.userType,
-        firstName: "",
-        lastName: "",
-        email: "",
-        id: "-1",
-        phoneNumber: "",
-        favoriteAreas: [],
-      ),
+    BlocProvider.of<AuthorizedUserCubit>(context).save(
+      AuthorizedUserEntity.empty()
     );
   }
 

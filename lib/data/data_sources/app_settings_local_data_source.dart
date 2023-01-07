@@ -1,25 +1,49 @@
 import 'dart:async';
 
 import 'package:hive/hive.dart';
-import 'package:remax_mapstate/common/enums/login_status.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
+import 'package:remax_mapstate/domain/entities/authorized_user_entity.dart';
 import 'package:remax_mapstate/domain/entities/auto_login_entity.dart';
-import 'package:remax_mapstate/domain/entities/user_entity.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class AppSettingsLocalDataSource {
-  ///**************************** Language *********************************\\\\
+  //=============================>  Language   <==============================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
   /// update current preferred language
   Future<void> updateLanguage(String languageCode);
 
   /// return the current preferred language
   Future<String> getPreferredLanguage();
 
-  ///****************************** currentUser ****************************\\\\
-  Future<void> saveCurrentUser(UserEntity userEntity);
+  //=============================>  User Date   <=============================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
 
-  /// return the current preferred language
-  Future<UserEntity> getCurrentUser();
+  /// return UserEntity
+  Future<AuthorizedUserEntity> getCurrentUser();
+
+  /// save current user Entity
+  Future<void> saveCurrentUser(AuthorizedUserEntity userEntity);
+
+  /// to remove current user data
+  Future<void> deleteCurrentUser();
+
+  //============================>  Auto Login   <=============================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
 
   /// return LoginStatus
   Future<AutoLoginEntity> getAutoLogin();
@@ -32,7 +56,13 @@ abstract class AppSettingsLocalDataSource {
 }
 
 class AppSettingsLocalDataSourceImpl extends AppSettingsLocalDataSource {
-  ///**************************** Language *********************************\\\\
+  //=============================>  Language   <==============================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
   /// return the current preferred language
   /// return 'en' as default if no language box in local DB
   @override
@@ -64,7 +94,7 @@ class AppSettingsLocalDataSourceImpl extends AppSettingsLocalDataSource {
 
   /// return UserEntity
   @override
-  Future<UserEntity> getCurrentUser() async {
+  Future<AuthorizedUserEntity> getCurrentUser() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
 
     // userId
@@ -75,76 +105,63 @@ class AppSettingsLocalDataSourceImpl extends AppSettingsLocalDataSource {
 
     // return user data
     return data.isNotEmpty
-        ? UserEntity(
+        ? AuthorizedUserEntity(
             id: userId,
             firstName: data[0],
             lastName: data[1],
             email: data[2],
-            phoneNumber: data[3],
+            phoneNum: data[3],
             userType: userTypeFromString(data[4]),
             //phoneNum: data[4],
             // acceptTerms: acceptTermsFromString(data[5]))
             // : AuthorizedUserEntity.empty()
           )
-        : UserEntity.empty();
+        : AuthorizedUserEntity.empty();
   }
 
   /// save current user Entity
   @override
-  Future<void> saveCurrentUser(UserEntity userEntity) async {
+  Future<void> saveCurrentUser(AuthorizedUserEntity userEntity) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString("userId", userEntity.id);
     preferences.setStringList("userData", [
       userEntity.firstName,
       userEntity.lastName,
       userEntity.email,
-      userEntity.phoneNumber,
+      userEntity.phoneNum,
       userEntity.userType.toShortString(),
       //userEntity.phoneNum,
       //userEntity.acceptTerms.toShortString(),
     ]);
   }
 
-  ///********************************** currentUser *********************************\\\\
-
-  /// update currentUser
-  /* @override
-  Future<void> updateCurrentUser(CurrentUserTable currentUser) async {
-    final currentUserBox = await Hive.openBox('currentUserBox');
-    await currentUserBox.put('currentUser', currentUser);
-  }*/
-
-  /// return the currentUser
-  /// return 'noUser' as default if no currentUserBox in local DB
-  // @override
-  // Future<CurrentUserTable> getCurrentUser() async {
-  //   final currentUserBox = await Hive.openBox('currentUserBox');
-  //   return currentUserBox.get('currentUser') ??
-  //       CurrentUserTable(currentUser: UserType.noUser.toShortString());
-  // }
+  //===============================>  Token  <================================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
 
   /// return LoginStatus
   @override
   Future<AutoLoginEntity> getAutoLogin() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    final currentLoginStatusStr = preferences.getString("isLoggedIn") ??
-        LoginStatus.notLoggedIn.toShortString();
-    return AutoLoginEntity(currentLoginStatusStr: currentLoginStatusStr);
+    final currentUserToken = preferences.getString("isLoggedIn") ?? "";
+    return AutoLoginEntity(userToken: currentUserToken);
   }
 
   /// return save LoginStatus
   @override
   Future<void> saveLoginStatus(AutoLoginEntity autoLoginEntity) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setString(
-        "isLoggedIn", autoLoginEntity.loginStatus.toShortString());
+    preferences.setString("isLoggedIn", autoLoginEntity.userToken);
   }
 
   /// to remove auto login
   @override
   Future<void> deleteAutoLogin() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setString(
-        "isLoggedIn", LoginStatus.notLoggedIn.toShortString());
+    preferences.setString("isLoggedIn", "");
   }
 }

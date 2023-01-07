@@ -7,6 +7,7 @@ import 'package:remax_mapstate/presentation/journeys/favorite/favorite_screen.da
 import 'package:remax_mapstate/presentation/journeys/not_user_login_first/not_a_user_login_first_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/profile/profile_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/team_support/team_support_screen.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/journeys/drawer/navigation_drawer.dart';
 import 'package:remax_mapstate/presentation/journeys/home/home_screen.dart';
@@ -14,7 +15,6 @@ import 'package:remax_mapstate/presentation/journeys/main/bottom_navigation.dart
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/router/route_hepler.dart';
 
-import '../../logic/cubit/current_user/current_user_cubit.dart';
 import '../../logic/cubit/navigation/navigation_cubit.dart';
 
 class MainScreen extends StatefulWidget {
@@ -97,13 +97,13 @@ class _MainScreenState extends State<MainScreen> {
         ),
 
         // bottomNavigationBar
-        bottomNavigationBar: BlocBuilder<CurrentUserCubit, UserEntity>(
-          builder: (context, currentUser) {
+        bottomNavigationBar: BlocBuilder<AuthorizedUserCubit, AuthorizedUserState>(
+          builder: (context, state) {
             return Theme(
                 data:
                     Theme.of(context).copyWith(canvasColor: AppColor.fadeBlack),
                 child: BottomNavigation(
-                  userType: currentUser.userType,
+                  userType: state.currentUserType,
                 ));
           },
         ),

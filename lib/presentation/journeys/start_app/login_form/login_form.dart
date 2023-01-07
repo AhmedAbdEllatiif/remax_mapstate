@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
+import 'package:remax_mapstate/data/data_sources/remote_data_source.dart';
+import 'package:remax_mapstate/data/models/mutation/login/login_request_model.dart';
+import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/presentation/widgets/app_text_form_field.dart';
 
 import '../../../../common/constants/translate_constatns.dart';
 import '../../../widgets/btn_with_box_shadow.dart';
 
 class LoginForm extends StatefulWidget {
-  final Function() onSuccessLogin;
+  final Function(String token) onSuccessLogin;
   final String email;
 
   const LoginForm({
@@ -69,13 +72,30 @@ class _LoginFormState extends State<LoginForm> {
               textInputType: TextInputType.visiblePassword,
             ),
 
+            /// ButtonWithBoxShadow
             ButtonWithBoxShadow(
               text: TranslateConstants.login.t(context).toUpperCase(),
-              onPressed: widget.onSuccessLogin,
+              onPressed: (){
+                _loginUser();
+              //widget.onSuccessLogin,
+              }
             )
           ],
         ),
       ),
     );
+  }
+
+  /// loginUser
+  void _loginUser() {
+    final String email = emailController.value.text;
+    final String password = passwordController.value.text;
+
+    final dataSource = getItInstance<RemoteDataSource>();
+    dataSource.loginUser(
+        loginRequestModel: LoginRequestModel(
+      email: email,
+      password: password,
+    ));
   }
 }

@@ -10,9 +10,9 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive/hive.dart';
 import 'package:remax_mapstate/data/tables/fav_project_table.dart';
 import 'package:remax_mapstate/main_app.dart';
-import 'package:remax_mapstate/presentation/logic/cubit/auto_login/auto_login_cubit.dart';
-import 'package:remax_mapstate/presentation/logic/cubit/current_user/current_user_cubit.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/language/language_cubit.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/user_token/user_token_cubit.dart';
 import 'di/git_it.dart' as getIt;
 import 'package:path_provider/path_provider.dart' as path_provider;
 
@@ -51,19 +51,20 @@ void main() async {
   // init getIt
   //unawaited(getIt.init());
   await getIt.init();
-  final CurrentUserCubit currentUserCubit =
-      getIt.getItInstance<CurrentUserCubit>();
+  final AuthorizedUserCubit authorizedUserCubit =
+      getIt.getItInstance<AuthorizedUserCubit>();
   final LanguageCubit languageCubit = getIt.getItInstance<LanguageCubit>();
-  final AutoLoginCubit autoLoginCubit = getIt.getItInstance<AutoLoginCubit>();
+  final UserTokenCubit userTokenCubit = getIt.getItInstance<UserTokenCubit>();
 
   // init appDocumentDir
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   Hive.registerAdapter(FavProjectTableAdapter());
 
-  final currentUserType = await currentUserCubit.getCurrentUserType();
+  final authorizedUser =
+      await authorizedUserCubit.loadCurrentAuthorizedUserData();
   await languageCubit.loadPreferredLanguage();
-  await autoLoginCubit.loadCurrentAutoLoginStatus();
+  await userTokenCubit.loadCurrentAutoLoginStatus();
 
   /// to setup firebase messaging
   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
@@ -71,9 +72,8 @@ void main() async {
 
   runApp(MainApp(
     languageCubit: languageCubit,
-    currentUserCubit: currentUserCubit,
-    userType: currentUserType,
-    autoLoginCubit: autoLoginCubit,
+    authorizedUserCubit: authorizedUserCubit,
+    userTokenCubit: userTokenCubit,
   ));
 }
 

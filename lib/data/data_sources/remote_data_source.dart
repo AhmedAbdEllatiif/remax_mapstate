@@ -4,6 +4,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/common/enums/app_language.dart';
 import 'package:remax_mapstate/data/api/clients/api_client.dart';
+import 'package:remax_mapstate/data/api/clients/auth_client.dart';
 import 'package:remax_mapstate/data/api/queries/areas/ar_areas.dart';
 import 'package:remax_mapstate/data/api/queries/areas/en_areas.dart';
 import 'package:remax_mapstate/data/api/queries/get_filter_data/en_get_filter_data.dart';
@@ -12,11 +13,14 @@ import 'package:remax_mapstate/data/api/queries/project_status/en_project_status
 import 'package:remax_mapstate/data/api/queries/projects.dart';
 import 'package:remax_mapstate/data/api/queries/unit_type_names/ar_unit_type_names.dart';
 import 'package:remax_mapstate/data/api/queries/unit_type_names/en_unit_type_names.dart';
+import 'package:remax_mapstate/data/api/requests/mutations/login.dart';
 import 'package:remax_mapstate/data/api/requests/mutations/update_user.dart';
 import 'package:remax_mapstate/data/models/area_model.dart';
 import 'package:remax_mapstate/data/models/broker_model.dart';
 import 'package:remax_mapstate/data/models/contact_developer.dart';
 import 'package:remax_mapstate/data/models/get_filter_data.dart';
+import 'package:remax_mapstate/data/models/mutation/login/login_request_model.dart';
+import 'package:remax_mapstate/data/models/mutation/login/login_response_model.dart';
 import 'package:remax_mapstate/data/models/mutation/update_user.dart';
 import 'package:remax_mapstate/data/models/page_info.dart';
 import 'package:remax_mapstate/data/models/project_model.dart';
@@ -91,12 +95,18 @@ abstract class RemoteDataSource {
   Future<dynamic> updateDefaultUser({
     required UpdateUserMutationModel updateUserMutationModel,
   });
+
+  /// login
+  Future<dynamic> loginUser({
+    required LoginRequestModel loginRequestModel,
+  });
 }
 
 class RemoteDateSourceImpl extends RemoteDataSource {
   final ApiClient apiClient;
+  final AuthClient authClient;
 
-  RemoteDateSourceImpl({required this.apiClient});
+  RemoteDateSourceImpl({required this.authClient, required this.apiClient});
 
   List<BrokerModel> areaBrokers() {
     return const [
@@ -401,6 +411,32 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       log("updateUser >> Data >> ..........\n ${result.data}.......");
       return userModelFormJson(result.data!["updateUser"]);
     } catch (e) {
+      return AppError(AppErrorType.unHandledError,
+          message: "updateDefaultUser UnHandledError >> $e");
+    }
+  }
+
+  /// login
+  @override
+  Future<dynamic> loginUser({
+    required LoginRequestModel loginRequestModel,
+  }) async {
+    try {
+      final mutation = loginUserMutation();
+
+      final QueryResult result = await authClient.mutate(
+        mutation,
+        variables: {
+          VariablesConstants.email: loginRequestModel.email,
+          VariablesConstants.password: loginRequestModel.password,
+        },
+      );
+
+      log("updateUser >> ResultOnly >> ..........\n \n \n $result.......\n\n\n");
+      log("updateUser >> Data >> ..........\n ${result.data}.......");
+      return loginResponseModelFromJson(result.data!["tokenAuth"]);
+    } catch (e) {
+      log("Error: $e");
       return AppError(AppErrorType.unHandledError,
           message: "updateDefaultUser UnHandledError >> $e");
     }

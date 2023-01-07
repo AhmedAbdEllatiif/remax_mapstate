@@ -8,7 +8,6 @@ import 'package:remax_mapstate/presentation/widgets/stack_with_full_background.d
 import '../../../../common/constants/sizes.dart';
 import '../../../../common/constants/translate_constatns.dart';
 import '../../../../router/route_hepler.dart';
-import '../../../logic/cubit/auto_login/auto_login_cubit.dart';
 import '../../../widgets/app_text_form_field.dart';
 import '../../../widgets/btn_with_box_shadow.dart';
 import '../../../widgets/logo_with_slogan.dart';
@@ -59,14 +58,14 @@ class _SpotterRegistrationScreenState extends State<SpotterRegistrationScreen> {
               Flexible(
                 child: isLoginForm
                     ? LoginForm(
-                        onSuccessLogin: () {
-                          _saveAutoLogin();
+                        onSuccessLogin: (value) {
+                          //_saveAutoLogin();
                           _navigateToMainScreen();
                         },
                       )
                     : AmbassadorRegistrationFrom(
                         onSuccessRegister: () {
-                          _saveAutoLogin();
+                          //_saveAutoLogin();
                           _navigateToMainScreen();
                         },
                       ),
@@ -88,8 +87,6 @@ class _SpotterRegistrationScreenState extends State<SpotterRegistrationScreen> {
         isLoginForm = !isLoginForm;
       });
 
-  /// Save auto login
-  void _saveAutoLogin() async => await context.read<AutoLoginCubit>().save();
 
   /// Navigate to MainScreen
   void _navigateToMainScreen() =>

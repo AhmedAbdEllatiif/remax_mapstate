@@ -38,12 +38,23 @@ class UserModel extends UserEntity {
 
   factory UserModel.formJson(Map<String, dynamic> json) {
     return UserModel(
-      userId: json["id"] ?? -1,
+      userId: json["id"] ?? "-1",
       userFirstName: json["firstName"] ?? AppUtils.undefined,
       userLastName: json["lastName"] ?? AppUtils.undefined,
       userEmail: json["email"] ?? AppUtils.undefined,
       userPhoneNumber: json["phone"] ?? AppUtils.undefined,
       yearsOfExperience: json["yearsOfExperience"] ?? 0,
+    );
+  }
+
+  factory UserModel.empty() {
+    return UserModel(
+      userId: "-1",
+      userFirstName: AppUtils.undefined,
+      userLastName: AppUtils.undefined,
+      userEmail: AppUtils.undefined,
+      userPhoneNumber: AppUtils.undefined,
+      yearsOfExperience: 0,
     );
   }
 }

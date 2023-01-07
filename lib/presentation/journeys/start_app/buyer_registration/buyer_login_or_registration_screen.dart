@@ -12,7 +12,6 @@ import 'package:remax_mapstate/router/route_hepler.dart';
 
 import '../../../../common/constants/sizes.dart';
 import '../../../../di/git_it.dart';
-import '../../../logic/cubit/auto_login/auto_login_cubit.dart';
 import '../../../logic/cubit/choose_favorite_area/choose_favorite_area_cubit.dart';
 
 class ClientLoginOrRegistrationScreen extends StatefulWidget {
@@ -79,15 +78,15 @@ class _ClientLoginOrRegistrationScreenState
                 Flexible(
                   child: isLoginForm
                       ? LoginForm(
-                          onSuccessLogin: () {
-                            _saveAutoLogin();
+                          onSuccessLogin: (value) {
+                            //_saveAutoLogin();
                             _navigateToMainScreen();
                           },
                         )
                       : RegistrationFrom(
                           chooseFavoriteAreaCubit: _chooseFavoriteAreaCubit,
                           onSuccessRegister: () {
-                            _saveAutoLogin();
+                            //_saveAutoLogin();
 
                             _navigateToMainScreen();
                           },
@@ -117,9 +116,6 @@ class _ClientLoginOrRegistrationScreenState
       ),
     );
   }
-
-  /// Save auto login
-  void _saveAutoLogin() async => await context.read<AutoLoginCubit>().save();
 
   /// Navigate to MainScreen
   void _navigateToMainScreen() =>

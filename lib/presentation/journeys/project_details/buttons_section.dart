@@ -4,12 +4,11 @@ import 'package:remax_mapstate/common/enums/user_types.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_developer.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
 
 import '../../../common/constants/sizes.dart';
 import '../../../common/constants/translate_constatns.dart';
-import '../../../domain/entities/user_entity.dart';
 import '../../../router/route_hepler.dart';
-import '../../logic/cubit/current_user/current_user_cubit.dart';
 import '../../themes/theme_color.dart';
 import '../../widgets/app_button.dart';
 import '../choose_broker/arguments/choose_broker_argument.dart';
@@ -21,9 +20,9 @@ class ButtonSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CurrentUserCubit, UserEntity>(
-      builder: (context, currentUserEntity) {
-        final userType = currentUserEntity.userType;
+    return BlocBuilder<AuthorizedUserCubit, AuthorizedUserState>(
+      builder: (context, state) {
+        final userType = state.currentUserType;
 
         ///  tour or noUser
         if (userType == UserType.tour || userType == UserType.unDefined) {

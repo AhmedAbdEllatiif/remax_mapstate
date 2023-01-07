@@ -6,6 +6,7 @@ import 'package:remax_mapstate/domain/entities/area_entity.dart';
 import 'package:remax_mapstate/domain/entities/broker_entity.dart';
 import 'package:remax_mapstate/domain/entities/contact_developer.dart';
 import 'package:remax_mapstate/domain/entities/filter_data_entity.dart';
+import 'package:remax_mapstate/domain/entities/params/login_params.dart';
 import 'package:remax_mapstate/domain/entities/params/update_user_params.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
@@ -57,8 +58,12 @@ abstract class RemoteRepository {
   Future<Either<AppError, List<ProjectEntity>>> advancedFilterProjects(
       FetchListParams params);
 
+  ///********************************* Auth ******************************* \\\\
   Future<Either<AppError, UserEntity>> updateDefaultUser(
       UpdateDefaultUserParams params);
+
+  /// login
+  Future<Either<AppError, UserEntity>> loginUser(LoginParams params);
 
   ///**************************** Developer Contact *********************** \\\\
   Future<Either<AppError, ContactDeveloperEntity>> getDeveloperContact(

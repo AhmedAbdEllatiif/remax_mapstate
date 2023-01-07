@@ -5,15 +5,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:remax_mapstate/common/constants/language_constants.dart';
-import 'package:remax_mapstate/common/constants/route_list.dart';
-import 'package:remax_mapstate/common/enums/login_status.dart';
-import 'package:remax_mapstate/common/enums/user_types.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/presentation/app_localization.dart';
-import 'package:remax_mapstate/presentation/logic/cubit/auto_login/auto_login_cubit.dart';
-import 'package:remax_mapstate/presentation/logic/cubit/current_user/current_user_cubit.dart';
+import 'package:remax_mapstate/presentation/journeys/main/main_screen.dart';
+import 'package:remax_mapstate/presentation/journeys/start_app/choose_user_type/choose_user_screen.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/language/language_cubit.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/user_token/user_token_cubit.dart';
 import 'package:remax_mapstate/router/fade_page_route.dart';
 import 'package:remax_mapstate/router/routes.dart';
 import 'common/constants/sizes.dart';
@@ -27,17 +26,15 @@ import 'package:responsive_framework/utils/scroll_behavior.dart';
 import 'main.dart';
 
 class MainApp extends StatefulWidget {
-  final UserType userType;
-  final CurrentUserCubit currentUserCubit;
+  final AuthorizedUserCubit authorizedUserCubit;
   final LanguageCubit languageCubit;
-  final AutoLoginCubit autoLoginCubit;
+  final UserTokenCubit userTokenCubit;
 
   const MainApp(
       {Key? key,
-      required this.currentUserCubit,
-      required this.userType,
+      required this.authorizedUserCubit,
       required this.languageCubit,
-      required this.autoLoginCubit})
+      required this.userTokenCubit})
       : super(key: key);
 
   @override
@@ -50,7 +47,7 @@ class _MainAppState extends State<MainApp> {
     super.initState();
 
     /// loadCurrentUser of currentUserCubit
-    widget.currentUserCubit.loadCurrentUser();
+    widget.authorizedUserCubit.loadCurrentAuthorizedUserData();
 
     /// interactedMessageWhenAppIsTerminated
     _interactedMessageWhenAppIsTerminated();
@@ -67,9 +64,9 @@ class _MainAppState extends State<MainApp> {
 
   @override
   void dispose() {
-    widget.currentUserCubit.close();
+    widget.authorizedUserCubit.close();
     widget.languageCubit.close();
-    widget.autoLoginCubit.close();
+    widget.userTokenCubit.close();
     super.dispose();
   }
 
@@ -78,12 +75,13 @@ class _MainAppState extends State<MainApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider<LanguageCubit>.value(value: widget.languageCubit),
-        BlocProvider<CurrentUserCubit>.value(value: widget.currentUserCubit),
-        BlocProvider<AutoLoginCubit>.value(value: widget.autoLoginCubit),
+        BlocProvider<AuthorizedUserCubit>.value(
+            value: widget.authorizedUserCubit),
+        BlocProvider<UserTokenCubit>.value(value: widget.userTokenCubit),
       ],
       child: BlocBuilder<LanguageCubit, Locale>(
         builder: (_, locale) {
-          return BlocBuilder<AutoLoginCubit, AutoLoginState>(
+          return BlocBuilder<UserTokenCubit, UserTokenState>(
             builder: (_, autoLoginState) {
               return MaterialApp(
                 builder: (context, widget) => ResponsiveWrapper.builder(
@@ -101,49 +99,46 @@ class _MainAppState extends State<MainApp> {
 
                 /// Theme
                 theme: ThemeData(
-                  unselectedWidgetColor:  AppColor.geeBung,
-                  primaryColor: AppColor.black,
-                  colorScheme: ColorScheme.fromSwatch().copyWith(
-                    secondary: AppColor.geeBung, // Your accent color
-                  ),
-                  scaffoldBackgroundColor: AppColor.black,
-                  textTheme: ThemeText.getTextTheme(),
-                  appBarTheme:  AppBarTheme(
-                    centerTitle: true,
-                    systemOverlayStyle: SystemUiOverlayStyle(
-                      // Status bar color
-                      //statusBarColor: AppColor.bgGray,
-
-
-                      // Status bar brightness (optional)
-                      // statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
-                      // statusBarBrightness: Brightness.light, // For iOS (dark icons)
+                    unselectedWidgetColor: AppColor.geeBung,
+                    primaryColor: AppColor.black,
+                    colorScheme: ColorScheme.fromSwatch().copyWith(
+                      secondary: AppColor.geeBung, // Your accent color
                     ),
-                    iconTheme: const IconThemeData(color: AppColor.geeBung),
-                    elevation: 0,
-                    titleTextStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      color: AppColor.geeBung,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    /*titleTextStyle: TextStyle(
+                    scaffoldBackgroundColor: AppColor.black,
+                    textTheme: ThemeText.getTextTheme(),
+                    appBarTheme: AppBarTheme(
+                      centerTitle: true,
+                      systemOverlayStyle: const SystemUiOverlayStyle(
+                          // Status bar color
+                          //statusBarColor: AppColor.bgGray,
+
+                          // Status bar brightness (optional)
+                          // statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+                          // statusBarBrightness: Brightness.light, // For iOS (dark icons)
+                          ),
+                      iconTheme: const IconThemeData(color: AppColor.geeBung),
+                      elevation: 0,
+                      titleTextStyle:
+                          Theme.of(context).textTheme.titleLarge!.copyWith(
+                                color: AppColor.geeBung,
+                                fontWeight: FontWeight.bold,
+                              ),
+                      /*titleTextStyle: TextStyle(
                       color: AppColor.geeBung,
                       fontSize: Sizes.dimen_18,
                       fontWeight: FontWeight.bold,
                     ),*/
-                    color: AppColor.fadeBlack,
-                  ),
-
+                      color: AppColor.fadeBlack,
+                    ),
 
                     /// default card theme
                     cardTheme: CardTheme(
                       elevation: 10.0,
                       shape: RoundedRectangleBorder(
-                        borderRadius:  BorderRadius.all(Radius.circular(Sizes.dimen_10.w)),
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(Sizes.dimen_10.w)),
                       ),
-                    )
-              ),
-
-
+                    )),
 
                 /// Languages
                 supportedLocales: LanguageConstants.supportedLanguages
@@ -159,9 +154,18 @@ class _MainAppState extends State<MainApp> {
 
                 /// Routes
                 //initialRoute:RouteList.loginScreen,
-                initialRoute: autoLoginState.loginStatus == LoginStatus.loggedIn
+                /*initialRoute: autoLoginState.loginStatus == LoginStatus.loggedIn
                     ? RouteList.mainScreen
                     : RouteList.chooseUserScreen,
+*/
+                home: BlocBuilder<UserTokenCubit, UserTokenState>(
+                  builder: (context, state) {
+                    if (state.userToken.isNotEmpty) {
+                      return const MainScreen();
+                    }
+                    return const ChooseUserScreen();
+                  },
+                ),
                 onGenerateRoute: (RouteSettings settings) {
                   final routes = Routes.getRoutes(settings);
                   final WidgetBuilder? builder = routes[settings.name];
@@ -178,14 +182,13 @@ class _MainAppState extends State<MainApp> {
     );
   }
 
-
   /// To interact with clicked notification when app is open in background
   Future<void> _interactedMessageWhenAppIsOpenedInBackground() async {
     ///==> Also handle any interaction when the app is in the background via a
     ///==> Stream listener
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print("_interactedMessageWhenAppIsOpenedInBackground");
-     // _handleMessage(message);
+      // _handleMessage(message);
     });
   }
 
@@ -194,7 +197,7 @@ class _MainAppState extends State<MainApp> {
     ///==> Get any messages which caused the application to open from
     ///==> a terminated state.
     RemoteMessage? initialMessage =
-    await FirebaseMessaging.instance.getInitialMessage();
+        await FirebaseMessaging.instance.getInitialMessage();
 
     ///==> If the message also contains a data property with a "type" of "chat",
     ///==> navigate to a chat screen
@@ -212,7 +215,7 @@ class _MainAppState extends State<MainApp> {
 
       if (notification != null && android != null && !kIsWeb) {
         /// insert into local data base
-       // _insertNotificationIntoLocalDB(message);
+        // _insertNotificationIntoLocalDB(message);
 
         /// show notification
         flutterLocalNotificationsPlugin.show(
@@ -231,5 +234,4 @@ class _MainAppState extends State<MainApp> {
       }
     });
   }
-
 }

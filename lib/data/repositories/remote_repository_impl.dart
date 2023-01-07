@@ -19,6 +19,7 @@ import 'package:remax_mapstate/domain/entities/unit_type_entity.dart';
 import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 
 import '../../common/classes/handle_operation_exceptions.dart';
+import '../../domain/entities/params/login_params.dart';
 import '../../domain/entities/params/update_user_params.dart';
 import '../../domain/entities/user_entity.dart';
 import '../params/fetch_list_params.dart';
@@ -299,5 +300,11 @@ class RemoteRepositoryImpl extends RemoteRepository {
       log("RepoImpl >> updateCurrentUser >> Exception >> $e");
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
+  }
+
+  ///TODO
+  @override
+  Future<Either<AppError, UserEntity>> loginUser(LoginParams params) async {
+    return const Left(AppError(AppErrorType.api, message:" e.toString()"));
   }
 }
