@@ -15,6 +15,7 @@ class AppErrorWidget extends StatelessWidget {
   final IconData? iconData;
   final String? buttonText;
   final Function() onPressedRetry;
+  final bool withCard;
 
   const AppErrorWidget({
     Key? key,
@@ -23,13 +24,14 @@ class AppErrorWidget extends StatelessWidget {
     required this.onPressedRetry,
     this.iconData,
     this.buttonText,
+    this.withCard = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: ScreenUtil.screenWidth * 0.80,
-      child: Card(
+      child: withCard ? Card(
         color: AppColor.white,
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -38,6 +40,7 @@ class AppErrorWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
               /// Icon
               Icon(
                 iconData ??
@@ -52,13 +55,14 @@ class AppErrorWidget extends StatelessWidget {
               Text(
                 message.isEmpty
                     ? appTypeError == AppErrorType.unAuthorized
-                        ? TranslateConstants.sessionExpired.t(context)
-                        : appTypeError == AppErrorType.api
-                            ? TranslateConstants.retry.t(context)
-                            : TranslateConstants.somethingWentWrong.t(context)
+                    ? TranslateConstants.sessionExpired.t(context)
+                    : appTypeError == AppErrorType.api
+                    ? TranslateConstants.retry.t(context)
+                    : TranslateConstants.somethingWentWrong.t(context)
                     : message,
                 textAlign: TextAlign.center,
-                style: Theme.of(context)
+                style: Theme
+                    .of(context)
                     .textTheme
                     .subtitle1!
                     .copyWith(color: AppColor.black),
@@ -74,6 +78,51 @@ class AppErrorWidget extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ) : Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: Sizes.dimen_32.w, vertical: Sizes.dimen_5.h),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+
+            /// Icon
+            Icon(
+              iconData ??
+                  (appTypeError == AppErrorType.api
+                      ? Icons.wifi_off_outlined
+                      : Icons.warning_amber_outlined),
+              color: AppColor.geeBung,
+              size: Sizes.dimen_64.w,
+            ),
+
+            /// Text
+            Text(
+              message.isEmpty
+                  ? appTypeError == AppErrorType.unAuthorized
+                  ? TranslateConstants.sessionExpired.t(context)
+                  : appTypeError == AppErrorType.api
+                  ? TranslateConstants.retry.t(context)
+                  : TranslateConstants.somethingWentWrong.t(context)
+                  : message,
+              textAlign: TextAlign.center,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .subtitle1!
+                  .copyWith(color: withCard ? AppColor.black: AppColor.white),
+            ),
+
+            /// Button
+            Container(
+              margin: EdgeInsets.symmetric(vertical: Sizes.dimen_5.h),
+              child: AppButtonGradient(
+                text: buttonText ?? TranslateConstants.retry.t(context),
+                onPressed: onPressedRetry,
+              ),
+            ),
+          ],
         ),
       ),
     );

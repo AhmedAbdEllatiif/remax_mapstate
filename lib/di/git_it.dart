@@ -15,6 +15,7 @@ import 'package:remax_mapstate/domain/repositories/app_settings_repository.dart'
 import 'package:remax_mapstate/domain/repositories/local_repository.dart';
 import 'package:remax_mapstate/domain/use_cases/get_area_brokers.dart';
 import 'package:remax_mapstate/domain/use_cases/get_areas.dart';
+import 'package:remax_mapstate/domain/use_cases/get_broker_by_id.dart';
 import 'package:remax_mapstate/domain/use_cases/get_commercial_projects.dart';
 import 'package:remax_mapstate/domain/use_cases/get_developer_contact.dart';
 import 'package:remax_mapstate/domain/use_cases/get_team_support.dart';
@@ -34,6 +35,7 @@ import 'package:remax_mapstate/presentation/journeys/calculator/formz/number_of_
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/unit_price.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/advanced_filter_projects/advanced_filter_projects_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/get_filter_data/get_filter_data_cubit.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/login/login_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/projects_by_status/projects_by_status_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/unitType_names/unit_type_names_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/user_token/user_token_cubit.dart';
@@ -51,6 +53,7 @@ import '../domain/use_cases/local_usecases/authorized_user/authorized_user_data/
 import '../domain/use_cases/local_usecases/authorized_user/user_token/delete_user_token.dart';
 import '../domain/use_cases/local_usecases/authorized_user/user_token/get_user_token.dart';
 import '../domain/use_cases/local_usecases/authorized_user/user_token/save_user_token.dart';
+import '../domain/use_cases/login.dart';
 import '../domain/use_cases/make_phone_call.dart';
 import '../domain/use_cases/open_map.dart';
 import '../domain/use_cases/open_whats_app.dart';
@@ -61,6 +64,7 @@ import '../presentation/logic/cubit/brokers_by_area/get_area_brokers_cubit.dart'
 import '../presentation/logic/bloc/calculator_validation/calculator_validation_bloc.dart';
 import '../presentation/logic/bloc/project_status/project_status_bloc.dart';
 import '../presentation/logic/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
+import '../presentation/logic/cubit/get_broker_by_id/get_broker_by_id_cubit.dart';
 import '../presentation/logic/cubit/projects/get_projects_cubit.dart';
 import '../presentation/logic/cubit/broker_changed/broker_changed_cubit.dart';
 import '../presentation/logic/cubit/change_login_view/change_login_view_cubit.dart';
@@ -206,6 +210,13 @@ Future init() async {
     ),
   );
 
+  /// LoginCase
+  getItInstance.registerFactory<LoginCase>(
+    () => LoginCase(
+      apiRepo: getItInstance(),
+    ),
+  );
+
   /// GetAreasBrokersCase
   getItInstance.registerLazySingleton<GetAreaBrokersCase>(
     () => GetAreaBrokersCase(
@@ -272,6 +283,13 @@ Future init() async {
   /// UpdateDefaultUserCase
   getItInstance.registerFactory<UpdateDefaultUserCase>(
     () => UpdateDefaultUserCase(
+      remoteRepository: getItInstance(),
+    ),
+  );
+
+  /// GetBrokerByIdCase
+  getItInstance.registerFactory<GetBrokerByIdCase>(
+        () => GetBrokerByIdCase(
       remoteRepository: getItInstance(),
     ),
   );
@@ -345,6 +363,11 @@ Future init() async {
       getUserTokenCase: getItInstance(),
       deleteUserTokenCase: getItInstance(),
     ),
+  );
+
+  /// LoginCubit
+  getItInstance.registerFactory<LoginCubit>(
+    () => LoginCubit(),
   );
 
   /// init navigation cubit
@@ -438,11 +461,16 @@ Future init() async {
 
   //==> AuthorizedUserCubit
   getItInstance.registerFactory<AuthorizedUserCubit>(
-        () => AuthorizedUserCubit(
+    () => AuthorizedUserCubit(
       saveUserDataCase: getItInstance(),
       getUserDataCase: getItInstance(),
       deleteUserDataCase: getItInstance(),
     ),
+  );
+
+  /// init GetBrokerByIdCubit
+  getItInstance.registerFactory<GetBrokerByIdCubit>(
+        () => GetBrokerByIdCubit(),
   );
 
   ///**************************** init blocs *******************************\\\

@@ -24,7 +24,7 @@ class ThemeText {
     fontSize: Sizes.dimen_14.sp,
     color: Colors.white,
     wordSpacing: 0.25,
-    letterSpacing: 0.25,
+    //letterSpacing: 0.25,
     height: 1.5,
   );
 
@@ -38,7 +38,15 @@ class ThemeText {
     color: Colors.white,
     fontSize: Sizes.dimen_14.sp,
     wordSpacing: 0.25,
-    letterSpacing: 0.25,
+    //letterSpacing: 0.25,
+    height: 1.5,
+  );
+
+  static TextStyle get _whiteBodyText1 => _poppinsTextTheme.bodyText1!.copyWith(
+    color: Colors.white,
+    fontSize: Sizes.dimen_14.sp,
+    wordSpacing: 0.25,
+    //letterSpacing: 0.25,
     height: 1.5,
   );
 
@@ -53,6 +61,7 @@ class ThemeText {
     subtitle1: _whiteSubTitle1,
     subtitle2: _whiteSubTitle2,
     bodyText2: _whiteBodyText2,
+    bodyText1: _whiteBodyText1,
     button: _button,
   );
 }
@@ -61,7 +70,7 @@ extension ThemeTextExtension on TextTheme {
   TextStyle get buttonText => button!.copyWith(
     fontSize: Sizes.dimen_14.sp,
     color: AppColor.black,
-    letterSpacing: 1.5,
+    //letterSpacing: 1.5,
     overflow: TextOverflow.fade,
     fontWeight: FontWeight.bold,
   );

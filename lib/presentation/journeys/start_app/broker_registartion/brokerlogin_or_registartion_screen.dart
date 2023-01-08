@@ -1,35 +1,40 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
+import 'package:remax_mapstate/common/functions/show_dialog.dart';
+import 'package:remax_mapstate/domain/entities/authorized_user_entity.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/broker_registartion/borker_register_form.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/login_form/login_form.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
+import 'package:remax_mapstate/presentation/widgets/done_widget.dart';
 import 'package:remax_mapstate/presentation/widgets/stack_with_full_background.dart';
 
 import '../../../../common/constants/sizes.dart';
 import '../../../../common/constants/translate_constatns.dart';
 import '../../../../di/git_it.dart';
+import '../../../../domain/entities/arguments/register_or_login_args.dart';
 import '../../../../router/route_hepler.dart';
 import '../../../logic/cubit/choose_favorite_area/choose_favorite_area_cubit.dart';
 import '../../../logic/cubit/user_token/user_token_cubit.dart';
+import '../../../themes/theme_color.dart';
 import '../../../widgets/logo_with_slogan.dart';
 import '../login_form/text_login_instead.dart';
 
-class BrokerLoginOrRegistrationScreen extends StatefulWidget {
-  const BrokerLoginOrRegistrationScreen({Key? key}) : super(key: key);
+class RegisterOrLoginScreen extends StatefulWidget {
+  final RegisterOrLoginArguments registerOrLoginArguments;
+
+  const RegisterOrLoginScreen(
+      {Key? key, required this.registerOrLoginArguments})
+      : super(key: key);
 
   @override
-  _BrokerLoginOrRegistrationScreenState createState() =>
-      _BrokerLoginOrRegistrationScreenState();
+  _RegisterOrLoginScreenState createState() => _RegisterOrLoginScreenState();
 }
 
-class _BrokerLoginOrRegistrationScreenState
-    extends State<BrokerLoginOrRegistrationScreen> {
-  final firstNameKey = GlobalKey();
-  final lastNameKey = GlobalKey();
-  final emailKey = GlobalKey();
-  final numOfExperienceYears = GlobalKey();
-
+class _RegisterOrLoginScreenState extends State<RegisterOrLoginScreen> {
   late final ChooseFavoriteAreaCubit _chooseFavoriteAreaCubit;
 
   bool isLoginForm = true;
@@ -53,51 +58,65 @@ class _BrokerLoginOrRegistrationScreenState
       appBarTitle: isLoginForm
           ? Text(TranslateConstants.login.t(context))
           : Text(TranslateConstants.brokerRegistration.t(context)),
-      body: Container(
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: Sizes.dimen_10.h,
-            left: Sizes.dimen_32.w,
-            right: Sizes.dimen_32.w,
-          ),
-          child: Column(
-            children: [
-              /// Logo with slogan
-              LogoWithSlogan(
-                margin: EdgeInsets.only(
-                  top: Sizes.dimen_12.h,
-                  bottom: Sizes.dimen_20.h,
-                ),
+      body: Padding(
+        padding: EdgeInsets.only(
+          top: Sizes.dimen_10.h,
+          left: Sizes.dimen_32.w,
+          right: Sizes.dimen_32.w,
+        ),
+        child: Column(
+          children: [
+            /// Logo with slogan
+            LogoWithSlogan(
+              margin: EdgeInsets.only(
+                top: Sizes.dimen_12.h,
+                bottom: Sizes.dimen_20.h,
               ),
+            ),
 
-              /// register Form
-              Flexible(
-                child: isLoginForm
-                    ? LoginForm(
-                        email: userEmail,
-                        onSuccessLogin: (userToken) async {
-                          await _saveForAutoLogin(token: userToken);
+            /// register Form
+            Flexible(
+              child: isLoginForm
+                  ? LoginForm(
+                      email: userEmail,
+                      onSuccessLogin: (userToken, authorizedUserEntity) async {
+                        //==> save current user token
+                        await _saveTokenForAutoLogin(token: userToken);
 
-                          _navigateToMainScreen();
-                        },
-                      )
-                    : BrokerRegisterForm(
-                        onRegistrationSuccess: (userEntity) async {
-                        // await BlocProvider.of<CurrentUserCubit>(context)
-                        //     .changeUser(userEntity);
-                        // await _saveAutoLogin();
-                        // _navigateToMainScreen();
-                        userEmail = userEntity.email;
-                        _changeBetweenLoginAndRegistration();
-                      }),
-              ),
+                        //==> save current authorized user
+                        log("UserEntity: $authorizedUserEntity");
+                        authorizedUserEntity.userType =
+                            widget.registerOrLoginArguments.userType;
+                        await _saveAuthorizedUser(
+                          authorizedUserEntity: authorizedUserEntity,
+                        );
 
-              TextLoginInstead(
-                isLogin: isLoginForm,
-                onPressed: () => _changeBetweenLoginAndRegistration(),
-              ),
-            ],
-          ),
+                        //==> navigate to login
+                        _navigateToMainScreen();
+                      },
+                    )
+                  : BrokerRegisterForm(
+                      onRegistrationSuccess: (userEntity) async {
+                      userEmail = userEntity.email;
+
+                      _changeBetweenLoginAndRegistration();
+
+                      showAppDialog(
+                        context,
+                        message: "Account Created successfully ",
+                        image: const DoneWidget(),
+                        buttonText: TranslateConstants.login.t(
+                          context,
+                        ),
+                      );
+                    }),
+            ),
+
+            TextLoginInstead(
+              isLogin: isLoginForm,
+              onPressed: () => _changeBetweenLoginAndRegistration(),
+            ),
+          ],
         ),
       ),
     );
@@ -109,8 +128,13 @@ class _BrokerLoginOrRegistrationScreenState
       });
 
   /// to save token for auto login
-  Future<void> _saveForAutoLogin({required String token}) =>
+  Future<void> _saveTokenForAutoLogin({required String token}) =>
       context.read<UserTokenCubit>().save(token);
+
+  /// to save the current authorized user
+  Future<void> _saveAuthorizedUser(
+          {required AuthorizedUserEntity authorizedUserEntity}) =>
+      context.read<AuthorizedUserCubit>().save(authorizedUserEntity);
 
   /// Navigate to MainScreen
   void _navigateToMainScreen() =>

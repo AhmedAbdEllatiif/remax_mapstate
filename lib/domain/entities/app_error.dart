@@ -14,6 +14,7 @@ enum AppErrorType {
   unHandledError,
   emailAlreadyExists,
   passwordIsMissing,
+  wrongEmailOrPassword,
 }
 
 class AppError extends Equatable {

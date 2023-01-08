@@ -20,9 +20,7 @@ class AuthorizedUserCubit extends Cubit<AuthorizedUserState> {
     required this.getUserDataCase,
     required this.deleteUserDataCase,
   }) : super(
-          CurrentAuthorizedUserData(
-            userEntity: AuthorizedUserEntity.empty(),
-          ),
+          UnDefinedAuthorizedUserData(),
         );
 
   /// save current authorized user data
@@ -41,14 +39,40 @@ class AuthorizedUserCubit extends Cubit<AuthorizedUserState> {
   Future<void> loadCurrentAuthorizedUserData() async {
     final either = await getUserDataCase(NoParams());
     either.fold(
-      //==> error
-      (appError) =>
-          _emitIfNotClosed(CurrentAuthorizedUserDataError(appError: appError)),
+        //==> error
+        (appError) => _emitIfNotClosed(
+            CurrentAuthorizedUserDataError(appError: appError)),
 
-      //==> success
-      (userEntity) =>
-          _emitIfNotClosed(CurrentAuthorizedUserData(userEntity: userEntity)),
-    );
+        //==> success
+        (userEntity) {
+      switch (userEntity.userType) {
+        case UserType.tour:
+          _emitIfNotClosed(
+            UnDefinedAuthorizedUserData(),
+          );
+          break;
+        case UserType.client:
+          _emitIfNotClosed(
+            CurrentBuyerAuthorizedUserData(userEntity: userEntity),
+          );
+          break;
+        case UserType.broker:
+          _emitIfNotClosed(
+            CurrentBrokerAuthorizedUserData(userEntity: userEntity),
+          );
+          break;
+        case UserType.ambassador:
+          _emitIfNotClosed(
+            CurrentAmbassadorAuthorizedUserData(userEntity: userEntity),
+          );
+          break;
+        case UserType.unDefined:
+          _emitIfNotClosed(
+            UnDefinedAuthorizedUserData(),
+          );
+          break;
+      }
+    });
   }
 
   /// emit if not closed

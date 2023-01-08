@@ -24,6 +24,7 @@ mutation loginUser(
   errors
   user{
        id
+       pk
        firstName
        email
        phone

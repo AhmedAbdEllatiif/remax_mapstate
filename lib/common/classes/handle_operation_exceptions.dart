@@ -6,6 +6,8 @@ class AppErrorTypeBuilder {
 
   AppErrorTypeBuilder({required this.appErrorType});
 
+
+  ///  Build from [OperationException]
   factory AppErrorTypeBuilder.formOperationException(
     OperationException operationException,
   ) {
@@ -47,4 +49,43 @@ class AppErrorTypeBuilder {
     //==> return AppErrorTypeBuilder
     return AppErrorTypeBuilder(appErrorType: appErrorType);
   }
+
+
+
+  /// Build from Auth errors
+  /*
+  * Errors messages and codes mapped to fields or non fields errors. Example:
+  * {
+  * field_name: [
+  *       { "message": "error message",
+  *         "code": "error_code"
+  *       }
+  *             ],
+  *  other_field: [ { "message": "error message", "code": "error_code" } ],
+  *  nonFieldErrors: [ { "message": "error message", "code": "error_code" } ]
+  * }
+  * */
+  factory AppErrorTypeBuilder.fromAuthErrors(Map<String,dynamic> errors){
+    //==> init AppErrorType
+    AppErrorType appErrorType = AppErrorType.unHandledError;
+
+    final nonFieldErrors = errors.containsKey("nonFieldErrors");
+    
+    if(nonFieldErrors){
+      final listOfNonFieldErrors = errors["nonFieldErrors"] as List;
+      for (var element in listOfNonFieldErrors) {
+        final code = (element as Map<String,dynamic>)["code"];
+        if(code == "invalid_credentials"){
+          appErrorType = AppErrorType.wrongEmailOrPassword;
+        }
+      }}
+
+
+    return AppErrorTypeBuilder(appErrorType: appErrorType);
+  }
+
+
+
+
+
 }

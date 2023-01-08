@@ -2,14 +2,14 @@ import 'package:equatable/equatable.dart';
 
 class LoginParams extends Equatable{
 
-  final String phoneNum;
-  final String pinCode;
+  final String email;
+  final String password;
 
   const LoginParams({
-    required this.phoneNum,
-    this.pinCode = '',
+    required this.email,
+    required this.password,
   });
 
   @override
-  List<Object?> get props => [phoneNum];
+  List<Object?> get props => [email,password];
 }

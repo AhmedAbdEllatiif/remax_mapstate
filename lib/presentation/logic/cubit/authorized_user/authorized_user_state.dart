@@ -12,10 +12,34 @@ abstract class AuthorizedUserState extends Equatable {
   List<Object?> get props => [userEntity];
 }
 
-/// current data of the current authorized user
-class CurrentAuthorizedUserData extends AuthorizedUserState {
-  CurrentAuthorizedUserData({required AuthorizedUserEntity userEntity})
+// /// current data of the current authorized user
+// class CurrentAuthorizedUserData extends AuthorizedUserState {
+//   CurrentAuthorizedUserData({required AuthorizedUserEntity userEntity})
+//       : super(userEntity);
+// }
+
+/// broker data
+class CurrentBrokerAuthorizedUserData extends AuthorizedUserState {
+  CurrentBrokerAuthorizedUserData({required AuthorizedUserEntity userEntity})
       : super(userEntity);
+}
+
+/// ambassador data
+class CurrentAmbassadorAuthorizedUserData extends AuthorizedUserState {
+  CurrentAmbassadorAuthorizedUserData(
+      {required AuthorizedUserEntity userEntity})
+      : super(userEntity);
+}
+
+/// buyer data
+class CurrentBuyerAuthorizedUserData extends AuthorizedUserState {
+  CurrentBuyerAuthorizedUserData({required AuthorizedUserEntity userEntity})
+      : super(userEntity);
+}
+
+/// buyer data
+class UnDefinedAuthorizedUserData extends AuthorizedUserState {
+  UnDefinedAuthorizedUserData() : super(AuthorizedUserEntity.empty());
 }
 
 /// error

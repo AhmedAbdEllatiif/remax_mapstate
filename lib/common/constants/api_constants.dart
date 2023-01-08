@@ -23,6 +23,7 @@ class VariablesConstants {
   static String pageInfo = 'pageInfo';
   static String inputForm = 'inputForm';
 
+  static String pk = 'pk';
   static String email = 'email';
   static String password = 'password';
 }

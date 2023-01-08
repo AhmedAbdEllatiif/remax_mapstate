@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:remax_mapstate/common/classes/handle_operation_exceptions.dart';
 import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/common/enums/app_language.dart';
 import 'package:remax_mapstate/data/api/clients/api_client.dart';
@@ -32,6 +33,7 @@ import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
 
 import '../../common/constants/api_constants.dart';
 import '../../domain/entities/app_error.dart';
+import '../api/queries/borkers.dart';
 import '../api/queries/get_filter_data/ar_get_filter_data.dart';
 import '../api/queries/projects_by_status/ar_project_by_status.dart';
 import '../api/queries/projects_by_status/en_project_by_status.dart';
@@ -100,6 +102,9 @@ abstract class RemoteDataSource {
   Future<dynamic> loginUser({
     required LoginRequestModel loginRequestModel,
   });
+
+  /// getBrokerById
+  Future<dynamic> getBrokerById(int id);
 }
 
 class RemoteDateSourceImpl extends RemoteDataSource {
@@ -434,7 +439,38 @@ class RemoteDateSourceImpl extends RemoteDataSource {
 
       log("updateUser >> ResultOnly >> ..........\n \n \n $result.......\n\n\n");
       log("updateUser >> Data >> ..........\n ${result.data}.......");
+      if (result.data!["tokenAuth"] != null) {
+        final errors = result.data!["tokenAuth"]["errors"];
+        if (errors != null) {
+          final appErrorType =
+              AppErrorTypeBuilder.fromAuthErrors(errors).appErrorType;
+          return AppError(appErrorType, message: "Wrong Email or Password");
+        }
+      }
       return loginResponseModelFromJson(result.data!["tokenAuth"]);
+    } catch (e) {
+      log("Error: $e");
+      return AppError(AppErrorType.unHandledError,
+          message: "updateDefaultUser UnHandledError >> $e");
+    }
+  }
+
+  @override
+  Future<dynamic> getBrokerById(int id) async {
+    try {
+      final query = getBrokersQuery();
+
+      final QueryResult result = await apiClient.get(
+        query,
+        variables: {
+          VariablesConstants.pk: id,
+        },
+      );
+
+      log("updateUser >> ResultOnly >> ..........\n \n \n $result.......\n\n\n");
+      log("updateUser >> Data >> ..........\n ${result.data}.......");
+
+      return listUserModelFormBroker(result.data!);
     } catch (e) {
       log("Error: $e");
       return AppError(AppErrorType.unHandledError,

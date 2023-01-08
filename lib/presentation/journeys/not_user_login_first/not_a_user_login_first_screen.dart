@@ -6,6 +6,8 @@ import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/presentation/journeys/not_user_login_first/not_user_animation.dart';
 import 'package:remax_mapstate/presentation/widgets/btn_with_box_shadow.dart';
 
+import '../../../router/route_hepler.dart';
+
 class NotAUserLoginFirstScreen extends StatelessWidget {
   const NotAUserLoginFirstScreen({Key? key}) : super(key: key);
 
@@ -15,7 +17,6 @@ class NotAUserLoginFirstScreen extends StatelessWidget {
       child: ListView(
         shrinkWrap: true,
         children: [
-
           /// not user animation
           SizedBox(
             height: Sizes.dimen_100.h,
@@ -25,11 +26,16 @@ class NotAUserLoginFirstScreen extends StatelessWidget {
 
           /// btn login
           ButtonWithBoxShadow(
-            onPressed: () {},
+            onPressed: () => _navigateChooseUserType(context),
             text: TranslateConstants.login.t(context),
           ),
         ],
       ),
     );
+  }
+
+  /// to navigate choose user type
+  void _navigateChooseUserType(BuildContext context) {
+    RouteHelper().chooseUserTypeScreen(context, isClearStack: true);
   }
 }

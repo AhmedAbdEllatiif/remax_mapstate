@@ -97,6 +97,8 @@
   "areaRange": "Area Range (m)",
   "to": "to",
   "somethingWentWrong": "Something went wrong",
+  "wrongEmailOrPassword": "* Wrong email or password",
+  "completeYourProfile": "Complete your profile",
 
 
   "emailAlreadyExists": "* This email is already exists",

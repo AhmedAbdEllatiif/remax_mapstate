@@ -97,6 +97,7 @@
   "areaRange": "نطاق المساحة (متر)",
   "to": "الى",
   "somethingWentWrong": "حدث خطأ",
+  "wrongEmailOrPassword": "* بريد إلكتروني أو كلمة مرور خاطئة",
 
 
   "emailAlreadyExists": "* البريد الالكترونى موجود بالفعل",
@@ -107,8 +108,9 @@
   "minRequiredCharacters": "* الحد الأدنى من الأحرف هو ",
   "atLeastUpperCase": "* يجب تضمين حرف علوي واحد على الأقل",
   "atLeastLowerCase": "* يجب تضمين حرف سفلي واحد على الأقل",
+  "completeYourProfile": "أكمل ملفك الشخصي",
 
-  "fullName": "الاسم بالكامل",
+  "fullName": "الاسم الكامل",
   "phoneNumber": "رقم الهاتف",
   "invalidPhoneNumber": "رقم الهاتف غير صحيح",
 

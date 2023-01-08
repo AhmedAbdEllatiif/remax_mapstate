@@ -106,8 +106,10 @@ class TranslateConstants{
   static const String priceRange = 'priceRange';
   static const String areaRange = 'areaRange';
   static const String toStr = 'to';
+  static const String wrongEmailOrPassword = 'wrongEmailOrPassword';
 
 
+  static const String completeYourProfile = 'completeYourProfile';
   static const String emailAlreadyExists = 'emailAlreadyExists';
   static const String requiredField = 'requiredField';
   static const String invalidEmailFormat = 'invalidEmailFormat';

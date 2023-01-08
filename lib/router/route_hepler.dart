@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:remax_mapstate/common/constants/route_list.dart';
+import 'package:remax_mapstate/domain/entities/arguments/register_or_login_args.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_developer.dart';
 import 'package:remax_mapstate/presentation/arguments/advanced_filter_result_args.dart';
 import 'package:remax_mapstate/presentation/arguments/project_by_status_args.dart';
@@ -79,8 +80,24 @@ class RouteHelper {
       Navigator.of(context).pushNamed(RouteList.spotterRegistration);
 
   /// To BrokerRegistrationScreen \\\
-  void brokerRegistrationScreen(BuildContext context) =>
-      Navigator.of(context).pushNamed(RouteList.brokerRegistration);
+  void registerOrLoginScreen(
+    BuildContext context, {
+    required RegisterOrLoginArguments registerOrLoginArguments,
+    bool removeAllScreens = false,
+  }) {
+    if (removeAllScreens) {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        RouteList.brokerRegistration,
+        (route) => false,
+        arguments: registerOrLoginArguments,
+      );
+    } else {
+      Navigator.of(context).pushNamed(
+        RouteList.brokerRegistration,
+        arguments: registerOrLoginArguments,
+      );
+    }
+  }
 
   /// To BrokerRegistrationScreen \\\
   void filterProjectsScreen(BuildContext context) =>

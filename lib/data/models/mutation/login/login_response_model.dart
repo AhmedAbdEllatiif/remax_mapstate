@@ -1,11 +1,13 @@
 import 'package:remax_mapstate/common/constants/app_utils.dart';
 import 'package:remax_mapstate/data/models/user_model.dart';
+import 'package:remax_mapstate/domain/entities/authorized_user_entity.dart';
+import 'package:remax_mapstate/domain/entities/login_entity.dart';
 
 LoginResponseModel loginResponseModelFromJson(final Map<String, dynamic> json) {
   return LoginResponseModel.formJson(json);
 }
 
-class LoginResponseModel {
+class LoginResponseModel extends LoginEntity {
   final bool success;
   final String token;
   final Map<String, dynamic> errors;
@@ -16,7 +18,10 @@ class LoginResponseModel {
     required this.token,
     required this.errors,
     required this.userModel,
-  });
+  }) : super(
+          userToken: token,
+          authorizedUserEntity: AuthorizedUserEntity.fromUserModel(userModel),
+        );
 
   factory LoginResponseModel.formJson(Map<String, dynamic> json) =>
       LoginResponseModel(

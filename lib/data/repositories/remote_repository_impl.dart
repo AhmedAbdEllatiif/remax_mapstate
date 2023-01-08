@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:remax_mapstate/data/data_sources/remote_data_source.dart';
+import 'package:remax_mapstate/data/models/mutation/login/login_request_model.dart';
+import 'package:remax_mapstate/data/models/mutation/login/login_response_model.dart';
 import 'package:remax_mapstate/data/models/mutation/update_user.dart';
 import 'package:remax_mapstate/data/models/user_model.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
@@ -19,6 +21,7 @@ import 'package:remax_mapstate/domain/entities/unit_type_entity.dart';
 import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 
 import '../../common/classes/handle_operation_exceptions.dart';
+import '../../domain/entities/login_entity.dart';
 import '../../domain/entities/params/login_params.dart';
 import '../../domain/entities/params/update_user_params.dart';
 import '../../domain/entities/user_entity.dart';
@@ -302,9 +305,69 @@ class RemoteRepositoryImpl extends RemoteRepository {
     }
   }
 
-  ///TODO
+  /// loginUser
   @override
-  Future<Either<AppError, UserEntity>> loginUser(LoginParams params) async {
-    return const Left(AppError(AppErrorType.api, message:" e.toString()"));
+  Future<Either<AppError, LoginEntity>> loginUser(LoginParams params) async {
+    try {
+      final result = await remoteDataSource.loginUser(
+        loginRequestModel: LoginRequestModel(
+          email: params.email,
+          password: params.password,
+        ),
+      );
+
+      if (result is LoginResponseModel) {
+        return Right(result);
+      }
+      return Left(result);
+    }
+    //==> SocketException
+    on SocketException catch (e) {
+      log("RepoImpl >> updateCurrentUser >> SocketException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.message));
+    }
+    //==> OperationException
+    on OperationException catch (e) {
+      final appErrorType =
+          AppErrorTypeBuilder.formOperationException(e).appErrorType;
+      log("RepoImpl >> updateCurrentUser >> OperationException >> $e");
+      return Left(AppError(appErrorType, message: e.toString()));
+    }
+    //==> Exception
+    on Exception catch (e) {
+      log("RepoImpl >> updateCurrentUser >> Exception >> $e");
+      return Left(AppError(AppErrorType.api, message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<AppError, UserEntity>> getBrokerById(int brokerId) async {
+    try {
+      final result = await remoteDataSource.getBrokerById(brokerId);
+
+      if (result is List<UserModel>) {
+        if (result.isNotEmpty) {
+          return Right(result[0]);
+        }
+      }
+      return Left(result);
+    }
+    //==> SocketException
+    on SocketException catch (e) {
+      log("RepoImpl >> updateCurrentUser >> SocketException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.message));
+    }
+    //==> OperationException
+    on OperationException catch (e) {
+      final appErrorType =
+          AppErrorTypeBuilder.formOperationException(e).appErrorType;
+      log("RepoImpl >> updateCurrentUser >> OperationException >> $e");
+      return Left(AppError(appErrorType, message: e.toString()));
+    }
+    //==> Exception
+    on Exception catch (e) {
+      log("RepoImpl >> updateCurrentUser >> Exception >> $e");
+      return Left(AppError(AppErrorType.api, message: e.toString()));
+    }
   }
 }

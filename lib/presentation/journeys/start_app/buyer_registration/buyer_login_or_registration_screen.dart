@@ -75,23 +75,23 @@ class _ClientLoginOrRegistrationScreenState
                   ),
                 ),
 
-                Flexible(
-                  child: isLoginForm
-                      ? LoginForm(
-                          onSuccessLogin: (value) {
-                            //_saveAutoLogin();
-                            _navigateToMainScreen();
-                          },
-                        )
-                      : RegistrationFrom(
-                          chooseFavoriteAreaCubit: _chooseFavoriteAreaCubit,
-                          onSuccessRegister: () {
-                            //_saveAutoLogin();
-
-                            _navigateToMainScreen();
-                          },
-                        ),
-                ),
+                // Flexible(
+                //   child: isLoginForm
+                //       ? LoginForm(
+                //           onSuccessLogin: (value) {
+                //             //_saveAutoLogin();
+                //             _navigateToMainScreen();
+                //           },
+                //         )
+                //       : RegistrationFrom(
+                //           chooseFavoriteAreaCubit: _chooseFavoriteAreaCubit,
+                //           onSuccessRegister: () {
+                //             //_saveAutoLogin();
+                //
+                //             _navigateToMainScreen();
+                //           },
+                //         ),
+                // ),
 
                 /// Button Register a new client
                 /* ButtonWithBoxShadow(

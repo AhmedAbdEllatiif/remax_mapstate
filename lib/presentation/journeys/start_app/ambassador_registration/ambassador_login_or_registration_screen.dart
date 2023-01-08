@@ -55,21 +55,21 @@ class _SpotterRegistrationScreenState extends State<SpotterRegistrationScreen> {
               ),
 
               /// register Form
-              Flexible(
-                child: isLoginForm
-                    ? LoginForm(
-                        onSuccessLogin: (value) {
-                          //_saveAutoLogin();
-                          _navigateToMainScreen();
-                        },
-                      )
-                    : AmbassadorRegistrationFrom(
-                        onSuccessRegister: () {
-                          //_saveAutoLogin();
-                          _navigateToMainScreen();
-                        },
-                      ),
-              ),
+              // Flexible(
+              //   child: isLoginForm
+              //       ? LoginForm(
+              //           onSuccessLogin: (value) {
+              //             //_saveAutoLogin();
+              //             _navigateToMainScreen();
+              //           },
+              //         )
+              //       : AmbassadorRegistrationFrom(
+              //           onSuccessRegister: () {
+              //             //_saveAutoLogin();
+              //             _navigateToMainScreen();
+              //           },
+              //         ),
+              // ),
 
               TextLoginInstead(
                 isLogin: isLoginForm,

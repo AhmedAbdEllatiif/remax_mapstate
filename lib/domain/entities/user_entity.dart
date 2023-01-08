@@ -11,6 +11,7 @@ class UserEntity extends Equatable {
   final String email;
   final String phoneNumber;
   UserType userType;
+  final int experienceYears;
   final List<AreaEntity> favoriteAreas;
 
   UserEntity({
@@ -20,6 +21,7 @@ class UserEntity extends Equatable {
     required this.email,
     required this.phoneNumber,
     required this.userType,
+    required this.experienceYears,
     this.favoriteAreas = const [],
   });
 
@@ -30,7 +32,8 @@ class UserEntity extends Equatable {
         email: AppUtils.undefined,
         phoneNumber: AppUtils.undefined,
         userType: UserType.unDefined,
-        favoriteAreas: [],
+        experienceYears: 0,
+        favoriteAreas: const [],
       );
 
   @override

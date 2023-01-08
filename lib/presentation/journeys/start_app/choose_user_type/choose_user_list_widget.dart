@@ -38,6 +38,7 @@ class ChooseUserListWidget extends StatelessWidget {
                     email: "",
                     id: "-1",
                     phoneNumber: "",
+                    experienceYears: 0,
                     favoriteAreas: [],
                   ),
                 ),

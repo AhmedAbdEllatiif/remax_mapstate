@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:remax_mapstate/domain/entities/arguments/register_or_login_args.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_developer.dart';
 import 'package:remax_mapstate/presentation/arguments/advanced_filter_result_args.dart';
 import 'package:remax_mapstate/presentation/arguments/project_by_status_args.dart';
@@ -42,7 +43,10 @@ class Routes {
 
         /// BrokerRegistrationScreen
         RouteList.brokerRegistration: (context) =>
-            const BrokerLoginOrRegistrationScreen(),
+            RegisterOrLoginScreen(
+              registerOrLoginArguments:
+                  settings.arguments as RegisterOrLoginArguments,
+            ),
 
         /// CalculationResultScreen
         RouteList.calculationResult: (context) => CalculationResultScreen(
