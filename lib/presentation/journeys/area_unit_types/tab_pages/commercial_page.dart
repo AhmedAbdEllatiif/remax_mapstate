@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
+import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/presentation/widgets/project_item_widget.dart';
 import 'package:remax_mapstate/presentation/widgets/empty_list_widegt.dart';
@@ -131,7 +133,7 @@ class _CommercialUnitTypesPageState extends State<CommercialUnitTypesPage>
   void _buildFilters({required String unitTypeName}) {
     _filterBuilderCubit.buildByArea(
       context,
-      type: "commercial",
+      type: TranslateConstants.commercial.toLowerCase(),
       city: widget.cityName,
       unitType: unitTypeName,
     );

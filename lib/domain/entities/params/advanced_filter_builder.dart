@@ -37,7 +37,13 @@ class AdvancedProjectsFilterBuilder extends Equatable {
   List<FilterModel> _arabicFilters() {
     final List<FilterModel> filters = [];
     // type
-    //filters.add(FilterModel(field: "type", value: type));
+    if (type != null) {
+      filters.add(FilterModel(
+        field: "type",
+        value: type,
+        clause: FilterClause.exact,
+      ));
+    }
 
     // city
     if (city != null) {
@@ -95,7 +101,11 @@ class AdvancedProjectsFilterBuilder extends Equatable {
     final List<FilterModel> filters = [];
     // type
     if (type != null) {
-      filters.add(FilterModel(field: "type", value: type));
+      filters.add(FilterModel(
+        field: "type",
+        value: type,
+        clause: FilterClause.exact,
+      ));
     }
 
     // city

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
+import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/presentation/widgets/project_item_widget.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/unitType_names/unit_type_names_cubit.dart';
@@ -10,6 +11,7 @@ import 'package:remax_mapstate/presentation/widgets/app_error_widget.dart';
 import 'package:remax_mapstate/presentation/widgets/empty_list_widegt.dart';
 import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 
+import '../../../../common/constants/translate_constatns.dart';
 import '../../../../data/models/filter_model.dart';
 import '../../../../router/route_hepler.dart';
 import '../../../arguments/advanced_filter_result_args.dart';
@@ -126,7 +128,7 @@ class _ResidentialUnitTypesPageState extends State<ResidentialUnitTypesPage>
   void _buildFilters({required String unitTypeName}) {
     _filterBuilderCubit.buildByArea(
       context,
-      type: "residential",
+      type: TranslateConstants.residential.toLowerCase(),
       city: widget.cityName,
       unitType: unitTypeName,
     );
