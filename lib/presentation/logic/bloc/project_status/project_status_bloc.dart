@@ -24,11 +24,13 @@ class ProjectStatusBloc extends Bloc<ProjectStatusEvent, ProjectStatusState> {
     required this.backdropBloc,
   }) : super(LoadingProjectStatus()) {
     on<ProjectStatusEvent>((event, emit) async {
+      /// emit if not close
       void _emitIfNotClosed(ProjectStatusState state) {
         if (!isClosed) {
           emit(state);
         }
       }
+
 
       if (event is LoadProjectStatusEvent) {
         // init current language
@@ -51,16 +53,22 @@ class ProjectStatusBloc extends Bloc<ProjectStatusEvent, ProjectStatusState> {
             _emitIfNotClosed(ErrorLoadingProjectStatus(appError: appError));
           },
           (projectStatusList) {
-            if (projectStatusList.isEmpty) {
               // add BackdropChangedEvent
-              backdropBloc.add(ProjectBackdropChangedEvent(
-                  projectStatusEntity: ProjectStatusEntity.empty()));
+            if (projectStatusList.isEmpty) {
+              if (!isClosed) {
+                backdropBloc.add(ProjectBackdropChangedEvent(
+                    projectStatusEntity: ProjectStatusEntity.empty()));
+              }
+
               // emit empty
               _emitIfNotClosed(EmptyProjectStatus());
             } else {
-              // add BackdropChangedEvent
-              backdropBloc.add(ProjectBackdropChangedEvent(
-                  projectStatusEntity: projectStatusList[event.defaultIndex]));
+                // add BackdropChangedEvent
+              if (!isClosed) {
+                backdropBloc.add(ProjectBackdropChangedEvent(
+                    projectStatusEntity:
+                        projectStatusList[event.defaultIndex]));
+              }
 
               // emit TopProjectsLoadedState
               _emitIfNotClosed(ProjectStatusLoadedState(
