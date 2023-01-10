@@ -5,6 +5,7 @@ class UpdateUserMutationModel {
   final String? lastName;
   final String? phone;
   final String? password;
+  final int? experienceYears;
   final List<int>? groups;
   final List<int>? favProjects;
   final List<int>? unFavProjects;
@@ -17,6 +18,7 @@ class UpdateUserMutationModel {
     this.phone,
     this.password,
     this.groups,
+    this.experienceYears,
     this.favProjects,
     this.unFavProjects,
   });
@@ -44,5 +46,23 @@ class UpdateUserMutationModel {
     };
   }
 
+  factory UpdateUserMutationModel.forCompletingBrokerData({
+    required int userId,
+    required int experienceYears,
+    required List<int> favProjects,
+  }) =>
+      UpdateUserMutationModel(
+        experienceYears: experienceYears,
+        favProjects: favProjects,
+      );
 
+  Map<String, dynamic> toCompleteBrokerDataJson() {
+    return {
+      "yearsOfExperience": experienceYears,
+      "firstName": firstName,
+      "phone": lastName,
+      "password": password,
+      "groups": groups
+    };
+  }
 }

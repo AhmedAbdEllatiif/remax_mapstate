@@ -12,7 +12,25 @@ class UserDataItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(keyData,
+            textAlign: TextAlign.start,
+            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  //letterSpacing: 0.5,
+                  fontWeight: FontWeight.normal,
+                  color: AppColor.geeBung,
+                )),
+        Text(value,
+            style: Theme.of(context).textTheme.headline6!.copyWith(
+                  letterSpacing: 0.5,
+                  fontWeight: FontWeight.bold,
+                  color: AppColor.white,
+                )),
+      ],
+    );
+    /*ListTile(
       visualDensity: VisualDensity(horizontal: 0, vertical: -4),
       subtitle: Text(value,
           style: Theme.of(context).textTheme.headline6!.copyWith(
@@ -27,6 +45,6 @@ class UserDataItem extends StatelessWidget {
             fontWeight: FontWeight.normal,
             color: AppColor.geeBung,
           )),
-    );
+    );*/
   }
 }

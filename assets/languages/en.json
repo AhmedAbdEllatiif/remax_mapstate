@@ -109,6 +109,8 @@
   "minRequiredCharacters": "* The minimum characters is ",
   "atLeastUpperCase": "* Required at least 1 upper letter ",
   "atLeastLowerCase": "* Required at least 1 lower letter ",
+  "updateProfile": "Update Profile",
+  "favoriteRegions": "Favorite Regions",
 
 
   "fullName": "Full name",

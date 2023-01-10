@@ -1,9 +1,8 @@
-import 'dart:convert';
-
 import 'package:remax_mapstate/common/constants/app_utils.dart';
 import 'package:remax_mapstate/domain/entities/user_entity.dart';
 
 import '../../common/enums/user_types.dart';
+import 'area_model.dart';
 
 /// parse to user model
 UserModel userModelFormJson(Map<String, dynamic> json) {
@@ -15,8 +14,13 @@ UserModel userModelFormJson(Map<String, dynamic> json) {
 /// parse to user model
 List<UserModel> listUserModelFormBroker(Map<String, dynamic> json) {
   //final json = jsonDecode(body);
-  return List<UserModel>.from(json["brokers"].map((element) =>
-      UserModel.formJsonBroker(element["user"], element["yearsOfExperience"])));
+  return List<UserModel>.from(json["brokers"].map(
+    (element) => UserModel.formJsonBroker(
+      element["user"],
+      element["yearsOfExperience"],
+      element["favoriteRegions"],
+    ),
+  ));
 }
 
 class UserModel extends UserEntity {
@@ -27,6 +31,7 @@ class UserModel extends UserEntity {
   final String userPhoneNumber;
   final String userEmail;
   final int yearsOfExperience;
+  final List<AreaModel> userFavoriteAreas;
 
   UserModel({
     required this.userId,
@@ -36,14 +41,16 @@ class UserModel extends UserEntity {
     required this.userEmail,
     required this.userPhoneNumber,
     required this.yearsOfExperience,
+    required this.userFavoriteAreas,
   }) : super(
-          id: userPk.toString(),
+          id: userPk == -1 ? userId : userPk.toString(),
           firstName: userFirstName,
           lastName: userLastName,
           email: userEmail,
           experienceYears: yearsOfExperience,
           phoneNumber: userPhoneNumber,
           userType: UserType.unDefined,
+          favoriteAreas: userFavoriteAreas,
         );
 
   factory UserModel.formJson(Map<String, dynamic> json) {
@@ -54,12 +61,13 @@ class UserModel extends UserEntity {
       userLastName: json["lastName"] ?? AppUtils.undefined,
       userEmail: json["email"] ?? AppUtils.undefined,
       userPhoneNumber: json["phone"] ?? AppUtils.undefined,
-      yearsOfExperience: json["yearsOfExperience"] ?? 0,
+      yearsOfExperience: -1,
+      userFavoriteAreas: const [],
     );
   }
 
-  factory UserModel.formJsonBroker(
-      Map<String, dynamic> userJson, dynamic yearsOfExperience) {
+  factory UserModel.formJsonBroker(Map<String, dynamic> userJson,
+      dynamic yearsOfExperience, dynamic favoriteAreas) {
     return UserModel(
       userId: userJson["id"] ?? "-1",
       userPk: userJson["pk"] ?? -1,
@@ -68,6 +76,9 @@ class UserModel extends UserEntity {
       userEmail: userJson["email"] ?? AppUtils.undefined,
       userPhoneNumber: userJson["phone"] ?? AppUtils.undefined,
       yearsOfExperience: yearsOfExperience ?? 0,
+      userFavoriteAreas: favoriteAreas != null
+          ? listOfAreasFromFavRegionsJson(favoriteAreas)
+          : [],
     );
   }
 
@@ -80,6 +91,7 @@ class UserModel extends UserEntity {
       userEmail: AppUtils.undefined,
       userPhoneNumber: AppUtils.undefined,
       yearsOfExperience: 0,
+      userFavoriteAreas: const [],
     );
   }
 }

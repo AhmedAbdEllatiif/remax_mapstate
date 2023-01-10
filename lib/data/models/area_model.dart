@@ -11,37 +11,8 @@ import 'package:remax_mapstate/domain/entities/area_entity.dart';
 List<AreaModel> listOfAreasFromJson(dynamic data) =>
     List<AreaModel>.from(data["regions"].map((x) => AreaModel.fromJson(x)));
 
-/*class AreaModel {
-  AreaModel({
-    required this.data,
-  });
-
-  final Data data;
-
-  factory AreaModel.fromJson(Map<String, dynamic> json) => AreaModel(
-    data: Data.fromJson(json["data"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "data": data.toJson(),
-  };
-}
-
-class AreaModel {
-  AreaModel({
-    required this.regions,
-  });
-
-  final List<Region> regions;
-
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-    regions: List<Region>.from(json["regions"].map((x) => Region.fromJson(x))),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "regions": List<dynamic>.from(regions.map((x) => x.toJson())),
-  };
-}*/
+List<AreaModel> listOfAreasFromFavRegionsJson(dynamic favRegions) =>
+    List<AreaModel>.from(favRegions.map((x) => AreaModel.fromJson(x)));
 
 class AreaModel extends AreaEntity {
   AreaModel({

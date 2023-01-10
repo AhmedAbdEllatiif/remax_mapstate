@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:remax_mapstate/common/constants/route_list.dart';
+import 'package:remax_mapstate/domain/entities/arguments/complete_broker_data_arguments.dart';
 import 'package:remax_mapstate/domain/entities/arguments/register_or_login_args.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_developer.dart';
 import 'package:remax_mapstate/presentation/arguments/advanced_filter_result_args.dart';
@@ -78,6 +79,16 @@ class RouteHelper {
   /// To SpotterRegistrationScreen \\\
   void spotterRegistrationScreen(BuildContext context) =>
       Navigator.of(context).pushNamed(RouteList.spotterRegistration);
+
+  /// To CompleteBrokerScreen \\\
+  void completeBrokerData(
+    BuildContext context, {
+    required CompleteBrokerDataArguments completeBrokerDataArguments,
+  }) =>
+      Navigator.of(context).pushNamed(
+        RouteList.completeBrokerData,
+        arguments: completeBrokerDataArguments,
+      );
 
   /// To BrokerRegistrationScreen \\\
   void registerOrLoginScreen(

@@ -45,6 +45,7 @@ import '../data/api/clients/auth_client.dart';
 import '../data/api/clients/graphql_client.dart';
 import '../data/repositories/remote_repository_impl.dart';
 import '../domain/use_cases/advanced_filter_projects.dart';
+import '../domain/use_cases/complete_broker_data_case.dart';
 import '../domain/use_cases/get_filter_data.dart';
 import '../domain/use_cases/get_projects_by_status.dart';
 import '../domain/use_cases/local_usecases/authorized_user/authorized_user_data/delete_user_data.dart';
@@ -64,6 +65,7 @@ import '../presentation/logic/cubit/brokers_by_area/get_area_brokers_cubit.dart'
 import '../presentation/logic/bloc/calculator_validation/calculator_validation_bloc.dart';
 import '../presentation/logic/bloc/project_status/project_status_bloc.dart';
 import '../presentation/logic/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
+import '../presentation/logic/cubit/complete_broker_data/complete_broker_data_cubit.dart';
 import '../presentation/logic/cubit/get_broker_by_id/get_broker_by_id_cubit.dart';
 import '../presentation/logic/cubit/projects/get_projects_cubit.dart';
 import '../presentation/logic/cubit/broker_changed/broker_changed_cubit.dart';
@@ -289,7 +291,14 @@ Future init() async {
 
   /// GetBrokerByIdCase
   getItInstance.registerFactory<GetBrokerByIdCase>(
-        () => GetBrokerByIdCase(
+    () => GetBrokerByIdCase(
+      remoteRepository: getItInstance(),
+    ),
+  );
+
+  /// CompleteBrokerDataCase
+  getItInstance.registerFactory<CompleteBrokerDataCase>(
+    () => CompleteBrokerDataCase(
       remoteRepository: getItInstance(),
     ),
   );
@@ -470,7 +479,12 @@ Future init() async {
 
   /// init GetBrokerByIdCubit
   getItInstance.registerFactory<GetBrokerByIdCubit>(
-        () => GetBrokerByIdCubit(),
+    () => GetBrokerByIdCubit(),
+  );
+
+  /// init CompleteBrokerDataCubit
+  getItInstance.registerFactory<CompleteBrokerDataCubit>(
+    () => CompleteBrokerDataCubit(),
   );
 
   ///**************************** init blocs *******************************\\\

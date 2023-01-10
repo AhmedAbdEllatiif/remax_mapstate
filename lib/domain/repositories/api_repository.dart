@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:remax_mapstate/data/models/success_model.dart';
 import 'package:remax_mapstate/data/params/fetch_list_params.dart';
 import 'package:remax_mapstate/data/params/filter_data_params.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
@@ -16,6 +17,8 @@ import 'package:remax_mapstate/domain/entities/unit_type_entity.dart';
 import 'package:remax_mapstate/domain/entities/user_entity.dart';
 
 import '../../data/params/fetch_areas_params.dart';
+import '../../data/params/fetch_broker_params.dart';
+import '../entities/params/complete_broker_data_params.dart';
 
 abstract class RemoteRepository {
   ///***************************** Projects ******************************* \\\\
@@ -67,7 +70,12 @@ abstract class RemoteRepository {
   Future<Either<AppError, LoginEntity>> loginUser(LoginParams params);
 
   /// getBrokerProfile
-  Future<Either<AppError, UserEntity>> getBrokerById(int brokerId);
+  Future<Either<AppError, UserEntity>> getBrokerById({required FetchBrokerParams params});
+
+  /// getBrokerProfile
+  Future<Either<AppError, SuccessModel>> completeBrokerData(
+    CompleteBrokerDataParams params,
+  );
 
   ///**************************** Developer Contact *********************** \\\\
   Future<Either<AppError, ContactDeveloperEntity>> getDeveloperContact(

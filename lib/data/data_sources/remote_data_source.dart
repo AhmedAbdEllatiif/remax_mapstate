@@ -26,18 +26,23 @@ import 'package:remax_mapstate/data/models/mutation/update_user.dart';
 import 'package:remax_mapstate/data/models/page_info.dart';
 import 'package:remax_mapstate/data/models/project_model.dart';
 import 'package:remax_mapstate/data/models/project_status.dart';
+import 'package:remax_mapstate/data/models/success_model.dart';
 import 'package:remax_mapstate/data/models/team_support_model.dart';
 import 'package:remax_mapstate/data/models/unit_type_model.dart';
 import 'package:remax_mapstate/data/models/user_model.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
+import 'package:remax_mapstate/data/params/fetch_broker_params.dart';
 
 import '../../common/constants/api_constants.dart';
 import '../../domain/entities/app_error.dart';
-import '../api/queries/borkers.dart';
+import '../api/queries/brokers/get_borkers_en.dart';
+import '../api/queries/brokers/get_broker_ar.dart';
 import '../api/queries/get_filter_data/ar_get_filter_data.dart';
 import '../api/queries/projects_by_status/ar_project_by_status.dart';
 import '../api/queries/projects_by_status/en_project_by_status.dart';
+import '../api/requests/mutations/update_broker.dart';
 import '../models/filter_model.dart';
+import '../models/mutation/update_broker_request_model.dart';
 
 abstract class RemoteDataSource {
   /// return  projects
@@ -104,7 +109,12 @@ abstract class RemoteDataSource {
   });
 
   /// getBrokerById
-  Future<dynamic> getBrokerById(int id);
+  Future<dynamic> getBrokerById({required FetchBrokerParams params});
+
+  /// updateBrokerData
+  Future<dynamic> updateBrokerData({
+    required UpdateBrokerRequestModel updateBrokerRequestModel,
+  });
 }
 
 class RemoteDateSourceImpl extends RemoteDataSource {
@@ -455,15 +465,18 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     }
   }
 
+  /// getBrokerById
   @override
-  Future<dynamic> getBrokerById(int id) async {
+  Future<dynamic> getBrokerById({required FetchBrokerParams params}) async {
     try {
-      final query = getBrokersQuery();
+      final query = params.appLanguage == AppLanguage.en
+          ? getBrokersEnglishQuery()
+          : getBrokersArabicQuery();
 
       final QueryResult result = await apiClient.get(
         query,
         variables: {
-          VariablesConstants.pk: id,
+          VariablesConstants.pk: params.brokerId,
         },
       );
 
@@ -473,6 +486,30 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       return listUserModelFormBroker(result.data!);
     } catch (e) {
       log("Error: $e");
+      return AppError(AppErrorType.unHandledError,
+          message: "updateDefaultUser UnHandledError >> $e");
+    }
+  }
+
+  /// updateUser
+  @override
+  Future<dynamic> updateBrokerData({
+    required UpdateBrokerRequestModel updateBrokerRequestModel,
+  }) async {
+    try {
+      final mutationFields = updateBrokerMutation();
+
+      final QueryResult result = await apiClient.mutate(
+        mutationFields,
+        variables: {
+          VariablesConstants.inputForm: updateBrokerRequestModel.toJson(),
+        },
+      );
+
+      log("updateUser >> ResultOnly >> ..........\n \n \n ${result}.......\n\n\n");
+      log("updateUser >> Data >> ..........\n ${result.data}.......");
+      return SuccessModel();
+    } catch (e) {
       return AppError(AppErrorType.unHandledError,
           message: "updateDefaultUser UnHandledError >> $e");
     }

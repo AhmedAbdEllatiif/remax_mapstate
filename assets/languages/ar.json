@@ -98,7 +98,7 @@
   "to": "الى",
   "somethingWentWrong": "حدث خطأ",
   "wrongEmailOrPassword": "* بريد إلكتروني أو كلمة مرور خاطئة",
-
+  "favoriteRegions": "المدن المفضلة",
 
   "emailAlreadyExists": "* البريد الالكترونى موجود بالفعل",
   "requiredField": "* مطلوب ادخاله",
@@ -109,6 +109,7 @@
   "atLeastUpperCase": "* يجب تضمين حرف علوي واحد على الأقل",
   "atLeastLowerCase": "* يجب تضمين حرف سفلي واحد على الأقل",
   "completeYourProfile": "أكمل ملفك الشخصي",
+  "updateProfile": "تعديل الملف الشخصى",
 
   "fullName": "الاسم الكامل",
   "phoneNumber": "رقم الهاتف",

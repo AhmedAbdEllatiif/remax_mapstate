@@ -4,7 +4,9 @@ import 'package:remax_mapstate/domain/entities/user_entity.dart';
 import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 import 'package:remax_mapstate/domain/use_cases/use_case.dart';
 
-class GetBrokerByIdCase extends UseCase<UserEntity, int> {
+import '../../data/params/fetch_broker_params.dart';
+
+class GetBrokerByIdCase extends UseCase<UserEntity, FetchBrokerParams> {
   final RemoteRepository remoteRepository;
 
   GetBrokerByIdCase({
@@ -12,6 +14,6 @@ class GetBrokerByIdCase extends UseCase<UserEntity, int> {
   });
 
   @override
-  Future<Either<AppError, UserEntity>> call(int params) async =>
-      await remoteRepository.getBrokerById(params);
+  Future<Either<AppError, UserEntity>> call(FetchBrokerParams params) async =>
+      await remoteRepository.getBrokerById(params: params);
 }

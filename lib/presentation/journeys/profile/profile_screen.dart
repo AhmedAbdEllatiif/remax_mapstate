@@ -49,7 +49,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _getBroker();
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => _authorizedUserCubit),
@@ -80,19 +79,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         backgroundImage: AssetImage(AssetsConstants.person2),
                       ),
 
-
                       /// userData
                       Expanded(
                         child: SingleChildScrollView(
                           physics: const BouncingScrollPhysics(),
                           child: Padding(
-                            padding: EdgeInsets.only(top: Sizes.dimen_22.h),
+                            padding: EdgeInsets.only(
+                              top: Sizes.dimen_16.h,
+                              right: Sizes.dimen_10.w,
+                              left: Sizes.dimen_10.w,
+                            ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 UserDataItem(
-                                  keyData: TranslateConstants.fullName.t(context),
+                                  keyData:
+                                      TranslateConstants.fullName.t(context),
                                   value: state.userEntity.firstName,
                                 ),
                                 UserDataItem(
@@ -135,12 +138,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
         value: email,
       ),
     ];
-  }
-
-  void _getBroker() async {
-    final dataSource = getItInstance<RemoteDataSource>();
-    final result = await dataSource.getBrokerById(0);
-
-    log("Result From Profile >>>>> $result");
   }
 }

@@ -1,11 +1,16 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:remax_mapstate/data/params/fetch_broker_params.dart';
 import 'package:remax_mapstate/domain/entities/user_entity.dart';
 import 'package:remax_mapstate/domain/use_cases/get_broker_by_id.dart';
 
 import '../../../../common/constants/app_utils.dart';
+import '../../../../common/enums/app_language.dart';
 import '../../../../di/git_it.dart';
 import '../../../../domain/entities/app_error.dart';
+import '../language/language_cubit.dart';
 
 part 'get_broker_by_id_state.dart';
 
@@ -13,9 +18,14 @@ class GetBrokerByIdCubit extends Cubit<GetBrokerByIdState> {
   GetBrokerByIdCubit() : super(GetBrokerByIdInitial());
 
   /// updateDefaultUser
-  void getBrokerById({
+  void getBrokerById(
+    BuildContext context, {
     required String brokerId,
   }) async {
+    // init current language
+    final languageCode = context.read<LanguageCubit>().state.languageCode;
+    final appLanguage = languageCode == "en" ? AppLanguage.en : AppLanguage.ar;
+
     //==> convert brokerId from string to int
     final id = int.tryParse(brokerId);
 
@@ -35,7 +45,10 @@ class GetBrokerByIdCubit extends Cubit<GetBrokerByIdState> {
       _emitIfNotClosed(LoadingGetBrokerById());
 
       // init params
-      final params = id;
+      final params = FetchBrokerParams(
+        brokerId: id,
+        appLanguage: appLanguage,
+      );
 
       // init useCase
       final useCase = getItInstance<GetBrokerByIdCase>();
@@ -84,7 +97,8 @@ class GetBrokerByIdCubit extends Cubit<GetBrokerByIdState> {
     final favAreas = userEntity.favoriteAreas;
 
     // check of any of these need to update
-    return phoneNum == AppUtils.undefined ||
+    return
+      //phoneNum == AppUtils.undefined ||
         yearsOfExperience == -1 ||
         favAreas.isEmpty;
   }

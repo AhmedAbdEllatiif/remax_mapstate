@@ -6,14 +6,18 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:remax_mapstate/data/data_sources/remote_data_source.dart';
 import 'package:remax_mapstate/data/models/mutation/login/login_request_model.dart';
 import 'package:remax_mapstate/data/models/mutation/login/login_response_model.dart';
+import 'package:remax_mapstate/data/models/mutation/update_broker_request_model.dart';
 import 'package:remax_mapstate/data/models/mutation/update_user.dart';
+import 'package:remax_mapstate/data/models/success_model.dart';
 import 'package:remax_mapstate/data/models/user_model.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
+import 'package:remax_mapstate/domain/entities/arguments/complete_broker_data_arguments.dart';
 import 'package:remax_mapstate/domain/entities/broker_entity.dart';
 import 'package:remax_mapstate/domain/entities/contact_developer.dart';
 import 'package:remax_mapstate/domain/entities/filter_data_entity.dart';
+import 'package:remax_mapstate/domain/entities/params/complete_broker_data_params.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
 import 'package:remax_mapstate/domain/entities/team_support_entity.dart';
@@ -25,6 +29,7 @@ import '../../domain/entities/login_entity.dart';
 import '../../domain/entities/params/login_params.dart';
 import '../../domain/entities/params/update_user_params.dart';
 import '../../domain/entities/user_entity.dart';
+import '../params/fetch_broker_params.dart';
 import '../params/fetch_list_params.dart';
 import '../params/filter_data_params.dart';
 
@@ -341,9 +346,11 @@ class RemoteRepositoryImpl extends RemoteRepository {
   }
 
   @override
-  Future<Either<AppError, UserEntity>> getBrokerById(int brokerId) async {
+  Future<Either<AppError, UserEntity>> getBrokerById({
+    required FetchBrokerParams params,
+  }) async {
     try {
-      final result = await remoteDataSource.getBrokerById(brokerId);
+      final result = await remoteDataSource.getBrokerById(params: params);
 
       if (result is List<UserModel>) {
         if (result.isNotEmpty) {
@@ -367,6 +374,42 @@ class RemoteRepositoryImpl extends RemoteRepository {
     //==> Exception
     on Exception catch (e) {
       log("RepoImpl >> updateCurrentUser >> Exception >> $e");
+      return Left(AppError(AppErrorType.api, message: e.toString()));
+    }
+  }
+
+  /// completeBrokerData
+  @override
+  Future<Either<AppError, SuccessModel>> completeBrokerData(
+      CompleteBrokerDataParams params) async {
+    try {
+      final result = await remoteDataSource.updateBrokerData(
+          updateBrokerRequestModel: UpdateBrokerRequestModel(
+        id: params.brokerId,
+        experienceYears: params.experienceYears,
+        favoriteRegions: params.favoriteRegions,
+      ));
+
+      if (result is SuccessModel) {
+        return Right(result);
+      }
+      return Left(result);
+    }
+    //==> SocketException
+    on SocketException catch (e) {
+      log("RepoImpl >> completeBrokerData >> SocketException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.message));
+    }
+    //==> OperationException
+    on OperationException catch (e) {
+      final appErrorType =
+          AppErrorTypeBuilder.formOperationException(e).appErrorType;
+      log("RepoImpl >> completeBrokerData >> OperationException >> $e");
+      return Left(AppError(appErrorType, message: e.toString()));
+    }
+    //==> Exception
+    on Exception catch (e) {
+      log("RepoImpl >> completeBrokerData >> Exception >> $e");
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
   }

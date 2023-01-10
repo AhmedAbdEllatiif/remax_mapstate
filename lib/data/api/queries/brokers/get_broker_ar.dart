@@ -1,6 +1,6 @@
-import '../../../common/constants/api_constants.dart';
+import '../../../../common/constants/api_constants.dart';
 
-String getBrokersQuery() => """
+String getBrokersArabicQuery() => """
 query getBroker(
 \$${VariablesConstants.pk}:Int,
 \$${VariablesConstants.filters}:[DjangoFilterInput],
@@ -30,6 +30,11 @@ query getBroker(
       lastName
     }
     yearsOfExperience
+    
+    favoriteRegions{
+      arabicName
+      id
+    }
   ########## end of body #########
   }
 }

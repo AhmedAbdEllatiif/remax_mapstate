@@ -107,6 +107,8 @@ class TranslateConstants{
   static const String areaRange = 'areaRange';
   static const String toStr = 'to';
   static const String wrongEmailOrPassword = 'wrongEmailOrPassword';
+  static const String updateProfile = 'updateProfile';
+  static const String favoriteRegions = 'favoriteRegions';
 
 
   static const String completeYourProfile = 'completeYourProfile';
