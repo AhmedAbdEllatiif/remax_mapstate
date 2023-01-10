@@ -98,7 +98,7 @@ class GetBrokerByIdCubit extends Cubit<GetBrokerByIdState> {
 
     // check of any of these need to update
     return
-      //phoneNum == AppUtils.undefined ||
+      phoneNum == AppUtils.undefined ||
         yearsOfExperience == -1 ||
         favAreas.isEmpty;
   }

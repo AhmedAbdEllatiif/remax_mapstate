@@ -47,6 +47,13 @@ enum CalculatorValidationEnum {
   maxLengthThirdDownPayment,
   minLengthThirdDownPayment,
 
+
+  /// fourthDownPayment
+  emptyFourthDownPayment,
+  invalidFourthDownPayment,
+  maxLengthFourthDownPayment,
+  minLengthFourthDownPayment,
+
   successForm,
 }
 
@@ -58,6 +65,7 @@ class CalculatorValidationState extends Equatable {
   final FirstDownPaymentForm firstDownPayment;
   final SecondDownPaymentForm secondDownPayment;
   final ThirdDownPaymentForm thirdDownPayment;
+  final FourthDownPaymentForm fourthDownPaymentForm;
   final int maxLength;
   final int minLength;
   final int unitPriceLength; // the current updated length
@@ -66,6 +74,7 @@ class CalculatorValidationState extends Equatable {
   final int firstDownPaymentLength; // the current updated length
   final int secondDownPaymentLength; // the current updated length
   final int thirdDownPaymentLength; // the current updated length
+  final int fourthDownPaymentLength; // the current updated length
   final CalculationFinalResult? calculationFinalResult;
 
    const CalculatorValidationState( {
@@ -75,6 +84,7 @@ class CalculatorValidationState extends Equatable {
     this.firstDownPayment = const FirstDownPaymentForm.dirty(value: ''),
     this.secondDownPayment = const SecondDownPaymentForm.dirty(value: ''),
     this.thirdDownPayment = const ThirdDownPaymentForm.dirty(value: ''),
+     this.fourthDownPaymentForm = const FourthDownPaymentForm.dirty(value: ''),
      this.maxLength =0,
      this.minLength =0,
      this.unitPriceLength =0,
@@ -83,6 +93,7 @@ class CalculatorValidationState extends Equatable {
      this.firstDownPaymentLength =0,
      this.secondDownPaymentLength =0,
      this.thirdDownPaymentLength =0,
+     this.fourthDownPaymentLength =0,
     this.calculatorValidationEnum = CalculatorValidationEnum.ideal,
      this.calculationFinalResult,
   });
@@ -94,6 +105,7 @@ class CalculatorValidationState extends Equatable {
     FirstDownPaymentForm? firstDownPaymentForm,
     SecondDownPaymentForm? secondDownPaymentForm,
     ThirdDownPaymentForm? thirdDownPaymentForm,
+    FourthDownPaymentForm? fourthDownPaymentForm,
     CalculatorValidationEnum? validationEnum,
     int? maxLength,
     int? minLength,
@@ -116,6 +128,7 @@ class CalculatorValidationState extends Equatable {
       firstDownPayment: firstDownPaymentForm ?? this.firstDownPayment,
       secondDownPayment: secondDownPaymentForm ?? this.secondDownPayment,
       thirdDownPayment: thirdDownPaymentForm ?? this.thirdDownPayment,
+      fourthDownPaymentForm: fourthDownPaymentForm ?? this.fourthDownPaymentForm,
       calculationFinalResult: calculationFinalResult ?? this.calculationFinalResult,
     );
   }

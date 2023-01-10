@@ -27,6 +27,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   final firstDownPaymentKey = GlobalKey();
   final secondDownPaymentKey = GlobalKey();
   final thirdDownPaymentKey = GlobalKey();
+  final fourthDownPaymentKey = GlobalKey();
 
   @override
   void initState() {
@@ -142,6 +143,15 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           ),
                           SizedBox(height: Sizes.dimen_5.h),
 
+                          /// thirdDownPayment
+                          CalculatorFormInput(
+                            key: fourthDownPaymentKey,
+                            calculatorInputParams:
+                            CalculatorInputParams.formInputType(
+                                CalculatorInputType.fourthDownPayment),
+                          ),
+                          SizedBox(height: Sizes.dimen_5.h),
+
                           /// Button Calculate
                           ButtonWithBoxShadow(
                             text: "Calculate",
@@ -224,6 +234,14 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
       case CalculatorValidationEnum.maxLengthThirdDownPayment:
       case CalculatorValidationEnum.minLengthThirdDownPayment:
         currentKey = thirdDownPaymentKey;
+        break;
+
+    /// ThirdDownPayment
+      case CalculatorValidationEnum.emptyFourthDownPayment:
+      case CalculatorValidationEnum.invalidFourthDownPayment:
+      case CalculatorValidationEnum.maxLengthFourthDownPayment:
+      case CalculatorValidationEnum.minLengthFourthDownPayment:
+        currentKey = fourthDownPaymentKey;
         break;
     }
 

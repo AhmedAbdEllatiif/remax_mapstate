@@ -5,6 +5,7 @@ class CalculationFinalResult {
   final String firstDownPaymentResult;
   final String secondDownPaymentResult;
   final String thirdDownPaymentResult;
+  final String fourthDownPaymentResult;
   final String monthlyInstallment;
   final String quarterlyInstallment;
 
@@ -13,10 +14,10 @@ class CalculationFinalResult {
     required this.firstDownPaymentResult,
     required this.secondDownPaymentResult,
     required this.thirdDownPaymentResult,
+    required this.fourthDownPaymentResult,
     required this.monthlyInstallment,
     required this.quarterlyInstallment,
   });
-
 
   factory CalculationFinalResult.calculate({
     required double totalUnitPrice,
@@ -25,14 +26,13 @@ class CalculationFinalResult {
     required double firstDownPayment,
     required double secondDownPayment,
     required double thirdDownPayment,
+    required double fourthDownPayment,
   }) {
-
-
     NumberFormat numberFormat = NumberFormat('##,###,000');
-    
-    
+
     ///==> initialDownPaymentResult = totalUnitPrice * initialDownPayment
-    final initialDownPaymentResult = totalUnitPrice * (initialDownPayment / 100);
+    final initialDownPaymentResult =
+        totalUnitPrice * (initialDownPayment / 100);
 
     /// ==>firstDownPaymentResult = totalUnitPrice * firstDownPayment
     final firstDownPaymentResult = totalUnitPrice * (firstDownPayment / 100);
@@ -43,17 +43,20 @@ class CalculationFinalResult {
     ///==> thirdDownPaymentResult = totalUnitPrice * thirdDownPayment
     final thirdDownPaymentResult = totalUnitPrice * (thirdDownPayment / 100);
 
+    ///==> fourthDownPaymentResult
+    final fourthDownPaymentResult = totalUnitPrice * (fourthDownPayment / 100);
+
     ///==> monthlyInstallment = totalUnitPrice - (initialDownPaymentResult + firstDownPaymentResult + secondDownPaymentResult + thirdDownPaymentResult) / (numOfYears * 12)
     final monthlyInstallment = (totalUnitPrice -
-        (initialDownPaymentResult +
-            firstDownPaymentResult +
-            secondDownPaymentResult +
-            thirdDownPaymentResult)) /
+            (initialDownPaymentResult +
+                firstDownPaymentResult +
+                secondDownPaymentResult +
+                thirdDownPaymentResult +
+                fourthDownPaymentResult)) /
         (numOfYears * 12);
 
     ///==> quarterlyInstallment = monthlyInstallment * 3
     final quarterlyInstallment = monthlyInstallment * 3;
-
 
     /// result
     return CalculationFinalResult(
@@ -61,9 +64,9 @@ class CalculationFinalResult {
       firstDownPaymentResult: numberFormat.format(firstDownPaymentResult),
       secondDownPaymentResult: numberFormat.format(secondDownPaymentResult),
       thirdDownPaymentResult: numberFormat.format(thirdDownPaymentResult),
+      fourthDownPaymentResult: numberFormat.format(fourthDownPaymentResult),
       monthlyInstallment: numberFormat.format(monthlyInstallment),
       quarterlyInstallment: numberFormat.format(quarterlyInstallment),
     );
   }
-
 }

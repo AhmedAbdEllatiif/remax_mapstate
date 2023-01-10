@@ -40,7 +40,7 @@ class UpdateUserMutationModel {
     return {
       "email": email,
       "firstName": firstName,
-      "phone": lastName,
+      "phone": phone,
       "password": password,
       "groups": groups
     };

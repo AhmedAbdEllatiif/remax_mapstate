@@ -1,7 +1,15 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-enum CalculatorInputType { unitPrice, downPayment, numberOfYears, firstDownPayment, secondDownPayment, thirdDownPayment  }
+enum CalculatorInputType {
+  unitPrice,
+  downPayment,
+  numberOfYears,
+  firstDownPayment,
+  secondDownPayment,
+  thirdDownPayment,
+  fourthDownPayment,
+}
 
 class CalculatorInputParams extends Equatable {
   final String label;
@@ -23,7 +31,8 @@ class CalculatorInputParams extends Equatable {
 
   factory CalculatorInputParams.formInputType(CalculatorInputType inputType) {
     switch (inputType) {
-    ///TODO add translate
+
+      ///TODO add translate
       /// unitPrice
       case CalculatorInputType.unitPrice:
         return CalculatorInputParams(
@@ -83,6 +92,17 @@ class CalculatorInputParams extends Equatable {
       case CalculatorInputType.thirdDownPayment:
         return CalculatorInputParams(
           label: 'Third Down payment',
+          iconData: Icons.percent_outlined,
+          initialValue: "",
+          maxLength: 6,
+          minLength: 1,
+          inputType: inputType,
+        );
+
+    /// fourthDownPayment
+      case CalculatorInputType.fourthDownPayment:
+        return CalculatorInputParams(
+          label: 'Fourth Down payment',
           iconData: Icons.percent_outlined,
           initialValue: "",
           maxLength: 6,

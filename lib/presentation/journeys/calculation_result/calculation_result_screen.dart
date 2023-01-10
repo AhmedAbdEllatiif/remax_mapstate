@@ -35,6 +35,7 @@ class CalculationResultScreen extends StatelessWidget {
                   CalculationResultItem(label: "First DownPayment",result: state.calculationFinalResult!.firstDownPaymentResult),
                   CalculationResultItem(label: "Second DownPayment",result: state.calculationFinalResult!.secondDownPaymentResult),
                   CalculationResultItem(label: "Third DownPayment",result: state.calculationFinalResult!.thirdDownPaymentResult),
+                  CalculationResultItem(label: "Fourth DownPayment",result: state.calculationFinalResult!.thirdDownPaymentResult),
                   CalculationResultItem(label: "Monthly Installment",result: state.calculationFinalResult!.monthlyInstallment),
                   CalculationResultItem(label: "Quarterly Installment",result: state.calculationFinalResult!.quarterlyInstallment),
                 ],

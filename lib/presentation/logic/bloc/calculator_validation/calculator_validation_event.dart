@@ -94,5 +94,19 @@ class ThirdDownPaymentChangedEvent extends CalculatorValidationEvent {
   List<Object?> get props => [currentStringOnChange];
 }
 
+/// FourthDownPaymentChangedEvent
+class FourthDownPaymentChangedEvent extends CalculatorValidationEvent {
+  final String currentStringOnChange;
+  final CalculatorInputParams params;
+
+  const FourthDownPaymentChangedEvent({
+    required this.currentStringOnChange,
+    required this.params,
+  });
+
+  @override
+  List<Object?> get props => [currentStringOnChange];
+}
+
 /// CalculatorFormSubmitted
 class SubmitCalculatorFormEvent extends CalculatorValidationEvent {}

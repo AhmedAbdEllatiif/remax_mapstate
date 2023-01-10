@@ -103,6 +103,8 @@ class CalculatorFormInput extends StatelessWidget {
         return state.secondDownPaymentLength;
       case CalculatorInputType.thirdDownPayment:
         return state.thirdDownPaymentLength;
+      case CalculatorInputType.fourthDownPayment:
+        return state.thirdDownPaymentLength;
     }
   }
 
@@ -197,6 +199,20 @@ class CalculatorFormInput extends StatelessWidget {
         } else if (validationEnum ==
             CalculatorValidationEnum.maxLengthThirdDownPayment) {
           return ("* Third Down payment maximum characters is ${calculatorInputParams.maxLength - 1}");
+        }
+        return null;
+
+    /// Fourth Down payment
+      case CalculatorInputType.fourthDownPayment:
+        if (validationEnum ==
+            CalculatorValidationEnum.invalidFourthDownPayment) {
+          return ("* Invalid Fourth DownPayment");
+        } else if (validationEnum ==
+            CalculatorValidationEnum.minLengthFourthDownPayment) {
+          return ("* Fourth Down payment should contain at least ${calculatorInputParams.minLength} characters");
+        } else if (validationEnum ==
+            CalculatorValidationEnum.maxLengthFourthDownPayment) {
+          return ("* Fourth Down payment maximum characters is ${calculatorInputParams.maxLength - 1}");
         }
         return null;
 

@@ -31,6 +31,7 @@ import 'package:remax_mapstate/domain/use_cases/local_usecases/save_fav_project.
 import 'package:remax_mapstate/domain/use_cases/local_usecases/update_language.dart';
 
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/downpayment.dart';
+import 'package:remax_mapstate/presentation/journeys/calculator/formz/fourth_down_payment.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/number_of_years.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/unit_price.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/advanced_filter_projects/advanced_filter_projects_cubit.dart';
@@ -545,5 +546,6 @@ Future init() async {
             firstDownPaymentForm: const FirstDownPaymentForm.dirty(value: ''),
             secondDownPaymentForm: const SecondDownPaymentForm.dirty(value: ''),
             thirdDownPaymentForm: const ThirdDownPaymentForm.dirty(value: ''),
+            fourthDownPaymentForm: const FourthDownPaymentForm.dirty(value: ''),
           ));
 }

@@ -168,6 +168,17 @@ class TextFieldCalculator extends StatelessWidget {
           );
           break;
         }
+    /// fourthDownPayment
+      case CalculatorInputType.fourthDownPayment:
+        {
+          context.read<CalculatorValidationBloc>().add(
+            FourthDownPaymentChangedEvent(
+              currentStringOnChange: value,
+              params: calculatorInputParams,
+            ),
+          );
+          break;
+        }
     }
   }
 }

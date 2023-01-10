@@ -132,6 +132,9 @@ class _AdvancedFilterProjectsScreenState
                               ],
                               onChanged: (value) {
                                 if (value != null) {
+                                  /// TODO
+                                  /// TranslateConstants.commercial.toLowerCase
+                                  /// TranslateConstants.residential.toLowerCase
                                   projectType = value;
                                 }
                               }),

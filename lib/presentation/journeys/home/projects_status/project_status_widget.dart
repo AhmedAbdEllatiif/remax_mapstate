@@ -82,7 +82,7 @@ class ProjectStatusWidget extends StatelessWidget {
           return Column(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: Sizes.dimen_16.w),
+                padding: EdgeInsets.only(right: Sizes.dimen_16.w,left: Sizes.dimen_16.w,top: Sizes.dimen_8.h),
                 child: SeeAllWidget(
                   title: TranslateConstants.findProjectByStatus.t(context),
                   onSeeAllPressed: () {},
@@ -91,8 +91,8 @@ class ProjectStatusWidget extends StatelessWidget {
 
               /// sizedBox to limit the height of the listView.builder
               Container(
-                height: ScreenUtil.screenHeight * 0.35,
-                padding: EdgeInsets.only(top: 8),
+                height: ScreenUtil.screenHeight * 0.33,
+                padding: EdgeInsets.only(top: Sizes.dimen_8.h),
                 child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
@@ -119,7 +119,7 @@ class ProjectStatusWidget extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline5!
+                                      .headline6!
                                       .copyWith(
                                         fontWeight: FontWeight.bold,
                                         height: 1.1,

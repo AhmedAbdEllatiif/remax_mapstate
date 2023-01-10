@@ -5,8 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:remax_mapstate/common/constants/language_constants.dart';
+import 'package:remax_mapstate/common/enums/user_types.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
+import 'package:remax_mapstate/domain/entities/authorized_user_entity.dart';
 import 'package:remax_mapstate/presentation/app_localization.dart';
 import 'package:remax_mapstate/presentation/journeys/main/main_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/start_app/choose_user_type/choose_user_screen.dart';
@@ -48,6 +50,13 @@ class _MainAppState extends State<MainApp> {
 
     /// loadCurrentUser of currentUserCubit
     widget.authorizedUserCubit.loadCurrentAuthorizedUserData();
+    // widget.authorizedUserCubit.save(AuthorizedUserEntity(
+    //     id: "id",
+    //     firstName: "firstName",
+    //     lastName: "lastName",
+    //     email: "email",
+    //     phoneNum: "phoneNum",
+    //     userType: UserType.client));
 
     /// interactedMessageWhenAppIsTerminated
     _interactedMessageWhenAppIsTerminated();
@@ -109,13 +118,13 @@ class _MainAppState extends State<MainApp> {
                     appBarTheme: AppBarTheme(
                       centerTitle: true,
                       systemOverlayStyle: const SystemUiOverlayStyle(
-                          // Status bar color
-                          statusBarColor: AppColor.black,
+                        // Status bar color
+                        statusBarColor: AppColor.black,
 
-                          // Status bar brightness (optional)
-                          // statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
-                          // statusBarBrightness: Brightness.light, // For iOS (dark icons)
-                          ),
+                        // Status bar brightness (optional)
+                        // statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
+                        // statusBarBrightness: Brightness.light, // For iOS (dark icons)
+                      ),
                       iconTheme: const IconThemeData(color: AppColor.white),
                       elevation: 0,
                       titleTextStyle:
