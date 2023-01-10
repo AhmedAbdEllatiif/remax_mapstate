@@ -11,6 +11,7 @@ import 'package:remax_mapstate/presentation/logic/cubit/authorized_user/authoriz
 import 'package:remax_mapstate/presentation/logic/cubit/user_token/user_token_cubit.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/widgets/logo.dart';
+import 'package:remax_mapstate/presentation/widgets/logo_with_slogan.dart';
 import 'package:remax_mapstate/router/route_hepler.dart';
 
 import '../../logic/cubit/language/language_cubit.dart';
@@ -25,7 +26,7 @@ class NavigationDrawer extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             blurRadius: 4.0,
-            color: Theme.of(context).primaryColor.withOpacity(0.2),
+            color: Theme.of(context).primaryColor.withOpacity(0.8),
           )
         ],
       ),
@@ -42,8 +43,8 @@ class NavigationDrawer extends StatelessWidget {
                 left: Sizes.dimen_8.w,
                 right: Sizes.dimen_8.w,
               ),
-              child: Logo(
-                height: Sizes.dimen_20.h,
+              child: const LogoWithSlogan(
+                margin: EdgeInsets.zero,
               ),
             ),
 
@@ -52,7 +53,7 @@ class NavigationDrawer extends StatelessWidget {
               title: TranslateConstants.okay.t(context),
               icon: const Icon(
                 Icons.message_outlined,
-                color: AppColor.geeBung,
+                color: AppColor.white,
               ),
               onPressed: () {},
             ),
@@ -62,7 +63,7 @@ class NavigationDrawer extends StatelessWidget {
               title: TranslateConstants.okay.t(context),
               icon: const Icon(
                 Icons.message_outlined,
-                color: AppColor.geeBung,
+                color: AppColor.white,
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -74,7 +75,7 @@ class NavigationDrawer extends StatelessWidget {
               title: TranslateConstants.about.t(context),
               icon: const Icon(
                 Icons.info_outline,
-                color: AppColor.geeBung,
+                color: AppColor.white,
               ),
               onPressed: () {
                 // to close the drawer
@@ -98,7 +99,7 @@ class NavigationDrawer extends StatelessWidget {
               title: TranslateConstants.logout.t(context),
               icon: const Icon(
                 Icons.login_outlined,
-                color: AppColor.geeBung,
+                color: AppColor.white,
               ),
               onPressed: () async {
                 /// clear current user data

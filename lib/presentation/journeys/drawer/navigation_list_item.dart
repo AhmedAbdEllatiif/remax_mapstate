@@ -31,7 +31,7 @@ class NavigationListItem extends StatelessWidget {
           title: Text(
             title,
             style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                color: AppColor.geeBung,
+                color: AppColor.white,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -70,7 +70,7 @@ class NavigationSubListItem extends StatelessWidget {
             title,
             style: Theme.of(context).textTheme.subtitle1!.copyWith(
               fontWeight: FontWeight.w500,
-              color: AppColor.fadeGeeBung
+              color: AppColor.white
             ),
           ),
         ),
