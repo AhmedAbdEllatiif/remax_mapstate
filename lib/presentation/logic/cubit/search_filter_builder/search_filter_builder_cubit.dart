@@ -48,6 +48,30 @@ class SearchFilterBuilderCubit extends Cubit<SearchFilterBuilderState> {
     _emitIfNotClosed(FiltersBuiltSuccessfully(filtersToAdd: filters));
   }
 
+
+  void buildByArea(
+      BuildContext context, {
+        required String type,
+        required String city,
+        required String unitType,
+      }) {
+    // reset to emit the same if required
+    reset();
+
+    // init current language
+    final languageCode = context.read<LanguageCubit>().state.languageCode;
+    final appLanguage = languageCode == "en" ? AppLanguage.en : AppLanguage.ar;
+
+    final filters = AdvancedProjectsFilterBuilder(
+      appLanguage: appLanguage,
+      type: type,
+      city: city,
+      unitType: unitType,
+    ).build();
+
+    _emitIfNotClosed(FiltersBuiltSuccessfully(filtersToAdd: filters));
+  }
+
   /// reset the state
   void reset() {
     _emitIfNotClosed(AdvancedFilterBuilderInitial());

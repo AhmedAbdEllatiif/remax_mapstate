@@ -6,14 +6,16 @@ import '../../themes/theme_color.dart';
 
 class UnitTypeItem extends StatelessWidget {
   final String unitTypeName;
+  final Function(String) onPressed;
 
-  const UnitTypeItem({Key? key, required this.unitTypeName}) : super(key: key);
+  const UnitTypeItem({Key? key, required this.unitTypeName, required this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         // BlocProvider.of<UnitTypeNamesCubit>(context).loadProjects(0);
+        onPressed(unitTypeName);
       },
       child: Card(
         color: Colors.transparent,

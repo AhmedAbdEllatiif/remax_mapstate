@@ -58,10 +58,14 @@ class AreaUnitTypesScreen extends StatelessWidget {
             /// body
             body: Padding(
               padding: EdgeInsets.symmetric(horizontal: Sizes.dimen_16.w),
-              child: const TabBarView(
+              child: TabBarView(
                 children: [
-                  ResidentialUnitTypesPage(),
-                  CommercialUnitTypesPage(),
+                  ResidentialUnitTypesPage(
+                    cityName: areaArgument.area.name,
+                  ),
+                  CommercialUnitTypesPage(
+                    cityName: areaArgument.area.name,
+                  ),
                 ],
               ),
             ),

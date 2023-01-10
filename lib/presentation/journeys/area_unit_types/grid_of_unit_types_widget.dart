@@ -9,8 +9,9 @@ import '../../../domain/entities/unit_type_entity.dart';
 
 class UnitTypeListWidget extends StatelessWidget {
   final List<UnitTypeEntity> unitTypeList;
+  final Function(String) onUnitTypePressed;
 
-  const UnitTypeListWidget({Key? key, required this.unitTypeList})
+  const UnitTypeListWidget({Key? key, required this.unitTypeList, required this.onUnitTypePressed})
       : super(key: key);
 
   @override
@@ -35,7 +36,11 @@ class UnitTypeListWidget extends StatelessWidget {
           crossAxisSpacing: Sizes.dimen_20.w,
         ),
         itemBuilder: (context, index) {
-          return  UnitTypeItem(unitTypeName: unitTypeList[index].name,);
+          return UnitTypeItem(
+            unitTypeName: unitTypeList[index].name,
+            onPressed: onUnitTypePressed,
+          );
         });
   }
+
 }

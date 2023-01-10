@@ -6,11 +6,11 @@ import '../../../data/models/filter_model.dart';
 
 class AdvancedProjectsFilterBuilder extends Equatable {
   final AppLanguage appLanguage;
-  final String type;
-  final String city;
-  final String finishingType;
-  final String unitType;
-  final String deliveryDate;
+  final String? type;
+  final String? city;
+  final String? finishingType;
+  final String? unitType;
+  final String? deliveryDate;
   final double? priceFrom;
   final double? priceTo;
   final double? areaFrom;
@@ -18,15 +18,15 @@ class AdvancedProjectsFilterBuilder extends Equatable {
 
   const AdvancedProjectsFilterBuilder({
     required this.appLanguage,
-    required this.type,
-    required this.city,
-    required this.finishingType,
-    required this.unitType,
-    required this.deliveryDate,
-    required this.priceFrom,
-    required this.priceTo,
-    required this.areaFrom,
-    required this.areaTo,
+    this.type,
+    this.city,
+    this.finishingType,
+    this.unitType,
+    this.deliveryDate,
+    this.priceFrom,
+    this.priceTo,
+    this.areaFrom,
+    this.areaTo,
   });
 
   /// to build filter according to current app language
@@ -38,23 +38,31 @@ class AdvancedProjectsFilterBuilder extends Equatable {
     final List<FilterModel> filters = [];
     // type
     //filters.add(FilterModel(field: "type", value: type));
+
     // city
-    filters.add(FilterModel(field: "region__arabic_name", value: city));
+    if (city != null) {
+      filters.add(FilterModel(field: "region__arabic_name", value: city));
+    }
     // finishingType
-    filters.add(FilterModel(
-      field: "finishing_type__arabic_name",
-      value: finishingType,
-    ));
+    if (finishingType != null) {
+      filters.add(FilterModel(
+        field: "finishing_type__arabic_name",
+        value: finishingType,
+      ));
+    }
     // unitType
     /*filters.add(FilterModel(
       field: "finishing_type__name",
       value: finishingType,
     ));*/
 
-    filters.add(FilterModel(
-      field: "delivery_year",
-      value: deliveryDate,
-    ));
+    // deliveryDate
+    if (deliveryDate != null) {
+      filters.add(FilterModel(
+        field: "delivery_year",
+        value: deliveryDate,
+      ));
+    }
 
     //==> priceForm
     if (priceFrom != null) {
@@ -86,24 +94,35 @@ class AdvancedProjectsFilterBuilder extends Equatable {
   List<FilterModel> _englishFilters() {
     final List<FilterModel> filters = [];
     // type
-    //filters.add(FilterModel(field: "type", value: type));
+    if (type != null) {
+      filters.add(FilterModel(field: "type", value: type));
+    }
+
     // city
-    filters.add(FilterModel(field: "region__name", value: city));
+    if (city != null) {
+      filters.add(FilterModel(field: "region__name", value: city));
+    }
+
     // finishingType
-    filters.add(FilterModel(
-      field: "finishing_type__name",
-      value: finishingType,
-    ));
+    if (finishingType != null) {
+      filters.add(FilterModel(
+        field: "finishing_type__name",
+        value: finishingType,
+      ));
+    }
+
     // unitType
     /*filters.add(FilterModel(
       field: "finishing_type__name",
       value: finishingType,
     ));*/
 
-    filters.add(FilterModel(
-      field: "delivery_year",
-      value: deliveryDate,
-    ));
+    if (deliveryDate != null) {
+      filters.add(FilterModel(
+        field: "delivery_year",
+        value: deliveryDate,
+      ));
+    }
 
     //==> priceForm
     if (priceFrom != null) {
