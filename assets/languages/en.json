@@ -111,6 +111,8 @@
   "atLeastLowerCase": "* Required at least 1 lower letter ",
   "updateProfile": "Update Profile",
   "favoriteRegions": "Favorite Regions",
+  "findProjectByStatus": "Find Project by status",
+
 
 
   "fullName": "Full name",

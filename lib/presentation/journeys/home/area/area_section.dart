@@ -47,30 +47,12 @@ class AreaSectionWidget extends StatelessWidget {
               /// loaded
               if (state is AreasFetched)
                 Expanded(
-                    child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: Sizes.dimen_8.h, horizontal: Sizes.dimen_8.w),
-                  child: AreaGridView(areas: state.areas),
-                      /*child: Column(
-                        children: [
-                          Expanded(
-                            child: Row(children: [
-                              Container(width: 100,height: 100,child: Expanded(child: AreaCardWidget(area: state.areas[0],))),
-                              Expanded(child: AreaCardWidget(area: state.areas[1],)),
-                              Expanded(child: AreaCardWidget(area: state.areas[2],)),
-
-                            ],),
-                          ),
-                          Expanded(
-                            child: Row(children: [
-                              Expanded(child: AreaCardWidget(area: state.areas[3],)),
-                              Expanded(child: AreaCardWidget(area: state.areas[4],)),
-                              Expanded(child: AreaCardWidget(area: state.areas[5],)),
-                            ],),
-                          )
-                        ],
-                      ),*/
-                )),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: Sizes.dimen_8.h, horizontal: Sizes.dimen_8.w),
+                    child: AreaGridView(areas: state.areas),
+                  ),
+                ),
 
               /// error
               if (state is ErrorWhileLoadingAreas)

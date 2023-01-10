@@ -25,7 +25,7 @@ class SeeAllWidget extends StatelessWidget {
         Text(
           title,
           style: Theme.of(context).textTheme.headline6!.copyWith(
-                color: AppColor.geeBung,
+                color: AppColor.white,
                 fontWeight: FontWeight.bold,
               ),
         ),
@@ -40,7 +40,7 @@ class SeeAllWidget extends StatelessWidget {
             child: Text(
               TranslateConstants.seeAll.t(context),
               style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                color: AppColor.geeBung,
+                color: AppColor.fadeGeeBung,
                 fontWeight: FontWeight.bold,
               ),
             ),

@@ -18,6 +18,7 @@ class AppColor{
   static const Color fadeBlack = Color(0xFF1F1F1F);
   static const Color doubleFadeBlack = Color(0xFF262626);
   static const Color transparentBlack = Color(0xD3111111);
+  static const Color  bgItemBlack = Color(0xFF202020);
   static const Color geeBung = Color(0xFFDD9936);
   static const Color fadeGeeBung = Color(0xFFF3BE57);
   static const Color extraFadeGeeBung = Color(0xC9F6D187);

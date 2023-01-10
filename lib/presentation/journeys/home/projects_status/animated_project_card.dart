@@ -33,7 +33,7 @@ class AnimatedProjectCard extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: Container(
               width: Sizes.dimen_230.w,
-              height: Curves.easeIn.transform(value) * ScreenUtil.screenHeight * 0.35,
+              height: Curves.easeIn.transform(value) * ScreenUtil.screenHeight * 0.3,
               child: child,
             ),
           );
@@ -42,7 +42,7 @@ class AnimatedProjectCard extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: Container(
               width: Sizes.dimen_230.w,
-              height: Curves.easeIn.transform(index == 0 ? value:value *.35 ) * ScreenUtil.screenHeight * 0.35,
+              height: Curves.easeIn.transform(index == 0 ? value:value *.3 ) * ScreenUtil.screenHeight * 0.35,
               child: child,
             ),
           );

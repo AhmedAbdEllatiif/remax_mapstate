@@ -36,14 +36,15 @@ class ButtonWithBoxShadow extends StatelessWidget {
         ),
       ),
       decoration: BoxDecoration(
-          color: AppColor.geeBung,
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: const [
-            BoxShadow(
-                color: AppColor.geeBung, offset: Offset(1, -2), blurRadius: 5),
-            BoxShadow(
-                color: AppColor.geeBung, offset: Offset(-1, 2), blurRadius: 5)
-          ]),
+        color: AppColor.geeBung,
+        borderRadius: BorderRadius.circular(5),
+        boxShadow: const [
+          BoxShadow(
+              color: AppColor.geeBung, offset: Offset(1, -2), blurRadius: 5),
+          BoxShadow(
+              color: AppColor.geeBung, offset: Offset(-1, 2), blurRadius: 5)
+        ],
+      ),
     ).animate(
         slideDuration: const Duration(milliseconds: 300),
         fadeDuration: const Duration(milliseconds: 300),

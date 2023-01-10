@@ -48,7 +48,7 @@ class _MainScreenState extends State<MainScreen> {
 
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: AppColor.fadeBlack,
+          backgroundColor: AppColor.black,
           title: BlocBuilder<NavigationCubit, NavigationState>(
             builder: (context, state) {
               return Text(state.title.t(context));
@@ -58,12 +58,27 @@ class _MainScreenState extends State<MainScreen> {
             // filter icon
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: IconButton(
-                onPressed: () => _navigateToFilterProjectsScreen(context),
-                icon: const Icon(
-                  Icons.filter_list_outlined,
-                  color: AppColor.geeBung,
-                ),
+              child: BlocBuilder<NavigationCubit, NavigationState>(
+                builder: (context, state) {
+                  if(state is ProfileState){
+                    return IconButton(
+                      onPressed: () {
+                        throw UnimplementedError("Add where to go when edit is clicked");
+                      },
+                      icon: const Icon(
+                        Icons.edit,
+                        color: AppColor.white,
+                      ),
+                    );
+                  }
+                  return IconButton(
+                    onPressed: () => _navigateToFilterProjectsScreen(context),
+                    icon: const Icon(
+                      Icons.filter_list_outlined,
+                      color: AppColor.white,
+                    ),
+                  );
+                },
               ),
             )
           ],
@@ -71,6 +86,7 @@ class _MainScreenState extends State<MainScreen> {
 
         body: Stack(
           children: [
+
             BlocBuilder<NavigationCubit, NavigationState>(
               bloc: navigationCubit,
               builder: (context, state) {
@@ -97,11 +113,13 @@ class _MainScreenState extends State<MainScreen> {
         ),
 
         // bottomNavigationBar
-        bottomNavigationBar: BlocBuilder<AuthorizedUserCubit, AuthorizedUserState>(
+        bottomNavigationBar: BlocBuilder<
+            AuthorizedUserCubit,
+            AuthorizedUserState>(
           builder: (context, state) {
             return Theme(
                 data:
-                    Theme.of(context).copyWith(canvasColor: AppColor.fadeBlack),
+                Theme.of(context).copyWith(canvasColor: AppColor.black),
                 child: BottomNavigation(
                   userType: state.currentUserType,
                 ));

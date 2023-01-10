@@ -14,22 +14,29 @@ class AssetsConstants{
   static const String person2 = "${_pngPath}person_2.png";
   static const String whatsapp = "${_pngPath}whatsapp.png";
   static const String phoneCall = "${_pngPath}phone_call.png";
-  static const String readyToMove = "${_pngPath}ready_to_move.jpg";
-  static const String offPlan = "${_pngPath}offPlan.jpg";
-  static const String underConstruction = "${_pngPath}underConstruction.jpg";
+  static const String readyToMove = "${_pngPath}ready_to_move.png";
+  static const String offPlan = "${_pngPath}offPlan.png";
   static const String city = "${_pngPath}img_city.jpg";
   static const String cityModified = "${_pngPath}img_city_modified.jpg";
+  static const String underConstruction = "${_pngPath}underConstruction.png";
   static const String whiteLogo = "${_pngPath}white_logo.png";
   static const String personPlaceHolder = "${_pngPath}person_placeHolder.png";
   static const String phoneIcon = "${_pngPath}phone_icon.png";
   static const String whiteGoldLogo = "${_pngPath}white_gold_log.png";
 
 
-  static const String investment = "${_pngPath}investment.jpeg";
-  static const String offPlanImg = "${_pngPath}off_plan.jpeg";
-  static const String offers = "${_pngPath}offers.jpeg";
-  static const String readyToMoveImg = "${_pngPath}ready_to_move.jpeg";
-  static const String underConstructionImg = "${_pngPath}under_construction.jpeg";
+  /*
+  *
+  *
+  * project status
+  *
+  *
+  * */
+  static const String investment = "${_pngPath}target.png";
+  static const String offPlanImg = "${_pngPath}off_plan.png";
+  static const String offers = "${_pngPath}offers.png";
+  static const String readyToMoveImg = "${_pngPath}ready_to_move.png";
+  static const String underConstructionImg = "${_pngPath}under_construction.png";
 
 
   static const String emptyBox = "${_jsonPath}empty_box.json";

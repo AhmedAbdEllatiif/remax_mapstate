@@ -40,7 +40,7 @@ class AreaUnitTypesScreen extends StatelessWidget {
               bottom: TabBar(
                 indicatorColor: AppColor.geeBung,
                 labelColor: AppColor.geeBung,
-                unselectedLabelColor: AppColor.absoluteTransparentGeeBung,
+                unselectedLabelColor: AppColor.white,
                 tabs: [
                   Tab(
                     text: TranslateConstants.residential.t(context),

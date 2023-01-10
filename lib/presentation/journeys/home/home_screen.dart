@@ -93,14 +93,14 @@ class _HomeScreenState extends State<HomeScreen> {
             /// ProjectStatusWidget
             FractionallySizedBox(
               alignment: Alignment.topCenter,
-              heightFactor: 0.6,
+              heightFactor: 0.5,
               child: ProjectStatusWidget(),
             ),
 
             /// AreaSectionWidget
             FractionallySizedBox(
               alignment: Alignment.bottomCenter,
-              heightFactor: 0.4,
+              heightFactor: 0.5,
               child: AreaSectionWidget(),
 
               // child: Placeholder(color: AppColor.royalBlue,),

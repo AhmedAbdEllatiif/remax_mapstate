@@ -111,6 +111,8 @@
   "completeYourProfile": "أكمل ملفك الشخصي",
   "updateProfile": "تعديل الملف الشخصى",
 
+  "findProjectByStatus": "ابحث عن المشروع حسب الحالة",
+
   "fullName": "الاسم الكامل",
   "phoneNumber": "رقم الهاتف",
   "invalidPhoneNumber": "رقم الهاتف غير صحيح",

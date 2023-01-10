@@ -109,6 +109,7 @@ class TranslateConstants{
   static const String wrongEmailOrPassword = 'wrongEmailOrPassword';
   static const String updateProfile = 'updateProfile';
   static const String favoriteRegions = 'favoriteRegions';
+  static const String findProjectByStatus = 'findProjectByStatus';
 
 
   static const String completeYourProfile = 'completeYourProfile';

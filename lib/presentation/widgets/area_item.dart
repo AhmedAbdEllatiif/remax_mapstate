@@ -16,15 +16,21 @@ class AreaItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.transparent,
       /// InkWell
       child: InkWell(
         onTap: onPressed,
-        splashColor: AppColor.geeBung,
+        splashColor: AppColor.geeBung.withOpacity(0.5),
         borderRadius:
             BorderRadius.all(Radius.circular(AppUtils.cornerRadius.w)),
 
         /// ContainerWithGradient
-        child: ContainerWithGradient(
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: AppColor.white.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(AppUtils.cornerRadius.w),
+          ),
           child: Center(
             child: Padding(
               padding: EdgeInsets.all(Sizes.dimen_6.w),
@@ -34,7 +40,9 @@ class AreaItem extends StatelessWidget {
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: AppColor.black, fontWeight: FontWeight.bold),
+                      color: AppColor.white,
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
             ),
           ),

@@ -110,17 +110,17 @@ class _MainAppState extends State<MainApp> {
                       centerTitle: true,
                       systemOverlayStyle: const SystemUiOverlayStyle(
                           // Status bar color
-                          //statusBarColor: AppColor.bgGray,
+                          statusBarColor: AppColor.black,
 
                           // Status bar brightness (optional)
                           // statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
                           // statusBarBrightness: Brightness.light, // For iOS (dark icons)
                           ),
-                      iconTheme: const IconThemeData(color: AppColor.geeBung),
+                      iconTheme: const IconThemeData(color: AppColor.white),
                       elevation: 0,
                       titleTextStyle:
                           Theme.of(context).textTheme.titleLarge!.copyWith(
-                                color: AppColor.geeBung,
+                                color: AppColor.white,
                                 fontWeight: FontWeight.bold,
                               ),
                       /*titleTextStyle: TextStyle(
@@ -128,7 +128,7 @@ class _MainAppState extends State<MainApp> {
                       fontSize: Sizes.dimen_18,
                       fontWeight: FontWeight.bold,
                     ),*/
-                      color: AppColor.fadeBlack,
+                      color: AppColor.black,
                     ),
 
                     /// default card theme

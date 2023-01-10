@@ -131,6 +131,9 @@ dependencies:
   # intl
   intl: ^0.17.0
 
+  # carousel_slider
+  carousel_slider: ^4.1.1
+
 
   # wiredash
   #wiredash: ^0.7.0+1

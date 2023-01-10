@@ -16,9 +16,13 @@ class UnitTypeItem extends StatelessWidget {
         // BlocProvider.of<UnitTypeNamesCubit>(context).loadProjects(0);
       },
       child: Card(
-        color: AppColor.geeBung,
-        child: ContainerWithGradient(
-          child: Center(
+        color: Colors.transparent,
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: AppColor.white.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(AppUtils.cornerRadius.w),
+          ),          child: Center(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
 
@@ -41,7 +45,7 @@ class UnitTypeItem extends StatelessWidget {
         style: Theme.of(context)
             .textTheme
             .titleLarge!
-            .copyWith(color: AppColor.black, fontWeight: FontWeight.bold),
+            .copyWith(color: AppColor.white, fontWeight: FontWeight.bold),
       );
     }else{
      return FittedBox(
@@ -54,7 +58,7 @@ class UnitTypeItem extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .titleLarge!
-              .copyWith(color: AppColor.black, fontWeight: FontWeight.bold),
+              .copyWith(color: AppColor.white, fontWeight: FontWeight.bold),
         ),
       );
     }
