@@ -152,7 +152,7 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     try {
       final query = registerNewUserRequest();
 
-      final QueryResult result = await apiClient.get(
+      final QueryResult result = await authClient.mutate(
         query,
         variables: {
           VariablesConstants.email: registerRequestModel.email,
