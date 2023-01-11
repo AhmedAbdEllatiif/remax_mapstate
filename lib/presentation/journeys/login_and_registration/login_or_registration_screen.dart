@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:remax_mapstate/common/enums/user_types.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/domain/entities/authorized_user_entity.dart';
@@ -39,6 +40,9 @@ class _RegisterOrLoginScreenState extends State<RegisterOrLoginScreen> {
   String userEmail = "";
   String userPassword = "";
 
+  String userToken = '';
+  UserType currentRegisteredUserType = UserType.unDefined;
+
   @override
   void initState() {
     super.initState();
@@ -65,6 +69,7 @@ class _RegisterOrLoginScreenState extends State<RegisterOrLoginScreen> {
         ),
         child: Column(
           children: [
+
             /// Logo with slogan
             LogoWithSlogan(
               margin: EdgeInsets.only(
@@ -77,33 +82,34 @@ class _RegisterOrLoginScreenState extends State<RegisterOrLoginScreen> {
             Flexible(
               child: isLoginForm
                   ? LoginForm(
-                      email: userEmail,
-                      password: userPassword,
-                      onSuccessLogin: (userToken, authorizedUserEntity) async {
-                        //==> save current user token
-                        await _saveTokenForAutoLogin(token: userToken);
+                email: userEmail,
+                password: userPassword,
+                onSuccessLogin: (userToken, authorizedUserEntity) async {
+                  //==> save current user token
+                  await _saveTokenForAutoLogin(token: userToken);
 
-                        //==> save current authorized user
-                        log("UserEntity: $authorizedUserEntity");
-                        authorizedUserEntity.userType =
-                            widget.registerOrLoginArguments.userType;
-                        await _saveAuthorizedUser(
-                          authorizedUserEntity: authorizedUserEntity,
-                        );
+                  //==> save current authorized user
+                  log("UserEntity: $authorizedUserEntity");
+                  authorizedUserEntity.userType =
+                      widget.registerOrLoginArguments.userType;
+                  await _saveAuthorizedUser(
+                    authorizedUserEntity: authorizedUserEntity,
+                  );
 
-                        //==> navigate to login
-                        _navigateToMainScreen();
-                      },
-                    )
+                  //==> navigate to login
+                  _navigateToMainScreen();
+                },
+              )
                   : BrokerRegisterForm(
-                      onRegistrationSuccess: (userEntity, password) async {
-                        // update data
-                        userEmail = userEntity.email;
-                        userPassword = password;
+                  userType: widget.registerOrLoginArguments.userType,
+                  onRegistrationSuccess: (registerEntity, userType) async {
+                    // update data
+                    userToken = registerEntity.userToken;
+                    currentRegisteredUserType = userType;
 
-                        _changeBetweenLoginAndRegistration();
-                      },
-                    ),
+                    _changeBetweenLoginAndRegistration();
+                  },
+              ),
             ),
 
             TextLoginInstead(
@@ -117,7 +123,8 @@ class _RegisterOrLoginScreenState extends State<RegisterOrLoginScreen> {
   }
 
   /// to change between login and registration
-  void _changeBetweenLoginAndRegistration() => setState(() {
+  void _changeBetweenLoginAndRegistration() =>
+      setState(() {
         isLoginForm = !isLoginForm;
       });
 
@@ -127,7 +134,7 @@ class _RegisterOrLoginScreenState extends State<RegisterOrLoginScreen> {
 
   /// to save the current authorized user
   Future<void> _saveAuthorizedUser(
-          {required AuthorizedUserEntity authorizedUserEntity}) =>
+      {required AuthorizedUserEntity authorizedUserEntity}) =>
       context.read<AuthorizedUserCubit>().save(authorizedUserEntity);
 
   /// Navigate to MainScreen

@@ -2,24 +2,29 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:remax_mapstate/common/enums/user_register_group.dart';
+import 'package:remax_mapstate/common/enums/user_types.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/di/git_it.dart';
-import 'package:remax_mapstate/domain/entities/user_entity.dart';
+import 'package:remax_mapstate/domain/entities/register_entity.dart';
+
+import 'package:remax_mapstate/presentation/logic/cubit/auth/register_new_user/register_new_user_cubit.dart';
 import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 
 import '../../../common/constants/sizes.dart';
 import '../../../common/constants/translate_constatns.dart';
-import '../../logic/cubit/update_default_user/update_default_user_cubit.dart';
 import '../../widgets/app_text_form_field.dart';
 import '../../widgets/btn_with_box_shadow.dart';
 
 class BrokerRegisterForm extends StatefulWidget {
-  final Function(UserEntity, String) onRegistrationSuccess;
+  final Function(RegisterEntity, UserType) onRegistrationSuccess;
+  final UserType userType;
 
-  const BrokerRegisterForm({Key? key, required this.onRegistrationSuccess})
-      : super(key: key);
+  const BrokerRegisterForm({
+    Key? key,
+    required this.onRegistrationSuccess,
+    required this.userType,
+  }) : super(key: key);
 
   @override
   State<BrokerRegisterForm> createState() => _BrokerRegisterFormState();
@@ -30,7 +35,7 @@ class _BrokerRegisterFormState extends State<BrokerRegisterForm> {
   final _formKey = GlobalKey<FormState>();
 
   ///UpdateDefaultUserCubit
-  late final UpdateDefaultUserCubit _updateDefaultUserCubit;
+  late final RegisterNewUserCubit _registerNewUserCubit;
 
   /// controllers
   final TextEditingController firstNameController = TextEditingController();
@@ -41,12 +46,12 @@ class _BrokerRegisterFormState extends State<BrokerRegisterForm> {
   @override
   void initState() {
     super.initState();
-    _updateDefaultUserCubit = getItInstance<UpdateDefaultUserCubit>();
+    _registerNewUserCubit = getItInstance<RegisterNewUserCubit>();
   }
 
   @override
   void dispose() {
-    _updateDefaultUserCubit.close();
+    _registerNewUserCubit.close();
     firstNameController.dispose();
     phoneNumberController.dispose();
     emailController.dispose();
@@ -57,20 +62,21 @@ class _BrokerRegisterFormState extends State<BrokerRegisterForm> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => _updateDefaultUserCubit,
+      create: (context) => _registerNewUserCubit,
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
-        child: BlocConsumer<UpdateDefaultUserCubit, UpdateDefaultUserState>(
+        child: BlocConsumer<RegisterNewUserCubit, RegisterNewUserState>(
           listener: (context, state) {
-            if (state is SuccessUpdateDefaultUser) {
-
-            log("UserEntity: ${state.userEntity}");
-            final password = passwordController.value.text;
-            widget.onRegistrationSuccess(state.userEntity,password);
+            if (state is SuccessRegister) {
+              log("registerEntity: ${state.registerEntity}");
+              widget.onRegistrationSuccess(
+                state.registerEntity,
+                widget.userType,
+              );
             }
 
             //==> ErrorWhileUpdatingDefaultUser
-            if (state is ErrorWhileUpdatingDefaultUser) {}
+            if (state is ErrorWhileRegister) {}
           },
           builder: (context, state) {
             return Form(
@@ -80,7 +86,6 @@ class _BrokerRegisterFormState extends State<BrokerRegisterForm> {
                 //spacing: 20, // to apply margin in the main axis of the wrap
                 runSpacing: Sizes.dimen_4.h,
                 children: [
-
                   /// firstName
                   AppTextFormField(
                     controller: firstNameController,
@@ -107,35 +112,33 @@ class _BrokerRegisterFormState extends State<BrokerRegisterForm> {
                   /// email
                   AppTextFormField(
                     controller: emailController,
-                    enabled: state is! LoadingToUpdateDefaultUser,
-                    errorText: state is UpdateDefaultUserEmailAlreadyExists
+                    enabled: state is! LoadingToRegister,
+                    errorText: state is RegisterEmailAlreadyExists
                         ? TranslateConstants.emailAlreadyExists.t(context)
                         : null,
                     label: TranslateConstants.email.t(context),
                     textInputType: TextInputType.emailAddress,
                   ),
 
-
                   /// password
                   AppTextFormField(
                     controller: passwordController,
-                    enabled: state is! LoadingToUpdateDefaultUser,
+                    enabled: state is! LoadingToRegister,
                     label: TranslateConstants.password.t(context),
                     textInputType: TextInputType.visiblePassword,
                   ),
 
-
                   /// Button Register a new client
-                  state is LoadingToUpdateDefaultUser
+                  state is LoadingToRegister
                       ? const LoadingWidget()
                       : ButtonWithBoxShadow(
-                    text: TranslateConstants.register.t(context),
-                    onPressed: () {
-                      if (_validate()) {
-                        _updateUser();
-                      }
-                    },
-                  )
+                          text: TranslateConstants.register.t(context),
+                          onPressed: () {
+                            if (_validate()) {
+                              _updateUser();
+                            }
+                          },
+                        )
                 ],
               ),
             );
@@ -156,20 +159,12 @@ class _BrokerRegisterFormState extends State<BrokerRegisterForm> {
 
   /// Update user
   void _updateUser() {
-    final firstName = firstNameController.value.text;
-    final phoneNum = phoneNumberController.value.text;
     final email = emailController.value.text;
     final password = passwordController.value.text;
 
-    _updateDefaultUserCubit.updateDefaultUser(
+    _registerNewUserCubit.register(
       email: email,
-      firstName: firstName,
-      phoneNumber: phoneNum,
       password: password,
-      userRegisterGroup: UserRegisterGroup.broker,
     );
   }
-
-
-
 }

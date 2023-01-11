@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:remax_mapstate/data/data_sources/remote_data_source.dart';
+import 'package:remax_mapstate/data/models/auth/register/register_request_model.dart';
 import 'package:remax_mapstate/data/models/mutation/login/login_request_model.dart';
 import 'package:remax_mapstate/data/models/mutation/login/login_response_model.dart';
 import 'package:remax_mapstate/data/models/mutation/update_broker_request_model.dart';
@@ -27,7 +28,9 @@ import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 import '../../common/classes/handle_operation_exceptions.dart';
 import '../../domain/entities/login_entity.dart';
 import '../../domain/entities/params/login_params.dart';
+import '../../domain/entities/params/reigster_params.dart';
 import '../../domain/entities/params/update_user_params.dart';
+import '../../domain/entities/register_entity.dart';
 import '../../domain/entities/user_entity.dart';
 import '../params/fetch_broker_params.dart';
 import '../params/fetch_list_params.dart';
@@ -39,6 +42,45 @@ class RemoteRepositoryImpl extends RemoteRepository {
   RemoteRepositoryImpl({
     required this.remoteDataSource,
   });
+
+  //===============================>  Auth  <================================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
+  /// registerNewUser
+  @override
+  Future<Either<AppError, RegisterEntity>> registerNewUser(
+      RegisterParams params) async {
+    try {
+      final result = await remoteDataSource.registerNewUser(
+        RegisterRequestModel(email: params.email, password: params.password),
+      );
+      if (result is RegisterEntity) {
+        return Right(result);
+      }
+      return Left(result);
+    }
+    //==> SocketException
+    on SocketException catch (e) {
+      log("RepoImpl >> registerNewUser >> SocketException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.message));
+    }
+    //==> OperationException
+    on OperationException catch (e) {
+      final appErrorType =
+          AppErrorTypeBuilder.formOperationException(e).appErrorType;
+      log("RepoImpl >> registerNewUser >> OperationException >> $e");
+      return Left(AppError(appErrorType, message: e.toString()));
+    }
+    //==> Exception
+    on Exception catch (e) {
+      log("RepoImpl >> registerNewUser >> Exception >> $e");
+      return Left(AppError(AppErrorType.api, message: e.toString()));
+    }
+  }
 
   /// return list of TopProject
   @override

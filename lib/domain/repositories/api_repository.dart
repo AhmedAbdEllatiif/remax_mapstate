@@ -9,9 +9,11 @@ import 'package:remax_mapstate/domain/entities/contact_developer.dart';
 import 'package:remax_mapstate/domain/entities/filter_data_entity.dart';
 import 'package:remax_mapstate/domain/entities/login_entity.dart';
 import 'package:remax_mapstate/domain/entities/params/login_params.dart';
+import 'package:remax_mapstate/domain/entities/params/reigster_params.dart';
 import 'package:remax_mapstate/domain/entities/params/update_user_params.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
+import 'package:remax_mapstate/domain/entities/register_entity.dart';
 import 'package:remax_mapstate/domain/entities/team_support_entity.dart';
 import 'package:remax_mapstate/domain/entities/unit_type_entity.dart';
 import 'package:remax_mapstate/domain/entities/user_entity.dart';
@@ -65,6 +67,10 @@ abstract class RemoteRepository {
   ///********************************* Auth ******************************* \\\\
   Future<Either<AppError, UserEntity>> updateDefaultUser(
       UpdateDefaultUserParams params);
+
+  /// registerNewUser
+  Future<Either<AppError, RegisterEntity>> registerNewUser(
+      RegisterParams params);
 
   /// login
   Future<Either<AppError, LoginEntity>> loginUser(LoginParams params);

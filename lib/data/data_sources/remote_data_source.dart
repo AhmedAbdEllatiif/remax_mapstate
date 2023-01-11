@@ -17,6 +17,8 @@ import 'package:remax_mapstate/data/api/requests/queries/unit_type_names/en_unit
 import 'package:remax_mapstate/data/api/requests/mutations/login.dart';
 import 'package:remax_mapstate/data/api/requests/mutations/update_user.dart';
 import 'package:remax_mapstate/data/models/area_model.dart';
+import 'package:remax_mapstate/data/models/auth/register/register_request_model.dart';
+import 'package:remax_mapstate/data/models/auth/register/register_response_model.dart';
 import 'package:remax_mapstate/data/models/broker_model.dart';
 import 'package:remax_mapstate/data/models/contact_developer.dart';
 import 'package:remax_mapstate/data/models/get_filter_data.dart';
@@ -35,6 +37,7 @@ import 'package:remax_mapstate/data/params/fetch_broker_params.dart';
 
 import '../../common/constants/api_constants.dart';
 import '../../domain/entities/app_error.dart';
+import '../api/requests/auth/register.dart';
 import '../api/requests/queries/brokers/get_borkers_en.dart';
 import '../api/requests/queries/brokers/get_broker_ar.dart';
 import '../api/requests/queries/get_filter_data/ar_get_filter_data.dart';
@@ -45,6 +48,15 @@ import '../models/filter_model.dart';
 import '../models/mutation/update_broker_request_model.dart';
 
 abstract class RemoteDataSource {
+  //===============================>  Auth  <================================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
+  Future<dynamic> registerNewUser(RegisterRequestModel registerRequestModel);
+
   /// return  projects
   Future<List<ProjectModel>> fetchProjects();
 
@@ -121,7 +133,40 @@ class RemoteDateSourceImpl extends RemoteDataSource {
   final ApiClient apiClient;
   final AuthClient authClient;
 
-  RemoteDateSourceImpl({required this.authClient, required this.apiClient});
+  RemoteDateSourceImpl({
+    required this.authClient,
+    required this.apiClient,
+  });
+
+  //===============================>  Auth  <================================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
+  @override
+  Future<dynamic> registerNewUser(
+    RegisterRequestModel registerRequestModel,
+  ) async {
+    try {
+      final query = registerNewUserRequest();
+
+      final QueryResult result = await apiClient.get(
+        query,
+        variables: {
+          VariablesConstants.email: registerRequestModel.email,
+          VariablesConstants.password: registerRequestModel.password,
+        },
+      );
+
+      return registerResponseModelFromJson(result.data);
+    } catch (e) {
+      log("................\nregisterNewUser >> Error: $e .................\n");
+      return AppError(AppErrorType.unHandledError,
+          message: "registerNewUser UnHandledError >> $e");
+    }
+  }
 
   List<BrokerModel> areaBrokers() {
     return const [

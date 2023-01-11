@@ -1,5 +1,3 @@
-import 'package:remax_mapstate/common/enums/user_register_group.dart';
-
 ///****************** The different type users ***************** \\\
 
 /// tour ==> when user takes a tour
@@ -13,19 +11,6 @@ enum UserType {
   broker,
   ambassador,
   unDefined,
-}
-
-UserType userTypeFromUserRegisterGroup(UserRegisterGroup userRegisterGroup) {
-  switch (userRegisterGroup) {
-    case UserRegisterGroup.buyer:
-      return UserType.client;
-    case UserRegisterGroup.broker:
-      return UserType.broker;
-    case UserRegisterGroup.ambassador:
-      return UserType.ambassador;
-    default:
-      return UserType.unDefined;
-  }
 }
 
 UserType userTypeFromString(String userTypeInString) {
@@ -47,5 +32,24 @@ UserType userTypeFromString(String userTypeInString) {
 extension ToString on UserType {
   String toShortString() {
     return toString().split('.').last;
+  }
+}
+
+
+/// to convert userType into group id to update server
+extension ToInt on UserType {
+  int convertToGroupId() {
+    switch (this) {
+      case UserType.client:
+        return -1;
+      case UserType.broker:
+        return 3;
+      case UserType.ambassador:
+        return 4;
+      case UserType.unDefined:
+        return -10;
+      case UserType.tour:
+        return 0;
+    }
   }
 }

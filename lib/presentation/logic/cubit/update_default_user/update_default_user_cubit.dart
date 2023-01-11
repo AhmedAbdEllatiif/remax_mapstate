@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:remax_mapstate/common/enums/user_register_group.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
@@ -19,7 +18,7 @@ class UpdateDefaultUserCubit extends Cubit<UpdateDefaultUserState> {
     required String firstName,
     required String phoneNumber,
     required String password,
-    required UserRegisterGroup userRegisterGroup,
+    required UserType currentUserType,
   }) async {
     emit(LoadingToUpdateDefaultUser());
 
@@ -29,7 +28,7 @@ class UpdateDefaultUserCubit extends Cubit<UpdateDefaultUserState> {
       phoneNumber: phoneNumber,
       email: email,
       password: password,
-      groupId: userRegisterGroup.convertToInt(),
+      groupId: currentUserType.convertToGroupId(),
     );
 
     // init useCase
@@ -44,7 +43,7 @@ class UpdateDefaultUserCubit extends Cubit<UpdateDefaultUserState> {
 
       //==> success
       (userEntity) {
-        userEntity.userType = userTypeFromUserRegisterGroup(userRegisterGroup);
+        userEntity.userType = currentUserType;
         _emitIfNotClosed(SuccessUpdateDefaultUser(
           userEntity: userEntity,
         ));

@@ -35,6 +35,7 @@ import 'package:remax_mapstate/presentation/journeys/calculator/formz/fourth_dow
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/number_of_years.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/unit_price.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/advanced_filter_projects/advanced_filter_projects_cubit.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/auth/register_new_user/register_new_user_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/get_filter_data/get_filter_data_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/login/login_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/projects_by_status/projects_by_status_cubit.dart';
@@ -46,6 +47,7 @@ import '../data/api/clients/auth_client.dart';
 import '../data/api/clients/graphql_client.dart';
 import '../data/repositories/remote_repository_impl.dart';
 import '../domain/use_cases/advanced_filter_projects.dart';
+import '../domain/use_cases/auth/register_new_user.dart';
 import '../domain/use_cases/complete_broker_data_case.dart';
 import '../domain/use_cases/get_filter_data.dart';
 import '../domain/use_cases/get_projects_by_status.dart';
@@ -290,6 +292,13 @@ Future init() async {
     ),
   );
 
+  /// RegisterNewUserCase
+  getItInstance.registerFactory<RegisterNewUserCase>(
+    () => RegisterNewUserCase(
+      remoteRepository: getItInstance(),
+    ),
+  );
+
   /// GetBrokerByIdCase
   getItInstance.registerFactory<GetBrokerByIdCase>(
     () => GetBrokerByIdCase(
@@ -373,6 +382,11 @@ Future init() async {
       getUserTokenCase: getItInstance(),
       deleteUserTokenCase: getItInstance(),
     ),
+  );
+
+  /// RegisterNewUserCubit
+  getItInstance.registerFactory<RegisterNewUserCubit>(
+        () => RegisterNewUserCubit(),
   );
 
   /// LoginCubit
