@@ -12,10 +12,10 @@ import 'package:remax_mapstate/domain/entities/authorized_user_entity.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/widgets/app_text_form_field.dart';
 
-import '../../../../common/constants/translate_constatns.dart';
-import '../../../logic/cubit/login/login_cubit.dart';
-import '../../../widgets/btn_with_box_shadow.dart';
-import '../../../widgets/loading_widget.dart';
+import '../../../common/constants/translate_constatns.dart';
+import '../../logic/cubit/login/login_cubit.dart';
+import '../../widgets/btn_with_box_shadow.dart';
+import '../../widgets/loading_widget.dart';
 
 class LoginForm extends StatefulWidget {
   final Function(
@@ -24,11 +24,13 @@ class LoginForm extends StatefulWidget {
   ) onSuccessLogin;
 
   final String email;
+  final String password;
 
   const LoginForm({
     Key? key,
     required this.onSuccessLogin,
     this.email = "",
+    this.password = "",
   }) : super(key: key);
 
   @override
@@ -52,6 +54,14 @@ class _LoginFormState extends State<LoginForm> {
     _loginCubit = getItInstance<LoginCubit>();
     if (widget.email.isNotEmpty) {
       emailController.text = widget.email;
+      passwordController.text = widget.password;
+    }
+
+    if (widget.email.isNotEmpty && widget.password.isNotEmpty) {
+      _loginCubit.tryToLogin(
+        email: widget.email,
+        password: widget.password,
+      );
     }
   }
 
@@ -102,6 +112,7 @@ class _LoginFormState extends State<LoginForm> {
                       /// email
                       AppTextFormField(
                         controller: emailController,
+                        enabled: state is! LoadingLogin,
                         label: TranslateConstants.email.t(context),
                         textInputType: TextInputType.emailAddress,
                       ),
@@ -109,6 +120,7 @@ class _LoginFormState extends State<LoginForm> {
                       /// password
                       AppTextFormField(
                         controller: passwordController,
+                        enabled: state is! LoadingLogin,
                         label: TranslateConstants.password.t(context),
                         textInputType: TextInputType.visiblePassword,
                       ),

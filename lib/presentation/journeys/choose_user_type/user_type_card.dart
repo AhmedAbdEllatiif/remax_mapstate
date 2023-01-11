@@ -10,14 +10,12 @@ import 'package:remax_mapstate/presentation/logic/cubit/authorized_user/authoriz
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 import 'package:remax_mapstate/router/route_hepler.dart';
 
-import '../../../../domain/entities/user_entity.dart';
+import '../../themes/theme_color.dart';
 
-import '../../../themes/theme_color.dart';
+class UserTypeButton extends StatelessWidget {
+  final UserType userType;
 
-class UserTypeCard extends StatelessWidget {
-  final UserEntity currentUserEntity;
-
-  const UserTypeCard({Key? key, required this.currentUserEntity})
+  const UserTypeButton({Key? key, required this.userType})
       : super(key: key);
 
   @override
@@ -61,7 +59,7 @@ class UserTypeCard extends StatelessWidget {
                 style: Theme.of(context).textTheme.buttonTextSmall,
               ),
               Text(
-                currentUserEntity.userType
+                userType
                     .toShortString()
                     .t(context)
                     .toUpperCase(),
@@ -85,22 +83,8 @@ class UserTypeCard extends StatelessWidget {
     RouteHelper().registerOrLoginScreen(
       context,
       registerOrLoginArguments: RegisterOrLoginArguments(
-        userType: currentUserEntity.userType,
+        userType: userType,
       ),
     );
-    // switch (currentUserEntity.userType) {
-    //   case UserType.client:
-    //     RouteHelper().clientRegistrationScreen(context);
-    //     break;
-    //   case UserType.broker:
-    //     RouteHelper().brokerRegistrationScreen(context,);
-    //     break;
-    //   case UserType.ambassador:
-    //     RouteHelper().spotterRegistrationScreen(context);
-    //     break;
-    //   case UserType.tour:
-    //   case UserType.unDefined:
-    //     throw UnimplementedError("_navigateToNextScreen No User");
-    // }
   }
 }

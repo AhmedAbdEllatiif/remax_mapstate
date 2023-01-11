@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
@@ -107,6 +108,9 @@ class ProjectStatusWidget extends StatelessWidget {
                       child: CardWithDifferentBorderColor(
                         child: Stack(
                           children: [
+
+
+
                             Container(
                               color: Colors.transparent,
                               padding: const EdgeInsets.only(

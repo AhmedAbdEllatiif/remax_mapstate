@@ -23,6 +23,7 @@ class AssetsConstants{
   static const String personPlaceHolder = "${_pngPath}person_placeHolder.png";
   static const String phoneIcon = "${_pngPath}phone_icon.png";
   static const String whiteGoldLogo = "${_pngPath}white_gold_log.png";
+  static const String frame = "${_pngPath}frame.png";
 
 
   /*

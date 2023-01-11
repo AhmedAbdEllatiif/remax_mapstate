@@ -15,16 +15,14 @@ import 'package:remax_mapstate/presentation/journeys/filter_projects/advanced_fi
 import 'package:remax_mapstate/presentation/journeys/main/main_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_details_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/projects_by_status/projects_by_status_screen.dart';
-import 'package:remax_mapstate/presentation/journeys/start_app/broker_registartion/brokerlogin_or_registartion_screen.dart';
-import 'package:remax_mapstate/presentation/journeys/start_app/choose_user_type/choose_user_screen.dart';
-import 'package:remax_mapstate/presentation/journeys/start_app/ambassador_registration/ambassador_login_or_registration_screen.dart';
+import 'package:remax_mapstate/presentation/journeys/choose_user_type/choose_user_screen.dart';
 
 import '../common/constants/route_list.dart';
 import '../presentation/journeys/choose_broker/arguments/choose_broker_argument.dart';
 import '../presentation/arguments/project_details_argument.dart';
 import '../presentation/arguments/area_unit_types_args.dart';
+import '../presentation/journeys/login_and_registration/login_or_registration_screen.dart';
 import '../presentation/journeys/projects_by_status/areas_by_status/areas_by_status_screen.dart';
-import '../presentation/journeys/start_app/buyer_registration/buyer_login_or_registration_screen.dart';
 import '../presentation/logic/bloc/calculator_validation/calculator_validation_bloc.dart';
 
 class Routes {
@@ -34,14 +32,6 @@ class Routes {
 
         /// ChooseUserScreen
         RouteList.chooseUserScreen: (context) => const ChooseUserScreen(),
-
-        /// ClientLoginOrRegistrationScreen
-        RouteList.clientRegistration: (context) =>
-            const ClientLoginOrRegistrationScreen(),
-
-        /// SpotterRegistrationScreen
-        RouteList.spotterRegistration: (context) =>
-            const SpotterRegistrationScreen(),
 
         /// BrokerRegistrationScreen
         RouteList.brokerRegistration: (context) => RegisterOrLoginScreen(

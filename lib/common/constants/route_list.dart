@@ -10,8 +10,6 @@ class RouteList{
   static const String chooseBrokerScreen = "/chooseBrokerScreen";
   static const String areaScreen = "/areaScreen";
   static const String calculationResult = "/calculationResultScreen";
-  static const String clientRegistration = "/clientRegistrationScreen";
-  static const String spotterRegistration = "/spotterRegistrationScreen";
   static const String brokerRegistration = "/brokerRegistrationScreen";
   static const String allAreas = "/allAreas";
   static const String projectByStatus = "/projectByStatus";

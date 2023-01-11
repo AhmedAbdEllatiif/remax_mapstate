@@ -9,14 +9,14 @@ import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/domain/entities/user_entity.dart';
 import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 
-import '../../../../common/constants/sizes.dart';
-import '../../../../common/constants/translate_constatns.dart';
-import '../../../logic/cubit/update_default_user/update_default_user_cubit.dart';
-import '../../../widgets/app_text_form_field.dart';
-import '../../../widgets/btn_with_box_shadow.dart';
+import '../../../common/constants/sizes.dart';
+import '../../../common/constants/translate_constatns.dart';
+import '../../logic/cubit/update_default_user/update_default_user_cubit.dart';
+import '../../widgets/app_text_form_field.dart';
+import '../../widgets/btn_with_box_shadow.dart';
 
 class BrokerRegisterForm extends StatefulWidget {
-  final Function(UserEntity) onRegistrationSuccess;
+  final Function(UserEntity, String) onRegistrationSuccess;
 
   const BrokerRegisterForm({Key? key, required this.onRegistrationSuccess})
       : super(key: key);
@@ -63,8 +63,10 @@ class _BrokerRegisterFormState extends State<BrokerRegisterForm> {
         child: BlocConsumer<UpdateDefaultUserCubit, UpdateDefaultUserState>(
           listener: (context, state) {
             if (state is SuccessUpdateDefaultUser) {
-              log("UserEntity: ${state.userEntity}");
-              widget.onRegistrationSuccess(state.userEntity);
+
+            log("UserEntity: ${state.userEntity}");
+            final password = passwordController.value.text;
+            widget.onRegistrationSuccess(state.userEntity,password);
             }
 
             //==> ErrorWhileUpdatingDefaultUser
@@ -78,6 +80,7 @@ class _BrokerRegisterFormState extends State<BrokerRegisterForm> {
                 //spacing: 20, // to apply margin in the main axis of the wrap
                 runSpacing: Sizes.dimen_4.h,
                 children: [
+
                   /// firstName
                   AppTextFormField(
                     controller: firstNameController,
@@ -104,6 +107,7 @@ class _BrokerRegisterFormState extends State<BrokerRegisterForm> {
                   /// email
                   AppTextFormField(
                     controller: emailController,
+                    enabled: state is! LoadingToUpdateDefaultUser,
                     errorText: state is UpdateDefaultUserEmailAlreadyExists
                         ? TranslateConstants.emailAlreadyExists.t(context)
                         : null,
@@ -111,44 +115,27 @@ class _BrokerRegisterFormState extends State<BrokerRegisterForm> {
                     textInputType: TextInputType.emailAddress,
                   ),
 
-                  /// numOfExperienceYears
-                  /*AppTextFormField(
-                    label: TranslateConstants.experienceYears.t(context),
-                    textInputType: TextInputType.number,
-                  ),*/
 
                   /// password
                   AppTextFormField(
                     controller: passwordController,
+                    enabled: state is! LoadingToUpdateDefaultUser,
                     label: TranslateConstants.password.t(context),
                     textInputType: TextInputType.visiblePassword,
                   ),
 
-                  /// Choose favorite areas
-                  /// TODO: fetch areas
-                  /* ChooseFavoriteAreaWidget(
-                        chooseFavoriteAreaCubit: _chooseFavoriteAreaCubit,
-                        allAreas: const [
-                          AreaEntity(id: 1, name: "Zayed"),
-                          AreaEntity(id: 2, name: "October"),
-                          AreaEntity(id: 3, name: "Sokhna"),
-                          AreaEntity(id: 4, name: "Sahel"),
-                          AreaEntity(id: 5, name: "New Capital"),
-                        ],
-
-                      ),*/
 
                   /// Button Register a new client
                   state is LoadingToUpdateDefaultUser
                       ? const LoadingWidget()
                       : ButtonWithBoxShadow(
-                          text: TranslateConstants.register.t(context),
-                          onPressed: () {
-                            if (_validate()) {
-                              _updateUser();
-                            }
-                          },
-                        )
+                    text: TranslateConstants.register.t(context),
+                    onPressed: () {
+                      if (_validate()) {
+                        _updateUser();
+                      }
+                    },
+                  )
                 ],
               ),
             );
@@ -182,4 +169,7 @@ class _BrokerRegisterFormState extends State<BrokerRegisterForm> {
       userRegisterGroup: UserRegisterGroup.broker,
     );
   }
+
+
+
 }

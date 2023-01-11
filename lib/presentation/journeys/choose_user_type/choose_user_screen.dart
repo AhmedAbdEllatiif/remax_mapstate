@@ -1,15 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:remax_mapstate/common/constants/assets_constants.dart';
-import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
-import 'package:remax_mapstate/common/extensions/string_extensions.dart';
-import 'package:remax_mapstate/presentation/journeys/start_app/choose_user_type/choose_user_animation.dart';
-import 'package:remax_mapstate/presentation/journeys/start_app/choose_user_type/take_a_tour_button.dart';
-import 'package:remax_mapstate/presentation/journeys/start_app/choose_user_type/toggle_language_widget.dart';
+import 'package:remax_mapstate/presentation/journeys/choose_user_type/take_a_tour_button.dart';
+import 'package:remax_mapstate/presentation/journeys/choose_user_type/toggle_language_widget.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
-import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 import 'package:remax_mapstate/presentation/widgets/city_background_widget.dart';
 import 'package:remax_mapstate/presentation/widgets/logo_with_slogan.dart';
 
@@ -31,7 +24,9 @@ class ChooseUserScreen extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               child: Container(
                 padding: EdgeInsets.symmetric(
-                    vertical: Sizes.dimen_8.h, horizontal: Sizes.dimen_10.h),
+                  vertical: Sizes.dimen_8.h,
+                  horizontal: Sizes.dimen_10.h,
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

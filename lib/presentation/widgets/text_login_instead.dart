@@ -6,7 +6,7 @@ import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/common/extensions/widgetExtension.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 
-import '../../../../common/enums/animation_type.dart';
+import '../../common/enums/animation_type.dart';
 
 class TextLoginInstead extends StatelessWidget {
   final bool isLogin;

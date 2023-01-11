@@ -11,7 +11,7 @@ import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/domain/entities/authorized_user_entity.dart';
 import 'package:remax_mapstate/presentation/app_localization.dart';
 import 'package:remax_mapstate/presentation/journeys/main/main_screen.dart';
-import 'package:remax_mapstate/presentation/journeys/start_app/choose_user_type/choose_user_screen.dart';
+import 'package:remax_mapstate/presentation/journeys/choose_user_type/choose_user_screen.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/language/language_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/user_token/user_token_cubit.dart';

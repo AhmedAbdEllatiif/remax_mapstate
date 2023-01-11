@@ -4,24 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
-import 'package:remax_mapstate/common/functions/show_dialog.dart';
 import 'package:remax_mapstate/domain/entities/authorized_user_entity.dart';
-import 'package:remax_mapstate/presentation/journeys/start_app/broker_registartion/borker_register_form.dart';
-import 'package:remax_mapstate/presentation/journeys/start_app/login_form/login_form.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
-import 'package:remax_mapstate/presentation/widgets/done_widget.dart';
 import 'package:remax_mapstate/presentation/widgets/stack_with_full_background.dart';
 
-import '../../../../common/constants/sizes.dart';
-import '../../../../common/constants/translate_constatns.dart';
-import '../../../../di/git_it.dart';
-import '../../../../domain/entities/arguments/register_or_login_args.dart';
-import '../../../../router/route_hepler.dart';
-import '../../../logic/cubit/choose_favorite_area/choose_favorite_area_cubit.dart';
-import '../../../logic/cubit/user_token/user_token_cubit.dart';
-import '../../../themes/theme_color.dart';
-import '../../../widgets/logo_with_slogan.dart';
-import '../login_form/text_login_instead.dart';
+import '../../../common/constants/sizes.dart';
+import '../../../common/constants/translate_constatns.dart';
+import '../../../di/git_it.dart';
+import '../../../domain/entities/arguments/register_or_login_args.dart';
+import '../../../router/route_hepler.dart';
+import '../../logic/cubit/choose_favorite_area/choose_favorite_area_cubit.dart';
+import '../../logic/cubit/user_token/user_token_cubit.dart';
+import '../../widgets/logo_with_slogan.dart';
+import '../../widgets/text_login_instead.dart';
+
+import 'login_form.dart';
+import 'registration_form.dart';
 
 class RegisterOrLoginScreen extends StatefulWidget {
   final RegisterOrLoginArguments registerOrLoginArguments;
@@ -39,6 +37,7 @@ class _RegisterOrLoginScreenState extends State<RegisterOrLoginScreen> {
 
   bool isLoginForm = true;
   String userEmail = "";
+  String userPassword = "";
 
   @override
   void initState() {
@@ -79,6 +78,7 @@ class _RegisterOrLoginScreenState extends State<RegisterOrLoginScreen> {
               child: isLoginForm
                   ? LoginForm(
                       email: userEmail,
+                      password: userPassword,
                       onSuccessLogin: (userToken, authorizedUserEntity) async {
                         //==> save current user token
                         await _saveTokenForAutoLogin(token: userToken);
@@ -96,20 +96,14 @@ class _RegisterOrLoginScreenState extends State<RegisterOrLoginScreen> {
                       },
                     )
                   : BrokerRegisterForm(
-                      onRegistrationSuccess: (userEntity) async {
-                      userEmail = userEntity.email;
+                      onRegistrationSuccess: (userEntity, password) async {
+                        // update data
+                        userEmail = userEntity.email;
+                        userPassword = password;
 
-                      _changeBetweenLoginAndRegistration();
-
-                      showAppDialog(
-                        context,
-                        message: "Account Created successfully ",
-                        image: const DoneWidget(),
-                        buttonText: TranslateConstants.login.t(
-                          context,
-                        ),
-                      );
-                    }),
+                        _changeBetweenLoginAndRegistration();
+                      },
+                    ),
             ),
 
             TextLoginInstead(
