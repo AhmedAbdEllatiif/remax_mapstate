@@ -1,4 +1,4 @@
-import '../../../../common/constants/api_constants.dart';
+import '../../../../../common/constants/api_constants.dart';
 
 String fetchArabicAreasQuery() => """
 query ArabicAreas(\$${VariablesConstants.limit}:Int,\$${VariablesConstants.offset}:Int,\$${VariablesConstants.orderBy}:String){

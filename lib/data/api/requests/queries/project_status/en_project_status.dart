@@ -1,7 +1,7 @@
-import '../../../../common/constants/api_constants.dart';
+import '../../../../../common/constants/api_constants.dart';
 
-String fetchArabicProjectStatusQuery() => """
-query ArabicProjectStatus(\$${VariablesConstants.filters}:[DjangoFilterInput],\$${VariablesConstants.pageInfo}:PageInfo){
+String fetchEnglishProjectStatusQuery() => """
+query EnglishProjectStatus(\$${VariablesConstants.filters}:[DjangoFilterInput],\$${VariablesConstants.pageInfo}:PageInfo){
   
   # query 
   projectStatuses
@@ -18,7 +18,7 @@ query ArabicProjectStatus(\$${VariablesConstants.filters}:[DjangoFilterInput],\$
   ######### Query body #########
   {
     id
-    arabicName
+    name
   }
   ########## end of body #########
   

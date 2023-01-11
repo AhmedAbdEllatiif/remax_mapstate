@@ -1,4 +1,4 @@
-import '../../../../common/constants/api_constants.dart';
+import '../../../../../common/constants/api_constants.dart';
 
 String getBrokersArabicQuery() => """
 query getBroker(

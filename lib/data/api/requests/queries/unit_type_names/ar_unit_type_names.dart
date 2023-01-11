@@ -1,7 +1,7 @@
-import '../../../../common/constants/api_constants.dart';
+import '../../../../../common/constants/api_constants.dart';
 
-String fetchEnglishUnitTypeNamesQuery() => """
-query EnglishUnitTypeNames(\$${VariablesConstants.filters}:[DjangoFilterInput],\$${VariablesConstants.pageInfo}:PageInfo){
+String fetchArabicUnitTypeNamesQuery() => """
+query ArabicUnitTypeNames(\$${VariablesConstants.filters}:[DjangoFilterInput],\$${VariablesConstants.pageInfo}:PageInfo){
   
   # query 
   unitTypeNames
@@ -18,7 +18,7 @@ query EnglishUnitTypeNames(\$${VariablesConstants.filters}:[DjangoFilterInput],\
   ######### Query body #########
   {
     id
-    name
+    arabicName
     isCommercial
     priority
   }

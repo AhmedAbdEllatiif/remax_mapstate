@@ -1,12 +1,12 @@
-import '../../../../common/constants/api_constants.dart';
+import '../../../../../common/constants/api_constants.dart';
 
-String fetchArabicProjectByStatusQuery() => """
-query ArabicProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput],\$${VariablesConstants.pageInfo}:PageInfo){
+String fetchEnglishProjectByStatusQuery() => """
+query EnglishProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput],\$${VariablesConstants.pageInfo}:PageInfo){
   
   # query 
   projects
   
- ######### Query params #########
+  ######### Query params #########
   (
      #==> Page info
      pageInfo: \$${VariablesConstants.pageInfo}
@@ -18,30 +18,34 @@ query ArabicProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput],
   ######### Query body #########
   {
    id
+    name
     
-    arabicName
-    descriptionArabic
+    description
+    
     type
     
-    # images
+     # images
     images
     
     # region
     region{
       id
-      arabicName
+      name
+      
       priority
     }
     # zone 
     zone{
       id
-      arabicName
+      name
+      
     }
     
     # services
     services{
       id
-      arabicName
+      name
+      
     }
     
     # priceFrom
@@ -53,7 +57,8 @@ query ArabicProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput],
     # finishingType
     finishingType{
       id
-      arabicName
+      name
+      
     }
     
     # deliveryYear
@@ -65,7 +70,8 @@ query ArabicProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput],
     # status
     status{
       id
-      arabicName
+      name
+      
     }
     
     # unittypeSet
@@ -74,12 +80,14 @@ query ArabicProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput],
       #==> unittypeSet.unitTypeName
       unitTypeName{
         id
-        arabicName
+        name
+        
       }
       #==> unittypeSet.layout
       layout{
         id
-        arabicName
+        name
+        
       }
       priceFrom
       priceTo
@@ -90,8 +98,8 @@ query ArabicProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput],
       #==> unittypeSet.finishingType
       finishingType{
         id
+        name
         
-        arabicName
       }
     } # end of unittypeSet
     
@@ -118,7 +126,8 @@ query ArabicProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput],
     # developer
     developer{
       id
-      arabicName
+      name
+      
       logo
       #==> developercontact
       developercontact{
@@ -138,7 +147,6 @@ query ArabicProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput],
     }
   }
   ########## end of body #########
-  
   
 }
  """;

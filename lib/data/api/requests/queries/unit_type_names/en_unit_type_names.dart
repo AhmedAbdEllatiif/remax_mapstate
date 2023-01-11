@@ -1,10 +1,10 @@
-import '../../../../common/constants/api_constants.dart';
+import '../../../../../common/constants/api_constants.dart';
 
-String fetchEnglishProjectStatusQuery() => """
-query EnglishProjectStatus(\$${VariablesConstants.filters}:[DjangoFilterInput],\$${VariablesConstants.pageInfo}:PageInfo){
+String fetchEnglishUnitTypeNamesQuery() => """
+query EnglishUnitTypeNames(\$${VariablesConstants.filters}:[DjangoFilterInput],\$${VariablesConstants.pageInfo}:PageInfo){
   
   # query 
-  projectStatuses
+  unitTypeNames
   
   ######### Query params #########
   (
@@ -19,6 +19,8 @@ query EnglishProjectStatus(\$${VariablesConstants.filters}:[DjangoFilterInput],\
   {
     id
     name
+    isCommercial
+    priority
   }
   ########## end of body #########
   

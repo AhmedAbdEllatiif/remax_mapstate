@@ -1,10 +1,10 @@
-import '../../../../common/constants/api_constants.dart';
+import '../../../../../common/constants/api_constants.dart';
 
-String fetchArabicUnitTypeNamesQuery() => """
-query ArabicUnitTypeNames(\$${VariablesConstants.filters}:[DjangoFilterInput],\$${VariablesConstants.pageInfo}:PageInfo){
+String fetchArabicProjectStatusQuery() => """
+query ArabicProjectStatus(\$${VariablesConstants.filters}:[DjangoFilterInput],\$${VariablesConstants.pageInfo}:PageInfo){
   
   # query 
-  unitTypeNames
+  projectStatuses
   
   ######### Query params #########
   (
@@ -19,8 +19,6 @@ query ArabicUnitTypeNames(\$${VariablesConstants.filters}:[DjangoFilterInput],\$
   {
     id
     arabicName
-    isCommercial
-    priority
   }
   ########## end of body #########
   
