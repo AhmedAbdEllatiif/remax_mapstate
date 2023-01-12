@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:remax_mapstate/common/constants/app_utils.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
@@ -12,10 +11,6 @@ import 'package:remax_mapstate/presentation/journeys/profile/user_data_item.dart
 import 'package:remax_mapstate/presentation/logic/cubit/complete_broker_data/complete_broker_data_cubit.dart';
 import 'package:remax_mapstate/presentation/widgets/app_error_widget.dart';
 import 'package:remax_mapstate/router/route_hepler.dart';
-import 'package:responsive_framework/responsive_value.dart';
-import 'package:responsive_framework/responsive_wrapper.dart';
-
-import '../../../common/constants/sizes.dart';
 import '../../../common/enums/user_types.dart';
 import '../../../di/git_it.dart';
 import '../../../domain/entities/arguments/complete_broker_data_arguments.dart';
@@ -246,11 +241,13 @@ class _BrokerProfileState extends State<BrokerProfile> {
             *
             * */
               if (state is UnAuthorizedToGetBrokerById) {
-                return AppErrorWidget(
-                  withCard: false,
-                  appTypeError: AppErrorType.unAuthorized,
-                  buttonText: TranslateConstants.login.t(context),
-                  onPressedRetry: () => _navigateToLogin(),
+                return Center(
+                  child: AppErrorWidget(
+                    withCard: false,
+                    appTypeError: AppErrorType.unAuthorized,
+                    buttonText: TranslateConstants.login.t(context),
+                    onPressedRetry: () => _navigateToLogin(),
+                  ),
                 );
               }
 
@@ -266,11 +263,13 @@ class _BrokerProfileState extends State<BrokerProfile> {
             *
             * */
               if (state is NotABrokerBeforeGettingBrokerById) {
-                return AppErrorWidget(
-                  withCard: false,
-                  appTypeError: AppErrorType.unAuthorized,
-                  buttonText: TranslateConstants.login.t(context),
-                  onPressedRetry: () => _navigateToLogin(),
+                return Center(
+                  child: AppErrorWidget(
+                    withCard: false,
+                    appTypeError: AppErrorType.unAuthorized,
+                    buttonText: TranslateConstants.login.t(context),
+                    onPressedRetry: () => _navigateToLogin(),
+                  ),
                 );
               }
 
@@ -282,10 +281,12 @@ class _BrokerProfileState extends State<BrokerProfile> {
             *
             * */
               if (state is ErrorWhileGettingBrokerById) {
-                return AppErrorWidget(
-                  withCard: false,
-                  appTypeError: state.appError.appErrorType,
-                  onPressedRetry: () => _fetchBrokerData(),
+                return Center(
+                  child: AppErrorWidget(
+                    withCard: false,
+                    appTypeError: state.appError.appErrorType,
+                    onPressedRetry: () => _fetchBrokerData(),
+                  ),
                 );
               }
 
