@@ -3,10 +3,13 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import '../../../common/constants/api_constants.dart';
 
 class AuthClient {
-  GraphQLClient initAuthApi() {
-    final HttpLink httpLink = HttpLink(ApiConstants.authUrl, defaultHeaders: {
-//'x-api-key': ApiConstants.xApiKey,
-    });
+  GraphQLClient initAuthApi({required String token}) {
+    final HttpLink httpLink = HttpLink(
+      ApiConstants.authUrl,
+      defaultHeaders: {
+        'Authroization': "JWT $token",
+      },
+    );
 
     final GraphQLClient client = GraphQLClient(
       cache: GraphQLCache(),
@@ -18,10 +21,11 @@ class AuthClient {
 
   dynamic mutate(
     String mutationFields, {
+    required String token,
     Map<String, dynamic> variables = const {},
   }) async {
     // init graphQLClient
-    final graphQLClient = initAuthApi();
+    final graphQLClient = initAuthApi(token: token);
 
     /// MutationOptions
     final MutationOptions options = MutationOptions(

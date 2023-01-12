@@ -7,7 +7,7 @@ mutation registerNewUser(
 ){
   
   # mutation 
-  registerNewUser
+  register
   
   ######### mutation params #########
   (   

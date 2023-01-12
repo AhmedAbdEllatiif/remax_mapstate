@@ -100,14 +100,14 @@ class _RegisterOrLoginScreenState extends State<RegisterOrLoginScreen> {
                   _navigateToMainScreen();
                 },
               )
-                  : BrokerRegisterForm(
+                  : RegisterForm(
                   userType: widget.registerOrLoginArguments.userType,
                   onRegistrationSuccess: (registerEntity, userType) async {
                     // update data
                     userToken = registerEntity.userToken;
                     currentRegisteredUserType = userType;
 
-                    _changeBetweenLoginAndRegistration();
+                    //_changeBetweenLoginAndRegistration();
                   },
               ),
             ),

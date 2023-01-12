@@ -16,21 +16,21 @@ import '../../../common/constants/translate_constatns.dart';
 import '../../widgets/app_text_form_field.dart';
 import '../../widgets/btn_with_box_shadow.dart';
 
-class BrokerRegisterForm extends StatefulWidget {
+class RegisterForm extends StatefulWidget {
   final Function(RegisterEntity, UserType) onRegistrationSuccess;
   final UserType userType;
 
-  const BrokerRegisterForm({
+  const RegisterForm({
     Key? key,
     required this.onRegistrationSuccess,
     required this.userType,
   }) : super(key: key);
 
   @override
-  State<BrokerRegisterForm> createState() => _BrokerRegisterFormState();
+  State<RegisterForm> createState() => _RegisterFormState();
 }
 
-class _BrokerRegisterFormState extends State<BrokerRegisterForm> {
+class _RegisterFormState extends State<RegisterForm> {
   /// form key
   final _formKey = GlobalKey<FormState>();
 
@@ -68,7 +68,7 @@ class _BrokerRegisterFormState extends State<BrokerRegisterForm> {
         child: BlocConsumer<RegisterNewUserCubit, RegisterNewUserState>(
           listener: (context, state) {
             if (state is SuccessRegister) {
-              log("registerEntity: ${state.registerEntity}");
+              log("RegisterForm >> registerEntity: ${state.registerEntity}");
               widget.onRegistrationSuccess(
                 state.registerEntity,
                 widget.userType,

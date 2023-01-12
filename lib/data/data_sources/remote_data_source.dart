@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:remax_mapstate/common/classes/handle_operation_exceptions.dart';
+import 'package:remax_mapstate/common/classes/register_errors_builder.dart';
 import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/common/enums/app_language.dart';
 import 'package:remax_mapstate/data/api/clients/api_client.dart';
@@ -154,13 +155,26 @@ class RemoteDateSourceImpl extends RemoteDataSource {
 
       final QueryResult result = await authClient.mutate(
         query,
+        token: "", // there is no token with register
         variables: {
           VariablesConstants.email: registerRequestModel.email,
           VariablesConstants.password: registerRequestModel.password,
         },
       );
 
-      return registerResponseModelFromJson(result.data);
+      log("RemoteDataSource >> registerNewUser >> ${result.data}");
+      final responseModel = registerResponseModelFromJson(result.data);
+
+      //==> register not success
+      if (!responseModel.success) {
+        final registerError =
+            RegisterErrorBuilder.fromError(responseModel.errors);
+        log("................\nregisterNewUser not success >> Error: $registerError .................\n");
+        return AppError(registerError.appErrorType,
+            message: "registerNewUser ${registerError.appErrorType} ");
+      }
+
+      return responseModel;
     } catch (e) {
       log("................\nregisterNewUser >> Error: $e .................\n");
       return AppError(AppErrorType.unHandledError,
@@ -486,6 +500,7 @@ class RemoteDateSourceImpl extends RemoteDataSource {
 
       final QueryResult result = await authClient.mutate(
         mutation,
+        token: "",
         variables: {
           VariablesConstants.email: loginRequestModel.email,
           VariablesConstants.password: loginRequestModel.password,
