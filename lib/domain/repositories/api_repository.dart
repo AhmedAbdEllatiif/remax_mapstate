@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:remax_mapstate/data/models/success_model.dart';
 import 'package:remax_mapstate/data/params/fetch_list_params.dart';
 import 'package:remax_mapstate/data/params/filter_data_params.dart';
+import 'package:remax_mapstate/data/params/get_profile_params.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
 import 'package:remax_mapstate/domain/entities/broker_entity.dart';
@@ -10,7 +11,9 @@ import 'package:remax_mapstate/domain/entities/filter_data_entity.dart';
 import 'package:remax_mapstate/domain/entities/login_entity.dart';
 import 'package:remax_mapstate/domain/entities/params/login_params.dart';
 import 'package:remax_mapstate/domain/entities/params/reigster_params.dart';
+import 'package:remax_mapstate/domain/entities/params/update_user_group_params.dart';
 import 'package:remax_mapstate/domain/entities/params/update_user_params.dart';
+import 'package:remax_mapstate/domain/entities/profile_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
 import 'package:remax_mapstate/domain/entities/register_entity.dart';
@@ -72,16 +75,28 @@ abstract class RemoteRepository {
   Future<Either<AppError, RegisterEntity>> registerNewUser(
       RegisterParams params);
 
+  /// getCurrentUserProfile
+  Future<Either<AppError, ProfileEntity>> getCurrentUserProfile(
+      GetCurrentUserProfileParams params);
+
   /// login
   Future<Either<AppError, LoginEntity>> loginUser(LoginParams params);
 
   /// getBrokerProfile
-  Future<Either<AppError, UserEntity>> getBrokerById({required FetchBrokerParams params});
+  Future<Either<AppError, UserEntity>> getBrokerById(
+      {required FetchBrokerParams params});
 
   /// getBrokerProfile
   Future<Either<AppError, SuccessModel>> completeBrokerData(
     CompleteBrokerDataParams params,
   );
+
+
+  ///****************************** UpdateUser **************************** \\\\
+  /// updateUserGroup
+  Future<Either<AppError, UserEntity>> updateUserGroup(
+      UpdateUserGroupParams params,
+      );
 
   ///**************************** Developer Contact *********************** \\\\
   Future<Either<AppError, ContactDeveloperEntity>> getDeveloperContact(

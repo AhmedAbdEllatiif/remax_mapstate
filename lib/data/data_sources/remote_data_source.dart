@@ -7,6 +7,7 @@ import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/common/enums/app_language.dart';
 import 'package:remax_mapstate/data/api/clients/api_client.dart';
 import 'package:remax_mapstate/data/api/clients/auth_client.dart';
+import 'package:remax_mapstate/data/api/requests/auth/get_profile.dart';
 import 'package:remax_mapstate/data/api/requests/queries/areas/ar_areas.dart';
 import 'package:remax_mapstate/data/api/requests/queries/areas/en_areas.dart';
 import 'package:remax_mapstate/data/api/requests/queries/get_filter_data/en_get_filter_data.dart';
@@ -18,6 +19,8 @@ import 'package:remax_mapstate/data/api/requests/queries/unit_type_names/en_unit
 import 'package:remax_mapstate/data/api/requests/mutations/login.dart';
 import 'package:remax_mapstate/data/api/requests/mutations/update_user.dart';
 import 'package:remax_mapstate/data/models/area_model.dart';
+import 'package:remax_mapstate/data/models/auth/profile/get_profile_request_model.dart';
+import 'package:remax_mapstate/data/models/auth/profile/get_profile_response_model.dart';
 import 'package:remax_mapstate/data/models/auth/register/register_request_model.dart';
 import 'package:remax_mapstate/data/models/auth/register/register_response_model.dart';
 import 'package:remax_mapstate/data/models/broker_model.dart';
@@ -56,7 +59,23 @@ abstract class RemoteDataSource {
   //                                                                          \\
   //                                                                          \\
   //==========================================================================\\
+  /// registerNewUser
   Future<dynamic> registerNewUser(RegisterRequestModel registerRequestModel);
+
+  /// getCurrentUserProfile
+  Future<dynamic> getCurrentUserProfile(
+      GetProfileRequestModel getProfileRequestModel);
+
+  //============================>  Update User  <=============================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
+  /// updateCurrentUserGroup
+  Future<dynamic> updateCurrentUserGroup(
+      UpdateUserMutationModel updateUserMutationModel);
 
   /// return  projects
   Future<List<ProjectModel>> fetchProjects();
@@ -169,7 +188,9 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       if (!responseModel.success) {
         final registerError =
             RegisterErrorBuilder.fromError(responseModel.errors);
-        log("................\nregisterNewUser not success >> Error: $registerError .................\n");
+
+        log("................\nregisterNewUser not success >> "
+            "Error: $registerError .................\n");
         return AppError(registerError.appErrorType,
             message: "registerNewUser ${registerError.appErrorType} ");
       }
@@ -179,6 +200,91 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       log("................\nregisterNewUser >> Error: $e .................\n");
       return AppError(AppErrorType.unHandledError,
           message: "registerNewUser UnHandledError >> $e");
+    }
+  }
+
+  /// login
+  @override
+  Future<dynamic> loginUser({
+    required LoginRequestModel loginRequestModel,
+  }) async {
+    try {
+      final mutation = loginUserMutation();
+
+      final QueryResult result = await authClient.mutate(
+        mutation,
+        token: "",
+        variables: {
+          VariablesConstants.email: loginRequestModel.email,
+          VariablesConstants.password: loginRequestModel.password,
+        },
+      );
+
+      log("updateUser >> ResultOnly >> ..........\n \n \n $result.......\n\n\n");
+      log("updateUser >> Data >> ..........\n ${result.data}.......");
+      if (result.data!["tokenAuth"] != null) {
+        final errors = result.data!["tokenAuth"]["errors"];
+        if (errors != null) {
+          final appErrorType =
+              AppErrorTypeBuilder.fromAuthErrors(errors).appErrorType;
+          return AppError(appErrorType, message: "Wrong Email or Password");
+        }
+      }
+      return loginResponseModelFromJson(result.data!["tokenAuth"]);
+    } catch (e) {
+      log("Error: $e");
+      return AppError(AppErrorType.unHandledError,
+          message: "updateDefaultUser UnHandledError >> $e");
+    }
+  }
+
+  /// getCurrentUserProfile
+  @override
+  Future<dynamic> getCurrentUserProfile(
+      GetProfileRequestModel getProfileRequestModel) async {
+    try {
+      final query = getProfile();
+
+      final QueryResult result = await authClient.get(
+        query,
+        token: getProfileRequestModel.userToken,
+      );
+      log("RemoteDataSource >>  result >> ${result.data}");
+      return getProfileResponseFromJson(result.data);
+    } catch (e) {
+      return AppError(AppErrorType.unHandledError,
+          message:
+              "RemoteDataSource >> getCurrentUserProfile UnHandledError >> $e");
+    }
+  }
+
+  //============================>  Update User  <=============================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
+  @override
+  Future<dynamic> updateCurrentUserGroup(
+    UpdateUserMutationModel updateUserMutationModel,
+  ) async {
+    try {
+      final mutationFields = updateUserMutation();
+
+      final QueryResult result = await apiClient.mutate(
+        mutationFields,
+        variables: {
+          VariablesConstants.inputForm:
+              updateUserMutationModel.toUpdateUserGroup(),
+        },
+      );
+
+      log("updateUser >> Data >> ..........\n ${result.data}.......");
+      return userModelFormUpdateUser(result.data);
+    } catch (e) {
+      return AppError(AppErrorType.unHandledError,
+          message: "updateDefaultUser UnHandledError >> $e");
     }
   }
 
@@ -483,43 +589,8 @@ class RemoteDateSourceImpl extends RemoteDataSource {
 
       log("updateUser >> ResultOnly >> ..........\n \n \n ${result}.......\n\n\n");
       log("updateUser >> Data >> ..........\n ${result.data}.......");
-      return userModelFormJson(result.data!["updateUser"]);
+      return userModelFormUser(result.data!["updateUser"]);
     } catch (e) {
-      return AppError(AppErrorType.unHandledError,
-          message: "updateDefaultUser UnHandledError >> $e");
-    }
-  }
-
-  /// login
-  @override
-  Future<dynamic> loginUser({
-    required LoginRequestModel loginRequestModel,
-  }) async {
-    try {
-      final mutation = loginUserMutation();
-
-      final QueryResult result = await authClient.mutate(
-        mutation,
-        token: "",
-        variables: {
-          VariablesConstants.email: loginRequestModel.email,
-          VariablesConstants.password: loginRequestModel.password,
-        },
-      );
-
-      log("updateUser >> ResultOnly >> ..........\n \n \n $result.......\n\n\n");
-      log("updateUser >> Data >> ..........\n ${result.data}.......");
-      if (result.data!["tokenAuth"] != null) {
-        final errors = result.data!["tokenAuth"]["errors"];
-        if (errors != null) {
-          final appErrorType =
-              AppErrorTypeBuilder.fromAuthErrors(errors).appErrorType;
-          return AppError(appErrorType, message: "Wrong Email or Password");
-        }
-      }
-      return loginResponseModelFromJson(result.data!["tokenAuth"]);
-    } catch (e) {
-      log("Error: $e");
       return AppError(AppErrorType.unHandledError,
           message: "updateDefaultUser UnHandledError >> $e");
     }

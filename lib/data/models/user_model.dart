@@ -1,14 +1,27 @@
+
 import 'package:remax_mapstate/common/constants/app_utils.dart';
 import 'package:remax_mapstate/domain/entities/user_entity.dart';
 
 import '../../common/enums/user_types.dart';
 import 'area_model.dart';
 
-/// parse to user model
-UserModel userModelFormJson(Map<String, dynamic> json) {
-  //final json = jsonDecode(body);
+/// parse to user model from 'me' json
+UserModel userModelFormMe(Map<String, dynamic> json) {
+  return UserModel.formJson(json["me"] ?? {});
+}
 
-  return UserModel.formJson(json["user"]);
+/// parse to user model from 'user' json
+UserModel userModelFormUser(Map<String, dynamic> json) {
+  return UserModel.formJson(json["user"] ?? {});
+}
+
+/// parse to user model 'updateUser' json
+UserModel userModelFormUpdateUser(dynamic data) {
+  return data == null
+      ? UserModel.formJson(const {})
+      : data["updateUser"] == null
+          ? UserModel.formJson(const {})
+          : UserModel.formJson(data["updateUser"]["user"] ?? {});
 }
 
 /// parse to user model

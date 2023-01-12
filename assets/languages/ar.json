@@ -108,6 +108,10 @@
   "minRequiredCharacters": "* الحد الأدنى من الأحرف هو ",
   "atLeastUpperCase": "* يجب تضمين حرف علوي واحد على الأقل",
   "atLeastLowerCase": "* يجب تضمين حرف سفلي واحد على الأقل",
+  "specialCharacterRequired": "* يجب تضمين حرف خاص واحد على الأقل",
+  "aNumberRequired": "* يجب تضمين رقم واحد على الأقل",
+
+
   "completeYourProfile": "أكمل ملفك الشخصي",
   "updateProfile": "تعديل الملف الشخصى",
 

@@ -29,12 +29,16 @@ import '../../common/classes/handle_operation_exceptions.dart';
 import '../../domain/entities/login_entity.dart';
 import '../../domain/entities/params/login_params.dart';
 import '../../domain/entities/params/reigster_params.dart';
+import '../../domain/entities/params/update_user_group_params.dart';
 import '../../domain/entities/params/update_user_params.dart';
+import '../../domain/entities/profile_entity.dart';
 import '../../domain/entities/register_entity.dart';
 import '../../domain/entities/user_entity.dart';
+import '../models/auth/profile/get_profile_request_model.dart';
 import '../params/fetch_broker_params.dart';
 import '../params/fetch_list_params.dart';
 import '../params/filter_data_params.dart';
+import '../params/get_profile_params.dart';
 
 class RemoteRepositoryImpl extends RemoteRepository {
   final RemoteDataSource remoteDataSource;
@@ -61,6 +65,8 @@ class RemoteRepositoryImpl extends RemoteRepository {
       if (result is RegisterEntity) {
         return Right(result);
       }
+
+      log("RepoImpl >> registerNewUser >> Error >> $result");
       return Left(result);
     }
     //==> SocketException
@@ -78,6 +84,88 @@ class RemoteRepositoryImpl extends RemoteRepository {
     //==> Exception
     on Exception catch (e) {
       log("RepoImpl >> registerNewUser >> Exception >> $e");
+      return Left(AppError(AppErrorType.api, message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<AppError, ProfileEntity>> getCurrentUserProfile(
+      GetCurrentUserProfileParams params) async {
+    try {
+      final result = await remoteDataSource.getCurrentUserProfile(
+        GetProfileRequestModel(userToken: params.userToken),
+      );
+
+      if (result is ProfileEntity) {
+        return result.userEntity.id == "-1"
+            ? const Left(
+                AppError(AppErrorType.unAuthorized, message: "unAuthorized"))
+            : Right(result);
+      }
+
+      log("RepoImpl >> getCurrentUserProfile >> Error >> $result");
+      return Left(result);
+    }
+    //==> SocketException
+    on SocketException catch (e) {
+      log("RepoImpl >> getCurrentUserProfile >> SocketException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.message));
+    }
+    //==> OperationException
+    on OperationException catch (e) {
+      final appErrorType =
+          AppErrorTypeBuilder.formOperationException(e).appErrorType;
+      log("RepoImpl >> getCurrentUserProfile >> OperationException >> $e");
+      return Left(AppError(appErrorType, message: e.toString()));
+    }
+    //==> Exception
+    on Exception catch (e) {
+      log("RepoImpl >> getCurrentUserProfile >> Exception >> $e");
+      return Left(AppError(AppErrorType.api, message: e.toString()));
+    }
+  }
+
+  //============================>  Update User  <=============================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
+  /// updateUserGroup
+  @override
+  Future<Either<AppError, UserEntity>> updateUserGroup(
+    UpdateUserGroupParams params,
+  ) async {
+    try {
+      final result = await remoteDataSource.updateCurrentUserGroup(
+        UpdateUserMutationModel.forUpdatingUserGroup(
+          userId: params.userId,
+          groups: params.userGroup,
+        ),
+      );
+
+      if (result is UserEntity) {
+        return Right(result);
+      }
+
+      return Left(result);
+    }
+    //==> SocketException
+    on SocketException catch (e) {
+      log("RepoImpl >> updateUserGroup >> SocketException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.message));
+    }
+    //==> OperationException
+    on OperationException catch (e) {
+      final appErrorType =
+          AppErrorTypeBuilder.formOperationException(e).appErrorType;
+      log("RepoImpl >> updateUserGroup >> OperationException >> $e");
+      return Left(AppError(appErrorType, message: e.toString()));
+    }
+    //==> Exception
+    on Exception catch (e) {
+      log("RepoImpl >> updateUserGroup >> Exception >> $e");
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
   }

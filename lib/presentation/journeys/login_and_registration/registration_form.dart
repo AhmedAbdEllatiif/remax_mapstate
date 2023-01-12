@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
+import 'package:remax_mapstate/common/functions/hide_keyboard.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/domain/entities/register_entity.dart';
 
@@ -13,6 +14,7 @@ import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 
 import '../../../common/constants/sizes.dart';
 import '../../../common/constants/translate_constatns.dart';
+import '../../../common/functions/show_snack_bar.dart';
 import '../../widgets/app_text_form_field.dart';
 import '../../widgets/btn_with_box_shadow.dart';
 
@@ -76,7 +78,12 @@ class _RegisterFormState extends State<RegisterForm> {
             }
 
             //==> ErrorWhileUpdatingDefaultUser
-            if (state is ErrorWhileRegister) {}
+            if (state is ErrorWhileRegister) {
+              showSnackBar(
+                context,
+                message: TranslateConstants.somethingWentWrong.t(context),
+              );
+            }
           },
           builder: (context, state) {
             return Form(
@@ -135,7 +142,11 @@ class _RegisterFormState extends State<RegisterForm> {
                           text: TranslateConstants.register.t(context),
                           onPressed: () {
                             if (_validate()) {
-                              _updateUser();
+                              //==> to hide the keyboard
+                              hideKeyboard();
+
+                              //==> to register a new user
+                              _registerNewUser();
                             }
                           },
                         )
@@ -157,8 +168,8 @@ class _RegisterFormState extends State<RegisterForm> {
     return false;
   }
 
-  /// Update user
-  void _updateUser() {
+  /// Register a new user
+  void _registerNewUser() {
     final email = emailController.value.text;
     final password = passwordController.value.text;
 

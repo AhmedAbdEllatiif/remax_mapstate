@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:remax_mapstate/data/models/user_model.dart';
+import 'package:remax_mapstate/domain/entities/user_entity.dart';
 import '../../../common/constants/app_utils.dart';
 import '../../common/enums/user_types.dart';
 
@@ -28,6 +29,16 @@ class AuthorizedUserEntity extends Equatable {
         email: userModel.email,
         phoneNum: userModel.phoneNumber,
         userType: userModel.userType,
+      );
+
+  factory AuthorizedUserEntity.fromUserEntity(UserEntity userEntity) =>
+      AuthorizedUserEntity(
+        id: userEntity.id.toString(),
+        firstName: userEntity.firstName,
+        lastName: userEntity.lastName,
+        email: userEntity.email,
+        phoneNum: userEntity.phoneNumber,
+        userType: userEntity.userType,
       );
 
   factory AuthorizedUserEntity.empty() => AuthorizedUserEntity(

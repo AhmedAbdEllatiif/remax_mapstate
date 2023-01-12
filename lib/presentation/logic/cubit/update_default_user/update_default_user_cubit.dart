@@ -3,9 +3,11 @@ import 'package:equatable/equatable.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
+import 'package:remax_mapstate/domain/entities/params/update_user_group_params.dart';
 import 'package:remax_mapstate/domain/entities/params/update_user_params.dart';
 import 'package:remax_mapstate/domain/entities/user_entity.dart';
 import 'package:remax_mapstate/domain/use_cases/update_default_user.dart';
+import 'package:remax_mapstate/domain/use_cases/update_user/update_user_groups.dart';
 
 part 'update_default_user_state.dart';
 
@@ -51,9 +53,37 @@ class UpdateDefaultUserCubit extends Cubit<UpdateDefaultUserState> {
     );
   }
 
+  void updateUserGroupId({
+    required String userId,
+    required UserType currentUserType,
+    required String userToken,
+  }) async {
+    emit(LoadingToUpdateDefaultUser());
 
-  void _updateBrokerAfterCreatingUser(){
+    // init params
+    final params = UpdateUserGroupParams(
+        userId: int.tryParse(userId) ?? -1,
+        userGroup: currentUserType.convertToGroupId(),
+        userToken: userToken);
 
+    // init useCase
+    final useCase = getItInstance<UpdateUserGroupCase>();
+
+    // fetch unit type names
+    final either = await useCase(params);
+
+    either.fold(
+      //==> error
+      (appError) => _emitError(appError),
+
+      //==> success
+      (userEntity) {
+        userEntity.userType = currentUserType;
+        _emitIfNotClosed(SuccessUpdateDefaultUser(
+          userEntity: userEntity,
+        ));
+      },
+    );
   }
 
   /// _emit an error according to AppError

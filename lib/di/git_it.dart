@@ -47,6 +47,7 @@ import '../data/api/clients/auth_client.dart';
 import '../data/api/clients/graphql_client.dart';
 import '../data/repositories/remote_repository_impl.dart';
 import '../domain/use_cases/advanced_filter_projects.dart';
+import '../domain/use_cases/auth/get_current_user_profile.dart';
 import '../domain/use_cases/auth/register_new_user.dart';
 import '../domain/use_cases/complete_broker_data_case.dart';
 import '../domain/use_cases/get_filter_data.dart';
@@ -62,7 +63,9 @@ import '../domain/use_cases/make_phone_call.dart';
 import '../domain/use_cases/open_map.dart';
 import '../domain/use_cases/open_whats_app.dart';
 import '../domain/use_cases/update_default_user.dart';
+import '../domain/use_cases/update_user/update_user_groups.dart';
 import '../presentation/logic/cubit/areas/areas_cubit.dart';
+import '../presentation/logic/cubit/auth/get_profile/get_current_user_profile_cubit.dart';
 import '../presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
 import '../presentation/logic/cubit/brokers_by_area/get_area_brokers_cubit.dart';
 import '../presentation/logic/bloc/calculator_validation/calculator_validation_bloc.dart';
@@ -313,6 +316,20 @@ Future init() async {
     ),
   );
 
+  /// GetCurrentUserProfileCase
+  getItInstance.registerFactory<GetCurrentUserProfileCase>(
+    () => GetCurrentUserProfileCase(
+      remoteRepository: getItInstance(),
+    ),
+  );
+
+  /// UpdateUserGroupCase
+  getItInstance.registerFactory<UpdateUserGroupCase>(
+    () => UpdateUserGroupCase(
+      remoteRepository: getItInstance(),
+    ),
+  );
+
   ///************************** Local_Use_Cases *****************************\\\
 //==> GetAutoLogin
   getItInstance.registerLazySingleton<GetUserTokenCase>(() => GetUserTokenCase(
@@ -386,7 +403,7 @@ Future init() async {
 
   /// RegisterNewUserCubit
   getItInstance.registerFactory<RegisterNewUserCubit>(
-        () => RegisterNewUserCubit(),
+    () => RegisterNewUserCubit(),
   );
 
   /// LoginCubit
@@ -500,6 +517,11 @@ Future init() async {
   /// init CompleteBrokerDataCubit
   getItInstance.registerFactory<CompleteBrokerDataCubit>(
     () => CompleteBrokerDataCubit(),
+  );
+
+  /// init GetCurrentUserProfileCubit
+  getItInstance.registerFactory<GetCurrentUserProfileCubit>(
+    () => GetCurrentUserProfileCubit(),
   );
 
   ///**************************** init blocs *******************************\\\

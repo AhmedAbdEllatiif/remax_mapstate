@@ -46,6 +46,36 @@ class UpdateUserMutationModel {
     };
   }
 
+
+  /*
+  *
+  *
+  * To update user group
+  *
+  *
+  * */
+  factory UpdateUserMutationModel.forUpdatingUserGroup(
+          {required int userId, required int groups}) =>
+      UpdateUserMutationModel(
+        id: userId,
+        groups: [groups],
+      );
+
+  Map<String, dynamic> toUpdateUserGroup() {
+    return {
+      "pk": id,
+      "groups": groups,
+    };
+  }
+
+
+  /*
+  *
+  *
+  * To complete broker required data
+  *
+  *
+  * */
   factory UpdateUserMutationModel.forCompletingBrokerData({
     required int userId,
     required int experienceYears,

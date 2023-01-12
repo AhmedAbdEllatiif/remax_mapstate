@@ -119,7 +119,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
             // to decrease the height size
             //isDense: true,
             contentPadding: widget.icon == null ||
-                    widget.textInputType == TextInputType.visiblePassword
+                widget.textInputType == TextInputType.visiblePassword
                 ? const EdgeInsets.fromLTRB(10, 10, 10, 0)
                 : const EdgeInsets.fromLTRB(8, 8, 8, 0),
 
@@ -143,11 +143,15 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
             // label text
             labelText: widget.label,
             labelStyle: widget.labelStyle ??
-                Theme.of(context).textTheme.subtitle1!.copyWith(
-                      color: AppColor.geeBung,
-                      fontWeight: FontWeight.bold,
-                      fontSize: Sizes.dimen_16,
-                    ),
+                Theme
+                    .of(context)
+                    .textTheme
+                    .subtitle1!
+                    .copyWith(
+                  color: AppColor.geeBung,
+                  fontWeight: FontWeight.bold,
+                  fontSize: Sizes.dimen_16,
+                ),
 
             //hintText:  widget.label,
             //hintStyle:  const TextStyle(color: AppColor.white),
@@ -155,10 +159,11 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
             // error text
             errorText: widget.errorText != null
                 ? widget.errorText!.isNotEmpty
-                    ? widget.errorText
-                    : null
+                ? widget.errorText
+                : null
                 : null,
-            errorStyle: Theme.of(context)
+            errorStyle: Theme
+                .of(context)
                 .textTheme
                 .caption!
                 .copyWith(color: AppColor.geeBung, fontWeight: FontWeight.bold),
@@ -174,7 +179,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
 
           // validator
           validator:
-              widget.validateOnSubmit ? widget.validator ?? validate : null,
+          widget.validateOnSubmit ? widget.validator ?? validate : null,
         ),
       ),
     ).animate(
@@ -251,8 +256,9 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
   String? emailValidation(String value) {
     if (value.isEmpty) return TranslateConstants.emailRequired.t(context);
 
-    if (!value.matchEmail)
+    if (!value.matchEmail) {
       return TranslateConstants.invalidEmailFormat.t(context);
+    }
 
     return null;
   }
@@ -279,16 +285,18 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
     }
 
     // not contains a special character
-    /*if (!value.containsSpecialCharacter) {
-      return '* يجب تضمين حرف خاص واحد على الأقل';
-    }*/
+    if (!value.containsSpecialCharacter) {
+      return TranslateConstants.specialCharacterRequired.t(context);
+    }
 
     // not contains a number
-    //if (!value.containsNumber) return '* يجب تضمين رقم واحد على الأقل';
+    if (!value.containsNumber) {
+      return TranslateConstants.aNumberRequired.t(context);
+    }
 
     // less than 8 characters
-    if (value.length < 6) {
-      return TranslateConstants.minRequiredCharacters.t(context) + "6";
+    if (value.length < 8) {
+      return TranslateConstants.minRequiredCharacters.t(context) + "8";
     }
 
     return null;

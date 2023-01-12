@@ -7,7 +7,7 @@ class AuthClient {
     final HttpLink httpLink = HttpLink(
       ApiConstants.authUrl,
       defaultHeaders: {
-        'Authroization': "JWT $token",
+        'Authorization': "JWT $token",
       },
     );
 
@@ -17,6 +17,30 @@ class AuthClient {
     );
 
     return client;
+  }
+
+  dynamic get(
+    String query, {
+    required String token,
+    Map<String, dynamic> variables = const {},
+  }) async {
+    /// QueryOptions
+    final QueryOptions options = QueryOptions(
+      document: gql(query),
+      variables: variables,
+    );
+
+    // init graphQLClient
+    final graphQLClient = initAuthApi(token: token);
+
+    /// QueryResult
+    final QueryResult result = await graphQLClient.query(options);
+
+    if (result.hasException) {
+      throw (result.exception!);
+    } else {
+      return result;
+    }
   }
 
   dynamic mutate(

@@ -109,6 +109,10 @@
   "minRequiredCharacters": "* The minimum characters is ",
   "atLeastUpperCase": "* Required at least 1 upper letter ",
   "atLeastLowerCase": "* Required at least 1 lower letter ",
+  "specialCharacterRequired": "* Required at least 1 Special character ",
+  "aNumberRequired": "* Required at least 1 number",
+
+
   "updateProfile": "Update Profile",
   "favoriteRegions": "Favorite Regions",
   "findProjectByStatus": "Find Project by status",
