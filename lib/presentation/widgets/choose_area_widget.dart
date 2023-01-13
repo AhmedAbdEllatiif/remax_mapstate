@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
+import 'package:remax_mapstate/common/functions/hide_keyboard.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/choose_favorite_area/choose_favorite_area_cubit.dart';
@@ -138,6 +139,9 @@ class _ChooseFavoriteAreaWidgetState extends State<ChooseFavoriteAreaWidget> {
   /// To open multi selection area
   void _openToSelectFavoriteArea(BuildContext context,
       {required List<AreaEntity> areas}) {
+    // to hide key board if opened
+    hideKeyboard();
+
     MultiSelectionHelper().showMultiSelect(
       context: context,
       allAreas: areas,

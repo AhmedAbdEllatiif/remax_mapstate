@@ -11,6 +11,7 @@ import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/data/data_sources/remote_data_source.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/presentation/journeys/profile/broker_profile.dart';
+import 'package:remax_mapstate/presentation/journeys/profile/buyer_profile.dart';
 import 'package:remax_mapstate/presentation/journeys/profile/user_data_item.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/get_broker_by_id/get_broker_by_id_cubit.dart';
@@ -20,6 +21,7 @@ import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 
 import '../../../common/constants/translate_constatns.dart';
 import '../../widgets/btn_with_box_shadow.dart';
+import '../../widgets/image_name_rating_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -69,52 +71,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 const CityBackgroundWidget(),
 
                 Padding(
-                  padding: EdgeInsets.only(top: Sizes.dimen_18.h),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const CircleAvatar(
-                        backgroundColor: AppColor.transparentGeeBung,
-                        radius: 100,
-                        backgroundImage: AssetImage(AssetsConstants.person2),
-                      ),
-
-                      /// userData
-                      Expanded(
-                        child: SingleChildScrollView(
-                          physics: const BouncingScrollPhysics(),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              top: Sizes.dimen_16.h,
-                              right: Sizes.dimen_10.w,
-                              left: Sizes.dimen_10.w,
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                UserDataItem(
-                                  keyData:
-                                      TranslateConstants.fullName.t(context),
-                                  value: state.userEntity.firstName,
-                                ),
-                                UserDataItem(
-                                  keyData: TranslateConstants.email.t(context),
-                                  value: state.userEntity.email,
-                                ),
-
-                                /// broker profile
-                                if (state is CurrentBrokerAuthorizedUserData)
-                                  BrokerProfile(
-                                    brokerId: state.userEntity.id,
-                                  ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
+                  padding: EdgeInsets.only(
+                    top: Sizes.dimen_18.h,
+                    right: Sizes.dimen_10.w,
+                    left: Sizes.dimen_10.w,
                   ),
+                  child: state is CurrentBuyerAuthorizedUserData
+                      ? BuyerProfile(buyerId: state.authorizedUserEntity.id)
+                      : state is CurrentBrokerAuthorizedUserData
+                          ? BrokerProfile(
+                              brokerId: state.authorizedUserEntity.id)
+                          : const SizedBox.shrink(),
                 ),
               ],
             );
@@ -122,21 +89,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
         );
       }),
     );
-  }
-
-  List<Widget> _userData({
-    required String firstName,
-    required String email,
-  }) {
-    return [
-      UserDataItem(
-        keyData: "Name",
-        value: firstName,
-      ),
-      UserDataItem(
-        keyData: "Email",
-        value: email,
-      ),
-    ];
   }
 }

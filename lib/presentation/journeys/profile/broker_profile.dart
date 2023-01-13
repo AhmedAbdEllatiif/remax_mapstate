@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/constants/app_utils.dart';
+import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
@@ -17,6 +18,7 @@ import '../../../domain/entities/arguments/complete_broker_data_arguments.dart';
 import '../../logic/cubit/get_broker_by_id/get_broker_by_id_cubit.dart';
 import '../../themes/theme_color.dart';
 import '../../widgets/btn_with_box_shadow.dart';
+import '../../widgets/image_name_rating_widget.dart';
 import '../../widgets/loading_widget.dart';
 
 class BrokerProfile extends StatefulWidget {
@@ -82,10 +84,40 @@ class _BrokerProfileState extends State<BrokerProfile> {
             *
             * */
               if (state is NotCompletedDataForBroker) {
-                return ButtonWithBoxShadow(
-                  text: TranslateConstants.completeYourProfile.t(context),
-                  onPressed: () => _navigateToCompleteBrokerData(
-                    userEntity: state.userEntity,
+                return SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: ImageNameRatingWidget(
+                          imgUrl: state.userEntity.avatar,
+                          name: state.userEntity.firstName,
+                          nameStyle:
+                              Theme.of(context).textTheme.headline6!.copyWith(
+                                    letterSpacing: 0.5,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColor.white,
+                                  ),
+                          rating: state.userEntity.brokerRating,
+                        ),
+                      ),
+                      UserDataItem(
+                        keyData: TranslateConstants.email.t(context),
+                        value: state.userEntity.email,
+                      ),
+                      UserDataItem(
+                        keyData: TranslateConstants.phoneNumber.t(context),
+                        value: state.userEntity.phoneNumber,
+                      ),
+                      ButtonWithBoxShadow(
+                        text: TranslateConstants.completeYourProfile.t(context),
+                        onPressed: () => _navigateToCompleteBrokerData(
+                          userEntity: state.userEntity,
+                        ),
+                      ),
+                    ],
                   ),
                 );
               }
@@ -98,138 +130,100 @@ class _BrokerProfileState extends State<BrokerProfile> {
             *
             * */
               if (state is BrokerDataFetched) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        UserDataItem(
-                          keyData: TranslateConstants.phoneNumber.t(context),
-                          value: state.userEntity.phoneNumber,
-                        ),
-                        Container(
-                          width: 30,
-                        ),
-                        UserDataItem(
-                          keyData:
-                              TranslateConstants.experienceYears.t(context),
-                          value: state.userEntity.experienceYears.toString(),
-                        ),
-                      ],
-                    ),
-                    Text(TranslateConstants.favoriteRegions.t(context),
-                        textAlign: TextAlign.start,
-                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                              //letterSpacing: 0.5,
-                              fontWeight: FontWeight.normal,
-                              color: AppColor.geeBung,
-                            )),
-
-                    // GridView.builder(
-                    //     scrollDirection: Axis.vertical,
-                    //     shrinkWrap: true,
-                    //     itemCount: 10,//state.userEntity.favoriteAreas.length,
-                    //     physics: const BouncingScrollPhysics(),
-                    //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    //       crossAxisCount: 2,
-                    //       mainAxisSpacing: Sizes.dimen_8.w,
-                    //       childAspectRatio: 5,
-                    //       // childAspectRatio: ResponsiveValue<double>(context,
-                    //       //     defaultValue: 0.9,
-                    //       //     valueWhen: const [
-                    //       //       Condition.equals(name: TABLET, value: 0.7),
-                    //       //       Condition.largerThan(name: TABLET, value: 0.7),
-                    //       //       Condition.equals(name: MOBILE, value: 0.9),
-                    //       //       Condition.smallerThan(name: MOBILE, value: 0.9),
-                    //       //     ]).value!,
-                    //       crossAxisSpacing: Sizes.dimen_8.w,
-                    //     ),
-                    //     itemBuilder: (context, index) {
-                    //       return Container(
-                    //         padding: const EdgeInsets.all(5),
-                    //         decoration: BoxDecoration(
-                    //             color: AppColor.transparentGeeBung
-                    //                 .withOpacity(0.18),
-                    //             borderRadius: BorderRadius.circular(
-                    //                 AppUtils.cornerRadius.w)),
-                    //         child: Center(
-                    //           child: Text(
-                    //             state.userEntity.favoriteAreas[1].name,
-                    //           ),
-                    //         ),
-                    //       );
-                    //     }),
-                    LayoutBuilder(
-                      builder: (context, constraints) {
-                        return GridView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            shrinkWrap: true,
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: constraints.maxWidth > 700 ? 4 : 3,
-                              mainAxisSpacing: 8,
-                              crossAxisSpacing: 3,
-                              childAspectRatio: 2
-                            ),
-                            itemCount: state.userEntity.favoriteAreas.length,
-                            itemBuilder: (context,index){
-                              return  Container(
-                                padding: const EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                    color: AppColor.transparentGeeBung
-                                        .withOpacity(0.18),
-                                    borderRadius: BorderRadius.circular(
-                                        AppUtils.cornerRadius.w)),
-                                child: Center(
-                                  child: Text(
-                                    state.userEntity.favoriteAreas[index].name,
+                return SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: ImageNameRatingWidget(
+                          imgUrl: state.userEntity.avatar,
+                          name: state.userEntity.firstName,
+                          nameStyle:
+                              Theme.of(context).textTheme.headline6!.copyWith(
+                                    letterSpacing: 0.5,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColor.white,
                                   ),
+                          rating: state.userEntity.brokerRating,
+                        ),
+                      ),
+                      SizedBox(
+                        height: Sizes.dimen_10.h,
+                      ),
+                      UserDataItem(
+                        keyData: TranslateConstants.email.t(context),
+                        value: state.userEntity.email,
+                      ),
+                      SizedBox(
+                        height: Sizes.dimen_6.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: UserDataItem(
+                              keyData:
+                                  TranslateConstants.phoneNumber.t(context),
+                              value: state.userEntity.phoneNumber,
+                            ),
+                          ),
+                          Container(
+                            width: 30,
+                          ),
+                          Expanded(
+                            child: UserDataItem(
+                              keyData:
+                                  TranslateConstants.experienceYears.t(context),
+                              value:
+                                  state.userEntity.experienceYears.toString(),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: Sizes.dimen_6.h,
+                      ),
+                      Text(TranslateConstants.favoriteRegions.t(context),
+                          textAlign: TextAlign.start,
+                          style:
+                              Theme.of(context).textTheme.bodyText2!.copyWith(
+                                    //letterSpacing: 0.5,
+                                    fontWeight: FontWeight.normal,
+                                    color: AppColor.geeBung,
+                                  )),
+                      LayoutBuilder(builder: (context, constraints) {
+                        return GridView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount:
+                                      constraints.maxWidth > 700 ? 4 : 3,
+                                  mainAxisSpacing: 8,
+                                  crossAxisSpacing: 3,
+                                  childAspectRatio: 3),
+                          itemCount: state.userEntity.favoriteAreas.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              padding: const EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  color: AppColor.transparentGeeBung
+                                      .withOpacity(0.18),
+                                  borderRadius: BorderRadius.circular(
+                                      AppUtils.cornerRadius.w)),
+                              child: Center(
+                                child: Text(
+                                  state.userEntity.favoriteAreas[index].name,
                                 ),
-                              );
-                            },
+                              ),
                             );
-                      }
-                    ),
-                    // ListView.builder(
-                    //   physics: const BouncingScrollPhysics(),
-                    //     shrinkWrap: true,
-                    //     itemCount: 10,//state.userEntity.favoriteAreas.length,
-                    //     itemBuilder: (context, index) {
-                    //       return Column(
-                    //         crossAxisAlignment: CrossAxisAlignment.start,
-                    //         children: [
-                    //       Container(
-                    //             padding: const EdgeInsets.all(5),
-                    //             decoration: BoxDecoration(
-                    //                 color: AppColor.transparentGeeBung
-                    //                     .withOpacity(0.18),
-                    //                 borderRadius: BorderRadius.circular(
-                    //                     AppUtils.cornerRadius.w)),
-                    //             child: Center(
-                    //               child: Text(
-                    //                 state.userEntity.favoriteAreas[1].name,
-                    //               ),
-                    //             ),
-                    //           ),
-                    //           Text(
-                    //             state.userEntity.favoriteAreas[0].name,
-                    //           ),
-                    //           Text(
-                    //             state.userEntity.favoriteAreas[0].name,
-                    //           ),
-                    //           Text(
-                    //             state.userEntity.favoriteAreas[0].name,
-                    //           ),
-                    //           Text(
-                    //             state.userEntity.favoriteAreas[0].name,
-                    //           ),
-                    //           Text(
-                    //             state.userEntity.favoriteAreas[0].name,
-                    //           ),
-                    //         ],
-                    //       );
-                    //     })
-                  ],
+                          },
+                        );
+                      }),
+                    ],
+                  ),
                 );
               }
 

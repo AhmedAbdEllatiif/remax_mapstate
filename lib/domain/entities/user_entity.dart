@@ -10,9 +10,13 @@ class UserEntity extends Equatable {
   final String lastName;
   final String email;
   final String phoneNumber;
+  final String avatar;
   UserType userType;
   final int experienceYears;
   final List<AreaEntity> favoriteAreas;
+
+  final double brokerRating;
+  final num brokerDoneDeals;
 
   UserEntity({
     required this.id,
@@ -22,6 +26,9 @@ class UserEntity extends Equatable {
     required this.phoneNumber,
     required this.userType,
     required this.experienceYears,
+    required this.avatar,
+    required this.brokerRating,
+    required this.brokerDoneDeals,
     this.favoriteAreas = const [],
   });
 
@@ -34,6 +41,9 @@ class UserEntity extends Equatable {
         userType: UserType.unDefined,
         experienceYears: 0,
         favoriteAreas: const [],
+        brokerDoneDeals: -1,
+        brokerRating: -1,
+        avatar: AppUtils.undefined,
       );
 
   @override

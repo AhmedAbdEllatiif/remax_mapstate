@@ -599,22 +599,23 @@ class RemoteDateSourceImpl extends RemoteDataSource {
   /// getBrokerById
   @override
   Future<dynamic> getBrokerById({required FetchBrokerParams params}) async {
+    final query = params.appLanguage == AppLanguage.en
+        ? getBrokersEnglishQuery()
+        : getBrokersArabicQuery();
+
+    final QueryResult result = await apiClient.get(
+      query,
+      variables: {
+        VariablesConstants.pk: params.brokerId,
+      },
+    );
+
+    log("updateUser >> ResultOnly >> ..........\n \n \n $result.......\n\n\n");
+    log("updateUser >> Data >> ..........\n ${result.data}.......");
+
+    return listUserModelFormBroker(result.data);
     try {
-      final query = params.appLanguage == AppLanguage.en
-          ? getBrokersEnglishQuery()
-          : getBrokersArabicQuery();
 
-      final QueryResult result = await apiClient.get(
-        query,
-        variables: {
-          VariablesConstants.pk: params.brokerId,
-        },
-      );
-
-      log("updateUser >> ResultOnly >> ..........\n \n \n $result.......\n\n\n");
-      log("updateUser >> Data >> ..........\n ${result.data}.......");
-
-      return listUserModelFormBroker(result.data!);
     } catch (e) {
       log("Error: $e");
       return AppError(AppErrorType.unHandledError,

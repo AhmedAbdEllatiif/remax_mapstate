@@ -1,15 +1,15 @@
 part of 'authorized_user_cubit.dart';
 
 abstract class AuthorizedUserState extends Equatable {
-  final AuthorizedUserEntity userEntity;
+  final AuthorizedUserEntity authorizedUserEntity;
   late final UserType currentUserType;
 
-  AuthorizedUserState(this.userEntity) {
-    currentUserType = userEntity.userType;
+  AuthorizedUserState(this.authorizedUserEntity) {
+    currentUserType = authorizedUserEntity.userType;
   }
 
   @override
-  List<Object?> get props => [userEntity];
+  List<Object?> get props => [authorizedUserEntity];
 }
 
 // /// current data of the current authorized user
