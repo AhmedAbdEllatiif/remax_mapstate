@@ -16,6 +16,7 @@ import 'package:remax_mapstate/domain/repositories/local_repository.dart';
 import 'package:remax_mapstate/domain/use_cases/get_area_brokers.dart';
 import 'package:remax_mapstate/domain/use_cases/get_areas.dart';
 import 'package:remax_mapstate/domain/use_cases/get_broker_by_id.dart';
+import 'package:remax_mapstate/domain/use_cases/get_buyer_by_id.dart';
 import 'package:remax_mapstate/domain/use_cases/get_commercial_projects.dart';
 import 'package:remax_mapstate/domain/use_cases/get_developer_contact.dart';
 import 'package:remax_mapstate/domain/use_cases/get_team_support.dart';
@@ -36,6 +37,7 @@ import 'package:remax_mapstate/presentation/journeys/calculator/formz/number_of_
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/unit_price.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/advanced_filter_projects/advanced_filter_projects_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/auth/register_new_user/register_new_user_cubit.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/get_buyer_by_id/get_buyer_by_id_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/get_filter_data/get_filter_data_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/login/login_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/projects_by_status/projects_by_status_cubit.dart';
@@ -302,6 +304,13 @@ Future init() async {
     ),
   );
 
+  /// GetBuyerByIdCase
+  getItInstance.registerFactory<GetBuyerByIdCase>(
+        () => GetBuyerByIdCase(
+      remoteRepository: getItInstance(),
+    ),
+  );
+
   /// GetBrokerByIdCase
   getItInstance.registerFactory<GetBrokerByIdCase>(
     () => GetBrokerByIdCase(
@@ -508,6 +517,12 @@ Future init() async {
       deleteUserDataCase: getItInstance(),
     ),
   );
+
+  /// init GetBuyerByIdCubit
+  getItInstance.registerFactory<GetBuyerByIdCubit>(
+        () => GetBuyerByIdCubit(),
+  );
+
 
   /// init GetBrokerByIdCubit
   getItInstance.registerFactory<GetBrokerByIdCubit>(

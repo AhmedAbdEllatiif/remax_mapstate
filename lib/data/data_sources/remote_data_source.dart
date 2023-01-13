@@ -41,6 +41,7 @@ import 'package:remax_mapstate/data/params/fetch_broker_params.dart';
 
 import '../../common/constants/api_constants.dart';
 import '../../domain/entities/app_error.dart';
+import '../../domain/entities/params/fetch_buyer_user_params.dart';
 import '../api/requests/auth/register.dart';
 import '../api/requests/queries/brokers/get_borkers_en.dart';
 import '../api/requests/queries/brokers/get_broker_ar.dart';
@@ -48,6 +49,7 @@ import '../api/requests/queries/get_filter_data/ar_get_filter_data.dart';
 import '../api/requests/queries/projects_by_status/ar_project_by_status.dart';
 import '../api/requests/queries/projects_by_status/en_project_by_status.dart';
 import '../api/requests/mutations/update_broker.dart';
+import '../api/requests/queries/users/get_users_en.dart';
 import '../models/filter_model.dart';
 import '../models/mutation/update_broker_request_model.dart';
 
@@ -142,6 +144,9 @@ abstract class RemoteDataSource {
 
   /// getBrokerById
   Future<dynamic> getBrokerById({required FetchBrokerParams params});
+
+  /// getBuyerById
+  Future<dynamic> getBuyerById({required FetchBuyerUserParams params});
 
   /// updateBrokerData
   Future<dynamic> updateBrokerData({
@@ -596,30 +601,48 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     }
   }
 
-  /// getBrokerById
   @override
-  Future<dynamic> getBrokerById({required FetchBrokerParams params}) async {
-    final query = params.appLanguage == AppLanguage.en
-        ? getBrokersEnglishQuery()
-        : getBrokersArabicQuery();
-
-    final QueryResult result = await apiClient.get(
-      query,
-      variables: {
-        VariablesConstants.pk: params.brokerId,
-      },
-    );
-
-    log("updateUser >> ResultOnly >> ..........\n \n \n $result.......\n\n\n");
-    log("updateUser >> Data >> ..........\n ${result.data}.......");
-
-    return listUserModelFormBroker(result.data);
+  Future<dynamic> getBuyerById({required FetchBuyerUserParams params}) async {
     try {
+      final query = getBuyerUsersEnglishQuery();
 
+      final QueryResult result = await apiClient.get(
+        query,
+        variables: {
+          VariablesConstants.pk: params.buyerId,
+        },
+      );
+
+      log("getBuyerById >> Data >> ..........\n ${result.data}.......");
+      return listUserModelFormUsers(result.data);
     } catch (e) {
       log("Error: $e");
       return AppError(AppErrorType.unHandledError,
-          message: "updateDefaultUser UnHandledError >> $e");
+          message: "getBuyerById UnHandledError >> $e");
+    }
+  }
+
+  /// getBrokerById
+  @override
+  Future<dynamic> getBrokerById({required FetchBrokerParams params}) async {
+    try {
+      final query = params.appLanguage == AppLanguage.en
+          ? getBrokersEnglishQuery()
+          : getBrokersArabicQuery();
+
+      final QueryResult result = await apiClient.get(
+        query,
+        variables: {
+          VariablesConstants.pk: params.brokerId,
+        },
+      );
+
+      log("getBrokerById >> Data >> ..........\n ${result.data}.......");
+      return listUserModelFormBroker(result.data);
+    } catch (e) {
+      log("Error: $e");
+      return AppError(AppErrorType.unHandledError,
+          message: "getBrokerById UnHandledError >> $e");
     }
   }
 

@@ -9,6 +9,7 @@ import 'package:remax_mapstate/domain/entities/broker_entity.dart';
 import 'package:remax_mapstate/domain/entities/contact_developer.dart';
 import 'package:remax_mapstate/domain/entities/filter_data_entity.dart';
 import 'package:remax_mapstate/domain/entities/login_entity.dart';
+import 'package:remax_mapstate/domain/entities/params/fetch_buyer_user_params.dart';
 import 'package:remax_mapstate/domain/entities/params/login_params.dart';
 import 'package:remax_mapstate/domain/entities/params/reigster_params.dart';
 import 'package:remax_mapstate/domain/entities/params/update_user_after_registration_params.dart';
@@ -86,7 +87,11 @@ abstract class RemoteRepository {
   Future<Either<AppError, UserEntity>> getBrokerById(
       {required FetchBrokerParams params});
 
-  /// getBrokerProfile
+  /// getBuyerById
+  Future<Either<AppError, UserEntity>> getBuyerById(
+      {required FetchBuyerUserParams params});
+
+  /// completeBrokerData
   Future<Either<AppError, SuccessModel>> completeBrokerData(
     CompleteBrokerDataParams params,
   );

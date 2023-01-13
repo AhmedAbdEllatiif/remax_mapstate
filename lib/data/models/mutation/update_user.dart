@@ -62,7 +62,7 @@ class UpdateUserMutationModel {
         id: userId,
         firstName: firstName,
         phone: phoneNumber,
-        groups: [groups],
+        groups: groups != -1 ? [groups] : [],
       );
 
   Map<String, dynamic> toUpdateUserGroupAndFirstName() {

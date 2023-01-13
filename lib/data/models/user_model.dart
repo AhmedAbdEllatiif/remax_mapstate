@@ -46,6 +46,40 @@ List<UserModel> listUserModelFormBroker(dynamic json) {
   ));
 }
 
+/// parse to user model
+/*
+* users{
+  users(pk: 62){
+    user{
+      id
+      firstName
+      email
+      phone
+      groups{
+        id
+        name
+      }
+    }
+  }
+}*/
+List<UserModel> listUserModelFormUsers(dynamic json) {
+  final List<UserModel> users = [];
+
+  if (json == null) return users;
+
+  if (json["users"] == null) return users;
+
+  // if (json["brokers"]["user"] == null) return brokers;
+
+  //final json = jsonDecode(body);
+  return List<UserModel>.from(json["users"].map(
+    (element) => UserModel.formJsonBuyer(
+      userJson: element["user"],
+      mapEstateUserJson: element["user"]["mapEstateUser"],
+    ),
+  ));
+}
+
 class UserModel extends UserEntity {
   final String userId;
   final int userPk;
@@ -138,6 +172,33 @@ class UserModel extends UserEntity {
       userFavoriteAreas: favoriteAreas != null
           ? listOfAreasFromFavRegionsJson(favoriteAreas)
           : [],
+    );
+  }
+
+  factory UserModel.formJsonBuyer({
+    required dynamic userJson,
+    required dynamic mapEstateUserJson,
+  }) {
+    return UserModel(
+      // from userJson
+      userId: userJson["id"] ?? "-1",
+      userPk: userJson["pk"] ?? -1,
+      userFirstName: userJson["firstName"] ?? AppUtils.undefined,
+      userLastName: userJson["lastName"] ?? AppUtils.undefined,
+      userEmail: userJson["email"] ?? AppUtils.undefined,
+      userPhoneNumber: userJson["phone"] ?? AppUtils.undefined,
+
+      // from mapStateUser
+      userAvatar: mapEstateUserJson["avatar"] ?? AppUtils.undefined,
+
+      // broker rating
+      userBrokerRating: 0.0,
+
+      // done deals
+      userDoneDeals: 0,
+
+      yearsOfExperience: 0,
+      userFavoriteAreas: [],
     );
   }
 

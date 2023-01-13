@@ -27,6 +27,7 @@ import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 
 import '../../common/classes/handle_operation_exceptions.dart';
 import '../../domain/entities/login_entity.dart';
+import '../../domain/entities/params/fetch_buyer_user_params.dart';
 import '../../domain/entities/params/login_params.dart';
 import '../../domain/entities/params/reigster_params.dart';
 import '../../domain/entities/params/update_user_after_registration_params.dart';
@@ -478,6 +479,38 @@ class RemoteRepositoryImpl extends RemoteRepository {
   }
 
   @override
+  Future<Either<AppError, UserEntity>> getBuyerById(
+      {required FetchBuyerUserParams params}) async {
+    try {
+      final result = await remoteDataSource.getBuyerById(params: params);
+
+      if (result is List<UserModel>) {
+        if (result.isNotEmpty) {
+          return Right(result[0]);
+        }
+      }
+      return Left(result);
+    }
+    //==> SocketException
+    on SocketException catch (e) {
+      log("RepoImpl >> FetchBuyerUserParams >> SocketException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.message));
+    }
+    //==> OperationException
+    on OperationException catch (e) {
+      final appErrorType =
+          AppErrorTypeBuilder.formOperationException(e).appErrorType;
+      log("RepoImpl >> FetchBuyerUserParams >> OperationException >> $e");
+      return Left(AppError(appErrorType, message: e.toString()));
+    }
+    //==> Exception
+    on Exception catch (e) {
+      log("RepoImpl >> FetchBuyerUserParams >> Exception >> $e");
+      return Left(AppError(AppErrorType.api, message: e.toString()));
+    }
+  }
+
+  @override
   Future<Either<AppError, UserEntity>> getBrokerById({
     required FetchBrokerParams params,
   }) async {
@@ -493,19 +526,19 @@ class RemoteRepositoryImpl extends RemoteRepository {
     }
     //==> SocketException
     on SocketException catch (e) {
-      log("RepoImpl >> updateCurrentUser >> SocketException >> $e");
+      log("RepoImpl >> getBrokerById >> SocketException >> $e");
       return Left(AppError(AppErrorType.network, message: e.message));
     }
     //==> OperationException
     on OperationException catch (e) {
       final appErrorType =
           AppErrorTypeBuilder.formOperationException(e).appErrorType;
-      log("RepoImpl >> updateCurrentUser >> OperationException >> $e");
+      log("RepoImpl >> getBrokerById >> OperationException >> $e");
       return Left(AppError(appErrorType, message: e.toString()));
     }
     //==> Exception
     on Exception catch (e) {
-      log("RepoImpl >> updateCurrentUser >> Exception >> $e");
+      log("RepoImpl >> getBrokerById >> Exception >> $e");
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
   }
