@@ -86,6 +86,7 @@ class ProjectStatusWidget extends StatelessWidget {
                 padding: EdgeInsets.only(right: Sizes.dimen_16.w,left: Sizes.dimen_16.w,top: Sizes.dimen_8.h),
                 child: SeeAllWidget(
                   title: TranslateConstants.findProjectByStatus.t(context),
+                  showSeeAll: false,
                   onSeeAllPressed: () {},
                 ),
               ),

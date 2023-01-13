@@ -14,6 +14,7 @@ import 'package:remax_mapstate/presentation/journeys/project_details/project_sec
 import 'package:remax_mapstate/presentation/journeys/project_details/services.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/starting_price_section.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
+import 'package:remax_mapstate/presentation/widgets/image_slider.dart';
 
 import 'buttons_section.dart';
 
@@ -63,7 +64,9 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
                   child: Column(
                     children: [
                       /// Project Images section
-                      ProjectImagesSection(imageList: projectEntity.images,),
+                     // ProjectImagesSection(imageList: projectEntity.images,),
+
+                      ImageSliderWidget(images: projectEntity.images,),
 
                       /// Project avatar, name, isFavorite, district
                       Padding(

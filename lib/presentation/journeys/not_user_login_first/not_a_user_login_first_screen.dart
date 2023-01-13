@@ -5,6 +5,7 @@ import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/presentation/journeys/not_user_login_first/not_user_animation.dart';
 import 'package:remax_mapstate/presentation/widgets/btn_with_box_shadow.dart';
+import 'package:remax_mapstate/presentation/widgets/city_background_widget.dart';
 
 import '../../../router/route_hepler.dart';
 
@@ -13,24 +14,31 @@ class NotAUserLoginFirstScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ListView(
-        shrinkWrap: true,
-        children: [
-          /// not user animation
-          SizedBox(
-            height: Sizes.dimen_100.h,
-            width: Sizes.dimen_100.w,
-            child: const NotUserAnimation(),
-          ),
+    return Stack(
+      children: [
 
-          /// btn login
-          ButtonWithBoxShadow(
-            onPressed: () => _navigateChooseUserType(context),
-            text: TranslateConstants.login.t(context),
+        const CityBackgroundWidget(),
+
+        Center(
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              /// not user animation
+              SizedBox(
+                height: Sizes.dimen_100.h,
+                width: Sizes.dimen_100.w,
+                child: const NotUserAnimation(),
+              ),
+
+              /// btn login
+              ButtonWithBoxShadow(
+                onPressed: () => _navigateChooseUserType(context),
+                text: TranslateConstants.login.t(context),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

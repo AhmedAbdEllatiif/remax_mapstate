@@ -9,6 +9,7 @@ import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 import '../../../common/constants/sizes.dart';
 import '../../../common/screen_utils/screen_util.dart';
 import '../../logic/cubit/team_support/team_support_cubit.dart';
+import '../../widgets/city_background_widget.dart';
 
 
 class TeamSupportScreen extends StatefulWidget {
@@ -39,64 +40,72 @@ class _TeamSupportScreen extends State<TeamSupportScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => _teamSupportCubit,
-      child:  Center(
-        child: SingleChildScrollView(
-          child: BlocBuilder<TeamSupportCubit, TeamSupportState>(
-            builder: (context, state) {
+    return Stack(
+      children: [
 
-              /// loading
-              if (state is LoadingTeamSupportState) {
-                return const Center(
-                  child: LoadingWidget(),
-                );
-              }
+        const CityBackgroundWidget(),
 
-              /// error
-              if (state is TeamSupportErrorState) {
-                return Center(
-                  child: Text(
-                    "Error: ${state.appError.appErrorType} , message: ${state.appError.message}",
-                  ),
-                );
-              }
 
-              /// TeamSupportDataLoaded
-              if (state is TeamSupportDataLoaded) {
-                final developerData = state.teamSupportEntity;
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: ScreenUtil.screenWidth * 0.1,vertical: Sizes.dimen_4.h),
-                  child: Column(
-                    children: [
-                      /// image
-                      Container(
-                        constraints: BoxConstraints(
-                          maxHeight: ScreenUtil.screenHeight * 0.35,
-                          maxWidth: ScreenUtil.screenWidth * 0.7,
-                          minHeight: ScreenUtil.screenHeight * 0.35,
-                          minWidth: ScreenUtil.screenWidth * 0.7,
-                        ),
-                        margin: EdgeInsets.only(bottom: Sizes.dimen_10.h),
-                        child: DeveloperContactImage(
-                            imageUrl: developerData.image),
+        BlocProvider(
+          create: (context) => _teamSupportCubit,
+          child:  Center(
+            child: SingleChildScrollView(
+              child: BlocBuilder<TeamSupportCubit, TeamSupportState>(
+                builder: (context, state) {
+
+                  /// loading
+                  if (state is LoadingTeamSupportState) {
+                    return const Center(
+                      child: LoadingWidget(),
+                    );
+                  }
+
+                  /// error
+                  if (state is TeamSupportErrorState) {
+                    return Center(
+                      child: Text(
+                        "Error: ${state.appError.appErrorType} , message: ${state.appError.message}",
                       ),
+                    );
+                  }
 
-                      /// contact data card
-                      TeamSupportCardInfo(
-                        teamSupportEntity: state.teamSupportEntity,
-                      )
-                    ],
-                  ),
-                );
-              }
+                  /// TeamSupportDataLoaded
+                  if (state is TeamSupportDataLoaded) {
+                    final developerData = state.teamSupportEntity;
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: ScreenUtil.screenWidth * 0.1,vertical: Sizes.dimen_4.h),
+                      child: Column(
+                        children: [
+                          /// image
+                          Container(
+                            constraints: BoxConstraints(
+                              maxHeight: ScreenUtil.screenHeight * 0.35,
+                              maxWidth: ScreenUtil.screenWidth * 0.7,
+                              minHeight: ScreenUtil.screenHeight * 0.35,
+                              minWidth: ScreenUtil.screenWidth * 0.7,
+                            ),
+                            margin: EdgeInsets.only(bottom: Sizes.dimen_10.h),
+                            child: DeveloperContactImage(
+                                imageUrl: developerData.image),
+                          ),
 
-              /// Nothing to show
-              return const SizedBox.shrink();
-            },
+                          /// contact data card
+                          TeamSupportCardInfo(
+                            teamSupportEntity: state.teamSupportEntity,
+                          )
+                        ],
+                      ),
+                    );
+                  }
+
+                  /// Nothing to show
+                  return const SizedBox.shrink();
+                },
+              ),
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }

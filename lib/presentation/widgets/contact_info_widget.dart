@@ -31,7 +31,7 @@ class ContactInfoWidget extends StatelessWidget {
               Text(
                 TranslateConstants.whatsapp.t(context),
                 style: Theme.of(context).textTheme.caption!.copyWith(
-                    color: AppColor.absoluteTransparentGeeBung
+                    color: AppColor.black
                 ),
               ),
               IconButton(
@@ -53,7 +53,7 @@ class ContactInfoWidget extends StatelessWidget {
             Text(
               TranslateConstants.friendlyPhoneCall.t(context),
               style: Theme.of(context).textTheme.caption!.copyWith(
-                  color: AppColor.absoluteTransparentGeeBung
+                  color: AppColor.black
               ),
             ),
 

@@ -8,11 +8,13 @@ import '../themes/theme_color.dart';
 class SeeAllWidget extends StatelessWidget {
   final Function() onSeeAllPressed;
   final String title;
+  final bool showSeeAll;
 
   const SeeAllWidget({
     Key? key,
     required this.onSeeAllPressed,
     required this.title,
+    this.showSeeAll = true,
   }) : super(key: key);
 
   @override
@@ -31,6 +33,7 @@ class SeeAllWidget extends StatelessWidget {
         ),
 
         /// see all
+        if(showSeeAll)
         InkWell(
           borderRadius: BorderRadius.circular(20),
           onTap: onSeeAllPressed,

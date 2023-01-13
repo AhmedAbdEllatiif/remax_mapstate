@@ -302,8 +302,8 @@ class RemoteDateSourceImpl extends RemoteDataSource {
           name: "John",
           rating: 3.5,
           totalDoneDeals: 50,
-          whatsappNum: '+2001124466700',
-          phoneNum: '+2001124466700'),
+          whatsappNum: '+201154949495',
+          phoneNum: '+201154949495'),
       BrokerModel(
           id: 1,
           age: 28,
@@ -311,8 +311,8 @@ class RemoteDateSourceImpl extends RemoteDataSource {
           name: "Micheal",
           rating: 4.5,
           totalDoneDeals: 180,
-          whatsappNum: '+2001124466700',
-          phoneNum: '+2001124466700'),
+          whatsappNum: '+201154949495',
+          phoneNum: '+201154949495'),
       BrokerModel(
           id: 2,
           age: 33,
@@ -320,8 +320,8 @@ class RemoteDateSourceImpl extends RemoteDataSource {
           name: "John",
           rating: 3.5,
           totalDoneDeals: 50,
-          whatsappNum: '+2001124466700',
-          phoneNum: '+2001124466700'),
+          whatsappNum: '+201154949495',
+          phoneNum: '+201154949495'),
       BrokerModel(
           id: 3,
           age: 28,
@@ -329,8 +329,8 @@ class RemoteDateSourceImpl extends RemoteDataSource {
           name: "Micheal",
           rating: 4.5,
           totalDoneDeals: 180,
-          whatsappNum: '+2001124466700',
-          phoneNum: '+2001124466700'),
+          whatsappNum: '+201154949495',
+          phoneNum: '+201154949495'),
       BrokerModel(
           id: 4,
           age: 33,
@@ -338,8 +338,8 @@ class RemoteDateSourceImpl extends RemoteDataSource {
           name: "John",
           rating: 3.5,
           totalDoneDeals: 50,
-          whatsappNum: '+2001124466700',
-          phoneNum: '+2001124466700'),
+          whatsappNum: '+201154949495',
+          phoneNum: '+201154949495'),
       BrokerModel(
           id: 5,
           age: 28,
@@ -347,8 +347,8 @@ class RemoteDateSourceImpl extends RemoteDataSource {
           name: "Micheal",
           rating: 4.5,
           totalDoneDeals: 180,
-          whatsappNum: '+2001124466700',
-          phoneNum: '+2001124466700'),
+          whatsappNum: '+201154949495',
+          phoneNum: '+201154949495'),
       BrokerModel(
           id: 6,
           age: 33,
@@ -356,8 +356,8 @@ class RemoteDateSourceImpl extends RemoteDataSource {
           name: "John",
           rating: 3.5,
           totalDoneDeals: 50,
-          whatsappNum: '+2001124466700',
-          phoneNum: '+2001124466700'),
+          whatsappNum: '+201154949495',
+          phoneNum: '+201154949495'),
       BrokerModel(
           id: 7,
           age: 28,
@@ -365,8 +365,8 @@ class RemoteDateSourceImpl extends RemoteDataSource {
           name: "Micheal",
           rating: 4.5,
           totalDoneDeals: 180,
-          whatsappNum: '+2001124466700',
-          phoneNum: '+2001124466700'),
+          whatsappNum: '+201154949495',
+          phoneNum: '+201154949495'),
     ];
   }
 
@@ -379,7 +379,7 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       latitude: 37.759392,
       longitude: -122.5107336,
       image: AssetsConstants.person2,
-      empPhoneNum: "+2001124466700",
+      empPhoneNum: "+201154949495",
     );
   }
 
@@ -391,7 +391,7 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       empSecondName: "Alison",
       latitude: null,
       longitude: null,
-      empPhoneNum: "+2001124466700",
+      empPhoneNum: "+201154949495",
     );
   }
 
@@ -400,8 +400,8 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       id: 0,
       firstName: "Haytham",
       lastName: "Hagrasy",
-      phoneNum: "+2001124466700",
-      whatsappNum: '+2001124466700',
+      phoneNum: "+200112*****",
+      whatsappNum: '+201154949495',
       image: AssetsConstants.person2,
     );
   }
