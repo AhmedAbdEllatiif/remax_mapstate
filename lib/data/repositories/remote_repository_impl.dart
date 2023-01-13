@@ -29,7 +29,7 @@ import '../../common/classes/handle_operation_exceptions.dart';
 import '../../domain/entities/login_entity.dart';
 import '../../domain/entities/params/login_params.dart';
 import '../../domain/entities/params/reigster_params.dart';
-import '../../domain/entities/params/update_user_group_params.dart';
+import '../../domain/entities/params/update_user_after_registration_params.dart';
 import '../../domain/entities/params/update_user_params.dart';
 import '../../domain/entities/profile_entity.dart';
 import '../../domain/entities/register_entity.dart';
@@ -132,16 +132,18 @@ class RemoteRepositoryImpl extends RemoteRepository {
   //                                                                          \\
   //                                                                          \\
   //==========================================================================\\
-  /// updateUserGroup
+  /// updateUserAfterRegistration
   @override
-  Future<Either<AppError, UserEntity>> updateUserGroup(
+  Future<Either<AppError, UserEntity>> updateUserAfterRegistration(
     UpdateUserGroupParams params,
   ) async {
     try {
-      final result = await remoteDataSource.updateCurrentUserGroup(
-        UpdateUserMutationModel.forUpdatingUserGroup(
+      final result = await remoteDataSource.updateUserAfterRegistration(
+        UpdateUserMutationModel.forUpdatingUserAfterRegistration(
           userId: params.userId,
           groups: params.userGroup,
+          firstName: params.firstName,
+          phoneNumber: params.phoneNumber,
         ),
       );
 

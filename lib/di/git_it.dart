@@ -63,7 +63,7 @@ import '../domain/use_cases/make_phone_call.dart';
 import '../domain/use_cases/open_map.dart';
 import '../domain/use_cases/open_whats_app.dart';
 import '../domain/use_cases/update_default_user.dart';
-import '../domain/use_cases/update_user/update_user_groups.dart';
+import '../domain/use_cases/update_user/update_user_after_registration.dart';
 import '../presentation/logic/cubit/areas/areas_cubit.dart';
 import '../presentation/logic/cubit/auth/get_profile/get_current_user_profile_cubit.dart';
 import '../presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
@@ -324,8 +324,8 @@ Future init() async {
   );
 
   /// UpdateUserGroupCase
-  getItInstance.registerFactory<UpdateUserGroupCase>(
-    () => UpdateUserGroupCase(
+  getItInstance.registerFactory<UpdateUserAfterRegistrationCase>(
+    () => UpdateUserAfterRegistrationCase(
       remoteRepository: getItInstance(),
     ),
   );

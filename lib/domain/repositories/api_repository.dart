@@ -11,7 +11,7 @@ import 'package:remax_mapstate/domain/entities/filter_data_entity.dart';
 import 'package:remax_mapstate/domain/entities/login_entity.dart';
 import 'package:remax_mapstate/domain/entities/params/login_params.dart';
 import 'package:remax_mapstate/domain/entities/params/reigster_params.dart';
-import 'package:remax_mapstate/domain/entities/params/update_user_group_params.dart';
+import 'package:remax_mapstate/domain/entities/params/update_user_after_registration_params.dart';
 import 'package:remax_mapstate/domain/entities/params/update_user_params.dart';
 import 'package:remax_mapstate/domain/entities/profile_entity.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
@@ -94,7 +94,7 @@ abstract class RemoteRepository {
 
   ///****************************** UpdateUser **************************** \\\\
   /// updateUserGroup
-  Future<Either<AppError, UserEntity>> updateUserGroup(
+  Future<Either<AppError, UserEntity>> updateUserAfterRegistration(
       UpdateUserGroupParams params,
       );
 

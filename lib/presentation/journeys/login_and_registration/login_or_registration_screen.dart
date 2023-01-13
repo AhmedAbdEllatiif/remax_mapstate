@@ -54,6 +54,10 @@ class _RegisterOrLoginScreenState extends State<RegisterOrLoginScreen> {
   /// to change between login or registration
   bool isLoginForm = true;
 
+  /// the registered user first name
+  String _registeredUserFirstName = "";
+  String _registeredUserPhoneNumber = "";
+
   String userEmail = "";
   String userPassword = "";
 
@@ -125,7 +129,7 @@ class _RegisterOrLoginScreenState extends State<RegisterOrLoginScreen> {
               if (state is ProfileDataFetchedSuccessfully) {
                 log("ProfileDataFetchedSuccessfully >>");
                 // update user data with the user type
-                _updateUserGroup(
+                _updateUserGroupAndFirstName(
                   userId: state.profileEntity.userEntity.id,
                   userType: currentRegisteredUserType,
                 );
@@ -189,10 +193,19 @@ class _RegisterOrLoginScreenState extends State<RegisterOrLoginScreen> {
                                   : RegisterForm(
                                       userType: widget
                                           .registerOrLoginArguments.userType,
-                                      onRegistrationSuccess:
-                                          (registerEntity, userType) async {
+                                      onRegistrationSuccess: (
+                                        registerEntity,
+                                        userType,
+                                        userFirstName,
+                                        userPhoneNumber,
+                                      ) async {
                                         // update data
                                         currentRegisteredUserType = userType;
+
+                                        _registeredUserFirstName =
+                                            userFirstName;
+                                        _registeredUserPhoneNumber =
+                                            userPhoneNumber;
 
                                         //==> save user token
                                         await _saveTokenForAutoLogin(
@@ -246,15 +259,16 @@ class _RegisterOrLoginScreenState extends State<RegisterOrLoginScreen> {
   }
 
   /// to update user group
-  void _updateUserGroup({
+  void _updateUserGroupAndFirstName({
     required String userId,
     required UserType userType,
   }) {
-    _updateDefaultUserCubit.updateUserGroupId(
-      userId: userId,
-      currentUserType: userType,
-      userToken: "",
-    );
+    _updateDefaultUserCubit.updateDefaultUserWithDataAfterRegistration(
+        userId: userId,
+        currentUserType: userType,
+        userToken: "",
+        phoneNumber: _registeredUserPhoneNumber,
+        firstName: _registeredUserFirstName);
   }
 
   /// to change between login and registration

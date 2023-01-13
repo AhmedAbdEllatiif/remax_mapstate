@@ -19,7 +19,7 @@ import '../../widgets/app_text_form_field.dart';
 import '../../widgets/btn_with_box_shadow.dart';
 
 class RegisterForm extends StatefulWidget {
-  final Function(RegisterEntity, UserType) onRegistrationSuccess;
+  final Function(RegisterEntity, UserType,String,String) onRegistrationSuccess;
   final UserType userType;
 
   const RegisterForm({
@@ -74,6 +74,8 @@ class _RegisterFormState extends State<RegisterForm> {
               widget.onRegistrationSuccess(
                 state.registerEntity,
                 widget.userType,
+                firstNameController.value.text,
+                phoneNumberController.value.text,
               );
             }
 

@@ -74,7 +74,7 @@ abstract class RemoteDataSource {
   //                                                                          \\
   //==========================================================================\\
   /// updateCurrentUserGroup
-  Future<dynamic> updateCurrentUserGroup(
+  Future<dynamic> updateUserAfterRegistration(
       UpdateUserMutationModel updateUserMutationModel);
 
   /// return  projects
@@ -266,7 +266,7 @@ class RemoteDateSourceImpl extends RemoteDataSource {
   //                                                                          \\
   //==========================================================================\\
   @override
-  Future<dynamic> updateCurrentUserGroup(
+  Future<dynamic> updateUserAfterRegistration(
     UpdateUserMutationModel updateUserMutationModel,
   ) async {
     try {
@@ -276,7 +276,7 @@ class RemoteDateSourceImpl extends RemoteDataSource {
         mutationFields,
         variables: {
           VariablesConstants.inputForm:
-              updateUserMutationModel.toUpdateUserGroup(),
+              updateUserMutationModel.toUpdateUserGroupAndFirstName(),
         },
       );
 

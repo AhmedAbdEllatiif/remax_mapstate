@@ -46,7 +46,6 @@ class UpdateUserMutationModel {
     };
   }
 
-
   /*
   *
   *
@@ -54,20 +53,26 @@ class UpdateUserMutationModel {
   *
   *
   * */
-  factory UpdateUserMutationModel.forUpdatingUserGroup(
-          {required int userId, required int groups}) =>
+  factory UpdateUserMutationModel.forUpdatingUserAfterRegistration(
+          {required int userId,
+          required int groups,
+          required String firstName,
+          required String phoneNumber}) =>
       UpdateUserMutationModel(
         id: userId,
+        firstName: firstName,
+        phone: phoneNumber,
         groups: [groups],
       );
 
-  Map<String, dynamic> toUpdateUserGroup() {
+  Map<String, dynamic> toUpdateUserGroupAndFirstName() {
     return {
       "pk": id,
+      "firstName": firstName,
+      "phone": phone,
       "groups": groups,
     };
   }
-
 
   /*
   *
