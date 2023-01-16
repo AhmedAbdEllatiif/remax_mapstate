@@ -55,6 +55,7 @@
   "contactWith": "تواصل مع",
   "location": "موقع",
   "whatsapp": "واتس اب",
+  "facebook": "فيس بوك",
   "friendlyPhoneCall": "مكالمة هاتفية",
   "getDirections": "الموقع على الخريطة",
   "headOffice": "المكتب الرئيسي",
@@ -116,11 +117,15 @@
   "updateProfile": "تعديل الملف الشخصى",
 
   "findProjectByStatus": "ابحث عن المشروع حسب الحالة",
+  "contactUs": "تواصل معنا",
 
   "fullName": "الاسم الكامل",
   "phoneNumber": "رقم الهاتف",
   "invalidPhoneNumber": "رقم الهاتف غير صحيح",
 
+  "title": "العنوان",
+  "subject": "الموضوع",
+  "send": "ارسال",
 
   "arabic": "العربية",
   "english": "English",

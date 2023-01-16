@@ -38,6 +38,7 @@ import 'package:remax_mapstate/data/models/unit_type_model.dart';
 import 'package:remax_mapstate/data/models/user_model.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
 import 'package:remax_mapstate/data/params/fetch_broker_params.dart';
+import 'package:remax_mapstate/domain/entities/params/contact_us_request_params.dart';
 
 import '../../common/constants/api_constants.dart';
 import '../../domain/entities/app_error.dart';
@@ -78,6 +79,9 @@ abstract class RemoteDataSource {
   /// updateCurrentUserGroup
   Future<dynamic> updateUserAfterRegistration(
       UpdateUserMutationModel updateUserMutationModel);
+
+  /// contactUs
+  Future<dynamic> contactUs(ContactUsRequestParams contactUsRequestParams);
 
   /// return  projects
   Future<List<ProjectModel>> fetchProjects();
@@ -287,6 +291,36 @@ class RemoteDateSourceImpl extends RemoteDataSource {
 
       log("updateUser >> Data >> ..........\n ${result.data}.......");
       return userModelFormUpdateUser(result.data);
+    } catch (e) {
+      return AppError(AppErrorType.unHandledError,
+          message: "updateDefaultUser UnHandledError >> $e");
+    }
+  }
+
+  //============================>  contactUs  <===============================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
+  /// contactUs
+  @override
+  Future<dynamic> contactUs(
+      ContactUsRequestParams contactUsRequestParams) async {
+    try {
+      // final mutationFields = updateUserMutation();
+      //
+      // final QueryResult result = await apiClient.mutate(
+      //   mutationFields,
+      //   variables: {
+      //     VariablesConstants.inputForm:
+      //     updateUserMutationModel.toUpdateUserGroupAndFirstName(),
+      //   },
+      // );
+      //
+      // log("updateUser >> Data >> ..........\n ${result.data}.......");
+      // return userModelFormUpdateUser(result.data);
     } catch (e) {
       return AppError(AppErrorType.unHandledError,
           message: "updateDefaultUser UnHandledError >> $e");

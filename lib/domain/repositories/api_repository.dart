@@ -25,6 +25,7 @@ import 'package:remax_mapstate/domain/entities/user_entity.dart';
 import '../../data/params/fetch_areas_params.dart';
 import '../../data/params/fetch_broker_params.dart';
 import '../entities/params/complete_broker_data_params.dart';
+import '../entities/params/contact_us_request_params.dart';
 
 abstract class RemoteRepository {
   ///***************************** Projects ******************************* \\\\
@@ -96,12 +97,11 @@ abstract class RemoteRepository {
     CompleteBrokerDataParams params,
   );
 
-
   ///****************************** UpdateUser **************************** \\\\
   /// updateUserGroup
   Future<Either<AppError, UserEntity>> updateUserAfterRegistration(
-      UpdateUserGroupParams params,
-      );
+    UpdateUserGroupParams params,
+  );
 
   ///**************************** Developer Contact *********************** \\\\
   Future<Either<AppError, ContactDeveloperEntity>> getDeveloperContact(
@@ -110,4 +110,9 @@ abstract class RemoteRepository {
   ///**************************** Team Support **************************** \\\\
   /// return team support
   Future<Either<AppError, TeamSupportEntity>> getTeamSupport();
+
+  /// contactUs
+  Future<Either<AppError, SuccessModel>> contactUs(
+    ContactUsRequestParams params,
+  );
 }

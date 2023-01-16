@@ -72,8 +72,6 @@ class RouteHelper {
       Navigator.of(context).pushNamed(RouteList.calculationResult,
           arguments: calculatorValidationBloc);
 
-
-
   /// To CompleteBrokerScreen \\\
   void completeBrokerData(
     BuildContext context, {
@@ -129,5 +127,9 @@ class RouteHelper {
           {required AdvancedFilterResultArgs advancedFilterResultArgs}) =>
       Navigator.of(context).pushNamed(RouteList.advancedFilterResult,
           arguments: advancedFilterResultArgs);
+
+  /// To ContactUsScreen \\\
+  void contactUsScreen(BuildContext context) =>
+      Navigator.of(context).pushNamed(RouteList.contactUs);
 }
 //Navigator.pushNamed(context, AppRouter.chooseBrokerScreen)

@@ -48,27 +48,27 @@ class NavigationDrawer extends StatelessWidget {
               ),
             ),
 
-            /// Okay
+            /// contactUs
             NavigationListItem(
-              title: TranslateConstants.okay.t(context),
+              title: TranslateConstants.contactUs.t(context),
               icon: const Icon(
                 Icons.message_outlined,
                 color: AppColor.white,
               ),
-              onPressed: () {},
+              onPressed: () => _navigateToContactUsScreen(context),
             ),
 
-            /// Okay
-            NavigationListItem(
-              title: TranslateConstants.okay.t(context),
-              icon: const Icon(
-                Icons.message_outlined,
-                color: AppColor.white,
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
+            // /// Okay
+            // NavigationListItem(
+            //   title: TranslateConstants.okay.t(context),
+            //   icon: const Icon(
+            //     Icons.message_outlined,
+            //     color: AppColor.white,
+            //   ),
+            //   onPressed: () {
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
 
             /// About
             NavigationListItem(
@@ -127,6 +127,11 @@ class NavigationDrawer extends StatelessWidget {
   /// To navigate to chooseUserScreen
   void _navigateToChooseUserScreen(BuildContext context) {
     RouteHelper().chooseUserTypeScreen(context, isClearStack: true);
+  }
+
+  /// To navigate to ContactUsScreen
+  void _navigateToContactUsScreen(BuildContext context) {
+    RouteHelper().contactUsScreen(context);
   }
 
   void _onLanguageSelected(int index, BuildContext context) {

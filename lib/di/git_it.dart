@@ -37,6 +37,7 @@ import 'package:remax_mapstate/presentation/journeys/calculator/formz/number_of_
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/unit_price.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/advanced_filter_projects/advanced_filter_projects_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/auth/register_new_user/register_new_user_cubit.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/contact_us/contact_us_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/get_buyer_by_id/get_buyer_by_id_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/get_filter_data/get_filter_data_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/login/login_cubit.dart';
@@ -52,6 +53,7 @@ import '../domain/use_cases/advanced_filter_projects.dart';
 import '../domain/use_cases/auth/get_current_user_profile.dart';
 import '../domain/use_cases/auth/register_new_user.dart';
 import '../domain/use_cases/complete_broker_data_case.dart';
+import '../domain/use_cases/contact_us_case.dart';
 import '../domain/use_cases/get_filter_data.dart';
 import '../domain/use_cases/get_projects_by_status.dart';
 import '../domain/use_cases/local_usecases/authorized_user/authorized_user_data/delete_user_data.dart';
@@ -306,7 +308,7 @@ Future init() async {
 
   /// GetBuyerByIdCase
   getItInstance.registerFactory<GetBuyerByIdCase>(
-        () => GetBuyerByIdCase(
+    () => GetBuyerByIdCase(
       remoteRepository: getItInstance(),
     ),
   );
@@ -335,6 +337,13 @@ Future init() async {
   /// UpdateUserGroupCase
   getItInstance.registerFactory<UpdateUserAfterRegistrationCase>(
     () => UpdateUserAfterRegistrationCase(
+      remoteRepository: getItInstance(),
+    ),
+  );
+
+  /// ContactUsCase
+  getItInstance.registerFactory<ContactUsCase>(
+    () => ContactUsCase(
       remoteRepository: getItInstance(),
     ),
   );
@@ -520,9 +529,8 @@ Future init() async {
 
   /// init GetBuyerByIdCubit
   getItInstance.registerFactory<GetBuyerByIdCubit>(
-        () => GetBuyerByIdCubit(),
+    () => GetBuyerByIdCubit(),
   );
-
 
   /// init GetBrokerByIdCubit
   getItInstance.registerFactory<GetBrokerByIdCubit>(
@@ -537,6 +545,11 @@ Future init() async {
   /// init GetCurrentUserProfileCubit
   getItInstance.registerFactory<GetCurrentUserProfileCubit>(
     () => GetCurrentUserProfileCubit(),
+  );
+
+  /// init ContactUsCubit
+  getItInstance.registerFactory<ContactUsCubit>(
+    () => ContactUsCubit(),
   );
 
   ///**************************** init blocs *******************************\\\

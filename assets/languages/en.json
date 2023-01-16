@@ -55,6 +55,7 @@
   "contactWith": "Contact with",
   "location": "Location",
   "whatsapp": "Whatsapp",
+  "facebook": "Facebook",
   "friendlyPhoneCall": "Friendly Phone call",
   "getDirections": "Get Directions",
   "headOffice": "Head office",
@@ -116,6 +117,10 @@
   "updateProfile": "Update Profile",
   "favoriteRegions": "Favorite Regions",
   "findProjectByStatus": "Find Project by status",
+  "contactUs": "Contact us",
+  "title": "Title",
+  "subject": "Subject",
+  "send": "Send",
 
 
 

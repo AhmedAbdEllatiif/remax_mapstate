@@ -10,6 +10,7 @@ import 'package:remax_mapstate/presentation/journeys/area_unit_types/area_unit_t
 import 'package:remax_mapstate/presentation/journeys/calculation_result/calculation_result_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/choose_broker/choose_broker_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/complete_broker_data/complete_broker_data_screen.dart';
+import 'package:remax_mapstate/presentation/journeys/contact_us/contact_us_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/developer_contact/developer_contact_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/filter_projects/advanced_filter_projects_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/main/main_screen.dart';
@@ -91,5 +92,8 @@ class Routes {
               completeBrokerDataArguments:
                   settings.arguments as CompleteBrokerDataArguments,
             ),
+
+        /// contactUs
+        RouteList.contactUs: (context) => const ContactUsScreen(),
       };
 }

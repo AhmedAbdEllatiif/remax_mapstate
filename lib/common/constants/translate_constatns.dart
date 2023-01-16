@@ -61,6 +61,7 @@ class TranslateConstants{
   static const String contactWith = 'contactWith';
   static const String location = 'location';
   static const String whatsapp = 'whatsapp';
+  static const String facebook = 'facebook';
   static const String getDirections = 'getDirections';
   static const String friendlyPhoneCall = 'friendlyPhoneCall';
   static const String headOffice = 'headOffice';
@@ -110,6 +111,10 @@ class TranslateConstants{
   static const String updateProfile = 'updateProfile';
   static const String favoriteRegions = 'favoriteRegions';
   static const String findProjectByStatus = 'findProjectByStatus';
+  static const String contactUs = 'contactUs';
+  static const String title = 'title';
+  static const String subject = 'subject';
+  static const String send = 'send';
 
 
   static const String completeYourProfile = 'completeYourProfile';

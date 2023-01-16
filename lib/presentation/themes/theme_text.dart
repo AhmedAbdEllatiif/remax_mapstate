@@ -55,6 +55,15 @@ class ThemeText {
     color: Colors.white,
   );
 
+
+  static TextStyle get _caption => _poppinsTextTheme.caption!.copyWith(
+    color: Colors.white,
+    //fontSize: Sizes.dimen_14.sp,
+    wordSpacing: 0.25,
+    //letterSpacing: 0.25,
+    height: 1.5,
+  );
+
   static getTextTheme() => TextTheme(
     headline5: _whiteHeadline5,
     headline6: _whiteHeadline6,
@@ -62,6 +71,7 @@ class ThemeText {
     subtitle2: _whiteSubTitle2,
     bodyText2: _whiteBodyText2,
     bodyText1: _whiteBodyText1,
+    caption: _caption,
     button: _button,
   );
 }

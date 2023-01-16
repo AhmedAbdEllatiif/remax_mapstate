@@ -27,6 +27,7 @@ import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 
 import '../../common/classes/handle_operation_exceptions.dart';
 import '../../domain/entities/login_entity.dart';
+import '../../domain/entities/params/contact_us_request_params.dart';
 import '../../domain/entities/params/fetch_buyer_user_params.dart';
 import '../../domain/entities/params/login_params.dart';
 import '../../domain/entities/params/reigster_params.dart';
@@ -554,6 +555,44 @@ class RemoteRepositoryImpl extends RemoteRepository {
         experienceYears: params.experienceYears,
         favoriteRegions: params.favoriteRegions,
       ));
+
+      if (result is SuccessModel) {
+        return Right(result);
+      }
+      return Left(result);
+    }
+    //==> SocketException
+    on SocketException catch (e) {
+      log("RepoImpl >> completeBrokerData >> SocketException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.message));
+    }
+    //==> OperationException
+    on OperationException catch (e) {
+      final appErrorType =
+          AppErrorTypeBuilder.formOperationException(e).appErrorType;
+      log("RepoImpl >> completeBrokerData >> OperationException >> $e");
+      return Left(AppError(appErrorType, message: e.toString()));
+    }
+    //==> Exception
+    on Exception catch (e) {
+      log("RepoImpl >> completeBrokerData >> Exception >> $e");
+      return Left(AppError(AppErrorType.api, message: e.toString()));
+    }
+  }
+
+  /*
+  *
+  *
+  * contactUs
+  *
+  *
+  * */
+  @override
+  Future<Either<AppError, SuccessModel>> contactUs(
+    ContactUsRequestParams params,
+  ) async {
+    try {
+      final result = await remoteDataSource.contactUs(params);
 
       if (result is SuccessModel) {
         return Right(result);

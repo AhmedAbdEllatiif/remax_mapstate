@@ -12,7 +12,7 @@ class AssetsConstants{
   static const String gymIcon = "${_pngPath}gym_icon.png";
   static const String person1 = "${_pngPath}person_1.png";
   static const String person2 = "${_pngPath}person_2.png";
-  static const String whatsapp = "${_pngPath}whatsapp.png";
+  static const String whatsapp = "${_pngPath}whatsapp1.png";
   static const String phoneCall = "${_pngPath}phone_call.png";
   static const String readyToMove = "${_pngPath}ready_to_move.png";
   static const String offPlan = "${_pngPath}offPlan.png";
@@ -24,6 +24,7 @@ class AssetsConstants{
   static const String phoneIcon = "${_pngPath}phone_icon.png";
   static const String whiteGoldLogo = "${_pngPath}white_gold_log.png";
   static const String frame = "${_pngPath}frame.png";
+  static const String facebook = "${_pngPath}facebook.png";
 
 
   /*

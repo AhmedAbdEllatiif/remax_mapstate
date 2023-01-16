@@ -30,6 +30,8 @@ class AppTextFormField extends StatefulWidget {
   final TextStyle? textStyle;
   final bool withFocusedBorder;
   final bool validateOnSubmit;
+  final Color? backgroundColor;
+  final EdgeInsets? contentPadding;
 
   const AppTextFormField({
     Key? key,
@@ -49,6 +51,8 @@ class AppTextFormField extends StatefulWidget {
     this.margin,
     this.labelStyle,
     this.textStyle,
+    this.backgroundColor,
+    this.contentPadding,
     this.withFocusedBorder = true,
     this.validateOnSubmit = true,
     this.minLines = 1,
@@ -77,13 +81,14 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
       width: widget.width,
       margin: widget.margin,
       child: Card(
-        color: AppColor.extraTransparentGeeBung,
+        color: widget.backgroundColor ?? AppColor.extraTransparentGeeBung,
         elevation: 0.0,
         //shadowColor: AppColor.absoluteFadeGeeBung,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
         ),
         child: TextFormField(
+          textAlignVertical: TextAlignVertical.top,
           // controller
           controller: widget.controller,
 
@@ -118,10 +123,12 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
 
             // to decrease the height size
             //isDense: true,
-            contentPadding: widget.icon == null ||
-                widget.textInputType == TextInputType.visiblePassword
-                ? const EdgeInsets.fromLTRB(10, 10, 10, 0)
-                : const EdgeInsets.fromLTRB(8, 8, 8, 0),
+            contentPadding: widget.contentPadding ??
+                (widget.icon == null ||
+                        widget.textInputType == TextInputType.visiblePassword
+                    ? const EdgeInsets.fromLTRB(10, 10, 10, 0)
+                    : const EdgeInsets.fromLTRB(8, 8, 8, 0)),
+
 
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
@@ -143,15 +150,11 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
             // label text
             labelText: widget.label,
             labelStyle: widget.labelStyle ??
-                Theme
-                    .of(context)
-                    .textTheme
-                    .subtitle1!
-                    .copyWith(
-                  color: AppColor.geeBung,
-                  fontWeight: FontWeight.bold,
-                  fontSize: Sizes.dimen_16,
-                ),
+                Theme.of(context).textTheme.subtitle1!.copyWith(
+                      color: AppColor.geeBung,
+                      fontWeight: FontWeight.bold,
+                      fontSize: Sizes.dimen_16,
+                    ),
 
             //hintText:  widget.label,
             //hintStyle:  const TextStyle(color: AppColor.white),
@@ -159,11 +162,10 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
             // error text
             errorText: widget.errorText != null
                 ? widget.errorText!.isNotEmpty
-                ? widget.errorText
-                : null
+                    ? widget.errorText
+                    : null
                 : null,
-            errorStyle: Theme
-                .of(context)
+            errorStyle: Theme.of(context)
                 .textTheme
                 .caption!
                 .copyWith(color: AppColor.geeBung, fontWeight: FontWeight.bold),
@@ -179,7 +181,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
 
           // validator
           validator:
-          widget.validateOnSubmit ? widget.validator ?? validate : null,
+              widget.validateOnSubmit ? widget.validator ?? validate : null,
         ),
       ),
     ).animate(
