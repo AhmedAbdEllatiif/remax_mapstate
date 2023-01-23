@@ -16,6 +16,8 @@ import 'package:remax_mapstate/presentation/journeys/project_details/starting_pr
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/widgets/image_slider.dart';
 
+import '../../../domain/entities/params/contact_developer.dart';
+import '../../../router/route_hepler.dart';
 import 'buttons_section.dart';
 
 class ProjectDetailsScreen extends StatefulWidget {
@@ -29,9 +31,7 @@ class ProjectDetailsScreen extends StatefulWidget {
 }
 
 class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
-
   late final ProjectEntity projectEntity;
-
 
   @override
   void initState() {
@@ -47,9 +47,13 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
           title: Column(
             children: [
               Text(projectEntity.name),
-              Text(projectEntity.zone,style: Theme.of(context).textTheme.caption!.copyWith(
-                  color: AppColor.geeBung.withOpacity(0.9)
-              ),),
+              Text(
+                projectEntity.zone,
+                style: Theme.of(context)
+                    .textTheme
+                    .caption!
+                    .copyWith(color: AppColor.geeBung.withOpacity(0.9)),
+              ),
             ],
           ),
         ),
@@ -64,16 +68,18 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
                   child: Column(
                     children: [
                       /// Project Images section
-                     // ProjectImagesSection(imageList: projectEntity.images,),
+                      // ProjectImagesSection(imageList: projectEntity.images,),
 
-                      ImageSliderWidget(images: projectEntity.images,),
+                      ImageSliderWidget(
+                        images: projectEntity.images,
+                      ),
 
                       /// Project avatar, name, isFavorite, district
                       Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: Sizes.dimen_16.w,
                             vertical: Sizes.dimen_12.w),
-                        child:  ProjectAvatarNameSection(
+                        child: ProjectAvatarNameSection(
                           name: projectEntity.name,
                           developerName: projectEntity.developer.name,
                           avatarUrl: projectEntity.developer.logoFullPath,
@@ -81,7 +87,7 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
                       ),
 
                       /// Starting price section
-                       ProjectStartingPriceSection(
+                      ProjectStartingPriceSection(
                         startingPrice: projectEntity.formattedStartingPrice,
                       ),
 
@@ -90,10 +96,11 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
                         padding: EdgeInsets.symmetric(
                             horizontal: Sizes.dimen_32.w,
                             vertical: Sizes.dimen_12.w),
-                        child:  ProjectDataSection(
+                        child: ProjectDataSection(
                           deliveryYear: projectEntity.deliveryYear,
                           startingArea: projectEntity.areaFrom,
-                          planPercentage: projectEntity.planPercentage.toString(),
+                          planPercentage:
+                              projectEntity.planPercentage.toString(),
                           planYears: projectEntity.planNumberOfYears.toString(),
                         ),
                       ),
@@ -103,7 +110,9 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
                         padding: EdgeInsets.symmetric(
                             horizontal: Sizes.dimen_10.w,
                             vertical: Sizes.dimen_12.w),
-                        child:  ServicesSection(services: projectEntity.services,),
+                        child: ServicesSection(
+                          services: projectEntity.services,
+                        ),
                       ),
 
                       /// overView and layout section
@@ -124,13 +133,17 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
                           color: AppColor.fadeBlack,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children:  [
+                            children: [
                               /// overview section
-                              if(projectEntity.description.isNotEmpty)
-                              OverViewSection(description: projectEntity.description,),
+                              if (projectEntity.description.isNotEmpty)
+                                OverViewSection(
+                                  description: projectEntity.description,
+                                ),
 
                               /// layout section
-                              LayoutSection(unitTypeSets: projectEntity.unitTypeSets,),
+                              LayoutSection(
+                                unitTypeSets: projectEntity.unitTypeSets,
+                              ),
                             ],
                           ),
                         ),
@@ -142,14 +155,22 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
             ),
 
             /// Submit Inquiry Button
-             Positioned(
+            Positioned(
               bottom: 0.0,
               right: 0.0,
               left: 0.0,
-              child: ButtonSection(developerId: widget.projectDetailsArgument.projectId),
+              child: ButtonSection(
+                onPressed: () => _navigateToDeveloperContactScreen(),
+              ),
             ),
           ],
         ));
   }
 
+  void _navigateToDeveloperContactScreen() {
+    RouteHelper().contactDeveloper(context,
+        contactDeveloperParam: ContactDeveloperParam(
+          developerEntity: projectEntity.developer,
+        ));
+  }
 }

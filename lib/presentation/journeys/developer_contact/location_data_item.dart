@@ -4,6 +4,8 @@ import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
+import 'package:remax_mapstate/domain/entities/project_entity.dart';
+import 'package:remax_mapstate/domain/repositories/app_repository.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
@@ -12,16 +14,20 @@ import '../../logic/cubit/developer_contact/developer_contact_cubit.dart';
 class LocationDataItem extends StatelessWidget {
   final String dataKey;
   final dynamic value;
+  final LocationEntity locationEntity;
 
-  const LocationDataItem({Key? key, required this.dataKey, this.value})
-      : super(key: key);
+  const LocationDataItem({
+    Key? key,
+    required this.dataKey,
+    this.value,
+    required this.locationEntity,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-
         /// head section text
         RichText(
           text: TextSpan(
@@ -36,13 +42,12 @@ class LocationDataItem extends StatelessWidget {
           ),
         ),
 
-
         /// get directions
         ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(Sizes.dimen_20.w)),
           child: InkWell(
             onTap: () {
-              context.read<DeveloperContactCubit>().openMap();
+              AppRepository().openMap(locationEntity: locationEntity);
             },
             splashColor: AppColor.black,
             child: Padding(

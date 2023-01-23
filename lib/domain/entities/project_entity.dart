@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:number_display/number_display.dart';
@@ -7,27 +9,25 @@ import 'package:remax_mapstate/data/models/project_model.dart';
 import '../../common/constants/app_utils.dart';
 
 class ProjectEntity extends Equatable {
-  ProjectEntity({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.priceFrom,
-    required this.areaFrom,
-    required this.deliveryYear,
-    required this.deliveryMonth,
-    required this.type,
-    required this.status,
-    required this.region,
-    required this.zone,
-    required this.services,
-    required this.unitTypeSets,
-    required this.planPercentage,
-    required this.planNumberOfYears,
-    required this.location,
-    required this.developer,
-    required List<String> imageList
-  }) {
-
+  ProjectEntity(
+      {required this.id,
+      required this.name,
+      required this.description,
+      required this.priceFrom,
+      required this.areaFrom,
+      required this.deliveryYear,
+      required this.deliveryMonth,
+      required this.type,
+      required this.status,
+      required this.region,
+      required this.zone,
+      required this.services,
+      required this.unitTypeSets,
+      required this.planPercentage,
+      required this.planNumberOfYears,
+      required this.location,
+      required this.developer,
+      required List<String> imageList}) {
     // init images
     images = [];
     for (var element in imageList) {
@@ -75,15 +75,15 @@ class ProjectEntity extends Equatable {
 }
 
 class DeveloperEntity extends Equatable {
-   DeveloperEntity({
+  DeveloperEntity({
     required this.id,
     required this.name,
     required this.logo,
     required this.developerContactEntity,
     required this.locationEntity,
-  }){
-     logoFullPath = ApiConstants.baseMediaUrl + logo;
-   }
+  }) {
+    logoFullPath = ApiConstants.baseMediaUrl + logo;
+  }
 
   final String id;
   final String name;
@@ -123,7 +123,7 @@ class DifferentLanguagesEntity extends Equatable {
 }
 
 class UnitTypeSetEntity extends Equatable {
-   UnitTypeSetEntity({
+  UnitTypeSetEntity({
     required this.name,
     required this.layout,
     required this.priceFrom,
@@ -134,30 +134,28 @@ class UnitTypeSetEntity extends Equatable {
     required this.numberOfYears,
     required this.finishingType,
     required this.isCommercial,
-  }){
-     final display = createDisplay(
-       length: 15,
-       decimal: 0,
-     );
-     final doublePriceFrom = double.tryParse(priceFrom);
-     final doublePriceTo = double.tryParse(priceTo);
+  }) {
+    final display = createDisplay(
+      length: 15,
+      decimal: 0,
+    );
+    final doublePriceFrom = double.tryParse(priceFrom);
+    final doublePriceTo = double.tryParse(priceTo);
 
-     // init formattedPriceFrom
-     formattedPriceFrom =
-     doublePriceFrom == null ? priceFrom : display(doublePriceFrom);
+    // init formattedPriceFrom
+    formattedPriceFrom =
+        doublePriceFrom == null ? priceFrom : display(doublePriceFrom);
 
-     // init formattedPriceTo
-     formattedPriceTo =
-     doublePriceTo == null ? priceTo : display(doublePriceTo);
+    // init formattedPriceTo
+    formattedPriceTo = doublePriceTo == null ? priceTo : display(doublePriceTo);
 
-
-      // init unitTypeTitle (used for ui)
-     if (layout == AppUtils.undefined) {
-       unitTypeTitle =  name;
-     } else {
-       unitTypeTitle = name + " - " + "( $layout )";
-     }
-   }
+    // init unitTypeTitle (used for ui)
+    if (layout == AppUtils.undefined) {
+      unitTypeTitle = name;
+    } else {
+      unitTypeTitle = name + " - " + "( $layout )";
+    }
+  }
 
   final String name;
   final String layout;
@@ -185,19 +183,26 @@ class UnitTypeSetEntity extends Equatable {
 }
 
 class DeveloperContactEntity extends Equatable {
-  const DeveloperContactEntity({
+  DeveloperContactEntity({
     required this.id,
     required this.firstName,
     required this.lastName,
     required this.phone,
-    required this.image,
-  });
+    required this.profileImagePath,
+  }) {
+    profileImage = profileImagePath == AppUtils.undefined || profileImagePath == ""
+        ? AppUtils.undefined
+        : ApiConstants.baseMediaUrl + profileImagePath.trim();
+    log("ProfilePath >> $profileImagePath");
+    log("profileImage >> $profileImage");
+  }
 
   final String id;
   final String firstName;
   final String lastName;
   final String phone;
-  final String image;
+  final String profileImagePath;
+  late final String profileImage;
 
   @override
   List<Object?> get props => [id];
@@ -208,13 +213,15 @@ class LocationEntity extends Equatable {
     required this.id,
     required this.locationText,
     required this.address,
-    required this.geometry,
+    required this.latitude,
+    required this.longitude,
   });
 
   final String id;
   final String locationText;
   final String address;
-  final dynamic geometry;
+  final double latitude;
+  final double longitude;
 
   @override
   List<Object?> get props => [id];

@@ -68,12 +68,12 @@ class DeveloperContactCubit extends Cubit<DeveloperContactState> {
 
   /// To open directions
   void openMap() {
-    if (state.contactDeveloperEntity != null) {
-      if (state.contactDeveloperEntity!.mapEntity != null) {
-        final mapEntity = state.contactDeveloperEntity!.mapEntity!;
-        openMapCase(mapEntity);
-      }
-    }
+    // if (state.contactDeveloperEntity != null) {
+    //   if (state.contactDeveloperEntity!.mapEntity != null) {
+    //     final mapEntity = state.contactDeveloperEntity!.mapEntity!;
+    //     openMapCase(mapEntity);
+    //   }
+    // }
   }
 
 

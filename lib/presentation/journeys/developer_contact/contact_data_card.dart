@@ -4,21 +4,31 @@ import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/domain/entities/contact_developer.dart';
+import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/presentation/journeys/developer_contact/developer_data_item.dart';
 
+import '../../../common/constants/app_utils.dart';
 import '../../../common/constants/sizes.dart';
 import '../../logic/cubit/developer_contact/developer_contact_cubit.dart';
 import '../../widgets/contact_info_widget.dart';
 import 'location_data_item.dart';
 
 class ContactDataCard extends StatelessWidget {
-  final ContactDeveloperEntity contactDeveloperEntity;
+  final DeveloperContactEntity developerContactEntity;
+  final String developerName;
+  final LocationEntity locationEntity;
 
-  const ContactDataCard({Key? key, required this.contactDeveloperEntity})
-      : super(key: key);
+  const ContactDataCard({
+    Key? key,
+    required this.developerContactEntity,
+    required this.developerName,
+    required this.locationEntity,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final String _name = _buildContactName();
+
     return Card(
         elevation: 20,
         shape: RoundedRectangleBorder(
@@ -33,11 +43,7 @@ class ContactDataCard extends StatelessWidget {
               /// firstName
               DeveloperDataItem(
                 dataKey: TranslateConstants.contactWith.t(context),
-                value: contactDeveloperEntity.empSecondName != null
-                    ? contactDeveloperEntity.empFirstName +
-                        " " +
-                        contactDeveloperEntity.empSecondName!
-                    : contactDeveloperEntity.empFirstName,
+                value: _name,
               ),
 
               const SizedBox(
@@ -45,11 +51,12 @@ class ContactDataCard extends StatelessWidget {
               ),
 
               /// Location
-              if(contactDeveloperEntity.mapEntity != null)
-              LocationDataItem(
-                dataKey: contactDeveloperEntity.developerName,
-                value: TranslateConstants.getDirections.t(context),
-              ),
+              if (developerContactEntity.firstName != null)
+                LocationDataItem(
+                  dataKey: developerName,
+                  value: TranslateConstants.getDirections.t(context),
+                  locationEntity: locationEntity,
+                ),
 
               SizedBox(
                 height: Sizes.dimen_8.h,
@@ -57,8 +64,8 @@ class ContactDataCard extends StatelessWidget {
 
               /// contact info
               ContactInfoWidget(
-                phoneNum: contactDeveloperEntity.empPhoneNum,
-                whatsapp: contactDeveloperEntity.empPhoneNum,
+                phoneNum: developerContactEntity.phone,
+                whatsapp: developerContactEntity.phone,
                 onWhatsappPressed: () {
                   context.read<DeveloperContactCubit>().openWhatsApp(
                         welcomeText:
@@ -74,5 +81,18 @@ class ContactDataCard extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+  String _buildContactName() {
+    final String firstName =
+        developerContactEntity.firstName != AppUtils.undefined
+            ? developerContactEntity.firstName
+            : "";
+    final String lastName =
+    developerContactEntity.lastName != AppUtils.undefined
+        ? developerContactEntity.lastName
+        : "";
+
+    return firstName + " " + lastName;
   }
 }

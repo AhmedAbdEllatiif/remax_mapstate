@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:remax_mapstate/common/constants/app_utils.dart';
 import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_developer.dart';
+import 'package:remax_mapstate/domain/entities/project_entity.dart';
 import 'package:remax_mapstate/presentation/journeys/developer_contact/developer_contact_image.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
@@ -11,6 +13,7 @@ import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 import '../../../common/constants/sizes.dart';
 import '../../../common/screen_utils/screen_util.dart';
 import '../../logic/cubit/developer_contact/developer_contact_cubit.dart';
+import '../../widgets/stack_with_full_background.dart';
 import 'contact_data_card.dart';
 
 class DeveloperContactScreen extends StatefulWidget {
@@ -24,60 +27,41 @@ class DeveloperContactScreen extends StatefulWidget {
 }
 
 class _DeveloperContactScreenState extends State<DeveloperContactScreen> {
-  late final DeveloperContactCubit _developerContactCubit;
+  late final DeveloperEntity _developerEntity;
+
+  late final bool _isContactHasImage;
+
+  late final DeveloperContactEntity _developerContactEntity;
 
   @override
   void initState() {
     super.initState();
-    _developerContactCubit = getItInstance<DeveloperContactCubit>();
-    _developerContactCubit.loadDeveloperData(
-      ContactDeveloperParam(
-          developerId: widget.developerContactParams.developerId),
-    );
+    _developerEntity = widget.developerContactParams.developerEntity;
+
+    _developerContactEntity =
+        widget.developerContactParams.developerEntity.developerContactEntity;
+
+    _isContactHasImage =
+        _developerContactEntity.profileImage != AppUtils.undefined;
   }
 
   @override
   void dispose() {
-    _developerContactCubit.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => _developerContactCubit,
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(widget.developerContactParams.name),
-        ),
-        body: Center(
-          child: SingleChildScrollView(
-            child: BlocBuilder<DeveloperContactCubit, DeveloperContactState>(
-              builder: (context, state) {
-                print("DeveloperContactScreen >> $state");
-
-                /// loading
-                if (state is LoadingDeveloperContactState) {
-                  return const Center(
-                    child: LoadingWidget(),
-                  );
-                }
-
-                /// error
-                if (state is DeveloperContactErrorState) {
-                  return Center(
-                    child: Text(
-                      "Error: ${state.appError.appErrorType} , message: ${state.appError.message}",
-                    ),
-                  );
-                }
-
-                /// With image
-                if (state is DeveloperContactDataLoadedWithImage) {
-                  final developerData = state.contactDeveloperEntity;
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: ScreenUtil.screenWidth * 0.1,vertical: Sizes.dimen_4.h),
+    return StackScaffoldWithFullBackground(
+      appBarTitle: Text(_developerEntity.name),
+      body: Center(
+        child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: _isContactHasImage
+                ? Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ScreenUtil.screenWidth * 0.1,
+                        vertical: Sizes.dimen_4.h),
                     child: Column(
                       children: [
                         /// image
@@ -90,22 +74,23 @@ class _DeveloperContactScreenState extends State<DeveloperContactScreen> {
                           ),
                           margin: EdgeInsets.only(bottom: Sizes.dimen_10.h),
                           child: DeveloperContactImage(
-                              imageUrl: developerData.image!),
+                            imageUrl: _developerContactEntity.profileImage,
+                          ),
                         ),
 
                         /// contact data card
                         ContactDataCard(
-                          contactDeveloperEntity: state.contactDeveloperEntity,
+                          developerContactEntity: _developerContactEntity,
+                          developerName: _developerEntity.name,
+                          locationEntity: _developerEntity.locationEntity,
                         )
                       ],
                     ),
-                  );
-                }
-
-                /// Without image
-                if (state is DeveloperContactDataWithOutImage) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: ScreenUtil.screenWidth * 0.1,vertical: Sizes.dimen_4.h),
+                  )
+                : Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ScreenUtil.screenWidth * 0.1,
+                        vertical: Sizes.dimen_4.h),
                     child: Column(
                       children: [
                         Container(
@@ -116,22 +101,19 @@ class _DeveloperContactScreenState extends State<DeveloperContactScreen> {
                             minWidth: ScreenUtil.screenWidth * 0.7,
                           ),
                           margin: EdgeInsets.only(bottom: Sizes.dimen_10.h),
-                          child: Image.asset(AssetsConstants.personPlaceHolder),
+                          child: Image.asset(
+                            AssetsConstants.personPlaceHolder,
+                            color: AppColor.white.withOpacity(0.6),
+                          ),
                         ),
                         ContactDataCard(
-                          contactDeveloperEntity: state.contactDeveloperEntity,
+                          developerContactEntity: _developerContactEntity,
+                          developerName: _developerEntity.name,
+                          locationEntity: _developerEntity.locationEntity,
                         ),
                       ],
                     ),
-                  );
-                }
-
-                /// Nothing to show
-                return const SizedBox.shrink();
-              },
-            ),
-          ),
-        ),
+                  )),
       ),
     );
   }

@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 
 import '../../../common/constants/assets_constants.dart';
 import '../../../common/constants/sizes.dart';
+import '../../widgets/cached_image_widget.dart';
 
 class DeveloperContactImage extends StatelessWidget {
   final String imageUrl;
@@ -17,18 +19,27 @@ class DeveloperContactImage extends StatelessWidget {
       color: Colors.transparent,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
-        child: Image.asset(
-          imageUrl,
-          fit: BoxFit.cover,
-          errorBuilder: (BuildContext context, Object exception,
-              StackTrace? stackTrace) {
-            return  Image.asset(AssetsConstants.personPlaceHolder);
-          },
+        // child: Image.asset(
+        //   imageUrl,
+        //   fit: BoxFit.cover,
+        //   errorBuilder: (BuildContext context, Object exception,
+        //       StackTrace? stackTrace) {
+        //     return  Image.asset(AssetsConstants.personPlaceHolder);
+        //   },
+        // ),
+        // child: CachedNetworkImage(
+        //   imageUrl: imageUrl,
+        //   fit: BoxFit.cover,
+        // ),
+        //
+        child: CachedImageWidget(
+          height: double.infinity,
+          imageUrl: imageUrl,
+          width: double.infinity,
+          progressBarScale: 0.2,
+          isCircle: false,
+          boxFit: BoxFit.cover,
         ),
-        /*CachedNetworkImage(
-          imageUrl: 'http://109.205.183.245:8000/media/United%20Development%20Group%20(UDG)/karim_udg.jpg',
-          fit: BoxFit.cover,
-        ),*/
         /*child: Image.network(
             '${ApiConstants.BASE_IMAGE_URL}$posterPath',
         ),*/

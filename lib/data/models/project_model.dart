@@ -262,7 +262,7 @@ class DeveloperModel extends DeveloperEntity {
 }
 
 class DeveloperContact extends DeveloperContactEntity {
-  const DeveloperContact({
+  DeveloperContact({
     required this.contactId,
     required this.contactFirstName,
     required this.contactLastName,
@@ -273,7 +273,7 @@ class DeveloperContact extends DeveloperContactEntity {
           firstName: contactFirstName,
           lastName: contactLastName,
           phone: contactPhone,
-          image: contactImage,
+          profileImagePath: contactImage,
         );
 
   final String contactId;
@@ -282,7 +282,7 @@ class DeveloperContact extends DeveloperContactEntity {
   final String contactPhone;
   final String contactImage;
 
-  factory DeveloperContact.empty() => const DeveloperContact(
+  factory DeveloperContact.empty() => DeveloperContact(
         contactId: AppUtils.undefined,
         contactFirstName: AppUtils.undefined,
         contactLastName: AppUtils.undefined,
@@ -302,7 +302,7 @@ class DeveloperContact extends DeveloperContactEntity {
 
 /// DeveloperLocation
 class LocationModel extends LocationEntity {
-  const LocationModel({
+  LocationModel({
     required this.locationId,
     required this.text,
     required this.locationAddress,
@@ -311,25 +311,53 @@ class LocationModel extends LocationEntity {
           id: locationId,
           locationText: text,
           address: locationAddress,
-          geometry: locationGeometry,
+          latitude: locationGeometry.latitude.toDouble(),
+          longitude: locationGeometry.longitude.toDouble(),
         );
   final String locationId;
   final String text;
   final String locationAddress;
-  final dynamic locationGeometry;
+  final GeometryModel locationGeometry;
 
   factory LocationModel.fromJson(Map<String, dynamic> json) => LocationModel(
         locationId: json["id"] ?? AppUtils.undefined,
         text: json["locationText"] ?? AppUtils.undefined,
         locationAddress: json["address"] ?? AppUtils.undefined,
-        locationGeometry: json["geometry"] ?? AppUtils.undefined,
+        locationGeometry: GeometryModel.fromJson(json["geometry"]),
       );
 
-  factory LocationModel.empty() => const LocationModel(
+  factory LocationModel.empty() => LocationModel(
         locationId: AppUtils.undefined,
         text: AppUtils.undefined,
         locationAddress: AppUtils.undefined,
-        locationGeometry: AppUtils.undefined,
+        locationGeometry: GeometryModel.empty(),
+      );
+}
+
+class GeometryModel {
+  final String type;
+  final double latitude;
+  final double longitude;
+
+  GeometryModel({
+    required this.type,
+    required this.latitude,
+    required this.longitude,
+  });
+
+  factory GeometryModel.fromJson(dynamic json) {
+    if (json == null) return GeometryModel.empty();
+    return GeometryModel(
+      type: json["type"] ?? AppUtils.undefined,
+      longitude: json["coordinates"] != null ? json["coordinates"][0] : -1,
+      latitude: json["coordinates"] != null ? json["coordinates"][1] : -1,
+    );
+  }
+
+  factory GeometryModel.empty() => GeometryModel(
+        type: AppUtils.undefined,
+        latitude: -1,
+        longitude: -1,
       );
 }
 

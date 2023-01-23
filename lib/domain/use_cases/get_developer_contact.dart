@@ -16,5 +16,5 @@ class GetDeveloperContactCase
   @override
   Future<Either<AppError, ContactDeveloperEntity>> call(
           ContactDeveloperParam params) async =>
-      apiRepo.getDeveloperContact(params.developerId);
+      apiRepo.getDeveloperContact("params.developerId");
 }

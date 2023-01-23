@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
-import 'package:remax_mapstate/domain/entities/params/contact_developer.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
 
 import '../../../common/constants/sizes.dart';
@@ -14,9 +13,9 @@ import '../../widgets/app_button.dart';
 import '../choose_broker/arguments/choose_broker_argument.dart';
 
 class ButtonSection extends StatelessWidget {
-  final String developerId;
+  final Function() onPressed;
 
-  const ButtonSection({Key? key, required this.developerId}) : super(key: key);
+  const ButtonSection({Key? key, required this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -82,12 +81,7 @@ class ButtonSection extends StatelessWidget {
               text: TranslateConstants.contactWithDeveloper
                   .t(context)
                   .toUpperCase(),
-              onPressed: () {
-                final contactDeveloperParam = ContactDeveloperParam(
-                    developerId: developerId, name: "Mountain View");
-                RouteHelper().contactDeveloper(context,
-                    contactDeveloperParam: contactDeveloperParam);
-              },
+              onPressed: onPressed,
             ),
           );
         }
