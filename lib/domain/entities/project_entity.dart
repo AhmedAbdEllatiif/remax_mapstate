@@ -190,11 +190,16 @@ class DeveloperContactEntity extends Equatable {
     required this.phone,
     required this.profileImagePath,
   }) {
-    profileImage = profileImagePath == AppUtils.undefined || profileImagePath == ""
-        ? AppUtils.undefined
-        : ApiConstants.baseMediaUrl + profileImagePath.trim();
-    log("ProfilePath >> $profileImagePath");
-    log("profileImage >> $profileImage");
+    profileImage =
+        profileImagePath == AppUtils.undefined || profileImagePath == ""
+            ? AppUtils.undefined
+            : ApiConstants.baseMediaUrl + profileImagePath.trim();
+
+    final String buildFirstName =
+        firstName != AppUtils.undefined ? firstName : "";
+    final String buildLastName = lastName != AppUtils.undefined ? lastName : "";
+
+    fullName = buildFirstName + " " + buildLastName;
   }
 
   final String id;
@@ -203,6 +208,7 @@ class DeveloperContactEntity extends Equatable {
   final String phone;
   final String profileImagePath;
   late final String profileImage;
+  late final String fullName;
 
   @override
   List<Object?> get props => [id];

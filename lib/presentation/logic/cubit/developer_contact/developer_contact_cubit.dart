@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/contact_developer.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_developer.dart';
-import 'package:remax_mapstate/domain/entities/params/phone_call.dart';
-import 'package:remax_mapstate/domain/entities/params/whatsapp_params.dart';
+import 'package:remax_mapstate/data/params/make_call_params.dart';
+import 'package:remax_mapstate/data/params/whatsapp_params.dart';
 import 'package:remax_mapstate/domain/use_cases/get_developer_contact.dart';
 import 'package:remax_mapstate/domain/use_cases/make_phone_call.dart';
 import 'package:remax_mapstate/domain/use_cases/open_map.dart';
@@ -82,7 +82,7 @@ class DeveloperContactCubit extends Cubit<DeveloperContactState> {
     if (state.contactDeveloperEntity != null) {
       final phoneNum = state.contactDeveloperEntity!.empPhoneNum;
       makePhoneCallCase(
-          PhoneNumParams(phoneNum: phoneNum));
+          MakeCallParams(phoneNum: phoneNum));
     }
   }
 

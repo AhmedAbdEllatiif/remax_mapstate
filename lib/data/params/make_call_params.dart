@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-class PhoneNumParams extends Equatable{
+class MakeCallParams extends Equatable{
 
   final String phoneNum;
 
-  const PhoneNumParams({
+  const MakeCallParams({
     required this.phoneNum,
   });
 

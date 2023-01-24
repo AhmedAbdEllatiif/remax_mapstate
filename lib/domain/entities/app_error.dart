@@ -9,6 +9,7 @@ enum AppErrorType {
   validation,
   canNotMakePhoneCall,
   canOpenWhatsapp,
+  errorWhileOpenMap,
 
 
   unHandledError,

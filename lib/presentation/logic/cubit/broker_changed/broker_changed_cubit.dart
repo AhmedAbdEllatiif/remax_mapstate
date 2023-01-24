@@ -2,8 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:remax_mapstate/domain/entities/broker_entity.dart';
 
-import '../../../../domain/entities/params/phone_call.dart';
-import '../../../../domain/entities/params/whatsapp_params.dart';
+import '../../../../data/params/make_call_params.dart';
+import '../../../../data/params/whatsapp_params.dart';
 import '../../../../domain/use_cases/make_phone_call.dart';
 import '../../../../domain/use_cases/open_whats_app.dart';
 
@@ -41,7 +41,7 @@ class BrokerChangedCubit extends Cubit<BrokerChangedState> {
     if (state.brokerEntity != null) {
       final phoneNum = state.brokerEntity!.phoneNum;
       makePhoneCallCase(
-          PhoneNumParams(phoneNum: phoneNum));
+          MakeCallParams(phoneNum: phoneNum));
     }
   }
 

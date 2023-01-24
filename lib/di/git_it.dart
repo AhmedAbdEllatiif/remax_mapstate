@@ -35,6 +35,7 @@ import 'package:remax_mapstate/presentation/journeys/calculator/formz/downpaymen
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/fourth_down_payment.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/number_of_years.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/unit_price.dart';
+import 'package:remax_mapstate/presentation/logic/bloc/launch_apps/launch_apps_bloc.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/advanced_filter_projects/advanced_filter_projects_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/auth/register_new_user/register_new_user_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/contact_us/contact_us_cubit.dart';
@@ -251,28 +252,28 @@ Future init() async {
   );
 
   /// GetProjectStatusCase
-  getItInstance.registerLazySingleton<GetUnitTypeNamesCase>(
+  getItInstance.registerFactory<GetUnitTypeNamesCase>(
     () => GetUnitTypeNamesCase(
       apiRepo: getItInstance(),
     ),
   );
 
   /// OpenWhatsappCase
-  getItInstance.registerLazySingleton<OpenWhatsappCase>(
+  getItInstance.registerFactory<OpenWhatsappCase>(
     () => OpenWhatsappCase(
       appRepository: getItInstance(),
     ),
   );
 
   /// OpenMapCase
-  getItInstance.registerLazySingleton<OpenMapCase>(
+  getItInstance.registerFactory<OpenMapCase>(
     () => OpenMapCase(
       appRepository: getItInstance(),
     ),
   );
 
   /// MakePhoneCallCase
-  getItInstance.registerLazySingleton<MakePhoneCallCase>(
+  getItInstance.registerFactory<MakePhoneCallCase>(
     () => MakePhoneCallCase(
       appRepository: getItInstance(),
     ),
@@ -600,6 +601,16 @@ Future init() async {
   /// init UpdateDefaultUserCubit
   getItInstance
       .registerFactory<UpdateDefaultUserCubit>(() => UpdateDefaultUserCubit());
+
+
+  /// init DeveloperContactCubit
+  getItInstance.registerFactory<LaunchAppsBloc>(
+        () => LaunchAppsBloc(
+      makePhoneCallCase: getItInstance(),
+      openMapCase: getItInstance(),
+      openWhatsappCase: getItInstance(),
+    ),
+  );
 
   /// init CalculatorValidationBloc
   getItInstance
