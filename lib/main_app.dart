@@ -113,28 +113,21 @@ class _MainAppState extends State<MainApp> {
                     colorScheme: ColorScheme.fromSwatch().copyWith(
                       secondary: AppColor.geeBung, // Your accent color
                     ),
-                    scaffoldBackgroundColor: AppColor.black,
+                    scaffoldBackgroundColor: Color(0xFF121212),
                     textTheme: ThemeText.getTextTheme(),
                     appBarTheme: const AppBarTheme(
+                      backgroundColor: Colors.transparent,
+                      elevation: 0.0,
                       centerTitle: true,
-                      systemOverlayStyle:  SystemUiOverlayStyle(
+                      systemOverlayStyle: SystemUiOverlayStyle(
                         // Status bar color
-                        statusBarColor: AppColor.black,
+                        statusBarColor: Colors.transparent,
 
                         // Status bar brightness (optional)
-                        // statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
-                        // statusBarBrightness: Brightness.light, // For iOS (dark icons)
-                      ),
-                      iconTheme: const IconThemeData(color: AppColor.white),
-                      elevation: 0,
-
-                      /*titleTextStyle: TextStyle(
-                      color: AppColor.geeBung,
-                      fontSize: Sizes.dimen_18,
-                      fontWeight: FontWeight.bold,
-                    ),*/
-                      color: AppColor.black,
-                    ),
+                        statusBarIconBrightness: Brightness.light,
+                        // For Android (dark icons)
+                        statusBarBrightness: Brightness.light, // For iOS (dark icons)
+                      ),),
 
                     /// default card theme
                     cardTheme: CardTheme(

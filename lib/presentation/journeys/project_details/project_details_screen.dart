@@ -11,7 +11,7 @@ import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_images_section.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_section.dart';
-import 'package:remax_mapstate/presentation/journeys/project_details/services.dart';
+import 'package:remax_mapstate/presentation/journeys/project_details/services/services_list_widget.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/starting_price_section.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/widgets/image_slider.dart';
@@ -42,17 +42,22 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+backgroundColor: Color(0xFF121212),
         appBar: AppBar(
           centerTitle: true,
+          backgroundColor: Colors.transparent,
           title: Column(
             children: [
-              Text(projectEntity.name),
+              Text(
+                projectEntity.name,
+                style: const TextStyle(height: 1.3),
+              ),
               Text(
                 projectEntity.zone,
-                style: Theme.of(context)
-                    .textTheme
-                    .caption!
-                    .copyWith(color: AppColor.geeBung.withOpacity(0.9)),
+                style: Theme.of(context).textTheme.caption!.copyWith(
+                      color: Colors.white70,
+                      // height: 1.3
+                    ),
               ),
             ],
           ),
@@ -110,8 +115,8 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
                         padding: EdgeInsets.symmetric(
                             horizontal: Sizes.dimen_10.w,
                             vertical: Sizes.dimen_12.w),
-                        child: ServicesSection(
-                          services: projectEntity.services,
+                        child: ServicesListWidget(
+                          services: projectEntity.servicesEntities,
                         ),
                       ),
 

@@ -1,12 +1,11 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:remax_mapstate/data/params/make_call_params.dart';
+import 'package:remax_mapstate/data/params/open_facebook_params.dart';
 import 'package:remax_mapstate/data/params/open_map_params.dart';
 import 'package:remax_mapstate/data/params/whatsapp_params.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
+import 'package:remax_mapstate/domain/use_cases/launch_apps/launch_facbook_case.dart';
 
 import '../../../../domain/use_cases/make_phone_call.dart';
 import '../../../../domain/use_cases/open_map.dart';
@@ -17,11 +16,13 @@ part 'launch_apps_event.dart';
 part 'launch_apps_state.dart';
 
 class LaunchAppsBloc extends Bloc<LaunchAppsEvent, LaunchAppsState> {
+  final LaunchFacebookCase launchFacebookCase;
   final OpenWhatsappCase openWhatsappCase;
   final OpenMapCase openMapCase;
   final MakePhoneCallCase makePhoneCallCase;
 
   LaunchAppsBloc({
+    required this.launchFacebookCase,
     required this.openWhatsappCase,
     required this.openMapCase,
     required this.makePhoneCallCase,
@@ -38,12 +39,38 @@ class LaunchAppsBloc extends Bloc<LaunchAppsEvent, LaunchAppsState> {
         /*
         *
         *
+        * open facebook
+        *
+        *
+        * */
+        if (event is OpenFacebookEvent) {
+          //==> emit loading launch facebook
+          _emitIfNotClosed(LoadingToOpenFacebook());
+
+          final either = await launchFacebookCase(event.openFaceBookParams);
+          either.fold(
+            // error
+            (appError) => _emitIfNotClosed(
+              ErrorWhileOpenFacebook(
+                openFaceBookParams: event.openFaceBookParams,
+                appError: appError,
+              ),
+            ),
+
+            // success
+            (success) => _emitIfNotClosed(SuccessToLaunchApp()),
+          );
+        }
+
+        /*
+        *
+        *
         * open whats app
         *
         *
         * */
         if (event is OpenWhatsAppEvent) {
-          //==> emit loading launch map
+          //==> emit loading launch whatsapp
           _emitIfNotClosed(LoadingToLaunchWhatsapp());
 
           final either = await openWhatsappCase(event.whatsappParams);
@@ -64,7 +91,7 @@ class LaunchAppsBloc extends Bloc<LaunchAppsEvent, LaunchAppsState> {
         /*
         *
         *
-        * open whats app
+        * open map
         *
         *
         * */
@@ -95,7 +122,7 @@ class LaunchAppsBloc extends Bloc<LaunchAppsEvent, LaunchAppsState> {
         *
         * */
         if (event is MakeACallEvent) {
-          //==> emit loading launch map
+          //==> emit loading make a call
           _emitIfNotClosed(LoadingToMakeACall());
 
           final either = await makePhoneCallCase(event.makeCallParams);

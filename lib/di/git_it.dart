@@ -20,6 +20,7 @@ import 'package:remax_mapstate/domain/use_cases/get_buyer_by_id.dart';
 import 'package:remax_mapstate/domain/use_cases/get_commercial_projects.dart';
 import 'package:remax_mapstate/domain/use_cases/get_developer_contact.dart';
 import 'package:remax_mapstate/domain/use_cases/get_team_support.dart';
+import 'package:remax_mapstate/domain/use_cases/launch_apps/launch_facbook_case.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/get_preferred_language.dart';
 import 'package:remax_mapstate/domain/use_cases/get_project_status.dart';
 import 'package:remax_mapstate/domain/use_cases/get_residential_projects.dart';
@@ -84,7 +85,6 @@ import '../presentation/logic/cubit/change_login_view/change_login_view_cubit.da
 import '../presentation/logic/cubit/choose_favorite_area/choose_favorite_area_cubit.dart';
 import '../presentation/logic/cubit/commercial_projects/commercial_projects_cubit.dart';
 import '../presentation/logic/cubit/count_down_cubit/count_down_cubit.dart';
-import '../presentation/logic/cubit/developer_contact/developer_contact_cubit.dart';
 import '../presentation/logic/cubit/language/language_cubit.dart';
 import '../presentation/logic/cubit/navigation/navigation_cubit.dart';
 import '../presentation/logic/cubit/search_filter_builder/search_filter_builder_cubit.dart';
@@ -261,6 +261,13 @@ Future init() async {
   /// OpenWhatsappCase
   getItInstance.registerFactory<OpenWhatsappCase>(
     () => OpenWhatsappCase(
+      appRepository: getItInstance(),
+    ),
+  );
+
+  /// LaunchFacebookCase
+  getItInstance.registerFactory<LaunchFacebookCase>(
+    () => LaunchFacebookCase(
       appRepository: getItInstance(),
     ),
   );
@@ -479,16 +486,6 @@ Future init() async {
     () => ChangeLoginViewCubit(),
   );
 
-  /// init DeveloperContactCubit
-  getItInstance.registerFactory<DeveloperContactCubit>(
-    () => DeveloperContactCubit(
-      getDeveloperContactCase: getItInstance(),
-      makePhoneCallCase: getItInstance(),
-      openMapCase: getItInstance(),
-      openWhatsappCase: getItInstance(),
-    ),
-  );
-
   /// init TeamSupportCubit
   getItInstance.registerSingleton<TeamSupportCubit>(
     TeamSupportCubit(
@@ -602,10 +599,10 @@ Future init() async {
   getItInstance
       .registerFactory<UpdateDefaultUserCubit>(() => UpdateDefaultUserCubit());
 
-
   /// init DeveloperContactCubit
   getItInstance.registerFactory<LaunchAppsBloc>(
-        () => LaunchAppsBloc(
+    () => LaunchAppsBloc(
+      launchFacebookCase: getItInstance(),
       makePhoneCallCase: getItInstance(),
       openMapCase: getItInstance(),
       openWhatsappCase: getItInstance(),

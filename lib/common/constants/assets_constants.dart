@@ -1,10 +1,10 @@
-class AssetsConstants{
+class AssetsConstants {
   static const String _pngPath = "assets/pngs/";
   static const String _svgPath = "assets/svgs/";
   static const String _jsonPath = "assets/json/";
   static const String _gifPath = "assets/gif/";
   static const String languagesPath = "assets/languages/";
-
+  static const String _services = "assets/services/";
 
   static const String otp_gif = "${_gifPath}otp.gif";
   static const String mountainViewImagePath = "${_pngPath}mountainview.png";
@@ -26,7 +26,6 @@ class AssetsConstants{
   static const String frame = "${_pngPath}frame.png";
   static const String facebook = "${_pngPath}facebook.png";
 
-
   /*
   *
   *
@@ -38,14 +37,41 @@ class AssetsConstants{
   static const String offPlanImg = "${_pngPath}off_plan.png";
   static const String offers = "${_pngPath}offers.png";
   static const String readyToMoveImg = "${_pngPath}ready_to_move.png";
-  static const String underConstructionImg = "${_pngPath}under_construction.png";
+  static const String underConstructionImg =
+      "${_pngPath}under_construction.png";
 
+  /*
+  *
+  *
+  * services
+  *
+  * */
+  static const String beach = "${_services}beach.png";
+  static const String bicycleTrack = "${_services}bicycle_track.png";
+  static const String businessCenter = "${_services}business_center.png";
+  static const String cinema = "${_services}cinema.png";
+  static const String clubHouse = "${_services}club_house.png";
+  static const String commercialArea = "${_services}commercial_area.png";
+  static const String communityCenter = "${_services}community_center.png";
+  static const String gym = "${_services}gym.png";
+  static const String hotel = "${_services}hotel.png";
+  static const String joggingTrack = "${_services}jogging_track.png";
+  static const String kidsArea = "${_services}kids_area.png";
+  static const String sportsClub = "${_services}sports_club.png";
 
+  /*
+  *
+  *
+  * Lottie
+  *
+  *
+  * */
   static const String emptyBox = "${_jsonPath}empty_box.json";
   static const String loading = "${_jsonPath}loading.json";
   static const String waitingAnimation = "${_jsonPath}waiting.json";
   static const String otpLotti = "${_jsonPath}otp.json";
   static const String phoneNumLotti = "${_jsonPath}phone_number_animation.json";
-  static const String chooseUserLotti = "${_jsonPath}choose_user_animation.json";
+  static const String chooseUserLotti =
+      "${_jsonPath}choose_user_animation.json";
   static const String notUserAnimation = "${_jsonPath}not_user.json";
 }

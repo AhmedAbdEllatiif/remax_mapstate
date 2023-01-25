@@ -4,47 +4,14 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:number_display/number_display.dart';
 import 'package:remax_mapstate/common/constants/api_constants.dart';
+import 'package:remax_mapstate/common/constants/assets_constants.dart';
+import 'package:remax_mapstate/common/functions/services_mapper.dart';
 import 'package:remax_mapstate/data/models/project_model.dart';
+import 'package:remax_mapstate/domain/entities/service_entity.dart';
 
 import '../../common/constants/app_utils.dart';
 
 class ProjectEntity extends Equatable {
-  ProjectEntity(
-      {required this.id,
-      required this.name,
-      required this.description,
-      required this.priceFrom,
-      required this.areaFrom,
-      required this.deliveryYear,
-      required this.deliveryMonth,
-      required this.type,
-      required this.status,
-      required this.region,
-      required this.zone,
-      required this.services,
-      required this.unitTypeSets,
-      required this.planPercentage,
-      required this.planNumberOfYears,
-      required this.location,
-      required this.developer,
-      required List<String> imageList}) {
-    // init images
-    images = [];
-    for (var element in imageList) {
-      images.add(ApiConstants.baseMediaWithoutUrl + element);
-    }
-
-    final display = createDisplay(
-      length: 15,
-      decimal: 0,
-    );
-
-    final doublePriceFrom = double.tryParse(priceFrom);
-
-    formattedStartingPrice =
-        doublePriceFrom == null ? priceFrom : display(doublePriceFrom);
-  }
-
   final String id;
   final String name;
   final String description;
@@ -64,6 +31,61 @@ class ProjectEntity extends Equatable {
   final LocationEntity location;
   final DeveloperEntity developer;
   late final String formattedStartingPrice;
+  late final List<ServiceEntity> servicesEntities;
+
+  ProjectEntity({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.priceFrom,
+    required this.areaFrom,
+    required this.deliveryYear,
+    required this.deliveryMonth,
+    required this.type,
+    required this.status,
+    required this.region,
+    required this.zone,
+    required this.services,
+    required this.unitTypeSets,
+    required this.planPercentage,
+    required this.planNumberOfYears,
+    required this.location,
+    required this.developer,
+    required List<String> imageList,
+  }) {
+    // init images
+    images = [];
+    for (var element in imageList) {
+      images.add(ApiConstants.baseMediaWithoutUrl + element);
+    }
+
+    final display = createDisplay(
+      length: 15,
+      decimal: 0,
+    );
+
+    final doublePriceFrom = double.tryParse(priceFrom);
+
+    formattedStartingPrice =
+        doublePriceFrom == null ? priceFrom : display(doublePriceFrom);
+
+    //==> init services entities
+    servicesEntities = [];
+    for (var element in services) {
+      if (servicesMapper().containsKey(element)) {
+        final servicePath = servicesMapper()[element];
+        servicesEntities.add(ServiceEntity(
+          name: element,
+          path: servicePath ?? AssetsConstants.gym,
+        ));
+      } else {
+        servicesEntities.add(ServiceEntity(
+          name: element,
+          path: AssetsConstants.gym,
+        ));
+      }
+    }
+  }
 
   @override
   List<Object> get props => [id];

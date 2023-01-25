@@ -10,6 +10,9 @@ abstract class LaunchAppsState extends Equatable {
 /// initial
 class LaunchAppsInitial extends LaunchAppsState {}
 
+/// loading to launch facebook
+class LoadingToOpenFacebook extends LaunchAppsState {}
+
 /// loading to launch whatsapp
 class LoadingToLaunchWhatsapp extends LaunchAppsState {}
 
@@ -21,6 +24,21 @@ class LoadingToMakeACall extends LaunchAppsState {}
 
 /// success
 class SuccessToLaunchApp extends LaunchAppsState {}
+
+/// error while open facebook
+class ErrorWhileOpenFacebook extends LaunchAppsState {
+  final OpenFaceBookParams openFaceBookParams;
+  final AppError appError;
+
+  const ErrorWhileOpenFacebook({
+    required this.openFaceBookParams,
+    required this.appError,
+  });
+
+  @override
+  List<Object> get props => [openFaceBookParams];
+}
+
 
 /// error while whats app
 class ErrorWhileOpenWhatsApp extends LaunchAppsState {

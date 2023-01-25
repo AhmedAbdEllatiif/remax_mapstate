@@ -25,10 +25,10 @@ class ProjectStartingPriceSection extends StatelessWidget {
           children: [
             Text(TranslateConstants.startingPrice.t(context),
               style: Theme.of(context).textTheme.caption!.copyWith(
-                color: AppColor.absoluteTransparentGeeBung,
+                color: Colors.white70,
               ),),
             Text(startingPrice,style: Theme.of(context).textTheme.letterSpaceHeadLine6.copyWith(
-              color: AppColor.geeBung
+              color: AppColor.white
             )),
 
           ],

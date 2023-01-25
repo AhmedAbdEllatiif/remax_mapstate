@@ -4,6 +4,7 @@ import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
+import 'package:remax_mapstate/presentation/journeys/project_details/section_title_text.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
@@ -25,11 +26,8 @@ class LayoutSection extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.only(bottom: Sizes.dimen_2.h),
-          child: Text(
-            TranslateConstants.layouts.t(context),
-            style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                  color: AppColor.absoluteTransparentGeeBung,
-                ),
+          child: SectionTitleText(
+            text: TranslateConstants.layouts.t(context),
           ),
         ),
         ListView.builder(
@@ -57,13 +55,19 @@ class ExpansionItem extends StatelessWidget {
         dividerColor: Colors.transparent,
       ),
       child: ExpansionTile(
-        title: Text(unitTypeSetEntity.unitTypeTitle),
-        collapsedTextColor: AppColor.geeBung,
+        title: Text(
+          unitTypeSetEntity.unitTypeTitle,
+          style: Theme.of(context)
+              .textTheme
+              .titleMedium!
+              .copyWith(color: AppColor.white, fontSize: Sizes.dimen_18.sp),
+        ),
         backgroundColor: AppColor.black,
-        collapsedIconColor: AppColor.geeBung,
+        collapsedTextColor: AppColor.white,
+        collapsedIconColor: AppColor.white,
         collapsedBackgroundColor: AppColor.black,
-        textColor: AppColor.absoluteTransparentGeeBung,
-        iconColor: AppColor.absoluteTransparentGeeBung,
+        textColor: AppColor.white,
+        iconColor: AppColor.white,
         childrenPadding: EdgeInsets.only(
             left: Sizes.dimen_4.w, right: Sizes.dimen_4.w, bottom: 10),
         children: [
@@ -151,5 +155,4 @@ class ExpansionItem extends StatelessWidget {
       ),
     );
   }
-
 }

@@ -18,8 +18,8 @@ class BottomNavigation extends StatelessWidget {
         return BottomNavigationBar(
             // type: BottomNavigationBarType.fixed, //To stop animation
             backgroundColor: AppColor.geeBung,
-            selectedItemColor: AppColor.fadeGeeBung,
-            unselectedItemColor: AppColor.white,
+            selectedItemColor: AppColor.white,
+            unselectedItemColor: Colors.white54,
             showUnselectedLabels: false,
             selectedLabelStyle: const TextStyle(
               fontWeight: FontWeight.w600,

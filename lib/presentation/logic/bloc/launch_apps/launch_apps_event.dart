@@ -7,8 +7,15 @@ abstract class LaunchAppsEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+/// open facebook
+class OpenFacebookEvent extends LaunchAppsEvent {
+  final OpenFaceBookParams openFaceBookParams;
 
+  const OpenFacebookEvent({required this.openFaceBookParams});
 
+  @override
+  List<Object?> get props => [openFaceBookParams];
+}
 
 /// open what's app
 class OpenWhatsAppEvent extends LaunchAppsEvent {

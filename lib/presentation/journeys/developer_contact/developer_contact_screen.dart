@@ -12,7 +12,6 @@ import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 
 import '../../../common/constants/sizes.dart';
 import '../../../common/screen_utils/screen_util.dart';
-import '../../logic/cubit/developer_contact/developer_contact_cubit.dart';
 import '../../widgets/stack_with_full_background.dart';
 import 'contact_data_card.dart';
 

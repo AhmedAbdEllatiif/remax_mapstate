@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:remax_mapstate/common/constants/app_utils.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
@@ -72,15 +73,20 @@ class ButtonSection extends StatelessWidget {
         /// broker or ambassador
         if (userType == UserType.broker || userType == UserType.ambassador) {
           return Container(
-            color: AppColor.absoluteTransparentGeeBung,
-            padding: EdgeInsets.symmetric(
-              vertical: Sizes.dimen_5.h,
-              horizontal: Sizes.dimen_16.w,
+            decoration: BoxDecoration(
+              color: AppColor.geeBung,
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(Sizes.dimen_16.w),
+                topLeft: Radius.circular(Sizes.dimen_16.w),
+              ),
             ),
+            // padding: EdgeInsets.symmetric(
+            //   vertical: Sizes.dimen_5.h,
+            //   horizontal: Sizes.dimen_16.w,
+            // ),
             child: AppButtonGradient(
-              text: TranslateConstants.contactWithDeveloper
-                  .t(context)
-                  .toUpperCase(),
+              textColor: AppColor.black,
+              text: TranslateConstants.contactWithDeveloper.t(context),
               onPressed: onPressed,
             ),
           );

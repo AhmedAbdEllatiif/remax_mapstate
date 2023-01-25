@@ -7,6 +7,7 @@ enum AppErrorType {
   unAuthorized,
   sharedPreferences,
   validation,
+  canNotOpenFacebook,
   canNotMakePhoneCall,
   canOpenWhatsapp,
   errorWhileOpenMap,

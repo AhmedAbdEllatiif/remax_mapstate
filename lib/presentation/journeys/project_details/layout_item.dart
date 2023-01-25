@@ -14,22 +14,28 @@ class LayoutItem extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          layoutKey,
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-            color: AppColor.absoluteTransparentGeeBung,
+        Center(
+          child: Text(
+            layoutKey,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style:  TextStyle(
+              color: Colors.white.withOpacity(0.6),
+            ),
           ),
         ),
-        Text(
-          value,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: AppColor.fadeGeeBung,
+        Center(
+          child: Text(
+            value,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: AppColor.white,
+              fontWeight: FontWeight.bold
+            ),
           ),
         ),
       ],

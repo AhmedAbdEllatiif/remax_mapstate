@@ -47,8 +47,6 @@ class _MainScreenState extends State<MainScreen> {
         drawer: const NavigationDrawer(),
 
         appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: AppColor.black,
           title: BlocBuilder<NavigationCubit, NavigationState>(
             builder: (context, state) {
               return Text(state.title.t(context));

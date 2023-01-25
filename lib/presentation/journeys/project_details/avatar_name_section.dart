@@ -53,7 +53,7 @@ class ProjectAvatarNameSection extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.caption!.copyWith(
-                            color: AppColor.geeBung,
+                            color: Colors.white,
                           ),
                     ),
                     Text(
@@ -61,7 +61,8 @@ class ProjectAvatarNameSection extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.caption!.copyWith(
-                            color: AppColor.fadeGeeBung,
+                            color: AppColor.white,
+                        fontWeight: FontWeight.bold
                           ),
                     )
                   ],
@@ -73,7 +74,7 @@ class ProjectAvatarNameSection extends StatelessWidget {
 
         const Icon(
           Icons.favorite_border,
-          color: AppColor.geeBung,
+          color: AppColor.white,
         ),
 
         /// Column of Starting price

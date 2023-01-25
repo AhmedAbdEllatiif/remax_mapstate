@@ -20,14 +20,15 @@ class ProjectDataItemCard extends StatelessWidget {
           Text(
             title,
             style: Theme.of(context).textTheme.caption!.copyWith(
-              color: AppColor.absoluteTransparentGeeBung
+              color: Colors.white70
             ),
           ),
 
           Text(
             data,
             style: Theme.of(context).textTheme.subtitle1!.copyWith(
-          color: AppColor.geeBung
+          color: AppColor.white,
+              fontWeight: FontWeight.bold
             ),
           ),
         ],
