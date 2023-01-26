@@ -23,9 +23,9 @@ query getBroker(
   
   ######### Query body #########
   
-  brokerRating
-  doneDeals
-  #yearsOfExperience
+  brokerFiveStarsScore 
+  doneDealsCount
+  yearsOfExperience
   
   user {
       id

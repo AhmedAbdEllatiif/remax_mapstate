@@ -172,14 +172,14 @@ class _BrokerProfileState extends State<BrokerProfile> {
                           Container(
                             width: 30,
                           ),
-                          // Expanded(
-                          //   child: UserDataItem(
-                          //     keyData:
-                          //         TranslateConstants.experienceYears.t(context),
-                          //     value:
-                          //         state.userEntity.experienceYears.toString(),
-                          //   ),
-                          // ),
+                          Expanded(
+                            child: UserDataItem(
+                              keyData:
+                                  TranslateConstants.experienceYears.t(context),
+                              value:
+                                  state.userEntity.experienceYears.toString(),
+                            ),
+                          ),
                         ],
                       ),
                       SizedBox(
