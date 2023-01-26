@@ -21,6 +21,9 @@ mutation updateUserMutation(\$${VariablesConstants.inputForm}:UserInput!){
      lastName
      email
      phone
+     mapEstateUser{
+        avatar
+      }
     }
   }
   ########## end of fields #########

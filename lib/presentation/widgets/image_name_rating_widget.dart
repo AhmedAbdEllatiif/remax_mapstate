@@ -1,7 +1,12 @@
+
+
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
+import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 
 import '../../common/constants/app_utils.dart';
 import '../../common/constants/assets_constants.dart';
@@ -45,6 +50,7 @@ class ImageNameRatingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log("ImageNameRatingWidget >> ImageUrl >> $imgUrl");
     //return withRow ? _withRow(context) : _withColumn(context);
     return _withColumn(context);
   }
@@ -68,14 +74,15 @@ class ImageNameRatingWidget extends StatelessWidget {
             ),
 
           if (imgUrl != AppUtils.undefined)
-            CachedImageWidget(
-              imageUrl: imgUrl == AppUtils.undefined
-                  ? AssetsConstants.person2
-                  : imgUrl,
-              isCircle: true,
-              height: maxImageSize.w,
-              width: maxImageSize.w,
-              progressBarScale: 0.5,
+            GestureDetector(
+              onTap: onPressed,
+              child: CachedImageWidget(
+                imageUrl: imgUrl,
+                isCircle: true,
+                height: ScreenUtil.screenHeight * 0.25,
+                width: ScreenUtil.screenHeight * 0.25,
+                progressBarScale: 0.5,
+              ),
             ),
 
           Text(

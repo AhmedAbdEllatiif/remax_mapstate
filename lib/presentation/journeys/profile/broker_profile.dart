@@ -8,8 +8,10 @@ import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/arguments/register_or_login_args.dart';
 import 'package:remax_mapstate/domain/entities/user_entity.dart';
+import 'package:remax_mapstate/presentation/journeys/profile/user_avatar_widget.dart';
 import 'package:remax_mapstate/presentation/journeys/profile/user_data_item.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/complete_broker_data/complete_broker_data_cubit.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/update_default_user/update_default_user_cubit.dart';
 import 'package:remax_mapstate/presentation/widgets/app_error_widget.dart';
 import 'package:remax_mapstate/router/route_hepler.dart';
 import '../../../common/enums/user_types.dart';
@@ -33,12 +35,14 @@ class BrokerProfile extends StatefulWidget {
 class _BrokerProfileState extends State<BrokerProfile> {
   late final GetBrokerByIdCubit _getBrokerByIdCubit;
   late final CompleteBrokerDataCubit _completeBrokerDataCubit;
+  late final UpdateDefaultUserCubit _updateDefaultUserCubit;
 
   @override
   void initState() {
     super.initState();
     _getBrokerByIdCubit = getItInstance<GetBrokerByIdCubit>();
     _completeBrokerDataCubit = getItInstance<CompleteBrokerDataCubit>();
+    _updateDefaultUserCubit = getItInstance<UpdateDefaultUserCubit>();
     _fetchBrokerData();
   }
 
@@ -46,6 +50,7 @@ class _BrokerProfileState extends State<BrokerProfile> {
   void dispose() {
     _getBrokerByIdCubit.close();
     _completeBrokerDataCubit.close();
+    _updateDefaultUserCubit.close();
     super.dispose();
   }
 
@@ -55,6 +60,7 @@ class _BrokerProfileState extends State<BrokerProfile> {
       providers: [
         BlocProvider(create: (context) => _getBrokerByIdCubit),
         BlocProvider(create: (context) => _completeBrokerDataCubit),
+        BlocProvider(create: (context) => _updateDefaultUserCubit),
       ],
       child: Builder(builder: (context) {
         return BlocListener<CompleteBrokerDataCubit, CompleteBrokerDataState>(
@@ -91,15 +97,11 @@ class _BrokerProfileState extends State<BrokerProfile> {
                     children: [
                       Align(
                         alignment: Alignment.center,
-                        child: ImageNameRatingWidget(
-                          imgUrl: state.userEntity.avatar,
-                          name: state.userEntity.firstName,
-                          nameStyle:
-                              Theme.of(context).textTheme.headline6!.copyWith(
-                                    letterSpacing: 0.5,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColor.white,
-                                  ),
+                        child: UserAvatarWidget(
+                          userId: widget.brokerId,
+                          updateDefaultUserCubit: _updateDefaultUserCubit,
+                          avatarUrl: state.userEntity.avatar,
+                          userName: state.userEntity.firstName,
                           rating: state.userEntity.brokerRating,
                         ),
                       ),
@@ -137,15 +139,11 @@ class _BrokerProfileState extends State<BrokerProfile> {
                     children: [
                       Align(
                         alignment: Alignment.center,
-                        child: ImageNameRatingWidget(
-                          imgUrl: state.userEntity.avatar,
-                          name: state.userEntity.firstName,
-                          nameStyle:
-                              Theme.of(context).textTheme.headline6!.copyWith(
-                                    letterSpacing: 0.5,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColor.white,
-                                  ),
+                        child: UserAvatarWidget(
+                          userId: widget.brokerId,
+                          updateDefaultUserCubit: _updateDefaultUserCubit,
+                          avatarUrl: state.userEntity.avatar,
+                          userName: state.userEntity.firstName,
                           rating: state.userEntity.brokerRating,
                         ),
                       ),

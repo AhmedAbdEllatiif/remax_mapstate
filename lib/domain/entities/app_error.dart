@@ -12,7 +12,7 @@ enum AppErrorType {
   canOpenWhatsapp,
   errorWhileOpenMap,
 
-
+  pickImage,
   unHandledError,
   emailAlreadyExists,
   passwordIsMissing,

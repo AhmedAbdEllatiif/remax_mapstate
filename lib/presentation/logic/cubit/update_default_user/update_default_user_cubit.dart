@@ -1,13 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
+import 'package:remax_mapstate/data/params/update_user_avatar.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/params/update_user_after_registration_params.dart';
-import 'package:remax_mapstate/domain/entities/params/update_user_params.dart';
 import 'package:remax_mapstate/domain/entities/user_entity.dart';
-import 'package:remax_mapstate/domain/use_cases/update_default_user.dart';
 import 'package:remax_mapstate/domain/use_cases/update_user/update_user_after_registration.dart';
+
+import '../../../../domain/use_cases/update_user/update_user_avatar.dart';
 
 part 'update_default_user_state.dart';
 
@@ -53,7 +54,6 @@ class UpdateDefaultUserCubit extends Cubit<UpdateDefaultUserState> {
   //   );
   // }
 
-
   /// to update the user with required data after
   /// a successfully registration process
   void updateDefaultUserWithDataAfterRegistration({
@@ -86,6 +86,41 @@ class UpdateDefaultUserCubit extends Cubit<UpdateDefaultUserState> {
       //==> success
       (userEntity) {
         userEntity.userType = currentUserType;
+        _emitIfNotClosed(SuccessUpdateDefaultUser(
+          userEntity: userEntity,
+        ));
+      },
+    );
+  }
+
+  /// to update the user with required data after
+  /// a successfully registration process
+  void updateDefaultUserAvatar({
+    required String userId,
+    required String userToken,
+    required String imgPath,
+  }) async {
+    emit(LoadingToUpdateDefaultUser());
+
+    // init params
+    final params = UpdateUserAvatarParams(
+      userId: int.tryParse(userId) ?? -1,
+      userToken: userToken,
+      imgPath: imgPath,
+    );
+
+    // init useCase
+    final useCase = getItInstance<UpdateUserAvatarCase>();
+
+    // fetch unit type names
+    final either = await useCase(params);
+
+    either.fold(
+      //==> error
+      (appError) => _emitError(appError),
+
+      //==> success
+      (userEntity) {
         _emitIfNotClosed(SuccessUpdateDefaultUser(
           userEntity: userEntity,
         ));

@@ -118,7 +118,7 @@ class UserModel extends UserEntity {
           favoriteAreas: userFavoriteAreas,
           brokerDoneDeals: userDoneDeals,
           brokerRating: userBrokerRating,
-          avatar: userAvatar,
+          userProfileImage: userAvatar,
         );
 
   factory UserModel.formJson(Map<String, dynamic> json) {
@@ -132,7 +132,7 @@ class UserModel extends UserEntity {
       yearsOfExperience: -1,
       userFavoriteAreas: const [],
       // from mapStateUser
-      userAvatar: AppUtils.undefined,
+      userAvatar: json["mapEstateUser"]["avatar"] ?? AppUtils.undefined,
 
       // broker rating
       userBrokerRating: 0,

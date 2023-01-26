@@ -24,6 +24,7 @@ import 'package:remax_mapstate/domain/entities/user_entity.dart';
 
 import '../../data/params/fetch_areas_params.dart';
 import '../../data/params/fetch_broker_params.dart';
+import '../../data/params/update_user_avatar.dart';
 import '../entities/params/complete_broker_data_params.dart';
 import '../entities/params/contact_us_request_params.dart';
 
@@ -101,6 +102,11 @@ abstract class RemoteRepository {
   /// updateUserGroup
   Future<Either<AppError, UserEntity>> updateUserAfterRegistration(
     UpdateUserGroupParams params,
+  );
+
+  /// updateUserGroup
+  Future<Either<AppError, UserEntity>> uploadUserAvatar(
+      UpdateUserAvatarParams params,
   );
 
   ///**************************** Developer Contact *********************** \\\\

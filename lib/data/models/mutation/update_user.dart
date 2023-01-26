@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:http/http.dart' as http;
+
 class UpdateUserMutationModel {
   final int? id;
   final String? email;
@@ -5,6 +9,7 @@ class UpdateUserMutationModel {
   final String? lastName;
   final String? phone;
   final String? password;
+  final String? avatar;
   final int? experienceYears;
   final List<int>? groups;
   final List<int>? favProjects;
@@ -18,6 +23,7 @@ class UpdateUserMutationModel {
     this.phone,
     this.password,
     this.groups,
+    this.avatar,
     this.experienceYears,
     this.favProjects,
     this.unFavProjects,
@@ -35,16 +41,6 @@ class UpdateUserMutationModel {
           phone: phoneNumber,
           password: password,
           groups: [groups]);
-
-  Map<String, dynamic> toRegisterJson() {
-    return {
-      "email": email,
-      "firstName": firstName,
-      "phone": phone,
-      "password": password,
-      "groups": groups
-    };
-  }
 
   /*
   *
@@ -65,39 +61,78 @@ class UpdateUserMutationModel {
         groups: groups != -1 ? [groups] : [],
       );
 
-  Map<String, dynamic> toUpdateUserGroupAndFirstName() {
-    return {
-      "pk": id,
-      "firstName": firstName,
-      "phone": phone,
-      "groups": groups,
-    };
-  }
-
   /*
   *
   *
-  * To complete broker required data
+  * To upload user avatar
   *
   *
   * */
-  factory UpdateUserMutationModel.forCompletingBrokerData({
+  factory UpdateUserMutationModel.forUpdatingUserAvatar({
     required int userId,
-    required int experienceYears,
-    required List<int> favProjects,
+    required String imagePath,
   }) =>
       UpdateUserMutationModel(
-        experienceYears: experienceYears,
-        favProjects: favProjects,
+        id: userId,
+        avatar: imagePath,
       );
 
-  Map<String, dynamic> toCompleteBrokerDataJson() {
-    return {
-      "yearsOfExperience": experienceYears,
-      "firstName": firstName,
-      "phone": lastName,
-      "password": password,
-      "groups": groups
-    };
+  /// to convert to json
+  Map<String, dynamic> toJson() {
+    //==> map object to send
+    final Map<String, dynamic> objectToSend = {};
+
+    /// id
+    if (id != null) {
+      objectToSend.addAll({"pk": id});
+    }
+
+    /// email
+    if (email != null) {
+      objectToSend.addAll({"email": email});
+    }
+
+    /// phone
+    if (phone != null) {
+      objectToSend.addAll({"phone": phone});
+    }
+
+    /// password
+    if (password != null) {
+      objectToSend.addAll({"password": password});
+    }
+
+    /// groups
+    if (groups != null) {
+      objectToSend.addAll({"groups": groups});
+    }
+
+    /// firstName
+    if (firstName != null) {
+      objectToSend.addAll({"firstName": firstName});
+    }
+
+    /// lastName
+    if (lastName != null) {
+      objectToSend.addAll({"lastName": lastName});
+    }
+
+    /// experienceYears
+    if (experienceYears != null) {
+      objectToSend.addAll({"yearsOfExperience": experienceYears});
+    }
+
+    /// avatar
+    if (avatar != null) {
+      http.MultipartFile avatarFile = http.MultipartFile.fromBytes(
+        "avatar", // field name
+        File(avatar ?? "").readAsBytesSync(),
+        filename: avatar,
+      );
+
+      objectToSend.addAll({"avatar": avatarFile});
+    }
+
+    return objectToSend;
   }
 }

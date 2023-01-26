@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:remax_mapstate/common/constants/api_constants.dart';
 import 'package:remax_mapstate/common/constants/app_utils.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
 
@@ -10,13 +11,14 @@ class UserEntity extends Equatable {
   final String lastName;
   final String email;
   final String phoneNumber;
-  final String avatar;
+  final String userProfileImage;
   UserType userType;
   final int experienceYears;
   final List<AreaEntity> favoriteAreas;
 
   final double brokerRating;
   final num brokerDoneDeals;
+  late final String avatar;
 
   UserEntity({
     required this.id,
@@ -26,11 +28,17 @@ class UserEntity extends Equatable {
     required this.phoneNumber,
     required this.userType,
     required this.experienceYears,
-    required this.avatar,
+    required this.userProfileImage,
     required this.brokerRating,
     required this.brokerDoneDeals,
     this.favoriteAreas = const [],
-  });
+  }) {
+    if (userProfileImage != AppUtils.undefined) {
+      avatar = ApiConstants.baseMediaWithoutUrl + userProfileImage;
+    } else {
+      avatar = AppUtils.undefined;
+    }
+  }
 
   factory UserEntity.empty() => UserEntity(
         id: "-1",
@@ -43,7 +51,7 @@ class UserEntity extends Equatable {
         favoriteAreas: const [],
         brokerDoneDeals: -1,
         brokerRating: -1,
-        avatar: AppUtils.undefined,
+        userProfileImage: AppUtils.undefined,
       );
 
   @override

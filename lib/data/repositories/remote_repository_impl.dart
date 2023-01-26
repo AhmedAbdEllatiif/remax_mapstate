@@ -12,6 +12,7 @@ import 'package:remax_mapstate/data/models/mutation/update_user.dart';
 import 'package:remax_mapstate/data/models/success_model.dart';
 import 'package:remax_mapstate/data/models/user_model.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
+import 'package:remax_mapstate/data/params/update_user_avatar.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
 import 'package:remax_mapstate/domain/entities/arguments/complete_broker_data_arguments.dart';
@@ -170,6 +171,44 @@ class RemoteRepositoryImpl extends RemoteRepository {
     //==> Exception
     on Exception catch (e) {
       log("RepoImpl >> updateUserGroup >> Exception >> $e");
+      return Left(AppError(AppErrorType.api, message: e.toString()));
+    }
+  }
+
+  /// uploadUserAvatar
+  @override
+  Future<Either<AppError, UserEntity>> uploadUserAvatar(
+    UpdateUserAvatarParams params,
+  ) async {
+    try {
+      final result = await remoteDataSource.updateUserAvatar(
+        UpdateUserMutationModel.forUpdatingUserAvatar(
+          userId: params.userId,
+          imagePath: params.imgPath,
+        ),
+      );
+
+      if (result is UserEntity) {
+        return Right(result);
+      }
+
+      return Left(result);
+    }
+    //==> SocketException
+    on SocketException catch (e) {
+      log("RepoImpl >> uploadUserAvatar >> SocketException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.message));
+    }
+    //==> OperationException
+    on OperationException catch (e) {
+      final appErrorType =
+          AppErrorTypeBuilder.formOperationException(e).appErrorType;
+      log("RepoImpl >> uploadUserAvatar >> OperationException >> $e");
+      return Left(AppError(appErrorType, message: e.toString()));
+    }
+    //==> Exception
+    on Exception catch (e) {
+      log("RepoImpl >> uploadUserAvatar >> Exception >> $e");
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
   }

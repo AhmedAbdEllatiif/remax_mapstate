@@ -77,7 +77,7 @@ class _BuyerProfileState extends State<BuyerProfile> {
                     Align(
                       alignment: Alignment.center,
                       child: ImageNameRatingWidget(
-                        imgUrl: state.userEntity.avatar,
+                        imgUrl: state.userEntity.userProfileImage,
                         name: state.userEntity.firstName,
                         nameStyle:
                             Theme.of(context).textTheme.headline6!.copyWith(

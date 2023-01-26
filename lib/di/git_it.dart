@@ -70,6 +70,7 @@ import '../domain/use_cases/open_map.dart';
 import '../domain/use_cases/open_whats_app.dart';
 import '../domain/use_cases/update_default_user.dart';
 import '../domain/use_cases/update_user/update_user_after_registration.dart';
+import '../domain/use_cases/update_user/update_user_avatar.dart';
 import '../presentation/logic/cubit/areas/areas_cubit.dart';
 import '../presentation/logic/cubit/auth/get_profile/get_current_user_profile_cubit.dart';
 import '../presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
@@ -79,6 +80,7 @@ import '../presentation/logic/bloc/project_status/project_status_bloc.dart';
 import '../presentation/logic/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
 import '../presentation/logic/cubit/complete_broker_data/complete_broker_data_cubit.dart';
 import '../presentation/logic/cubit/get_broker_by_id/get_broker_by_id_cubit.dart';
+import '../presentation/logic/cubit/pick_images/pick_image_cubit.dart';
 import '../presentation/logic/cubit/projects/get_projects_cubit.dart';
 import '../presentation/logic/cubit/broker_changed/broker_changed_cubit.dart';
 import '../presentation/logic/cubit/change_login_view/change_login_view_cubit.dart';
@@ -356,6 +358,13 @@ Future init() async {
     ),
   );
 
+  /// UpdateUserAvatarCase
+  getItInstance.registerFactory<UpdateUserAvatarCase>(
+    () => UpdateUserAvatarCase(
+      remoteRepository: getItInstance(),
+    ),
+  );
+
   ///************************** Local_Use_Cases *****************************\\\
 //==> GetAutoLogin
   getItInstance.registerLazySingleton<GetUserTokenCase>(() => GetUserTokenCase(
@@ -548,6 +557,11 @@ Future init() async {
   /// init ContactUsCubit
   getItInstance.registerFactory<ContactUsCubit>(
     () => ContactUsCubit(),
+  );
+
+  //==> PickImageCubit
+  getItInstance.registerFactory<PickImageCubit>(
+        () => PickImageCubit(),
   );
 
   ///**************************** init blocs *******************************\\\

@@ -134,6 +134,10 @@ dependencies:
   # carousel_slider
   carousel_slider: ^4.1.1
 
+  # image_picker
+  # Support	SDK 21+	iOS 9+
+  image_picker: ^0.8.5+3
+
 
   # wiredash
   #wiredash: ^0.7.0+1

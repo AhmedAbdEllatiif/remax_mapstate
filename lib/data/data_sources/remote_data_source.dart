@@ -82,6 +82,10 @@ abstract class RemoteDataSource {
   Future<dynamic> updateUserAfterRegistration(
       UpdateUserMutationModel updateUserMutationModel);
 
+  /// upload user avatar Image
+  Future<dynamic> updateUserAvatar(
+      UpdateUserMutationModel updateUserMutationModel);
+
   /// contactUs
   Future<dynamic> contactUs(ContactUsRequestParams contactUsRequestParams);
 
@@ -287,7 +291,7 @@ class RemoteDateSourceImpl extends RemoteDataSource {
         mutationFields,
         variables: {
           VariablesConstants.inputForm:
-              updateUserMutationModel.toUpdateUserGroupAndFirstName(),
+              updateUserMutationModel.toJson(),
         },
       );
 
@@ -296,6 +300,31 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     } catch (e) {
       return AppError(AppErrorType.unHandledError,
           message: "updateDefaultUser UnHandledError >> $e");
+    }
+  }
+
+  @override
+  Future<dynamic> updateUserAvatar(
+      UpdateUserMutationModel updateUserMutationModel,
+      ) async {
+    try {
+      log("updateUserAvatar >> start request ");
+      final mutationFields = updateUserMutation();
+
+      final QueryResult result = await apiClient.mutate(
+        mutationFields,
+        variables: {
+          VariablesConstants.inputForm:
+          updateUserMutationModel.toJson(),
+        },
+      );
+
+      log("updateUserAvatar >> Data >> ..........\n ${result.data}.......");
+      return userModelFormUpdateUser(result.data);
+    } catch (e) {
+      log("updateUserAvatar >> Error >> ..........\n $e .......");
+      return AppError(AppErrorType.unHandledError,
+          message: "updateUserAvatar UnHandledError >> $e");
     }
   }
 
@@ -626,7 +655,7 @@ class RemoteDateSourceImpl extends RemoteDataSource {
         mutationFields,
         variables: {
           VariablesConstants.inputForm:
-              updateUserMutationModel.toRegisterJson(),
+              updateUserMutationModel.toJson(),
         },
       );
 
