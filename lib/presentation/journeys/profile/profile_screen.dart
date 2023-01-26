@@ -68,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             return Stack(
               children: [
                 //==> background image
-                const CityBackgroundWidget(),
+                //const CityBackgroundWidget(),
 
                 Padding(
                   padding: EdgeInsets.only(

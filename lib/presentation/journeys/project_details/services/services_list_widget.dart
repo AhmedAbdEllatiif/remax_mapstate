@@ -28,7 +28,7 @@ class ServicesListWidget extends StatelessWidget {
         ),
         Container(
           width: ScreenUtil.screenWidth,
-          height: ScreenUtil.screenHeight * .11,
+          //height: ScreenUtil.screenHeight * .11,
           constraints: BoxConstraints(
               minHeight: ScreenUtil.screenHeight * 0.11,
               maxHeight: ScreenUtil.screenHeight * .15),

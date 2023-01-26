@@ -159,6 +159,8 @@ class _BrokerProfileState extends State<BrokerProfile> {
                       SizedBox(
                         height: Sizes.dimen_6.h,
                       ),
+
+                      //==> phoneNum and experience years
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -185,14 +187,17 @@ class _BrokerProfileState extends State<BrokerProfile> {
                       SizedBox(
                         height: Sizes.dimen_6.h,
                       ),
-                      Text(TranslateConstants.favoriteRegions.t(context),
-                          textAlign: TextAlign.start,
-                          style:
-                              Theme.of(context).textTheme.bodyText2!.copyWith(
-                                    //letterSpacing: 0.5,
-                                    fontWeight: FontWeight.normal,
-                                    color: AppColor.geeBung,
-                                  )),
+
+                      //==> favoriteRegions
+                      Text(
+                        TranslateConstants.favoriteRegions.t(context),
+                        textAlign: TextAlign.start,
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                              //letterSpacing: 0.5,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.white54,
+                            ),
+                      ),
                       LayoutBuilder(builder: (context, constraints) {
                         return GridView.builder(
                           physics: const BouncingScrollPhysics(),
@@ -209,8 +214,7 @@ class _BrokerProfileState extends State<BrokerProfile> {
                             return Container(
                               padding: const EdgeInsets.all(5),
                               decoration: BoxDecoration(
-                                  color: AppColor.transparentGeeBung
-                                      .withOpacity(0.18),
+                                  color: AppColor.bgItemBlack,
                                   borderRadius: BorderRadius.circular(
                                       AppUtils.cornerRadius.w)),
                               child: Center(

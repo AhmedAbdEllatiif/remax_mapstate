@@ -40,7 +40,7 @@ class _TeamSupportScreen extends State<TeamSupportScreen> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        const CityBackgroundWidget(),
+        //const CityBackgroundWidget(),
         Padding(
           padding: EdgeInsets.symmetric(
               horizontal: ScreenUtil.screenWidth * 0.1,

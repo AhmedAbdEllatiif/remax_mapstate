@@ -24,7 +24,7 @@ class UserDataItem extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyText2!.copyWith(
                 //letterSpacing: 0.5,
                 fontWeight: FontWeight.normal,
-                color: AppColor.geeBung,
+                color: Colors.white54,
               ),
         ),
 

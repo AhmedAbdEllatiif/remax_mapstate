@@ -21,7 +21,7 @@ class ServiceItemCard extends StatelessWidget {
       child: Column(
         children: [
           CircleAvatar(
-            maxRadius: Sizes.dimen_30.w,
+            maxRadius: Sizes.dimen_40.w,
             minRadius: Sizes.dimen_10.w,
             foregroundColor: AppColor.fadeBlack,
             backgroundColor: AppColor.fadeBlack,

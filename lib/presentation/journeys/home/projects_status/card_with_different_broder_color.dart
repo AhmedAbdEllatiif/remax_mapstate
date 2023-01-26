@@ -17,16 +17,15 @@ class CardWithDifferentBorderColor extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(28),
-
         gradient: const LinearGradient(
           colors: [
             AppColor.geeBung,
             AppColor.geeBung,
-            Colors.black,
-            Colors.black,
-            Colors.black,
-            Colors.black,
-            Colors.black,
+            AppColor.baseBlack,
+            AppColor.baseBlack,
+            AppColor.baseBlack,
+            AppColor.baseBlack,
+            AppColor.baseBlack,
             Colors.white,
             Colors.white,
           ],
@@ -38,7 +37,7 @@ class CardWithDifferentBorderColor extends StatelessWidget {
         padding: const EdgeInsets.all(0.6),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.black,
+            color: AppColor.baseBlack,
             borderRadius: BorderRadius.circular(28),
             // boxShadow: const [
             //   BoxShadow(

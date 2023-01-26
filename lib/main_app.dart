@@ -113,7 +113,7 @@ class _MainAppState extends State<MainApp> {
                     colorScheme: ColorScheme.fromSwatch().copyWith(
                       secondary: AppColor.geeBung, // Your accent color
                     ),
-                    scaffoldBackgroundColor: Color(0xFF121212),
+                    scaffoldBackgroundColor:AppColor.baseBlack ,
                     textTheme: ThemeText.getTextTheme(),
                     appBarTheme: const AppBarTheme(
                       backgroundColor: Colors.transparent,
