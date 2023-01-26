@@ -69,6 +69,7 @@ import '../domain/use_cases/make_phone_call.dart';
 import '../domain/use_cases/open_map.dart';
 import '../domain/use_cases/open_whats_app.dart';
 import '../domain/use_cases/update_default_user.dart';
+import '../domain/use_cases/update_user/add_or_remove_fav_project_case.dart';
 import '../domain/use_cases/update_user/update_user_after_registration.dart';
 import '../domain/use_cases/update_user/update_user_avatar.dart';
 import '../presentation/logic/cubit/areas/areas_cubit.dart';
@@ -365,6 +366,13 @@ Future init() async {
     ),
   );
 
+  /// AddOrRemoveFavProjectCase
+  getItInstance.registerFactory<AddOrRemoveFavProjectCase>(
+    () => AddOrRemoveFavProjectCase(
+      remoteRepository: getItInstance(),
+    ),
+  );
+
   ///************************** Local_Use_Cases *****************************\\\
 //==> GetAutoLogin
   getItInstance.registerLazySingleton<GetUserTokenCase>(() => GetUserTokenCase(
@@ -561,7 +569,7 @@ Future init() async {
 
   //==> PickImageCubit
   getItInstance.registerFactory<PickImageCubit>(
-        () => PickImageCubit(),
+    () => PickImageCubit(),
   );
 
   ///**************************** init blocs *******************************\\\

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:remax_mapstate/data/params/add_or_remove_project_to_fav_params.dart';
 
 class UpdateUserMutationModel {
   final int? id;
@@ -77,6 +78,24 @@ class UpdateUserMutationModel {
         avatar: imagePath,
       );
 
+  /*
+  *
+  *
+  * To add new project into favorites
+  *
+  *
+  * */
+  factory UpdateUserMutationModel.formAddOrRemoveFavProject(
+    AddOrRemoveFavProjectParam params,
+  ) =>
+      UpdateUserMutationModel(
+        id: params.userId,
+        favProjects:
+            params.addToFavorite ? [int.parse(params.projectId)] : null,
+        unFavProjects:
+            !params.addToFavorite ? [int.parse(params.projectId)] : null,
+      );
+
   /// to convert to json
   Map<String, dynamic> toJson() {
     //==> map object to send
@@ -131,6 +150,16 @@ class UpdateUserMutationModel {
       );
 
       objectToSend.addAll({"avatar": avatarFile});
+    }
+
+    /// favProjects
+    if (favProjects != null) {
+      objectToSend.addAll({"favoriteProjects": favProjects});
+    }
+
+    /// favProjects
+    if (unFavProjects != null) {
+      objectToSend.addAll({"unFavoriteProjects": unFavProjects});
     }
 
     return objectToSend;

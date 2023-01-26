@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:remax_mapstate/data/models/success_model.dart';
+import 'package:remax_mapstate/data/params/add_or_remove_project_to_fav_params.dart';
 import 'package:remax_mapstate/data/params/fetch_list_params.dart';
 import 'package:remax_mapstate/data/params/filter_data_params.dart';
 import 'package:remax_mapstate/data/params/get_profile_params.dart';
@@ -106,7 +107,12 @@ abstract class RemoteRepository {
 
   /// updateUserGroup
   Future<Either<AppError, UserEntity>> uploadUserAvatar(
-      UpdateUserAvatarParams params,
+    UpdateUserAvatarParams params,
+  );
+
+  /// addOrRemoveFavProject
+  Future<Either<AppError, SuccessModel>> addOrRemoveFavProject(
+    AddOrRemoveFavProjectParam params,
   );
 
   ///**************************** Developer Contact *********************** \\\\

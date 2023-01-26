@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
+import 'package:remax_mapstate/presentation/journeys/project_details/add_or_remove_fav_project_widget.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/themes/theme_text.dart';
 
@@ -9,12 +10,14 @@ import '../../../common/constants/sizes.dart';
 import '../../widgets/cached_image_widget.dart';
 
 class ProjectAvatarNameSection extends StatelessWidget {
+  final String projectId;
   final String name;
   final String avatarUrl;
   final String developerName;
 
   const ProjectAvatarNameSection({
     Key? key,
+    required this.projectId,
     required this.name,
     required this.avatarUrl,
     required this.developerName,
@@ -39,7 +42,7 @@ class ProjectAvatarNameSection extends StatelessWidget {
               ),
 
               // SizedBox
-               SizedBox(
+              SizedBox(
                 width: Sizes.dimen_10.w,
               ),
 
@@ -61,9 +64,7 @@ class ProjectAvatarNameSection extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.caption!.copyWith(
-                            color: AppColor.white,
-                        fontWeight: FontWeight.bold
-                          ),
+                          color: AppColor.white, fontWeight: FontWeight.bold),
                     )
                   ],
                 ),
@@ -72,10 +73,7 @@ class ProjectAvatarNameSection extends StatelessWidget {
           ),
         ),
 
-        const Icon(
-          Icons.favorite_border,
-          color: AppColor.white,
-        ),
+        AddOrRemoveFavProjectWidget(projectId: projectId),
 
         /// Column of Starting price
         /*  Column(

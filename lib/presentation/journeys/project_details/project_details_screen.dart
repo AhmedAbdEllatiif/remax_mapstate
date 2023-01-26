@@ -85,6 +85,7 @@ backgroundColor: Color(0xFF121212),
                             horizontal: Sizes.dimen_16.w,
                             vertical: Sizes.dimen_12.w),
                         child: ProjectAvatarNameSection(
+                          projectId: projectEntity.id,
                           name: projectEntity.name,
                           developerName: projectEntity.developer.name,
                           avatarUrl: projectEntity.developer.logoFullPath,

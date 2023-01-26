@@ -29,6 +29,11 @@ class SuccessUpdateDefaultUser extends UpdateDefaultUserState {
   List<Object> get props => [userEntity];
 }
 
+/// success
+class NewFavoriteProjectAdded extends UpdateDefaultUserState {}
+
+class FavoriteProjectRemoved extends UpdateDefaultUserState {}
+
 /// error
 class ErrorWhileUpdatingDefaultUser extends UpdateDefaultUserState {
   final AppError appError;

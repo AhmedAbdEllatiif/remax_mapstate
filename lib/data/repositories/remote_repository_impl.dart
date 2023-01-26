@@ -38,6 +38,7 @@ import '../../domain/entities/profile_entity.dart';
 import '../../domain/entities/register_entity.dart';
 import '../../domain/entities/user_entity.dart';
 import '../models/auth/profile/get_profile_request_model.dart';
+import '../params/add_or_remove_project_to_fav_params.dart';
 import '../params/fetch_broker_params.dart';
 import '../params/fetch_list_params.dart';
 import '../params/filter_data_params.dart';
@@ -479,6 +480,48 @@ class RemoteRepositoryImpl extends RemoteRepository {
     //==> Exception
     on Exception catch (e) {
       log("RepoImpl >> updateCurrentUser >> Exception >> $e");
+      return Left(AppError(AppErrorType.api, message: e.toString()));
+    }
+  }
+
+  /*
+  *
+  *
+  * addOrRemoveFavProject
+  *
+  *
+  * */
+  @override
+  Future<Either<AppError, SuccessModel>> addOrRemoveFavProject(
+    AddOrRemoveFavProjectParam params,
+  ) async {
+    try {
+      // init model to send
+      final result = await remoteDataSource.addOrRemoveFavoriteProject(
+        updateUserMutationModel:
+            UpdateUserMutationModel.formAddOrRemoveFavProject(params),
+      );
+
+      if (result is SuccessModel) {
+        return Right(result);
+      }
+      return Left(result);
+    }
+    //==> SocketException
+    on SocketException catch (e) {
+      log("RepoImpl >> addOrRemoveFavProject >> SocketException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.message));
+    }
+    //==> OperationException
+    on OperationException catch (e) {
+      final appErrorType =
+          AppErrorTypeBuilder.formOperationException(e).appErrorType;
+      log("RepoImpl >> addOrRemoveFavProject >> OperationException >> $e");
+      return Left(AppError(appErrorType, message: e.toString()));
+    }
+    //==> Exception
+    on Exception catch (e) {
+      log("RepoImpl >> addOrRemoveFavProject >> Exception >> $e");
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
   }

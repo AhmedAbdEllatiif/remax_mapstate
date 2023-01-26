@@ -37,6 +37,7 @@ import 'package:remax_mapstate/data/models/success_model.dart';
 import 'package:remax_mapstate/data/models/team_support_model.dart';
 import 'package:remax_mapstate/data/models/unit_type_model.dart';
 import 'package:remax_mapstate/data/models/user_model.dart';
+import 'package:remax_mapstate/data/params/add_or_remove_project_to_fav_params.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
 import 'package:remax_mapstate/data/params/fetch_broker_params.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_us_request_params.dart';
@@ -85,6 +86,10 @@ abstract class RemoteDataSource {
   /// upload user avatar Image
   Future<dynamic> updateUserAvatar(
       UpdateUserMutationModel updateUserMutationModel);
+
+  /// to add or remove favorite project
+  Future<dynamic> addOrRemoveFavoriteProject(
+      {required UpdateUserMutationModel updateUserMutationModel});
 
   /// contactUs
   Future<dynamic> contactUs(ContactUsRequestParams contactUsRequestParams);
@@ -235,8 +240,8 @@ class RemoteDateSourceImpl extends RemoteDataSource {
         },
       );
 
-      log("updateUser >> ResultOnly >> ..........\n \n \n $result.......\n\n\n");
-      log("updateUser >> Data >> ..........\n ${result.data}.......");
+      log("loginUser >> ResultOnly >> ..........\n \n \n $result.......\n\n\n");
+      log("loginUser >> Data >> ..........\n ${result.data}.......");
       if (result.data!["tokenAuth"] != null) {
         final errors = result.data!["tokenAuth"]["errors"];
         if (errors != null) {
@@ -249,7 +254,7 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     } catch (e) {
       log("Error: $e");
       return AppError(AppErrorType.unHandledError,
-          message: "updateDefaultUser UnHandledError >> $e");
+          message: "loginUser UnHandledError >> $e");
     }
   }
 
@@ -290,8 +295,7 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       final QueryResult result = await apiClient.mutate(
         mutationFields,
         variables: {
-          VariablesConstants.inputForm:
-              updateUserMutationModel.toJson(),
+          VariablesConstants.inputForm: updateUserMutationModel.toJson(),
         },
       );
 
@@ -305,8 +309,8 @@ class RemoteDateSourceImpl extends RemoteDataSource {
 
   @override
   Future<dynamic> updateUserAvatar(
-      UpdateUserMutationModel updateUserMutationModel,
-      ) async {
+    UpdateUserMutationModel updateUserMutationModel,
+  ) async {
     try {
       log("updateUserAvatar >> start request ");
       final mutationFields = updateUserMutation();
@@ -314,8 +318,7 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       final QueryResult result = await apiClient.mutate(
         mutationFields,
         variables: {
-          VariablesConstants.inputForm:
-          updateUserMutationModel.toJson(),
+          VariablesConstants.inputForm: updateUserMutationModel.toJson(),
         },
       );
 
@@ -325,6 +328,30 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       log("updateUserAvatar >> Error >> ..........\n $e .......");
       return AppError(AppErrorType.unHandledError,
           message: "updateUserAvatar UnHandledError >> $e");
+    }
+  }
+
+  /// addOrRemoveFavoriteProject
+  @override
+  Future<dynamic> addOrRemoveFavoriteProject(
+      {required UpdateUserMutationModel updateUserMutationModel}) async {
+    try {
+      log("addOrRemoveFavoriteProject >> start request ");
+      final mutationFields = updateUserMutation();
+
+      final QueryResult result = await apiClient.mutate(
+        mutationFields,
+        variables: {
+          VariablesConstants.inputForm: updateUserMutationModel.toJson(),
+        },
+      );
+
+      log("addOrRemoveFavoriteProject >> Data >> ..........\n ${result.data}.......");
+      return SuccessModel();
+    } catch (e) {
+      log("addOrRemoveFavoriteProject >> Error >> ..........\n $e .......");
+      return AppError(AppErrorType.unHandledError,
+          message: "addOrRemoveFavoriteProject UnHandledError >> $e");
     }
   }
 
@@ -654,8 +681,7 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       final QueryResult result = await apiClient.mutate(
         mutationFields,
         variables: {
-          VariablesConstants.inputForm:
-              updateUserMutationModel.toJson(),
+          VariablesConstants.inputForm: updateUserMutationModel.toJson(),
         },
       );
 

@@ -132,7 +132,9 @@ class UserModel extends UserEntity {
       yearsOfExperience: -1,
       userFavoriteAreas: const [],
       // from mapStateUser
-      userAvatar: json["mapEstateUser"]["avatar"] ?? AppUtils.undefined,
+      userAvatar: json["mapEstateUser"] != null
+          ? json["mapEstateUser"]["avatar"] ?? AppUtils.undefined
+          : AppUtils.undefined,
 
       // broker rating
       userBrokerRating: 0,
