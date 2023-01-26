@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:remax_mapstate/common/constants/sizes.dart';
+import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/presentation/journeys/calculation_result/calculation_result_item.dart';
 
 import 'package:intl/intl.dart';
@@ -28,6 +30,7 @@ class CalculationResultScreen extends StatelessWidget {
           if(state.calculatorValidationEnum == CalculatorValidationEnum.successForm){
             if(state.calculationFinalResult != null){
               return ListView(
+                padding: EdgeInsets.symmetric(horizontal: Sizes.dimen_10.w),
                 children: [
 
                   /// Initial downPayment

@@ -19,7 +19,8 @@ class CalculationResultItem extends StatelessWidget {
           children: [
             /// label
             Text(label,style: Theme.of(context).textTheme.headline6!.copyWith(
-              color: AppColor.geeBung
+              color: AppColor.geeBung,
+              height: 1.5,
             ),),
 
             /// result
