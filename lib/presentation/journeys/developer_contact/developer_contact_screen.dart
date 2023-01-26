@@ -72,7 +72,7 @@ class _DeveloperContactScreenState extends State<DeveloperContactScreen> {
                             minWidth: ScreenUtil.screenWidth * 0.7,
                           ),
                           margin: EdgeInsets.only(bottom: Sizes.dimen_10.h),
-                          child: DeveloperContactImage(
+                          child: ContactImage(
                             imageUrl: _developerContactEntity.profileImage,
                           ),
                         ),

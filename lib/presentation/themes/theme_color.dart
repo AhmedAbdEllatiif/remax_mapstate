@@ -16,6 +16,7 @@ class AppColor{
 
   static const Color black = Color(0xFF000000);
   static const Color whatsappGreen = Color(0xFF25D366);
+  static const Color green = Color(0xFF44BA28);
   static const Color fadeBlack = Color(0xFF1F1F1F);
   static const Color doubleFadeBlack = Color(0xFF262626);
   static const Color transparentBlack = Color(0xD3111111);

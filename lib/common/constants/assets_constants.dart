@@ -25,6 +25,7 @@ class AssetsConstants {
   static const String whiteGoldLogo = "${_pngPath}white_gold_log.png";
   static const String frame = "${_pngPath}frame.png";
   static const String facebook = "${_pngPath}facebook.png";
+  static const String haytham = "${_pngPath}haytham.png";
 
   /*
   *

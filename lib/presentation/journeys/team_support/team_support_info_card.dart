@@ -10,7 +10,6 @@ import '../../../domain/entities/team_support_entity.dart';
 import '../../logic/cubit/team_support/team_support_cubit.dart';
 import '../../widgets/contact_info_widget.dart';
 
-
 class TeamSupportCardInfo extends StatelessWidget {
   final TeamSupportEntity teamSupportEntity;
 
@@ -30,12 +29,10 @@ class TeamSupportCardInfo extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
               /// name
               TeamSupportDataItem(
-                dataKey: TranslateConstants.contactWith.t(context),
-                value: teamSupportEntity.name
-              ),
+                  dataKey: TranslateConstants.contactWith.t(context),
+                  value: teamSupportEntity.name),
 
               /// spacing
               SizedBox(
@@ -46,17 +43,6 @@ class TeamSupportCardInfo extends StatelessWidget {
               ContactInfoWidget(
                 phoneNum: teamSupportEntity.phoneNum,
                 whatsapp: teamSupportEntity.whatsappNum,
-                onWhatsappPressed: () {
-                  context.read<TeamSupportCubit>().openWhatsApp(
-                    welcomeText:
-                    TranslateConstants.welcomeWhatsappText.t(context),
-                    text: TranslateConstants.defaultBrokerWhatsappText
-                        .t(context),
-                  );
-                },
-                onCallPressed: () {
-                  context.read<TeamSupportCubit>().makePhoneCall();
-                },
               ),
             ],
           ),

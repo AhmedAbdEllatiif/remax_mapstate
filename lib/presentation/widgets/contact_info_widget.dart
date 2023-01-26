@@ -5,29 +5,33 @@ import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
+import 'package:remax_mapstate/data/params/make_call_params.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/presentation/logic/bloc/launch_apps/launch_apps_bloc.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 
 import '../../common/functions/show_snack_bar.dart';
+import '../../data/params/whatsapp_params.dart';
 
 /// This Widget for contact info (Whatsapp, PhoneCall)
 class ContactInfoWidget extends StatefulWidget {
   final String? whatsapp;
   final String phoneNum;
-  final Function() onWhatsappPressed;
-  final Function() onCallPressed;
+  final Function()? onWhatsappPressed;
+  final Function()? onCallPressed;
   final LaunchAppsBloc? launchAppsBloc;
+  final Color? whatsappIconColor;
 
-  const ContactInfoWidget(
-      {Key? key,
-      this.whatsapp,
-      required this.phoneNum,
-      required this.onWhatsappPressed,
-      required this.onCallPressed,
-      this.launchAppsBloc})
-      : super(key: key);
+  const ContactInfoWidget({
+    Key? key,
+    this.whatsapp,
+    required this.phoneNum,
+    this.onWhatsappPressed,
+    this.onCallPressed,
+    this.launchAppsBloc,
+    this.whatsappIconColor,
+  }) : super(key: key);
 
   @override
   State<ContactInfoWidget> createState() => _ContactInfoWidgetState();
@@ -95,9 +99,10 @@ class _ContactInfoWidgetState extends State<ContactInfoWidget> {
                             icon: Image.asset(
                               AssetsConstants.whatsapp,
                               fit: BoxFit.cover,
-                              //color: AppColor.royalBlue,
+                              color: widget.whatsappIconColor ?? AppColor.green,
                             ),
-                            onPressed: widget.onWhatsappPressed,
+                            onPressed:
+                                widget.onWhatsappPressed ?? _openWhatsapp,
                           ),
                   ],
                 ),
@@ -123,7 +128,7 @@ class _ContactInfoWidgetState extends State<ContactInfoWidget> {
                             fit: BoxFit.cover,
                             //color: AppColor.royalBlue,
                           ),
-                          onPressed: widget.onCallPressed,
+                          onPressed: widget.onCallPressed ?? _makePhoneCall,
                         ),
                 ],
               ),
@@ -132,5 +137,23 @@ class _ContactInfoWidgetState extends State<ContactInfoWidget> {
         },
       ),
     );
+  }
+
+  /// to make a phone call
+  void _makePhoneCall() {
+    _launchAppsBloc.add(MakeACallEvent(
+        makeCallParams: MakeCallParams(
+      phoneNum: widget.phoneNum,
+    )));
+  }
+
+  /// to open whatsapp
+  void _openWhatsapp() {
+    final whatsappParams = WhatsappParams(
+      num: widget.phoneNum,
+      text: TranslateConstants.welcomeWhatsappText.t(context),
+    );
+
+    _launchAppsBloc.add(OpenWhatsAppEvent(whatsappParams: whatsappParams));
   }
 }

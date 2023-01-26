@@ -6,10 +6,12 @@ import '../../../common/constants/assets_constants.dart';
 import '../../../common/constants/sizes.dart';
 import '../../widgets/cached_image_widget.dart';
 
-class DeveloperContactImage extends StatelessWidget {
+class ContactImage extends StatelessWidget {
   final String imageUrl;
+  final bool assetImage;
 
-  const DeveloperContactImage({Key? key, required this.imageUrl})
+  const ContactImage(
+      {Key? key, required this.imageUrl, this.assetImage = false})
       : super(key: key);
 
   @override
@@ -19,27 +21,29 @@ class DeveloperContactImage extends StatelessWidget {
       color: Colors.transparent,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
-        // child: Image.asset(
-        //   imageUrl,
-        //   fit: BoxFit.cover,
-        //   errorBuilder: (BuildContext context, Object exception,
-        //       StackTrace? stackTrace) {
-        //     return  Image.asset(AssetsConstants.personPlaceHolder);
-        //   },
-        // ),
+        child: assetImage
+            ? Image.asset(
+                imageUrl,
+                fit: BoxFit.cover,
+                errorBuilder: (BuildContext context, Object exception,
+                    StackTrace? stackTrace) {
+                  return Image.asset(AssetsConstants.personPlaceHolder);
+                },
+              )
+            : CachedImageWidget(
+                height: double.infinity,
+                imageUrl: imageUrl,
+                width: double.infinity,
+                progressBarScale: 0.2,
+                isCircle: false,
+                boxFit: BoxFit.cover,
+              ),
         // child: CachedNetworkImage(
         //   imageUrl: imageUrl,
         //   fit: BoxFit.cover,
         // ),
         //
-        child: CachedImageWidget(
-          height: double.infinity,
-          imageUrl: imageUrl,
-          width: double.infinity,
-          progressBarScale: 0.2,
-          isCircle: false,
-          boxFit: BoxFit.cover,
-        ),
+
         /*child: Image.network(
             '${ApiConstants.BASE_IMAGE_URL}$posterPath',
         ),*/
