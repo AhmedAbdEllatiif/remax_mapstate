@@ -120,7 +120,9 @@
   "contactUs": "Contact us",
   "title": "Title",
   "subject": "Subject",
+  "body": "Body",
   "send": "Send",
+  "requestSentSuccessfully": "You request has been sent successfully",
 
 
 

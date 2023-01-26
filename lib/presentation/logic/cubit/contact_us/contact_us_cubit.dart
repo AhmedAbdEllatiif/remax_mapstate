@@ -13,8 +13,9 @@ class ContactUsCubit extends Cubit<ContactUsState> {
 
   /// send contact us
   void sendContactUs({
+    required int userId,
     required String userToken,
-    required String title,
+    required String body,
     required String subject,
   }) async {
     // loading
@@ -25,8 +26,9 @@ class ContactUsCubit extends Cubit<ContactUsState> {
 
     // init params
     final params = ContactUsRequestParams(
+      userId: userId,
       userToken: userToken,
-      title: title,
+      body: body,
       subject: subject,
     );
 

@@ -5,16 +5,19 @@ import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/common/functions/contact_us_numbers.dart';
+import 'package:remax_mapstate/common/functions/hide_keyboard.dart';
 import 'package:remax_mapstate/data/params/open_facebook_params.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/presentation/journeys/contact_us/social_media_links_widget.dart';
 import 'package:remax_mapstate/presentation/logic/bloc/launch_apps/launch_apps_bloc.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/contact_us/contact_us_cubit.dart';
 import 'package:remax_mapstate/presentation/widgets/app_text_form_field.dart';
 import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 import 'package:remax_mapstate/presentation/widgets/logo_with_slogan.dart';
 import 'package:remax_mapstate/presentation/widgets/stack_with_full_background.dart';
 
+import '../../../common/functions/show_dialog.dart';
 import '../../../data/params/whatsapp_params.dart';
 import '../../logic/cubit/user_token/user_token_cubit.dart';
 import '../../widgets/btn_with_box_shadow.dart';
@@ -35,8 +38,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   late final ContactUsCubit _contactUsCubit;
 
   /// controllers
-  final TextEditingController titleController = TextEditingController();
   final TextEditingController subjectController = TextEditingController();
+  final TextEditingController bodyController = TextEditingController();
 
   /// formKey
   final _formKey = GlobalKey<FormState>();
@@ -87,7 +90,14 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
               physics: const BouncingScrollPhysics(),
               child: BlocConsumer<ContactUsCubit, ContactUsState>(
                 listener: (context, state) {
-                  // TODO: implement listener
+                  if (state is ContactUsSentSuccessfully) {
+                    _clearFields();
+                    _showSuccessDialog();
+                  }
+
+                  if (state is ErrorWhileSendingContactUs) {
+                    _showFailedDialog();
+                  }
                 },
                 builder: (context, state) {
                   return Column(
@@ -107,12 +117,17 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                           //spacing: 20, // to apply margin in the main axis of the wrap
                           runSpacing: Sizes.dimen_4.h,
                           children: [
+                            //==> subject
                             AppTextFormField(
-                              label: TranslateConstants.title.t(context),
+                              controller: subjectController,
+                              label: TranslateConstants.subject.t(context),
                             ),
+
+                            //==> body
                             TextFieldLargeContainer(
                               appTextField: AppTextFormField(
-                                label: TranslateConstants.subject.t(context),
+                                controller: bodyController,
+                                label: TranslateConstants.body.t(context),
                                 maxLines: 20,
                                 contentPadding: const EdgeInsets.only(
                                   bottom: 100,
@@ -175,19 +190,49 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
 
   /// to send a request with contactUs
   void _sendContactUs() {
+    // to hide the keyboard
+    hideKeyboard();
+
     // userToken
     final userToken = context.read<UserTokenCubit>().state.userToken;
 
-    // title
-    final title = titleController.value.text;
+    // userId
+    final userId =
+        context.read<AuthorizedUserCubit>().state.authorizedUserEntity.id;
 
     // subject
     final subject = subjectController.value.text;
 
+    // body
+    final body = bodyController.value.text;
+
+    // send the request
     _contactUsCubit.sendContactUs(
+      userId: int.tryParse(userId) ?? -1,
       userToken: userToken,
-      title: title,
       subject: subject,
+      body: body,
+    );
+  }
+
+  void _clearFields(){
+    subjectController.clear();
+    bodyController.clear();
+  }
+
+  void _showSuccessDialog() {
+    showAppDialog(
+      context,
+      buttonText: TranslateConstants.okay.t(context),
+      message: TranslateConstants.requestSentSuccessfully.t(context),
+    );
+  }
+
+  void _showFailedDialog() {
+    showAppDialog(
+      context,
+      buttonText: TranslateConstants.okay.t(context),
+      message: TranslateConstants.somethingWentWrong.t(context),
     );
   }
 

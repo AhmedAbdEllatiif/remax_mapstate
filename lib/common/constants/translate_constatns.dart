@@ -114,7 +114,9 @@ class TranslateConstants{
   static const String contactUs = 'contactUs';
   static const String title = 'title';
   static const String subject = 'subject';
+  static const String body = 'body';
   static const String send = 'send';
+  static const String requestSentSuccessfully = 'requestSentSuccessfully';
 
 
   static const String completeYourProfile = 'completeYourProfile';

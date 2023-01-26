@@ -8,6 +8,7 @@ import 'package:remax_mapstate/common/enums/app_language.dart';
 import 'package:remax_mapstate/data/api/clients/api_client.dart';
 import 'package:remax_mapstate/data/api/clients/auth_client.dart';
 import 'package:remax_mapstate/data/api/requests/auth/get_profile.dart';
+import 'package:remax_mapstate/data/api/requests/mutations/contact_us.dart';
 import 'package:remax_mapstate/data/api/requests/queries/areas/ar_areas.dart';
 import 'package:remax_mapstate/data/api/requests/queries/areas/en_areas.dart';
 import 'package:remax_mapstate/data/api/requests/queries/get_filter_data/en_get_filter_data.dart';
@@ -52,6 +53,7 @@ import '../api/requests/queries/projects_by_status/en_project_by_status.dart';
 import '../api/requests/mutations/update_broker.dart';
 import '../api/requests/queries/users/get_users_en.dart';
 import '../models/filter_model.dart';
+import '../models/mutation/contact_us_request_model.dart';
 import '../models/mutation/update_broker_request_model.dart';
 
 abstract class RemoteDataSource {
@@ -309,21 +311,23 @@ class RemoteDateSourceImpl extends RemoteDataSource {
   Future<dynamic> contactUs(
       ContactUsRequestParams contactUsRequestParams) async {
     try {
-      // final mutationFields = updateUserMutation();
-      //
-      // final QueryResult result = await apiClient.mutate(
-      //   mutationFields,
-      //   variables: {
-      //     VariablesConstants.inputForm:
-      //     updateUserMutationModel.toUpdateUserGroupAndFirstName(),
-      //   },
-      // );
-      //
-      // log("updateUser >> Data >> ..........\n ${result.data}.......");
-      // return userModelFormUpdateUser(result.data);
+      final mutationFields = contactUsMutation();
+
+      final QueryResult result = await apiClient.mutate(
+        mutationFields,
+        variables: {
+          VariablesConstants.inputForm:
+              ContactUsRequestModel.fromParams(params: contactUsRequestParams)
+                  .toJson(),
+        },
+      );
+
+      log("contactUs >> Data >> ..........\n ${result.data}.......");
+      return SuccessModel();
     } catch (e) {
+      log("contactUs >> Error: $e");
       return AppError(AppErrorType.unHandledError,
-          message: "updateDefaultUser UnHandledError >> $e");
+          message: "contactUs UnHandledError >> $e");
     }
   }
 
