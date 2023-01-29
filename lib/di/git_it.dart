@@ -56,6 +56,7 @@ import '../domain/use_cases/auth/get_current_user_profile.dart';
 import '../domain/use_cases/auth/register_new_user.dart';
 import '../domain/use_cases/complete_broker_data_case.dart';
 import '../domain/use_cases/contact_us_case.dart';
+import '../domain/use_cases/fav_projects/get_fav_projects_ids_case.dart';
 import '../domain/use_cases/get_filter_data.dart';
 import '../domain/use_cases/get_projects_by_status.dart';
 import '../domain/use_cases/local_usecases/authorized_user/authorized_user_data/delete_user_data.dart';
@@ -79,6 +80,7 @@ import '../presentation/logic/cubit/brokers_by_area/get_area_brokers_cubit.dart'
 import '../presentation/logic/bloc/calculator_validation/calculator_validation_bloc.dart';
 import '../presentation/logic/bloc/project_status/project_status_bloc.dart';
 import '../presentation/logic/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
+import '../presentation/logic/cubit/check_current_project_favorite/check_current_favorite_project_cubit.dart';
 import '../presentation/logic/cubit/complete_broker_data/complete_broker_data_cubit.dart';
 import '../presentation/logic/cubit/get_broker_by_id/get_broker_by_id_cubit.dart';
 import '../presentation/logic/cubit/pick_images/pick_image_cubit.dart';
@@ -373,6 +375,13 @@ Future init() async {
     ),
   );
 
+  /// GetFavProjectsIdsCase
+  getItInstance.registerFactory<GetFavProjectsIdsCase>(
+    () => GetFavProjectsIdsCase(
+      remoteRepository: getItInstance(),
+    ),
+  );
+
   ///************************** Local_Use_Cases *****************************\\\
 //==> GetAutoLogin
   getItInstance.registerLazySingleton<GetUserTokenCase>(() => GetUserTokenCase(
@@ -570,6 +579,11 @@ Future init() async {
   //==> PickImageCubit
   getItInstance.registerFactory<PickImageCubit>(
     () => PickImageCubit(),
+  );
+
+  /// CheckCurrentFavoriteProjectCubit
+  getItInstance.registerFactory<CheckCurrentFavoriteProjectCubit>(
+    () => CheckCurrentFavoriteProjectCubit(),
   );
 
   ///**************************** init blocs *******************************\\\

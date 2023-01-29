@@ -12,6 +12,7 @@ import 'package:remax_mapstate/data/models/mutation/update_user.dart';
 import 'package:remax_mapstate/data/models/success_model.dart';
 import 'package:remax_mapstate/data/models/user_model.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
+import 'package:remax_mapstate/data/params/fetch_favorite_projects_params.dart';
 import 'package:remax_mapstate/data/params/update_user_avatar.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
@@ -522,6 +523,45 @@ class RemoteRepositoryImpl extends RemoteRepository {
     //==> Exception
     on Exception catch (e) {
       log("RepoImpl >> addOrRemoveFavProject >> Exception >> $e");
+      return Left(AppError(AppErrorType.api, message: e.toString()));
+    }
+  }
+
+  /*
+  *
+  *
+  * fetchFavProjectsIds
+  *
+  *
+  * */
+  @override
+  Future<Either<AppError, List<int>>> fetchFavProjectsIds(
+    FetchFavoriteProjectsParams params,
+  ) async {
+    try {
+      // init model to send
+      final result = await remoteDataSource.getFavoriteProjectsIds(params);
+
+      if (result is List<int>) {
+        return Right(result);
+      }
+      return Left(result);
+    }
+    //==> SocketException
+    on SocketException catch (e) {
+      log("RepoImpl >> fetchFavProjectsIds >> SocketException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.message));
+    }
+    //==> OperationException
+    on OperationException catch (e) {
+      final appErrorType =
+          AppErrorTypeBuilder.formOperationException(e).appErrorType;
+      log("RepoImpl >> fetchFavProjectsIds >> OperationException >> $e");
+      return Left(AppError(appErrorType, message: e.toString()));
+    }
+    //==> Exception
+    on Exception catch (e) {
+      log("RepoImpl >> fetchFavProjectsIds >> Exception >> $e");
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
   }
