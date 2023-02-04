@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:remax_mapstate/data/models/success_model.dart';
 import 'package:remax_mapstate/data/params/add_or_remove_project_to_fav_params.dart';
+import 'package:remax_mapstate/data/params/fetch_fav_projects_params.dart';
 import 'package:remax_mapstate/data/params/fetch_list_params.dart';
 import 'package:remax_mapstate/data/params/filter_data_params.dart';
 import 'package:remax_mapstate/data/params/get_profile_params.dart';
@@ -25,7 +26,7 @@ import 'package:remax_mapstate/domain/entities/user_entity.dart';
 
 import '../../data/params/fetch_areas_params.dart';
 import '../../data/params/fetch_broker_params.dart';
-import '../../data/params/fetch_favorite_projects_params.dart';
+import '../../data/params/fetch_favorite_projects_id_params.dart';
 import '../../data/params/update_user_avatar.dart';
 import '../entities/params/complete_broker_data_params.dart';
 import '../entities/params/contact_us_request_params.dart';
@@ -111,6 +112,13 @@ abstract class RemoteRepository {
     UpdateUserAvatarParams params,
   );
 
+  //========================>  Favorite Projects  <===========================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
   /// addOrRemoveFavProject
   Future<Either<AppError, SuccessModel>> addOrRemoveFavProject(
     AddOrRemoveFavProjectParam params,
@@ -118,8 +126,13 @@ abstract class RemoteRepository {
 
   /// fetchFavProjectsIds
   Future<Either<AppError, List<int>>> fetchFavProjectsIds(
-    FetchFavoriteProjectsParams params,
+    FetchFavoriteProjectsIdsParams params,
   );
+
+  /// fetchUserFavProjects
+  Future<Either<AppError, List<ProjectEntity>>> fetchFavProjects(
+      FetchFavProjectsParams params,
+      );
 
   ///**************************** Developer Contact *********************** \\\\
   Future<Either<AppError, ContactDeveloperEntity>> getDeveloperContact(

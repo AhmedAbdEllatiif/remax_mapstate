@@ -6,9 +6,14 @@ import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 class UserDataItem extends StatelessWidget {
   final String keyData;
   final String value;
+  final bool forceLTR;
 
-  const UserDataItem({Key? key, required this.keyData, required this.value})
-      : super(key: key);
+  const UserDataItem({
+    Key? key,
+    required this.keyData,
+    required this.value,
+    this.forceLTR = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +34,31 @@ class UserDataItem extends StatelessWidget {
         ),
 
         //==> value
-        Text(
-          value,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 2,
-          style: Theme.of(context).textTheme.headline6!.copyWith(
-                letterSpacing: 0.5,
-                fontWeight: FontWeight.bold,
-                color: AppColor.white,
+
+        forceLTR
+            ? Directionality(
+                textDirection: TextDirection.ltr,
+                child: Text(
+                  value,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                        letterSpacing: 0.5,
+                        fontWeight: FontWeight.bold,
+                        color: AppColor.white,
+                      ),
+                ),
+              )
+            : Text(
+                value,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: Theme.of(context).textTheme.headline6!.copyWith(
+                      letterSpacing: 0.5,
+                      fontWeight: FontWeight.bold,
+                      color: AppColor.white,
+                    ),
               ),
-        ),
       ],
     );
   }

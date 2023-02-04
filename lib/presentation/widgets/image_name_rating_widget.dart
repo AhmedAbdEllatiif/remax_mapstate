@@ -29,6 +29,7 @@ class ImageNameRatingWidget extends StatelessWidget {
   final bool withRow;
   final double iconRateSize;
   final bool isAdmin;
+  final bool showRating;
 
   const ImageNameRatingWidget({
     Key? key,
@@ -46,6 +47,7 @@ class ImageNameRatingWidget extends StatelessWidget {
     this.unRatedColor = AppColor.white,
     this.ratedColor = AppColor.geeBung,
     this.isAdmin = false,
+    this.showRating = true,
   }) : super(key: key);
 
   @override
@@ -94,7 +96,7 @@ class ImageNameRatingWidget extends StatelessWidget {
                     .copyWith(color: nameColor, fontSize: nameSize),
           ),
 
-          if(rating > 0)
+          if(rating > 0 && showRating)
           RatingBar.builder(
             initialRating: rating,
             minRating: 0.5,

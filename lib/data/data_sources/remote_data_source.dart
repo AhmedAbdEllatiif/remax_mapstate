@@ -11,6 +11,7 @@ import 'package:remax_mapstate/data/api/requests/auth/get_profile.dart';
 import 'package:remax_mapstate/data/api/requests/mutations/contact_us.dart';
 import 'package:remax_mapstate/data/api/requests/queries/areas/ar_areas.dart';
 import 'package:remax_mapstate/data/api/requests/queries/areas/en_areas.dart';
+import 'package:remax_mapstate/data/api/requests/queries/favorite_projects/en_fav_projects.dart';
 import 'package:remax_mapstate/data/api/requests/queries/get_favorite_projects_ids.dart';
 import 'package:remax_mapstate/data/api/requests/queries/get_filter_data/en_get_filter_data.dart';
 import 'package:remax_mapstate/data/api/requests/queries/project_status/ar_project_status.dart';
@@ -41,7 +42,7 @@ import 'package:remax_mapstate/data/models/user_model.dart';
 import 'package:remax_mapstate/data/params/add_or_remove_project_to_fav_params.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
 import 'package:remax_mapstate/data/params/fetch_broker_params.dart';
-import 'package:remax_mapstate/data/params/fetch_favorite_projects_params.dart';
+import 'package:remax_mapstate/data/params/fetch_favorite_projects_id_params.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_us_request_params.dart';
 
 import '../../common/constants/api_constants.dart';
@@ -50,6 +51,7 @@ import '../../domain/entities/params/fetch_buyer_user_params.dart';
 import '../api/requests/auth/register.dart';
 import '../api/requests/queries/brokers/get_borkers_en.dart';
 import '../api/requests/queries/brokers/get_broker_ar.dart';
+import '../api/requests/queries/favorite_projects/ar_fav_projects.dart';
 import '../api/requests/queries/get_filter_data/ar_get_filter_data.dart';
 import '../api/requests/queries/projects_by_status/ar_project_by_status.dart';
 import '../api/requests/queries/projects_by_status/en_project_by_status.dart';
@@ -59,6 +61,7 @@ import '../models/filter_model.dart';
 import '../models/list_of_fav_project_ids.dart';
 import '../models/mutation/contact_us_request_model.dart';
 import '../models/mutation/update_broker_request_model.dart';
+import '../params/fetch_fav_projects_params.dart';
 
 abstract class RemoteDataSource {
   //===============================>  Auth  <================================\\
@@ -90,16 +93,26 @@ abstract class RemoteDataSource {
   Future<dynamic> updateUserAvatar(
       UpdateUserMutationModel updateUserMutationModel);
 
+  //========================>  Favorite Projects  <===========================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
   /// to add or remove favorite project
   Future<dynamic> addOrRemoveFavoriteProject(
       {required UpdateUserMutationModel updateUserMutationModel});
 
-  /// contactUs
-  Future<dynamic> contactUs(ContactUsRequestParams contactUsRequestParams);
-
   /// getFavoriteProjectsIds
   Future<dynamic> getFavoriteProjectsIds(
-      FetchFavoriteProjectsParams fetchFavoriteProjectsParams);
+      FetchFavoriteProjectsIdsParams fetchFavoriteProjectsParams);
+
+  /// getUserFavProjects
+  Future<dynamic> getFavoriteProjects(FetchFavProjectsParams params);
+
+  /// contactUs
+  Future<dynamic> contactUs(ContactUsRequestParams contactUsRequestParams);
 
   /// return  projects
   Future<List<ProjectModel>> fetchProjects();
@@ -338,6 +351,13 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     }
   }
 
+  //========================>  Favorite Projects  <===========================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
   /// addOrRemoveFavoriteProject
   @override
   Future<dynamic> addOrRemoveFavoriteProject(
@@ -359,6 +379,54 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       log("addOrRemoveFavoriteProject >> Error >> ..........\n $e .......");
       return AppError(AppErrorType.unHandledError,
           message: "addOrRemoveFavoriteProject UnHandledError >> $e");
+    }
+  }
+
+  /// getFavoriteProjectsIds
+  @override
+  Future<dynamic> getFavoriteProjectsIds(
+      FetchFavoriteProjectsIdsParams fetchFavoriteProjectsParams) async {
+    try {
+      final mutationFields = getFavoriteProjectIdsQuery();
+
+      final QueryResult result = await apiClient.mutate(
+        mutationFields,
+        variables: {
+          VariablesConstants.pk: int.parse(fetchFavoriteProjectsParams.userId),
+        },
+      );
+
+      //log("getFavoriteProjectsIds >> Data >> ..........\n ${result.data}.......");
+      return listOfProjectByIds(result.data);
+    } catch (e) {
+      log("getFavoriteProjectsIds >> Error: $e");
+      return AppError(AppErrorType.unHandledError,
+          message: "getFavoriteProjectsIds UnHandledError >> $e");
+    }
+  }
+
+  /// getFavoriteProjects
+  @override
+  Future<dynamic> getFavoriteProjects(FetchFavProjectsParams params) async {
+    try {
+      final query = params.appLanguage == AppLanguage.en
+          ? fetchEnglishFavProjectsQuery()
+          : fetchArabicFavProjectsQuery();
+      final QueryResult result = await apiClient.get(
+        query,
+        variables: {
+          VariablesConstants.userPk: params.userId,
+          VariablesConstants.limit: params.limit,
+          VariablesConstants.offset: params.offset,
+          VariablesConstants.orderBy: params.orderBy,
+        },
+      );
+
+      return listOfFavoriteProjects(result.data);
+    } catch (e) {
+      log("getFavoriteProjects >> Error: $e");
+      return AppError(AppErrorType.unHandledError,
+          message: "getFavoriteProjects UnHandledError >> $e");
     }
   }
 
@@ -391,33 +459,6 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       log("contactUs >> Error: $e");
       return AppError(AppErrorType.unHandledError,
           message: "contactUs UnHandledError >> $e");
-    }
-  }
-
-  /// getFavoriteProjectsIds
-  @override
-  Future<dynamic> getFavoriteProjectsIds(
-      FetchFavoriteProjectsParams fetchFavoriteProjectsParams) async {
-    log("Start getFavoriteProjectsIds");
-    log("Start getFavoriteProjectsIds userId >> ${fetchFavoriteProjectsParams.userId}");
-    final mutationFields = getFavoriteProjectIdsQuery();
-
-    final QueryResult result = await apiClient.mutate(
-      mutationFields,
-      variables: {
-        VariablesConstants.pk:
-        int.parse(fetchFavoriteProjectsParams.userId),
-      },
-    );
-
-    //log("getFavoriteProjectsIds >> Data >> ..........\n ${result.data}.......");
-    return listOfProjectByIds(result.data);
-    try {
-
-    } catch (e) {
-      log("getFavoriteProjectsIds >> Error: $e");
-      return AppError(AppErrorType.unHandledError,
-          message: "getFavoriteProjectsIds UnHandledError >> $e");
     }
   }
 
@@ -536,7 +577,6 @@ class RemoteDateSourceImpl extends RemoteDataSource {
 
   @override
   Future<List<AreaModel>> getAreas(FetchAreaParams params) async {
-
     final query = params.appLanguage == AppLanguage.en
         ? fetchEnglishAreasQuery()
         : fetchArabicAreasQuery();

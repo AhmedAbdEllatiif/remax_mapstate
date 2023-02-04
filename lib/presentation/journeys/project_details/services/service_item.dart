@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
-import 'package:remax_mapstate/domain/entities/service_entity.dart';
+import 'package:remax_mapstate/presentation/widgets/cached_image_widget.dart';
 
 import '../../../../common/constants/sizes.dart';
-import '../../../../common/enums/services.dart';
+import '../../../../domain/entities/service_type_entity.dart';
 import '../../../themes/theme_color.dart';
 
 class ServiceItemCard extends StatelessWidget {
-  final ServiceEntity serviceEntity;
+  final ServiceTypeEntity serviceEntity;
 
   const ServiceItemCard({
     Key? key,
@@ -20,18 +20,31 @@ class ServiceItemCard extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: Sizes.dimen_10.w),
       child: Column(
         children: [
-          CircleAvatar(
-            maxRadius: Sizes.dimen_40.w,
-            minRadius: Sizes.dimen_10.w,
-            foregroundColor: AppColor.fadeBlack,
-            backgroundColor: AppColor.fadeBlack,
-            child: Padding(
-              padding: const EdgeInsets.all(Sizes.dimen_12),
-              child: Image.asset(
-                serviceEntity.path,
-                fit: BoxFit.cover,
-                //color: AppColor.geeBung,
-              ),
+          // CircleAvatar(
+          //   maxRadius: Sizes.dimen_40.w,
+          //   minRadius: Sizes.dimen_10.w,
+          //   foregroundColor: AppColor.fadeBlack,
+          //   backgroundColor: AppColor.fadeBlack,
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(Sizes.dimen_12),
+          //     child: ,Image.asset(
+          //       serviceEntity.path,
+          //       fit: BoxFit.cover,
+          //       //color: AppColor.geeBung,
+          //     ),
+          //   ),
+          // ),
+
+          Container(
+            padding: const EdgeInsets.all(15),
+            decoration: const BoxDecoration(
+                color: AppColor.fadeBlack, shape: BoxShape.circle),
+            child: CachedImageWidget(
+              imageUrl: serviceEntity.icon,
+              height: Sizes.dimen_48.w,
+              width: Sizes.dimen_48.w,
+              isCircle: false,
+              progressBarScale: 0.5,
             ),
           ),
           const SizedBox(
@@ -43,7 +56,7 @@ class ServiceItemCard extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .caption!
-                .copyWith(color: AppColor.white,fontWeight: FontWeight.bold),
+                .copyWith(color: AppColor.white, fontWeight: FontWeight.bold),
           )
         ],
       ),

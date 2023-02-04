@@ -15,6 +15,7 @@ class UserAvatarWidget extends StatefulWidget {
   final String userName;
   final String avatarUrl;
   final double rating;
+  final bool showRating;
 
   const UserAvatarWidget({
     Key? key,
@@ -23,6 +24,7 @@ class UserAvatarWidget extends StatefulWidget {
     required this.avatarUrl,
     required this.rating,
     required this.userId,
+     this.showRating = true,
   }) : super(key: key);
 
   @override
@@ -79,6 +81,7 @@ class _UserAvatarWidgetState extends State<UserAvatarWidget> {
               onPressed: () {
                 _pickImageCubit.pickSingleImage();
               },
+
               nameStyle: Theme.of(context).textTheme.headline6!.copyWith(
                     letterSpacing: 0.5,
                     fontWeight: FontWeight.bold,

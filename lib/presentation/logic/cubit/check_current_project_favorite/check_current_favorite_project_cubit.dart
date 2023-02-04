@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:remax_mapstate/data/params/fetch_favorite_projects_params.dart';
+import 'package:remax_mapstate/data/params/fetch_favorite_projects_id_params.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/use_cases/fav_projects/get_fav_projects_ids_case.dart';
 
@@ -21,7 +21,7 @@ class CheckCurrentFavoriteProjectCubit
     _emitIfNotClosed(LoadingCheckFavoriteProject());
 
     // init params
-    final params = FetchFavoriteProjectsParams(
+    final params = FetchFavoriteProjectsIdsParams(
       userId: userId,
       userToken: userToken,
     );

@@ -15,7 +15,7 @@
   "projects": "المشاريع",
   "startingPrice": "تبدأ من",
   "seeAll": "اظهر الكل",
-  "noFavProjectsToShow": "لا يوجد مشاريع",
+  "noFavProjectsToShow": "ليس لديك مشاريع مفضلة بعد",
   "paymentPlan": "خطة الدفع",
   "startingArea": "مساحات تبدأ",
   "finishingType": "نوع التشطيب",
@@ -128,6 +128,8 @@
   "body": "الموضوع",
   "send": "ارسال",
   "requestSentSuccessfully": "تم ارسال طلبك بنجاح",
+
+  "checkInternetConnection": "تحقق من اتصال الانترنت",
 
   "arabic": "العربية",
   "english": "English",

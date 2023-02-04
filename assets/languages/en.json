@@ -15,7 +15,7 @@
   "projects": "Projects",
   "startingPrice": "Starting Price",
   "seeAll": "see all",
-  "noFavProjectsToShow": "no projects",
+  "noFavProjectsToShow": "You have no favorite projects yet",
   "paymentPlan": "Payment Plan",
   "startingArea": "Starting Area",
   "finishingType": "Finishing Type",
@@ -129,6 +129,9 @@
   "fullName": "Full name",
   "phoneNumber": "Phone number",
   "invalidPhoneNumber": "Invalid phone number",
+
+
+  "checkInternetConnection": "Check internet connection",
 
 
   "arabic": "العربية",

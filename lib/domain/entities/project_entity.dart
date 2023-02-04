@@ -8,6 +8,7 @@ import 'package:remax_mapstate/common/constants/assets_constants.dart';
 import 'package:remax_mapstate/common/functions/services_mapper.dart';
 import 'package:remax_mapstate/data/models/project_model.dart';
 import 'package:remax_mapstate/domain/entities/service_entity.dart';
+import 'package:remax_mapstate/domain/entities/service_type_entity.dart';
 
 import '../../common/constants/app_utils.dart';
 
@@ -23,7 +24,6 @@ class ProjectEntity extends Equatable {
   final String status;
   final String region;
   final String zone;
-  final List<String> services;
   final List<UnitTypeSetEntity> unitTypeSets;
   late List<String> images;
   final int planPercentage;
@@ -31,7 +31,7 @@ class ProjectEntity extends Equatable {
   final LocationEntity location;
   final DeveloperEntity developer;
   late final String formattedStartingPrice;
-  late final List<ServiceEntity> servicesEntities;
+  final List<ServiceTypeEntity> servicesEntities;
 
   ProjectEntity({
     required this.id,
@@ -45,7 +45,7 @@ class ProjectEntity extends Equatable {
     required this.status,
     required this.region,
     required this.zone,
-    required this.services,
+    required this.servicesEntities,
     required this.unitTypeSets,
     required this.planPercentage,
     required this.planNumberOfYears,
@@ -68,23 +68,6 @@ class ProjectEntity extends Equatable {
 
     formattedStartingPrice =
         doublePriceFrom == null ? priceFrom : display(doublePriceFrom);
-
-    //==> init services entities
-    servicesEntities = [];
-    for (var element in services) {
-      if (servicesMapper().containsKey(element)) {
-        final servicePath = servicesMapper()[element];
-        servicesEntities.add(ServiceEntity(
-          name: element,
-          path: servicePath ?? AssetsConstants.gym,
-        ));
-      } else {
-        servicesEntities.add(ServiceEntity(
-          name: element,
-          path: AssetsConstants.gym,
-        ));
-      }
-    }
   }
 
   @override

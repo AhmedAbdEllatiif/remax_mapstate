@@ -1,13 +1,19 @@
 import '../../../../../common/constants/api_constants.dart';
 
-String fetchEnglishProjectByStatusQuery() => """
-query EnglishProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput],\$${VariablesConstants.pageInfo}:PageInfo){
+String fetchEnglishFavProjectsQuery() => """
+query getFavoriteProjects(
+\$${VariablesConstants.userPk}:Int,
+\$${VariablesConstants.filters}:[DjangoFilterInput],
+\$${VariablesConstants.pageInfo}:PageInfo
+){
   
   # query 
-  projects
+  favoriteProjects
   
-  ######### Query params #########
+ ######### Query params #########
   (
+     #==> userPk
+     userPk: \$${VariablesConstants.userPk}
      #==> Page info
      pageInfo: \$${VariablesConstants.pageInfo}
       #==> filters      

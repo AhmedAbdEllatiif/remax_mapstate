@@ -112,6 +112,7 @@ class _BrokerProfileState extends State<BrokerProfile> {
                       UserDataItem(
                         keyData: TranslateConstants.phoneNumber.t(context),
                         value: state.userEntity.phoneNumber,
+                        forceLTR: true,
                       ),
                       ButtonWithBoxShadow(
                         text: TranslateConstants.completeYourProfile.t(context),

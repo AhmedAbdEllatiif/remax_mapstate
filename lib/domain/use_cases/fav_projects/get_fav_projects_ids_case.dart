@@ -3,10 +3,10 @@ import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 import 'package:remax_mapstate/domain/use_cases/use_case.dart';
 
-import '../../../data/params/fetch_favorite_projects_params.dart';
+import '../../../data/params/fetch_favorite_projects_id_params.dart';
 
 class GetFavProjectsIdsCase
-    extends UseCase<List<int>, FetchFavoriteProjectsParams> {
+    extends UseCase<List<int>, FetchFavoriteProjectsIdsParams> {
   final RemoteRepository remoteRepository;
 
   GetFavProjectsIdsCase({
@@ -15,6 +15,6 @@ class GetFavProjectsIdsCase
 
   @override
   Future<Either<AppError, List<int>>> call(
-          FetchFavoriteProjectsParams params) async =>
+          FetchFavoriteProjectsIdsParams params) async =>
       await remoteRepository.fetchFavProjectsIds(params);
 }

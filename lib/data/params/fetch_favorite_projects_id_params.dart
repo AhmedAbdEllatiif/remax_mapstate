@@ -1,8 +1,8 @@
-class FetchFavoriteProjectsParams {
+class FetchFavoriteProjectsIdsParams {
   final String userToken;
   final String userId;
 
-  FetchFavoriteProjectsParams({
+  FetchFavoriteProjectsIdsParams({
     required this.userToken,
     required this.userId,
   });

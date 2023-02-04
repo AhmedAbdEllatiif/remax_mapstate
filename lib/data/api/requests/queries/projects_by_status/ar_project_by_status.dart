@@ -42,6 +42,7 @@ query ArabicProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput],
     services{
       id
       arabicName
+      icon
     }
     
     # priceFrom

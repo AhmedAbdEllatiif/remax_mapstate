@@ -4,13 +4,14 @@ import 'package:remax_mapstate/common/enums/services.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/domain/entities/service_entity.dart';
+import 'package:remax_mapstate/domain/entities/service_type_entity.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/services/service_item.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
 
 import '../section_title_text.dart';
 
 class ServicesListWidget extends StatelessWidget {
-  final List<ServiceEntity> services;
+  final List<ServiceTypeEntity> services;
 
   const ServicesListWidget({Key? key, required this.services})
       : super(key: key);

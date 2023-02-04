@@ -12,7 +12,7 @@ import 'package:remax_mapstate/data/models/mutation/update_user.dart';
 import 'package:remax_mapstate/data/models/success_model.dart';
 import 'package:remax_mapstate/data/models/user_model.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
-import 'package:remax_mapstate/data/params/fetch_favorite_projects_params.dart';
+import 'package:remax_mapstate/data/params/fetch_favorite_projects_id_params.dart';
 import 'package:remax_mapstate/data/params/update_user_avatar.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
@@ -41,6 +41,7 @@ import '../../domain/entities/user_entity.dart';
 import '../models/auth/profile/get_profile_request_model.dart';
 import '../params/add_or_remove_project_to_fav_params.dart';
 import '../params/fetch_broker_params.dart';
+import '../params/fetch_fav_projects_params.dart';
 import '../params/fetch_list_params.dart';
 import '../params/filter_data_params.dart';
 import '../params/get_profile_params.dart';
@@ -485,6 +486,13 @@ class RemoteRepositoryImpl extends RemoteRepository {
     }
   }
 
+  //========================>  Favorite Projects  <===========================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
   /*
   *
   *
@@ -536,7 +544,7 @@ class RemoteRepositoryImpl extends RemoteRepository {
   * */
   @override
   Future<Either<AppError, List<int>>> fetchFavProjectsIds(
-    FetchFavoriteProjectsParams params,
+    FetchFavoriteProjectsIdsParams params,
   ) async {
     try {
       // init model to send
@@ -562,6 +570,45 @@ class RemoteRepositoryImpl extends RemoteRepository {
     //==> Exception
     on Exception catch (e) {
       log("RepoImpl >> fetchFavProjectsIds >> Exception >> $e");
+      return Left(AppError(AppErrorType.api, message: e.toString()));
+    }
+  }
+
+  /*
+  *
+  *
+  * fetchUserFavProjects
+  *
+  *
+  * */
+  @override
+  Future<Either<AppError, List<ProjectEntity>>> fetchFavProjects(
+    FetchFavProjectsParams params,
+  ) async {
+    try {
+      // init request
+      final result = await remoteDataSource.getFavoriteProjects(params);
+
+      if (result is List<ProjectEntity>) {
+        return Right(result);
+      }
+      return Left(result);
+    }
+    //==> SocketException
+    on SocketException catch (e) {
+      log("RepoImpl >> fetchFavProjects >> SocketException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.message));
+    }
+    //==> OperationException
+    on OperationException catch (e) {
+      final appErrorType =
+          AppErrorTypeBuilder.formOperationException(e).appErrorType;
+      log("RepoImpl >> fetchFavProjects >> OperationException >> $e");
+      return Left(AppError(appErrorType, message: e.toString()));
+    }
+    //==> Exception
+    on Exception catch (e) {
+      log("RepoImpl >> fetchFavProjects >> Exception >> $e");
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
   }

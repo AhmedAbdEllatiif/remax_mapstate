@@ -26,4 +26,6 @@ class VariablesConstants {
   static String pk = 'pk';
   static String email = 'email';
   static String password = 'password';
+
+  static String userPk = 'userPk';
 }

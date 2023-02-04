@@ -1,21 +1,44 @@
-// To parse this JSON data, do
-//
-//     final projectModel = projectModelFromJson(jsonString);
-//     final projects = listOfProjectModel(map<String,dynamic>);
-
-import 'dart:convert';
-
 import 'package:remax_mapstate/common/constants/app_utils.dart';
 import 'package:remax_mapstate/domain/entities/project_entity.dart';
+import 'package:remax_mapstate/domain/entities/service_entity.dart';
+import 'package:remax_mapstate/domain/entities/service_type_entity.dart';
 
+/*
+*
+* list of favorite projects
+*
+* */
+List<ProjectModel> listOfFavoriteProjects(dynamic json) {
+  final List<ProjectModel> favProjects = [];
+
+  if (json == null) {
+    throw Exception("ProjectModel >>  listOFavoriteProjects >>"
+        " json is null");
+  }
+
+  if (json["favoriteProjects"] == null) {
+    throw Exception("ProjectModel >>  listOFavoriteProjects >>"
+        " favoriteProjects is null");
+  }
+
+  for (var value in (json["favoriteProjects"] as List)) {
+    favProjects.add(ProjectModel.fromJson(value));
+  }
+
+  return favProjects;
+}
+
+/*
+*
+* list of projects
+*
+* */
 List<ProjectModel> listOfProjectModel(Map<String, dynamic> json) =>
     List<ProjectModel>.from(
-        json["projects"].map((x) => ProjectModel.fromJson(x)));
-
-ProjectModel projectModelFromJson(String str) =>
-    ProjectModel.fromJson(json.decode(str));
-
-//String projectModelToJson(ProjectModel data) => json.encode(data.toJson());
+      json["projects"].map(
+        (x) => ProjectModel.fromJson(x),
+      ),
+    );
 
 class ProjectModel extends ProjectEntity {
   ProjectModel({
@@ -85,13 +108,7 @@ class ProjectModel extends ProjectEntity {
                   : AppUtils.undefined,
 
           //==> services
-          services: projectServices
-              .map((service) => service.name.isNotEmpty
-                  ? service.name
-                  : service.arabicName.isNotEmpty
-                      ? service.arabicName
-                      : AppUtils.undefined)
-              .toList(),
+          servicesEntities: projectServices,
 
           //==> images
           imageList: projectImages,
@@ -487,27 +504,38 @@ class FinishingType {
 }
 
 /// Service
-class ProjectService {
-  const ProjectService({
-    required this.id,
-    required this.name,
-    required this.arabicName,
-  });
+class ProjectService extends ServiceTypeEntity {
+  ProjectService(
+      {required this.serviceId,
+      required this.serviceName,
+      required this.serviceArabicName,
+      required this.serviceIcon})
+      : super(
+          id: serviceId,
+          name: serviceName.isNotEmpty
+              ? serviceName
+              : serviceArabicName.isNotEmpty
+                  ? serviceArabicName
+                  : AppUtils.undefined,
+          serviceIcon: serviceIcon,
+        );
 
-  final String id;
-  final String name;
-  final String arabicName;
+  final String serviceId;
+  final String serviceName;
+  final String serviceArabicName;
+  final String serviceIcon;
 
   factory ProjectService.fromJson(Map<String, dynamic> json) => ProjectService(
-        id: json["id"] ?? "",
-        name: json["name"] ?? "",
-        arabicName: json["arabicName"] ?? AppUtils.undefined,
-      );
+      serviceId: json["id"] ?? "",
+      serviceName: json["name"] ?? "",
+      serviceArabicName: json["arabicName"] ?? AppUtils.undefined,
+      serviceIcon: json["icon"] ?? AppUtils.undefined);
 
-  factory ProjectService.empty() => const ProjectService(
-        id: AppUtils.undefined,
-        name: "",
-        arabicName: "",
+  factory ProjectService.empty() => ProjectService(
+        serviceId: AppUtils.undefined,
+        serviceName: "",
+        serviceArabicName: "",
+        serviceIcon: AppUtils.undefined,
       );
 }
 

@@ -1,13 +1,19 @@
 import '../../../../../common/constants/api_constants.dart';
 
-String fetchEnglishProjectByStatusQuery() => """
-query EnglishProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput],\$${VariablesConstants.pageInfo}:PageInfo){
+String fetchArabicFavProjectsQuery() => """
+query getFavoriteProjects(
+\$${VariablesConstants.userPk}:Int,
+\$${VariablesConstants.filters}:[DjangoFilterInput],
+\$${VariablesConstants.pageInfo}:PageInfo
+){
   
   # query 
-  projects
+  favoriteProjects
   
-  ######### Query params #########
+ ######### Query params #########
   (
+     #==> userPk
+     userPk: \$${VariablesConstants.userPk}
      #==> Page info
      pageInfo: \$${VariablesConstants.pageInfo}
       #==> filters      
@@ -18,33 +24,30 @@ query EnglishProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput]
   ######### Query body #########
   {
    id
-    name
     
-    description
-    
+    arabicName
+    descriptionArabic
     type
     
-     # images
+    # images
     images
     
     # region
     region{
       id
-      name
-      
+      arabicName
       priority
     }
     # zone 
     zone{
       id
-      name
-      
+      arabicName
     }
     
     # services
     services{
       id
-      name
+      arabicName
       icon
     }
     
@@ -57,8 +60,7 @@ query EnglishProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput]
     # finishingType
     finishingType{
       id
-      name
-      
+      arabicName
     }
     
     # deliveryYear
@@ -70,8 +72,7 @@ query EnglishProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput]
     # status
     status{
       id
-      name
-      
+      arabicName
     }
     
     # unittypeSet
@@ -80,14 +81,12 @@ query EnglishProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput]
       #==> unittypeSet.unitTypeName
       unitTypeName{
         id
-        name
-        
+        arabicName
       }
       #==> unittypeSet.layout
       layout{
         id
-        name
-        
+        arabicName
       }
       priceFrom
       priceTo
@@ -98,8 +97,8 @@ query EnglishProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput]
       #==> unittypeSet.finishingType
       finishingType{
         id
-        name
         
+        arabicName
       }
     } # end of unittypeSet
     
@@ -126,8 +125,7 @@ query EnglishProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput]
     # developer
     developer{
       id
-      name
-      
+      arabicName
       logo
       #==> developercontact
       developercontact{
@@ -147,6 +145,7 @@ query EnglishProjectByStatus(\$${VariablesConstants.filters}:[DjangoFilterInput]
     }
   }
   ########## end of body #########
+  
   
 }
  """;

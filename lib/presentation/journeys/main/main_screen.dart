@@ -58,17 +58,17 @@ class _MainScreenState extends State<MainScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: BlocBuilder<NavigationCubit, NavigationState>(
                 builder: (context, state) {
-                  if(state is ProfileState){
-                    return IconButton(
-                      onPressed: () {
-                        throw UnimplementedError("Add where to go when edit is clicked");
-                      },
-                      icon: const Icon(
-                        Icons.edit,
-                        color: AppColor.white,
-                      ),
-                    );
-                  }
+                  // if(state is ProfileState){
+                  //   return IconButton(
+                  //     onPressed: () {
+                  //       throw UnimplementedError("Add where to go when edit is clicked");
+                  //     },
+                  //     icon: const Icon(
+                  //       Icons.edit,
+                  //       color: AppColor.white,
+                  //     ),
+                  //   );
+                  // }
                   return IconButton(
                     onPressed: () => _navigateToFilterProjectsScreen(context),
                     icon: const Icon(

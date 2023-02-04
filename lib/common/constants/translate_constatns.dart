@@ -130,4 +130,6 @@ class TranslateConstants{
   static const String atLeastLowerCase = 'atLeastLowerCase';
   static const String specialCharacterRequired = 'specialCharacterRequired';
   static const String aNumberRequired = 'aNumberRequired';
+
+  static const String checkInternetConnection = 'checkInternetConnection';
 }
