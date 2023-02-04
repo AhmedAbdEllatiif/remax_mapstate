@@ -9,6 +9,7 @@ import 'package:remax_mapstate/data/api/clients/api_client.dart';
 import 'package:remax_mapstate/data/api/clients/auth_client.dart';
 import 'package:remax_mapstate/data/api/requests/auth/get_profile.dart';
 import 'package:remax_mapstate/data/api/requests/mutations/contact_us.dart';
+import 'package:remax_mapstate/data/api/requests/mutations/request_a_call.dart';
 import 'package:remax_mapstate/data/api/requests/queries/areas/ar_areas.dart';
 import 'package:remax_mapstate/data/api/requests/queries/areas/en_areas.dart';
 import 'package:remax_mapstate/data/api/requests/queries/favorite_projects/en_fav_projects.dart';
@@ -43,6 +44,7 @@ import 'package:remax_mapstate/data/params/add_or_remove_project_to_fav_params.d
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
 import 'package:remax_mapstate/data/params/fetch_broker_params.dart';
 import 'package:remax_mapstate/data/params/fetch_favorite_projects_id_params.dart';
+import 'package:remax_mapstate/data/params/request_a_call_params.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_us_request_params.dart';
 
 import '../../common/constants/api_constants.dart';
@@ -60,6 +62,7 @@ import '../api/requests/queries/users/get_users_en.dart';
 import '../models/filter_model.dart';
 import '../models/list_of_fav_project_ids.dart';
 import '../models/mutation/contact_us_request_model.dart';
+import '../models/mutation/request_a_call_request_model.dart';
 import '../models/mutation/update_broker_request_model.dart';
 import '../params/fetch_fav_projects_params.dart';
 
@@ -113,6 +116,9 @@ abstract class RemoteDataSource {
 
   /// contactUs
   Future<dynamic> contactUs(ContactUsRequestParams contactUsRequestParams);
+
+  /// requestCall
+  Future<dynamic> requestCall(RequestACallParams requestACallParams);
 
   /// return  projects
   Future<List<ProjectModel>> fetchProjects();
@@ -459,6 +465,36 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       log("contactUs >> Error: $e");
       return AppError(AppErrorType.unHandledError,
           message: "contactUs UnHandledError >> $e");
+    }
+  }
+
+  //============================>  requestCall  <=============================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
+  @override
+  Future<dynamic> requestCall(RequestACallParams requestACallParams) async {
+    try {
+      final mutationFields = requestCallMutation();
+
+      final QueryResult result = await apiClient.mutate(
+        mutationFields,
+        variables: {
+          VariablesConstants.inputForm:
+              RequestCallRequestModel.fromParams(params: requestACallParams)
+                  .toJson(),
+        },
+      );
+
+      log("requestCall >> Data >> ..........\n ${result.data}.......");
+      return SuccessModel();
+    } catch (e) {
+      log("requestCall >> Error: $e");
+      return AppError(AppErrorType.unHandledError,
+          message: "requestCall UnHandledError >> $e");
     }
   }
 

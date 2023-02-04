@@ -31,6 +31,7 @@ import 'package:remax_mapstate/domain/use_cases/local_usecases/delete_fav_projec
 import 'package:remax_mapstate/domain/use_cases/local_usecases/get_fav_projects.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/save_fav_project.dart';
 import 'package:remax_mapstate/domain/use_cases/local_usecases/update_language.dart';
+import 'package:remax_mapstate/domain/use_cases/request_a_call_case.dart';
 
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/downpayment.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/formz/fourth_down_payment.dart';
@@ -44,6 +45,7 @@ import 'package:remax_mapstate/presentation/logic/cubit/get_buyer_by_id/get_buye
 import 'package:remax_mapstate/presentation/logic/cubit/get_filter_data/get_filter_data_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/login/login_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/projects_by_status/projects_by_status_cubit.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/request_a_call/request_call_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/unitType_names/unit_type_names_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/user_token/user_token_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -363,6 +365,13 @@ Future init() async {
     ),
   );
 
+  /// RequestCallCase
+  getItInstance.registerFactory<RequestCallCase>(
+    () => RequestCallCase(
+      remoteRepository: getItInstance(),
+    ),
+  );
+
   /// UpdateUserAvatarCase
   getItInstance.registerFactory<UpdateUserAvatarCase>(
     () => UpdateUserAvatarCase(
@@ -583,6 +592,11 @@ Future init() async {
   /// init ContactUsCubit
   getItInstance.registerFactory<ContactUsCubit>(
     () => ContactUsCubit(),
+  );
+
+  /// RequestCallCubit
+  getItInstance.registerFactory<RequestCallCubit>(
+    () => RequestCallCubit(),
   );
 
   //==> PickImageCubit

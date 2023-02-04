@@ -27,6 +27,7 @@ import 'package:remax_mapstate/domain/entities/user_entity.dart';
 import '../../data/params/fetch_areas_params.dart';
 import '../../data/params/fetch_broker_params.dart';
 import '../../data/params/fetch_favorite_projects_id_params.dart';
+import '../../data/params/request_a_call_params.dart';
 import '../../data/params/update_user_avatar.dart';
 import '../entities/params/complete_broker_data_params.dart';
 import '../entities/params/contact_us_request_params.dart';
@@ -131,8 +132,8 @@ abstract class RemoteRepository {
 
   /// fetchUserFavProjects
   Future<Either<AppError, List<ProjectEntity>>> fetchFavProjects(
-      FetchFavProjectsParams params,
-      );
+    FetchFavProjectsParams params,
+  );
 
   ///**************************** Developer Contact *********************** \\\\
   Future<Either<AppError, ContactDeveloperEntity>> getDeveloperContact(
@@ -145,5 +146,10 @@ abstract class RemoteRepository {
   /// contactUs
   Future<Either<AppError, SuccessModel>> contactUs(
     ContactUsRequestParams params,
+  );
+
+  /// requestCall
+  Future<Either<AppError, SuccessModel>> requestCall(
+    RequestACallParams params,
   );
 }

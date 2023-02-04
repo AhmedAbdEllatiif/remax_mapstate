@@ -13,6 +13,7 @@ import 'package:remax_mapstate/data/models/success_model.dart';
 import 'package:remax_mapstate/data/models/user_model.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
 import 'package:remax_mapstate/data/params/fetch_favorite_projects_id_params.dart';
+import 'package:remax_mapstate/data/params/request_a_call_params.dart';
 import 'package:remax_mapstate/data/params/update_user_avatar.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
@@ -783,6 +784,45 @@ class RemoteRepositoryImpl extends RemoteRepository {
     //==> Exception
     on Exception catch (e) {
       log("RepoImpl >> completeBrokerData >> Exception >> $e");
+      return Left(AppError(AppErrorType.api, message: e.toString()));
+    }
+  }
+
+
+  /*
+  *
+  *
+  * contactUs
+  *
+  *
+  * */
+  @override
+  Future<Either<AppError, SuccessModel>> requestCall(
+      RequestACallParams params,
+      ) async {
+    try {
+      final result = await remoteDataSource.requestCall(params);
+
+      if (result is SuccessModel) {
+        return Right(result);
+      }
+      return Left(result);
+    }
+    //==> SocketException
+    on SocketException catch (e) {
+      log("RepoImpl >> requestCall >> SocketException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.message));
+    }
+    //==> OperationException
+    on OperationException catch (e) {
+      final appErrorType =
+          AppErrorTypeBuilder.formOperationException(e).appErrorType;
+      log("RepoImpl >> requestCall >> OperationException >> $e");
+      return Left(AppError(appErrorType, message: e.toString()));
+    }
+    //==> Exception
+    on Exception catch (e) {
+      log("RepoImpl >> requestCall >> Exception >> $e");
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
   }

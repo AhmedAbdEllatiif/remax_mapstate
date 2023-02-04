@@ -166,6 +166,7 @@ backgroundColor: Color(0xFF121212),
               right: 0.0,
               left: 0.0,
               child: ButtonSection(
+                projectId: projectEntity.id,
                 onPressed: () => _navigateToDeveloperContactScreen(),
               ),
             ),
