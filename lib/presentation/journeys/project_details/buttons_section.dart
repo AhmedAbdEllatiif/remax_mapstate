@@ -71,7 +71,7 @@ class _ButtonSectionState extends State<ButtonSection> {
             ///  tour or noUser
             if (userType == UserType.tour || userType == UserType.unDefined) {
               return Container(
-                color: AppColor.absoluteTransparentGeeBung,
+                color: AppColor.white.withOpacity(0.2),
                 padding: EdgeInsets.symmetric(
                   vertical: Sizes.dimen_5.h,
                   horizontal: Sizes.dimen_16.w,
@@ -89,7 +89,7 @@ class _ButtonSectionState extends State<ButtonSection> {
             /// client
             if (userType == UserType.client) {
               return Container(
-                color: AppColor.absoluteTransparentGeeBung,
+                color: AppColor.white.withOpacity(0.2),
                 padding: EdgeInsets.symmetric(vertical: Sizes.dimen_5.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -133,7 +133,7 @@ class _ButtonSectionState extends State<ButtonSection> {
                 userType == UserType.ambassador) {
               return Container(
                 decoration: BoxDecoration(
-                  color: AppColor.geeBung,
+                  color: AppColor.white.withOpacity(0.2),
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(Sizes.dimen_16.w),
                     topLeft: Radius.circular(Sizes.dimen_16.w),
