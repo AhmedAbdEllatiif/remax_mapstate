@@ -41,6 +41,7 @@ import 'package:remax_mapstate/presentation/logic/bloc/launch_apps/launch_apps_b
 import 'package:remax_mapstate/presentation/logic/cubit/advanced_filter_projects/advanced_filter_projects_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/auth/register_new_user/register_new_user_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/contact_us/contact_us_cubit.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/get_brokers_by_area/get_brokers_by_area_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/get_buyer_by_id/get_buyer_by_id_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/get_filter_data/get_filter_data_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/login/login_cubit.dart';
@@ -60,6 +61,7 @@ import '../domain/use_cases/complete_broker_data_case.dart';
 import '../domain/use_cases/contact_us_case.dart';
 import '../domain/use_cases/fav_projects/get_fav_projects_case.dart';
 import '../domain/use_cases/fav_projects/get_fav_projects_ids_case.dart';
+import '../domain/use_cases/get_broker_by_region_case.dart';
 import '../domain/use_cases/get_filter_data.dart';
 import '../domain/use_cases/get_projects_by_status.dart';
 import '../domain/use_cases/local_usecases/authorized_user/authorized_user_data/delete_user_data.dart';
@@ -400,6 +402,13 @@ Future init() async {
     ),
   );
 
+  /// GetBrokersByRegionCase
+  getItInstance.registerFactory<GetBrokersByRegionCase>(
+    () => GetBrokersByRegionCase(
+      remoteRepository: getItInstance(),
+    ),
+  );
+
   ///************************** Local_Use_Cases *****************************\\\
 //==> GetAutoLogin
   getItInstance.registerLazySingleton<GetUserTokenCase>(() => GetUserTokenCase(
@@ -612,6 +621,11 @@ Future init() async {
   /// GetFavProjectsCubit
   getItInstance.registerFactory<GetFavProjectsCubit>(
     () => GetFavProjectsCubit(),
+  );
+
+  /// GetBrokersByAreaCubit
+  getItInstance.registerFactory<GetBrokersByAreaCubit>(
+    () => GetBrokersByAreaCubit(),
   );
 
   ///**************************** init blocs *******************************\\\

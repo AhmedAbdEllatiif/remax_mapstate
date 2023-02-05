@@ -1,7 +1,7 @@
 part of 'broker_changed_cubit.dart';
 
 abstract class BrokerChangedState extends Equatable {
-  final BrokerEntity? brokerEntity;
+  final UserEntity? brokerEntity;
   const BrokerChangedState({this.brokerEntity});
 
   @override
@@ -14,7 +14,7 @@ class BrokerChangedInitialState  extends BrokerChangedState{}
 
 
 class OnBrokerChangedState extends BrokerChangedState{
-  final BrokerEntity brokerEntity;
+  final UserEntity brokerEntity;
 
   const OnBrokerChangedState({required this.brokerEntity});
 

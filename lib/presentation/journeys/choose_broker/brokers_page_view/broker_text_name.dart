@@ -13,7 +13,7 @@ class BrokerTextName extends StatelessWidget {
       builder: (blocContext,state){
         if (state is OnBrokerChangedState){
           return Text(
-            state.brokerEntity.name,
+            state.brokerEntity.firstName,
             textAlign: TextAlign.center,
             maxLines: 1,
             overflow: TextOverflow.fade,

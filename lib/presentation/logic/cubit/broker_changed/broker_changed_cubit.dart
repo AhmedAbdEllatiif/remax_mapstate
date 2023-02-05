@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:remax_mapstate/domain/entities/broker_entity.dart';
+import 'package:remax_mapstate/domain/entities/user_entity.dart';
 
 import '../../../../data/params/make_call_params.dart';
 import '../../../../data/params/whatsapp_params.dart';
@@ -21,14 +22,14 @@ class BrokerChangedCubit extends Cubit<BrokerChangedState> {
 
 
   /// change current broker
-  void changeBroker(BrokerEntity brokerEntity) =>
+  void changeBroker(UserEntity brokerEntity) =>
       _emitIfNotClosed(OnBrokerChangedState(brokerEntity: brokerEntity));
 
   /// To open whats app
   void openWhatsApp({required String welcomeText, required String text}) {
     if (state.brokerEntity != null) {
-      final whatsappNum = state.brokerEntity!.whatsappNum;
-      final empName = state.brokerEntity!.name;
+      final whatsappNum = state.brokerEntity!.phoneNumber;
+      final empName = state.brokerEntity!.firstName;
       openWhatsappCase(WhatsappParams(
           num: whatsappNum,
           text:
@@ -39,7 +40,7 @@ class BrokerChangedCubit extends Cubit<BrokerChangedState> {
   /// To make a phone call
   void makePhoneCall() {
     if (state.brokerEntity != null) {
-      final phoneNum = state.brokerEntity!.phoneNum;
+      final phoneNum = state.brokerEntity!.phoneNumber;
       makePhoneCallCase(
           MakeCallParams(phoneNum: phoneNum));
     }

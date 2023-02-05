@@ -134,4 +134,5 @@ class TranslateConstants{
   static const String checkInternetConnection = 'checkInternetConnection';
   static const String callRequested = 'callRequested';
   static const String alreadyRequestOnThisProject = 'alreadyRequestOnThisProject';
+  static const String noBrokersToShow = 'noBrokersToShow';
 }

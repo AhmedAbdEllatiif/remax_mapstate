@@ -4,23 +4,28 @@ import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
+import 'package:remax_mapstate/common/functions/get_current_app_language.dart';
+import 'package:remax_mapstate/common/functions/get_user_token.dart';
 import 'package:remax_mapstate/common/screen_utils/screen_util.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/presentation/journeys/choose_broker/arguments/choose_broker_argument.dart';
 import 'package:remax_mapstate/presentation/journeys/choose_broker/brokers_page_view/top_broker_page_view_widget.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/get_brokers_by_area/get_brokers_by_area_cubit.dart';
+import 'package:remax_mapstate/presentation/widgets/app_error_widget.dart';
 import 'package:remax_mapstate/presentation/widgets/empty_list_widegt.dart';
 import 'package:remax_mapstate/presentation/widgets/loading_widget.dart';
 import 'package:remax_mapstate/presentation/widgets/stack_with_full_background.dart';
 import 'package:responsive_framework/responsive_value.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
-import '../../logic/cubit/brokers_by_area/get_area_brokers_cubit.dart';
 import '../../logic/cubit/broker_changed/broker_changed_cubit.dart';
 import 'bottom_card_data_holder.dart';
 
 class ChooseBrokerScreen extends StatefulWidget {
   final ChooseBrokerArgument chooseBrokerArgument;
-  const ChooseBrokerScreen({Key? key, required this.chooseBrokerArgument}) : super(key: key);
+
+  const ChooseBrokerScreen({Key? key, required this.chooseBrokerArgument})
+      : super(key: key);
 
   @override
   _ChooseBrokerScreenState createState() => _ChooseBrokerScreenState();
@@ -28,8 +33,9 @@ class ChooseBrokerScreen extends StatefulWidget {
 
 class _ChooseBrokerScreenState extends State<ChooseBrokerScreen> {
   late PageController _pageController;
-  late final GetAreaBrokersCubit areaBrokersCubit;
+  late final GetBrokersByAreaCubit areaBrokersCubit;
   late final BrokerChangedCubit brokerChangedCubit;
+  late final String areaName;
 
   @override
   void initState() {
@@ -43,11 +49,14 @@ class _ChooseBrokerScreenState extends State<ChooseBrokerScreen> {
     );
 
     /// init areaBrokersBloc
-    areaBrokersCubit = getItInstance<GetAreaBrokersCubit>();
-    areaBrokersCubit.fetchBrokers();
+    areaBrokersCubit = getItInstance<GetBrokersByAreaCubit>();
 
     /// init brokerChangedCubit
     brokerChangedCubit = getItInstance<BrokerChangedCubit>();
+
+    areaName = widget.chooseBrokerArgument.areaName;
+
+    _fetchBrokers();
   }
 
   @override
@@ -61,7 +70,7 @@ class _ChooseBrokerScreenState extends State<ChooseBrokerScreen> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<GetAreaBrokersCubit>(create: (_) => areaBrokersCubit),
+        BlocProvider<GetBrokersByAreaCubit>(create: (_) => areaBrokersCubit),
         BlocProvider<BrokerChangedCubit>(create: (_) => brokerChangedCubit),
       ],
       child: StackScaffoldWithFullBackground(
@@ -70,41 +79,45 @@ class _ChooseBrokerScreenState extends State<ChooseBrokerScreen> {
 
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: BlocConsumer<GetAreaBrokersCubit, GetAreaBrokersState>(
+          child: BlocConsumer<GetBrokersByAreaCubit, GetBrokersByAreaState>(
             /// listener on AreaBrokersBloc
             listener: (context, state) {
-              if (state is AreaBrokersFetched) {
+              if (state is BrokersOfAreaFetched) {
                 /// add change broker to show BottomCardDataHolder with current broker
-                brokerChangedCubit.changeBroker(state.brokers[0]);
+                brokerChangedCubit.changeBroker(state.brokersList[0]);
               }
             },
 
             /// builder of AreaBrokersBloc
             builder: (context, state) {
               /// loading
-              if (state is LoadingAreaBrokers) {
+              if (state is LoadingToGeBrokersByArea) {
                 return const Center(child: LoadingWidget());
               }
 
               /// empty list
-              if (state is NoBrokerInArea) {
-                return const Center(
-                  child: EmptyListWidget(text: 'No Brokers to show'),
+              if (state is EmptyListOfBrokersInThisArea) {
+                return Center(
+                  child: EmptyListWidget(
+                      text: TranslateConstants.noBrokersToShow.t(context)),
                 );
               }
 
               /// error
-              if (state is ErrorWhileLoadingAreaBrokers) {
+              if (state is ErrorWhileGettingBrokersByArea) {
                 return Center(
-                  child: Text(
-                    'Error: ${state.appError.appErrorType} , Message: ${state.appError.message}',
+                  child: AppErrorWidget(
+                    appTypeError: state.appError.appErrorType,
+                    onPressedRetry: () {
+                      _fetchBrokers();
+                    },
                   ),
                 );
               }
 
               /// loaded
-              if (state is AreaBrokersFetched) {
-                final brokers = state.brokers;
+              if (state is BrokersOfAreaFetched) {
+                final brokers = state.brokersList;
                 return Column(
                   children: [
                     /// PageView with brokers images
@@ -144,5 +157,12 @@ class _ChooseBrokerScreenState extends State<ChooseBrokerScreen> {
               Condition.smallerThan(name: MOBILE, value: 0.7),
             ]).value ??
         0.55;
+  }
+
+  void _fetchBrokers() {
+    final String userToken = getUserToken(context);
+    final appLanguage = getCurrentAppLanguage(context);
+    areaBrokersCubit.tryToGetBrokersByArea(
+        userToken: userToken, regionName: areaName, appLanguage: appLanguage);
   }
 }

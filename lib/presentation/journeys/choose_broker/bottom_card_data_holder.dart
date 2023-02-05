@@ -16,10 +16,15 @@ class BottomCardDataHolder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColor.fadeBlack,
+      // color: AppColor.fadeBlack,
+      // elevation: 20,
+      // shape: RoundedRectangleBorder(
+      //   side: const BorderSide(color: AppColor.absoluteTransparentGeeBung, width: 1),
+      //   borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
+      // ),
       elevation: 20,
       shape: RoundedRectangleBorder(
-        side: const BorderSide(color: AppColor.absoluteTransparentGeeBung, width: 1),
+        side: const BorderSide(color: Colors.white70, width: 1),
         borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
       ),
       child: BlocBuilder<BrokerChangedCubit, BrokerChangedState>(
@@ -33,26 +38,26 @@ class BottomCardDataHolder extends StatelessWidget {
                 /// rating
                 BrokerDataWidget(
                   dataKey: "Rating",
-                  value: currentBroker.rating.toDouble(),
+                  value: currentBroker.brokerRating.toDouble(),
                   isRating: true,
                 ),
 
                 /// name
                 BrokerDataWidget(
                   dataKey: "Name",
-                  value: currentBroker.name,
+                  value: currentBroker.firstName,
                 ),
 
                 /// age
                 BrokerDataWidget(
                   dataKey: "Age",
-                  value: currentBroker.age.toString(),
+                  value: "currentBroker.age.toString()",
                 ),
 
                 /// deals
                 BrokerDataWidget(
                   dataKey: "Done Deals",
-                  value: currentBroker.totalDoneDeals.toString(),
+                  value: currentBroker.brokerDoneDeals.toString(),
                 ),
 
                 const SizedBox(
@@ -61,8 +66,8 @@ class BottomCardDataHolder extends StatelessWidget {
 
                 /// contact info
                 ContactInfoWidget(
-                  phoneNum: currentBroker.whatsappNum,
-                  whatsapp: currentBroker.phoneNum,
+                  phoneNum: currentBroker.phoneNumber,
+                  whatsapp: currentBroker.phoneNumber,
                   onWhatsappPressed: () {
                     context.read<BrokerChangedCubit>().openWhatsApp(
                         welcomeText:

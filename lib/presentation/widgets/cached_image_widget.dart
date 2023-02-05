@@ -13,6 +13,7 @@ class CachedImageWidget extends StatelessWidget {
   final double progressBarScale;
   final bool isCircle;
   final BoxFit boxFit;
+  final Widget? errorWidget;
 
   const CachedImageWidget({
     Key? key,
@@ -21,7 +22,8 @@ class CachedImageWidget extends StatelessWidget {
     required this.width,
     required this.progressBarScale,
     required this.isCircle,
-     this.boxFit = BoxFit.cover,
+    this.boxFit = BoxFit.cover,
+    this.errorWidget,
   }) : super(key: key);
 
   @override
@@ -32,10 +34,11 @@ class CachedImageWidget extends StatelessWidget {
       width: width,
       height: height,
       fit: BoxFit.contain,
+
       /// imageBuilder
       imageBuilder: (context, imageProvider) => Container(
         decoration: BoxDecoration(
-          shape: isCircle ? BoxShape.circle:BoxShape.rectangle,
+          shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
           //borderRadius: BorderRadius.all(Radius.circular(Sizes.dimen_10.w)),
           image: DecorationImage(
             image: imageProvider,
@@ -56,7 +59,7 @@ class CachedImageWidget extends StatelessWidget {
       ),
 
       /// error widget
-      errorWidget: (context, url, error) => const Icon(
+      errorWidget: (context, url, error) => errorWidget ?? const Icon(
         Icons.error,
         color: AppColor.geeBung,
       ),

@@ -18,6 +18,7 @@ import 'package:remax_mapstate/presentation/widgets/image_slider.dart';
 
 import '../../../domain/entities/params/contact_developer.dart';
 import '../../../router/route_hepler.dart';
+import '../choose_broker/arguments/choose_broker_argument.dart';
 import 'buttons_section.dart';
 
 class ProjectDetailsScreen extends StatefulWidget {
@@ -42,7 +43,7 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-backgroundColor: Color(0xFF121212),
+        backgroundColor: Color(0xFF121212),
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.transparent,
@@ -168,6 +169,7 @@ backgroundColor: Color(0xFF121212),
               child: ButtonSection(
                 projectId: projectEntity.id,
                 onPressed: () => _navigateToDeveloperContactScreen(),
+                onChooseBrokerPressed: () => _navigateToChooseBrokerScreen(),
               ),
             ),
           ],
@@ -179,5 +181,11 @@ backgroundColor: Color(0xFF121212),
         contactDeveloperParam: ContactDeveloperParam(
           developerEntity: projectEntity.developer,
         ));
+  }
+
+  void _navigateToChooseBrokerScreen() {
+    RouteHelper().chooseBrokerScreen(context,
+        chooseBrokerArgument:
+            ChooseBrokerArgument(areaName: projectEntity.region));
   }
 }

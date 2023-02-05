@@ -13,6 +13,7 @@ import 'package:remax_mapstate/data/api/requests/mutations/request_a_call.dart';
 import 'package:remax_mapstate/data/api/requests/queries/areas/ar_areas.dart';
 import 'package:remax_mapstate/data/api/requests/queries/areas/en_areas.dart';
 import 'package:remax_mapstate/data/api/requests/queries/favorite_projects/en_fav_projects.dart';
+import 'package:remax_mapstate/data/api/requests/queries/filter_brokers/filter_brokers.dart';
 import 'package:remax_mapstate/data/api/requests/queries/get_favorite_projects_ids.dart';
 import 'package:remax_mapstate/data/api/requests/queries/get_filter_data/en_get_filter_data.dart';
 import 'package:remax_mapstate/data/api/requests/queries/project_status/ar_project_status.dart';
@@ -44,6 +45,7 @@ import 'package:remax_mapstate/data/params/add_or_remove_project_to_fav_params.d
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
 import 'package:remax_mapstate/data/params/fetch_broker_params.dart';
 import 'package:remax_mapstate/data/params/fetch_favorite_projects_id_params.dart';
+import 'package:remax_mapstate/data/params/get_brokers_by_area_params.dart';
 import 'package:remax_mapstate/data/params/request_a_call_params.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_us_request_params.dart';
 
@@ -119,6 +121,10 @@ abstract class RemoteDataSource {
 
   /// requestCall
   Future<dynamic> requestCall(RequestACallParams requestACallParams);
+
+  /// filterBrokersByRegion
+  Future<dynamic> filterBrokersByRegion(
+      GetBrokersByAreaParams getBrokersByAreaParams);
 
   /// return  projects
   Future<List<ProjectModel>> fetchProjects();
@@ -494,6 +500,38 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     } catch (e) {
       log("requestCall >> Error: $e");
       rethrow;
+    }
+  }
+
+  //========================>  filterBrokersByRegion  <=======================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
+  /// filterBrokersByRegion
+  @override
+  Future<dynamic> filterBrokersByRegion(
+      GetBrokersByAreaParams getBrokersByAreaParams) async {
+    try {
+      final query = filterBrokers();
+
+      final QueryResult result = await apiClient.get(
+        query,
+        variables: {
+          VariablesConstants.filters: listOfFilterToJson(
+            getBrokersByAreaParams.filters,
+          ),
+        },
+      );
+
+      log("RemoteData >> filterBrokersByRegion >> Data >> ..........\n ${result.data}.......");
+      return listUserModelFormBroker(result.data);
+    } catch (e) {
+      log("RemoteData >> filterBrokersByRegion >> Error: $e");
+      return AppError(AppErrorType.unHandledError,
+          message: "contactUs UnHandledError >> $e");
     }
   }
 

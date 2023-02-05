@@ -1,8 +1,8 @@
 class ChooseBrokerArgument{
 
-  final String areaId;
+  final String areaName;
 
   const ChooseBrokerArgument({
-    required this.areaId,
+    required this.areaName,
   });
 }

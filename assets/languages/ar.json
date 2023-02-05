@@ -132,7 +132,7 @@
   "checkInternetConnection": "تحقق من اتصال الانترنت",
   "callRequested": "تم طلب المكالمة بنجاح",
   "alreadyRequestOnThisProject": "تم طلب مكالمة بالفعل لهذا المشروع",
-
+  "noBrokersToShow": "لا يوجد وسطاء",
 
   "arabic": "العربية",
   "english": "English",

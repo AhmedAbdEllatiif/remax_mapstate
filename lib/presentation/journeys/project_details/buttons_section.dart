@@ -23,11 +23,15 @@ import '../choose_broker/arguments/choose_broker_argument.dart';
 
 class ButtonSection extends StatefulWidget {
   final Function() onPressed;
+  final Function() onChooseBrokerPressed;
   final String projectId;
 
-  const ButtonSection(
-      {Key? key, required this.onPressed, required this.projectId})
-      : super(key: key);
+  const ButtonSection({
+    Key? key,
+    required this.onPressed,
+    required this.projectId,
+    required this.onChooseBrokerPressed,
+  }) : super(key: key);
 
   @override
   State<ButtonSection> createState() => _ButtonSectionState();
@@ -123,11 +127,7 @@ class _ButtonSectionState extends State<ButtonSection> {
                           .t(context)
                           .toUpperCase(),
                       reverseGradient: true,
-                      onPressed: () => RouteHelper().chooseBrokerScreen(
-                        context,
-                        chooseBrokerArgument:
-                            const ChooseBrokerArgument(areaId: "0"),
-                      ),
+                      onPressed: widget.onChooseBrokerPressed,
                     ),
                   ],
                 ),
