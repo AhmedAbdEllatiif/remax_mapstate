@@ -132,4 +132,6 @@ class TranslateConstants{
   static const String aNumberRequired = 'aNumberRequired';
 
   static const String checkInternetConnection = 'checkInternetConnection';
+  static const String callRequested = 'callRequested';
+  static const String alreadyRequestOnThisProject = 'alreadyRequestOnThisProject';
 }

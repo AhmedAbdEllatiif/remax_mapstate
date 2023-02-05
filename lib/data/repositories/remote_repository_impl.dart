@@ -788,7 +788,6 @@ class RemoteRepositoryImpl extends RemoteRepository {
     }
   }
 
-
   /*
   *
   *
@@ -798,8 +797,8 @@ class RemoteRepositoryImpl extends RemoteRepository {
   * */
   @override
   Future<Either<AppError, SuccessModel>> requestCall(
-      RequestACallParams params,
-      ) async {
+    RequestACallParams params,
+  ) async {
     try {
       final result = await remoteDataSource.requestCall(params);
 
@@ -823,7 +822,7 @@ class RemoteRepositoryImpl extends RemoteRepository {
     //==> Exception
     on Exception catch (e) {
       log("RepoImpl >> requestCall >> Exception >> $e");
-      return Left(AppError(AppErrorType.api, message: e.toString()));
+      return Left(AppError(AppErrorType.unHandledError, message: e.toString()));
     }
   }
 }

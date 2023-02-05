@@ -37,12 +37,30 @@ class RequestCallCubit extends Cubit<RequestCallState> {
     either.fold(
       //==> error
       (appError) => _emitIfNotClosed(
-        ErrorWhileRequestingCall(appError: appError),
+        _errorStateToEmit(appError),
       ),
 
       //==> success
       (success) => _emitIfNotClosed(RequestCallSuccessfullySent()),
     );
+  }
+
+  /// to return state according to app error
+  RequestCallState _errorStateToEmit(AppError appError) {
+    final appErrorType = appError.appErrorType;
+
+    //==> already call request on this prohject
+    if (appErrorType == AppErrorType.mustBeUnique) {
+      return AlreadyRequestOnThisProject();
+    }
+
+    //==> UnAuthenticated
+    else if (appErrorType == AppErrorType.unAuthorized) {
+      return UnAuthenticatedToRequestCall();
+    }
+
+    //==> else
+    return ErrorWhileRequestingCall(appError: appError);
   }
 
   /// emit if not closed

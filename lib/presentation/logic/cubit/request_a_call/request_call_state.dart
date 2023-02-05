@@ -18,6 +18,9 @@ class UnAuthenticatedToRequestCall extends RequestCallState {}
 /// success
 class RequestCallSuccessfullySent extends RequestCallState {}
 
+/// a call is already request for this project
+class AlreadyRequestOnThisProject extends RequestCallState {}
+
 /// Error
 class ErrorWhileRequestingCall extends RequestCallState {
   final AppError appError;

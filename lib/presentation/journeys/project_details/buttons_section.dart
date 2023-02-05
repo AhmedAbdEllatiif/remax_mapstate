@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
@@ -8,6 +7,8 @@ import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/common/functions/get_authorized_user.dart';
 import 'package:remax_mapstate/common/functions/get_user_token.dart';
 import 'package:remax_mapstate/common/functions/show_dialog.dart';
+
+import 'package:remax_mapstate/common/functions/show_snack_bar.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/request_a_call/request_call_cubit.dart';
@@ -54,14 +55,19 @@ class _ButtonSectionState extends State<ButtonSection> {
       child: BlocListener<RequestCallCubit, RequestCallState>(
         listener: (context, state) {
           if (state is RequestCallSuccessfullySent) {
-            showAppDialog(
-              context,
-              message: "Call Requested",
-            );
+            _showCallRequestedSuccessfully();
+          }
+
+          if (state is AlreadyRequestOnThisProject) {
+            _showCallAlreadyRequested();
           }
 
           if (state is ErrorWhileRequestingCall) {
-            log("ButtonSection >> RequestCallListener >> error $state");
+            showSnackBar(
+              context,
+              textColor: AppColor.black,
+              message: TranslateConstants.somethingWentWrong.t(context),
+            );
           }
         },
         child: BlocBuilder<AuthorizedUserCubit, AuthorizedUserState>(
@@ -158,6 +164,7 @@ class _ButtonSectionState extends State<ButtonSection> {
     );
   }
 
+  /// to send request call
   void _tryToRequestCall() {
     final userToken = getUserToken(context);
     final userId = getAuthorizedUser(context).id;
@@ -168,5 +175,17 @@ class _ButtonSectionState extends State<ButtonSection> {
       userId: userId,
       projectId: projectId,
     );
+  }
+
+  /// to show success dialog
+  void _showCallRequestedSuccessfully() {
+    showSuccessDialog(context,
+        message: TranslateConstants.callRequested.t(context));
+  }
+
+  /// to show already requested dialog
+  void _showCallAlreadyRequested() {
+    showSuccessDialog(context,
+        message: TranslateConstants.alreadyRequestOnThisProject.t(context));
   }
 }

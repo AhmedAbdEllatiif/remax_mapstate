@@ -493,8 +493,7 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       return SuccessModel();
     } catch (e) {
       log("requestCall >> Error: $e");
-      return AppError(AppErrorType.unHandledError,
-          message: "requestCall UnHandledError >> $e");
+      rethrow;
     }
   }
 

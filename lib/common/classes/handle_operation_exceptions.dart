@@ -6,7 +6,6 @@ class AppErrorTypeBuilder {
 
   AppErrorTypeBuilder({required this.appErrorType});
 
-
   ///  Build from [OperationException]
   factory AppErrorTypeBuilder.formOperationException(
     OperationException operationException,
@@ -43,14 +42,25 @@ class AppErrorTypeBuilder {
         break;
       }
 
+      /*
+      *
+      *
+      * must be unique
+      *
+      *
+      * */
+      if (element.message
+          .contains("The fields user, project must make a unique set.")) {
+        appErrorType = AppErrorType.mustBeUnique;
+        break;
+      }
+
       // end of for loop
     }
 
     //==> return AppErrorTypeBuilder
     return AppErrorTypeBuilder(appErrorType: appErrorType);
   }
-
-
 
   /// Build from Auth errors
   /*
@@ -65,27 +75,22 @@ class AppErrorTypeBuilder {
   *  nonFieldErrors: [ { "message": "error message", "code": "error_code" } ]
   * }
   * */
-  factory AppErrorTypeBuilder.fromAuthErrors(Map<String,dynamic> errors){
+  factory AppErrorTypeBuilder.fromAuthErrors(Map<String, dynamic> errors) {
     //==> init AppErrorType
     AppErrorType appErrorType = AppErrorType.unHandledError;
 
     final nonFieldErrors = errors.containsKey("nonFieldErrors");
-    
-    if(nonFieldErrors){
+
+    if (nonFieldErrors) {
       final listOfNonFieldErrors = errors["nonFieldErrors"] as List;
       for (var element in listOfNonFieldErrors) {
-        final code = (element as Map<String,dynamic>)["code"];
-        if(code == "invalid_credentials"){
+        final code = (element as Map<String, dynamic>)["code"];
+        if (code == "invalid_credentials") {
           appErrorType = AppErrorType.wrongEmailOrPassword;
         }
-      }}
-
+      }
+    }
 
     return AppErrorTypeBuilder(appErrorType: appErrorType);
   }
-
-
-
-
-
 }

@@ -130,6 +130,9 @@
   "requestSentSuccessfully": "تم ارسال طلبك بنجاح",
 
   "checkInternetConnection": "تحقق من اتصال الانترنت",
+  "callRequested": "تم طلب المكالمة بنجاح",
+  "alreadyRequestOnThisProject": "تم طلب مكالمة بالفعل لهذا المشروع",
+
 
   "arabic": "العربية",
   "english": "English",

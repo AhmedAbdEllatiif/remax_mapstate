@@ -127,8 +127,8 @@ class AppDialog extends StatelessWidget {
                                 .textTheme
                                 .subtitle2!
                                 .copyWith(
-                                    color: AppColor.geeBung,
-                                    fontWeight: FontWeight.normal),
+                                    color: AppColor.black,
+                                    fontWeight: FontWeight.bold,),
                             textAlign: TextAlign.center,
                           ),
                         ),
