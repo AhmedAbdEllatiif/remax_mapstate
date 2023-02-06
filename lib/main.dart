@@ -11,6 +11,7 @@ import 'package:hive/hive.dart';
 import 'package:remax_mapstate/data/tables/fav_project_table.dart';
 import 'package:remax_mapstate/main_app.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/first_launch/first_launch_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/language/language_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/user_token/user_token_cubit.dart';
 import 'di/git_it.dart' as getIt;
@@ -66,6 +67,12 @@ void main() async {
   await languageCubit.loadPreferredLanguage();
   await userTokenCubit.loadCurrentAutoLoginStatus();
 
+
+  /// FirstLaunchStatusCubit
+  final FirstLaunchStatusCubit firstLaunchCubit =
+      getIt.getItInstance<FirstLaunchStatusCubit>();
+  firstLaunchCubit.loadFirstLaunchStatus();
+
   /// to setup firebase messaging
   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   _setupFCM();
@@ -74,6 +81,7 @@ void main() async {
     languageCubit: languageCubit,
     authorizedUserCubit: authorizedUserCubit,
     userTokenCubit: userTokenCubit,
+    firstLaunchStatusCubit: firstLaunchCubit,
   ));
 }
 

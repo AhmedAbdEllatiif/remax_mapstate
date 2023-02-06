@@ -19,4 +19,5 @@ class RouteList{
   static const String completeBrokerData = "/completeBrokerData";
   static const String contactUs = "/contactUs";
   static const String updateAmbassador = "/updateAmbassador";
+  static const String businessModel = "/businessModel";
 }

@@ -135,4 +135,8 @@ class TranslateConstants{
   static const String callRequested = 'callRequested';
   static const String alreadyRequestOnThisProject = 'alreadyRequestOnThisProject';
   static const String noBrokersToShow = 'noBrokersToShow';
+
+  static const String buyerBusinessModel = 'buyerBusinessModel';
+  static const String brokerBusinessModel = 'brokerBusinessModel';
+  static const String ambassadorBusinessModel = 'ambassadorBusinessModel';
 }

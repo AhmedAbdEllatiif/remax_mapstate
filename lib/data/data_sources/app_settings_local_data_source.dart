@@ -53,6 +53,19 @@ abstract class AppSettingsLocalDataSource {
 
   /// to remove auto login
   Future<void> deleteAutoLogin();
+
+  //==========================>  First App launch <===========================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
+  /// return bool
+  Future<bool> isAppFirstLaunch();
+
+  /// return save LoginStatus
+  Future<void> changeAppFirstLaunchStatus();
 }
 
 class AppSettingsLocalDataSourceImpl extends AppSettingsLocalDataSource {
@@ -163,5 +176,25 @@ class AppSettingsLocalDataSourceImpl extends AppSettingsLocalDataSource {
   Future<void> deleteAutoLogin() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString("isLoggedIn", "");
+  }
+
+  //==========================>  First App launch <===========================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
+  @override
+  Future<void> changeAppFirstLaunchStatus() async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setBool("isFirstLaunch", false);
+  }
+
+  @override
+  Future<bool> isAppFirstLaunch() async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    final firstLaunchStatus = preferences.getBool("isFirstLaunch") ?? true;
+    return firstLaunchStatus;
   }
 }

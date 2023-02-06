@@ -40,6 +40,7 @@ import 'package:remax_mapstate/presentation/logic/bloc/launch_apps/launch_apps_b
 import 'package:remax_mapstate/presentation/logic/cubit/advanced_filter_projects/advanced_filter_projects_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/auth/register_new_user/register_new_user_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/contact_us/contact_us_cubit.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/first_launch/first_launch_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/get_brokers_by_area/get_brokers_by_area_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/get_buyer_by_id/get_buyer_by_id_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/get_filter_data/get_filter_data_cubit.dart';
@@ -70,6 +71,8 @@ import '../domain/use_cases/local_usecases/authorized_user/authorized_user_data/
 import '../domain/use_cases/local_usecases/authorized_user/user_token/delete_user_token.dart';
 import '../domain/use_cases/local_usecases/authorized_user/user_token/get_user_token.dart';
 import '../domain/use_cases/local_usecases/authorized_user/user_token/save_user_token.dart';
+import '../domain/use_cases/local_usecases/first_launch/change_first_launch_case.dart';
+import '../domain/use_cases/local_usecases/first_launch/get_first_launch_case.dart';
 import '../domain/use_cases/login.dart';
 import '../domain/use_cases/make_phone_call.dart';
 import '../domain/use_cases/open_map.dart';
@@ -476,6 +479,14 @@ Future init() async {
   getItInstance.registerLazySingleton<CheckForFavProjectUseCase>(
       () => CheckForFavProjectUseCase(localRepository: getItInstance()));
 
+  /// GetFirstLaunchCase
+  getItInstance.registerFactory<GetFirstLaunchCase>(
+      () => GetFirstLaunchCase(appSettingsRepository: getItInstance()));
+
+  /// ChangeFirstLaunchCase
+  getItInstance.registerFactory<ChangeFirstLaunchCase>(
+      () => ChangeFirstLaunchCase(appSettingsRepository: getItInstance()));
+
   ///*************************** init cubit *********************************\\\
 
   /// init AutoLoginCubit
@@ -646,6 +657,12 @@ Future init() async {
   getItInstance.registerFactory<UpdateAmbassadorDataCubit>(
     () => UpdateAmbassadorDataCubit(),
   );
+
+  /// UpdateAmbassadorDataCubit
+  getItInstance.registerFactory<FirstLaunchStatusCubit>(
+        () => FirstLaunchStatusCubit(),
+  );
+
 
   ///**************************** init blocs *******************************\\\
 

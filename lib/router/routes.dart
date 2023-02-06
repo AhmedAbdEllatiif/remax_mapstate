@@ -3,11 +3,13 @@ import 'package:remax_mapstate/domain/entities/arguments/complete_broker_data_ar
 import 'package:remax_mapstate/domain/entities/arguments/register_or_login_args.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_developer.dart';
 import 'package:remax_mapstate/presentation/arguments/advanced_filter_result_args.dart';
+import 'package:remax_mapstate/presentation/arguments/business_model_args.dart';
 import 'package:remax_mapstate/presentation/arguments/project_by_status_args.dart';
 import 'package:remax_mapstate/presentation/arguments/update_ambassador_args.dart';
 import 'package:remax_mapstate/presentation/journeys/advanced_filter_result/advanced_filter_result_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/all_areas/all_areas_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/area_unit_types/area_unit_types_screen.dart';
+import 'package:remax_mapstate/presentation/journeys/business_model/business_model_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/calculation_result/calculation_result_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/choose_broker/choose_broker_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/complete_broker_data/complete_broker_data_screen.dart';
@@ -98,6 +100,11 @@ class Routes {
         /// UpdateAmbassadorDataScreen
         RouteList.updateAmbassador: (context) => UpdateAmbassadorDataScreen(
               arguments: settings.arguments as UpdateAmbassadorArguments,
+            ),
+
+        /// BusinessModelScreen
+        RouteList.businessModel: (context) => BusinessModelScreen(
+              arguments: settings.arguments as BusinessModelArguments,
             ),
 
         /// contactUs

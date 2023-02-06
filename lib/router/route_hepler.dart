@@ -4,6 +4,7 @@ import 'package:remax_mapstate/domain/entities/arguments/complete_broker_data_ar
 import 'package:remax_mapstate/domain/entities/arguments/register_or_login_args.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_developer.dart';
 import 'package:remax_mapstate/presentation/arguments/advanced_filter_result_args.dart';
+import 'package:remax_mapstate/presentation/arguments/business_model_args.dart';
 import 'package:remax_mapstate/presentation/arguments/project_by_status_args.dart';
 import 'package:remax_mapstate/presentation/arguments/project_details_argument.dart';
 import 'package:remax_mapstate/presentation/arguments/area_unit_types_args.dart';
@@ -140,6 +141,16 @@ class RouteHelper {
   }) =>
       Navigator.of(context).pushNamed(
         RouteList.updateAmbassador,
+        arguments: arguments,
+      );
+
+  /// To BusinessModelScreen \\\
+  void businessModelScreen(
+      BuildContext context, {
+        required BusinessModelArguments arguments,
+      }) =>
+      Navigator.of(context).pushNamed(
+        RouteList.businessModel,
         arguments: arguments,
       );
 }

@@ -13,6 +13,7 @@ import 'package:remax_mapstate/presentation/app_localization.dart';
 import 'package:remax_mapstate/presentation/journeys/main/main_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/choose_user_type/choose_user_screen.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
+import 'package:remax_mapstate/presentation/logic/cubit/first_launch/first_launch_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/language/language_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/user_token/user_token_cubit.dart';
 import 'package:remax_mapstate/router/fade_page_route.dart';
@@ -31,13 +32,15 @@ class MainApp extends StatefulWidget {
   final AuthorizedUserCubit authorizedUserCubit;
   final LanguageCubit languageCubit;
   final UserTokenCubit userTokenCubit;
+  final FirstLaunchStatusCubit firstLaunchStatusCubit;
 
-  const MainApp(
-      {Key? key,
-      required this.authorizedUserCubit,
-      required this.languageCubit,
-      required this.userTokenCubit})
-      : super(key: key);
+  const MainApp({
+    Key? key,
+    required this.authorizedUserCubit,
+    required this.languageCubit,
+    required this.userTokenCubit,
+    required this.firstLaunchStatusCubit,
+  }) : super(key: key);
 
   @override
   _MainAppState createState() => _MainAppState();
@@ -50,6 +53,7 @@ class _MainAppState extends State<MainApp> {
 
     /// loadCurrentUser of currentUserCubit
     widget.authorizedUserCubit.loadCurrentAuthorizedUserData();
+    widget.firstLaunchStatusCubit.loadFirstLaunchStatus();
     // widget.authorizedUserCubit.save(AuthorizedUserEntity(
     //     id: "id",
     //     firstName: "firstName",
@@ -87,6 +91,8 @@ class _MainAppState extends State<MainApp> {
         BlocProvider<AuthorizedUserCubit>.value(
             value: widget.authorizedUserCubit),
         BlocProvider<UserTokenCubit>.value(value: widget.userTokenCubit),
+        BlocProvider<FirstLaunchStatusCubit>.value(
+            value: widget.firstLaunchStatusCubit),
       ],
       child: BlocBuilder<LanguageCubit, Locale>(
         builder: (_, locale) {
@@ -113,7 +119,7 @@ class _MainAppState extends State<MainApp> {
                     colorScheme: ColorScheme.fromSwatch().copyWith(
                       secondary: AppColor.geeBung, // Your accent color
                     ),
-                    scaffoldBackgroundColor:AppColor.baseBlack ,
+                    scaffoldBackgroundColor: AppColor.baseBlack,
                     textTheme: ThemeText.getTextTheme(),
                     appBarTheme: const AppBarTheme(
                       backgroundColor: Colors.transparent,
@@ -126,8 +132,10 @@ class _MainAppState extends State<MainApp> {
                         // Status bar brightness (optional)
                         statusBarIconBrightness: Brightness.light,
                         // For Android (dark icons)
-                        statusBarBrightness: Brightness.light, // For iOS (dark icons)
-                      ),),
+                        statusBarBrightness:
+                            Brightness.light, // For iOS (dark icons)
+                      ),
+                    ),
 
                     /// default card theme
                     cardTheme: CardTheme(

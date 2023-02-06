@@ -21,6 +21,7 @@ abstract class AppSettingsRepository {
 
   /// return CurrentUserData
   Future<Either<AppError, AuthorizedUserEntity>> getCurrentAuthorizedUserData();
+
   /// save AutoLoginStatus
   Future<Either<AppError, void>> saveLoginStatus(
       AutoLoginEntity autoLoginEntity);
@@ -30,4 +31,18 @@ abstract class AppSettingsRepository {
 
   /// return AutoLoginStatus
   Future<Either<AppError, String>> getAutoLoginStatus();
+
+  //===========================>  First launch  <=============================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
+
+  /// changeFirstLaunch
+  Future<Either<AppError, void>> changeFirstLaunch();
+
+  /// getFirstLaunchStatus
+  Future<Either<AppError, bool>> getFirstLaunchStatus();
 }
