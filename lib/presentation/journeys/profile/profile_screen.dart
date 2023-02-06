@@ -10,6 +10,8 @@ import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 import 'package:remax_mapstate/data/data_sources/remote_data_source.dart';
 import 'package:remax_mapstate/di/git_it.dart';
+import 'package:remax_mapstate/presentation/journeys/not_user_login_first/not_a_user_login_first_screen.dart';
+import 'package:remax_mapstate/presentation/journeys/profile/ambassador_profile.dart';
 import 'package:remax_mapstate/presentation/journeys/profile/broker_profile.dart';
 import 'package:remax_mapstate/presentation/journeys/profile/buyer_profile.dart';
 import 'package:remax_mapstate/presentation/journeys/profile/user_data_item.dart';
@@ -81,7 +83,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       : state is CurrentBrokerAuthorizedUserData
                           ? BrokerProfile(
                               brokerId: state.authorizedUserEntity.id)
-                          : const SizedBox.shrink(),
+                          : state is CurrentAmbassadorAuthorizedUserData
+                              ? AmbassadorProfile(
+                                  ambassadorId: state.authorizedUserEntity.id,
+                                )
+                              : const NotAUserLoginFirstScreen(),
                 ),
               ],
             );

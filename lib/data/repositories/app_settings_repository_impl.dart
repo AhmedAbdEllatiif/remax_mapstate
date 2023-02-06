@@ -4,7 +4,7 @@ import 'package:remax_mapstate/data/data_sources/app_settings_local_data_source.
 import 'package:remax_mapstate/domain/entities/auto_login_entity.dart';
 
 import 'package:remax_mapstate/domain/entities/app_error.dart';
-import 'package:remax_mapstate/domain/entities/user_entity.dart';
+import 'package:remax_mapstate/domain/entities/users/user_entity.dart';
 import '../../domain/entities/authorized_user_entity.dart';
 import '../../domain/repositories/app_settings_repository.dart';
 

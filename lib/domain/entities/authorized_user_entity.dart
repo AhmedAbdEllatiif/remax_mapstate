@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:remax_mapstate/data/models/user_model.dart';
-import 'package:remax_mapstate/domain/entities/user_entity.dart';
+import 'package:remax_mapstate/domain/entities/users/user_entity.dart';
 import '../../../common/constants/app_utils.dart';
 import '../../common/enums/user_types.dart';
 

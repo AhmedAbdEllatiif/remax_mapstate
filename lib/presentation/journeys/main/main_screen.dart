@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remax_mapstate/di/git_it.dart';
-import 'package:remax_mapstate/domain/entities/user_entity.dart';
+import 'package:remax_mapstate/domain/entities/users/user_entity.dart';
 import 'package:remax_mapstate/presentation/journeys/calculator/calculator_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/favorite/favorite_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/not_user_login_first/not_a_user_login_first_screen.dart';

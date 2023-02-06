@@ -3,7 +3,7 @@ import 'package:remax_mapstate/common/constants/api_constants.dart';
 import 'package:remax_mapstate/common/constants/app_utils.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
 
-import 'area_entity.dart';
+import '../area_entity.dart';
 
 class UserEntity extends Equatable {
   final String id;

@@ -5,7 +5,7 @@ import 'package:remax_mapstate/data/params/update_user_avatar.dart';
 import 'package:remax_mapstate/di/git_it.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/params/update_user_after_registration_params.dart';
-import 'package:remax_mapstate/domain/entities/user_entity.dart';
+import 'package:remax_mapstate/domain/entities/users/user_entity.dart';
 import 'package:remax_mapstate/domain/use_cases/update_user/add_or_remove_fav_project_case.dart';
 import 'package:remax_mapstate/domain/use_cases/update_user/update_user_after_registration.dart';
 

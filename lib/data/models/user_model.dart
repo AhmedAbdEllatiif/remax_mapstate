@@ -1,5 +1,5 @@
 import 'package:remax_mapstate/common/constants/app_utils.dart';
-import 'package:remax_mapstate/domain/entities/user_entity.dart';
+import 'package:remax_mapstate/domain/entities/users/user_entity.dart';
 
 import '../../common/enums/user_types.dart';
 import 'area_model.dart';
@@ -42,6 +42,28 @@ List<UserModel> listUserModelFormBroker(dynamic json) {
       doneDeals: element["doneDeals"],
       yearsOfExperience: element["yearsOfExperience"],
       favoriteAreas: element["favoriteRegions"],
+    ),
+  ));
+}
+
+/// parse to user model
+List<UserModel> listUserModelFormAmbassador(dynamic json) {
+  final List<UserModel> ambassadors = [];
+
+  if (json == null) return ambassadors;
+
+  if (json["ambassadors"] == null) return ambassadors;
+
+  // if (json["brokers"]["user"] == null) return brokers;
+
+  //final json = jsonDecode(body);
+  return List<UserModel>.from(json["ambassadors"].map(
+    (element) => UserModel.formJsonAmbassador(
+      userJson: element["user"],
+      mapEstateUserJson: element["user"]["mapEstateUser"],
+      dateOfBirth: element["dateOfBirth"],
+      ambassadorJobTitle: element["currentJobTitle"],
+      ambassadorDoneDealsCount: element["doneDealsCount"],
     ),
   ));
 }
@@ -93,6 +115,10 @@ class UserModel extends UserEntity {
   final int yearsOfExperience;
   final List<AreaModel> userFavoriteAreas;
 
+  final DateTime? dateOfBirth;
+  final String ambassadorJobTitle;
+  final int ambassadorDoneDealsCount;
+
   UserModel({
     required this.userId,
     required this.userPk,
@@ -107,6 +133,11 @@ class UserModel extends UserEntity {
     required this.yearsOfExperience,
     required this.userBrokerRating,
     required this.userDoneDeals,
+
+    // only for ambassadors
+    required this.dateOfBirth,
+    required this.ambassadorJobTitle,
+    required this.ambassadorDoneDealsCount,
   }) : super(
           id: userPk == -1 ? userId : userPk.toString(),
           firstName: userFirstName,
@@ -121,7 +152,7 @@ class UserModel extends UserEntity {
           userProfileImage: userAvatar,
         );
 
-  factory UserModel.formJson(Map<String, dynamic> json) {
+  factory UserModel.formJson(dynamic json) {
     return UserModel(
       userId: json["id"] ?? "-1",
       userPk: json["pk"] ?? -1,
@@ -141,9 +172,20 @@ class UserModel extends UserEntity {
 
       // done deals
       userDoneDeals: 0,
+
+      dateOfBirth: DateTime.now(),
+      ambassadorJobTitle: AppUtils.undefined,
+      ambassadorDoneDealsCount: 0,
     );
   }
 
+  /*
+  *
+  *
+  * broker
+  *
+  *
+  * */
   factory UserModel.formJsonBroker({
     required dynamic userJson,
     required dynamic yearsOfExperience,
@@ -174,9 +216,20 @@ class UserModel extends UserEntity {
       userFavoriteAreas: favoriteAreas != null
           ? listOfAreasFromFavRegionsJson(favoriteAreas)
           : [],
+
+      dateOfBirth: DateTime.now(),
+      ambassadorJobTitle: AppUtils.undefined,
+      ambassadorDoneDealsCount: 0,
     );
   }
 
+  /*
+  *
+  *
+  * Buyer
+  *
+  *
+  * */
   factory UserModel.formJsonBuyer({
     required dynamic userJson,
     required dynamic mapEstateUserJson,
@@ -200,10 +253,61 @@ class UserModel extends UserEntity {
       userDoneDeals: 0,
 
       yearsOfExperience: 0,
-      userFavoriteAreas: [],
+      userFavoriteAreas: const [],
+
+      dateOfBirth: DateTime.now(),
+      ambassadorJobTitle: AppUtils.undefined,
+      ambassadorDoneDealsCount: 0,
     );
   }
 
+  /*
+  *
+  *
+  * ambassador
+  *
+  *
+  * */
+  factory UserModel.formJsonAmbassador({
+    required dynamic userJson,
+    required dynamic mapEstateUserJson,
+    required dynamic dateOfBirth,
+    required dynamic ambassadorJobTitle,
+    required dynamic ambassadorDoneDealsCount,
+  }) {
+    return UserModel(
+      // from userJson
+      userId: userJson["id"] ?? "-1",
+      userPk: userJson["pk"] ?? -1,
+      userFirstName: userJson["firstName"] ?? AppUtils.undefined,
+      userLastName: userJson["lastName"] ?? AppUtils.undefined,
+      userEmail: userJson["email"] ?? AppUtils.undefined,
+      userPhoneNumber: userJson["phone"] ?? AppUtils.undefined,
+
+      // from mapStateUser
+      userAvatar: mapEstateUserJson["avatar"] ?? AppUtils.undefined,
+
+      // broker rating
+      userBrokerRating: 0.0,
+
+      // done deals
+      userDoneDeals: 0,
+
+      yearsOfExperience: 0,
+      userFavoriteAreas: const [],
+
+      dateOfBirth: dateOfBirth,
+      ambassadorJobTitle: ambassadorJobTitle ?? AppUtils.undefined,
+      ambassadorDoneDealsCount: ambassadorDoneDealsCount ?? 0,
+    );
+  }
+
+  /*
+  *
+  *
+  * empty
+  *
+  * */
   factory UserModel.empty() {
     return UserModel(
       userId: "-1",
@@ -222,6 +326,10 @@ class UserModel extends UserEntity {
 
       // done deals
       userDoneDeals: 0,
+
+      dateOfBirth: DateTime.now(),
+      ambassadorJobTitle: AppUtils.undefined,
+      ambassadorDoneDealsCount: 0,
     );
   }
 }

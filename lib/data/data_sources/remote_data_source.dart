@@ -10,6 +10,7 @@ import 'package:remax_mapstate/data/api/clients/auth_client.dart';
 import 'package:remax_mapstate/data/api/requests/auth/get_profile.dart';
 import 'package:remax_mapstate/data/api/requests/mutations/contact_us.dart';
 import 'package:remax_mapstate/data/api/requests/mutations/request_a_call.dart';
+import 'package:remax_mapstate/data/api/requests/queries/ambassadors/get_ambassadors.dart';
 import 'package:remax_mapstate/data/api/requests/queries/areas/ar_areas.dart';
 import 'package:remax_mapstate/data/api/requests/queries/areas/en_areas.dart';
 import 'package:remax_mapstate/data/api/requests/queries/favorite_projects/en_fav_projects.dart';
@@ -42,6 +43,7 @@ import 'package:remax_mapstate/data/models/team_support_model.dart';
 import 'package:remax_mapstate/data/models/unit_type_model.dart';
 import 'package:remax_mapstate/data/models/user_model.dart';
 import 'package:remax_mapstate/data/params/add_or_remove_project_to_fav_params.dart';
+import 'package:remax_mapstate/data/params/fetch_ambassador_user_params.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
 import 'package:remax_mapstate/data/params/fetch_broker_params.dart';
 import 'package:remax_mapstate/data/params/fetch_favorite_projects_id_params.dart';
@@ -138,9 +140,6 @@ abstract class RemoteDataSource {
   /// return areas_by_status
   Future<List<AreaModel>> getAreas(FetchAreaParams params);
 
-  /// return list of brokers
-  Future<List<BrokerModel>> getAreaBrokers();
-
   /// return list project status
   Future<List<ProjectStatusModel>> getProjectStatus({
     required AppLanguage appLanguage,
@@ -194,6 +193,9 @@ abstract class RemoteDataSource {
 
   /// getBuyerById
   Future<dynamic> getBuyerById({required FetchBuyerUserParams params});
+
+  /// getAmbassadorById
+  Future<dynamic> getAmbassadorById({required FetchAmbassadorParams params});
 
   /// updateBrokerData
   Future<dynamic> updateBrokerData({
@@ -535,83 +537,6 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     }
   }
 
-  List<BrokerModel> areaBrokers() {
-    return const [
-      BrokerModel(
-          id: 0,
-          age: 33,
-          image: AssetsConstants.person1,
-          name: "John",
-          rating: 3.5,
-          totalDoneDeals: 50,
-          whatsappNum: '+201154949495',
-          phoneNum: '+201154949495'),
-      BrokerModel(
-          id: 1,
-          age: 28,
-          image: AssetsConstants.person1,
-          name: "Micheal",
-          rating: 4.5,
-          totalDoneDeals: 180,
-          whatsappNum: '+201154949495',
-          phoneNum: '+201154949495'),
-      BrokerModel(
-          id: 2,
-          age: 33,
-          image: AssetsConstants.person1,
-          name: "John",
-          rating: 3.5,
-          totalDoneDeals: 50,
-          whatsappNum: '+201154949495',
-          phoneNum: '+201154949495'),
-      BrokerModel(
-          id: 3,
-          age: 28,
-          image: AssetsConstants.person1,
-          name: "Micheal",
-          rating: 4.5,
-          totalDoneDeals: 180,
-          whatsappNum: '+201154949495',
-          phoneNum: '+201154949495'),
-      BrokerModel(
-          id: 4,
-          age: 33,
-          image: AssetsConstants.person1,
-          name: "John",
-          rating: 3.5,
-          totalDoneDeals: 50,
-          whatsappNum: '+201154949495',
-          phoneNum: '+201154949495'),
-      BrokerModel(
-          id: 5,
-          age: 28,
-          image: AssetsConstants.person1,
-          name: "Micheal",
-          rating: 4.5,
-          totalDoneDeals: 180,
-          whatsappNum: '+201154949495',
-          phoneNum: '+201154949495'),
-      BrokerModel(
-          id: 6,
-          age: 33,
-          image: AssetsConstants.person1,
-          name: "John",
-          rating: 3.5,
-          totalDoneDeals: 50,
-          whatsappNum: '+201154949495',
-          phoneNum: '+201154949495'),
-      BrokerModel(
-          id: 7,
-          age: 28,
-          image: AssetsConstants.person1,
-          name: "Micheal",
-          rating: 4.5,
-          totalDoneDeals: 180,
-          whatsappNum: '+201154949495',
-          phoneNum: '+201154949495'),
-    ];
-  }
-
   ContactDeveloperModel developerContact() {
     return const ContactDeveloperModel(
       id: 0,
@@ -670,12 +595,6 @@ class RemoteDateSourceImpl extends RemoteDataSource {
   Future<List<ProjectModel>> fetchProjects() async {
     final QueryResult result = await apiClient.get(fetchProjectsQuery());
     return listOfProjectModel(result.data!);
-  }
-
-  @override
-  Future<List<BrokerModel>> getAreaBrokers() async {
-    final brokers = await areaBrokers();
-    return brokers;
   }
 
   @override
@@ -839,6 +758,29 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     } catch (e) {
       return AppError(AppErrorType.unHandledError,
           message: "updateDefaultUser UnHandledError >> $e");
+    }
+  }
+
+  /// getAmbassadorById
+  @override
+  Future<dynamic> getAmbassadorById(
+      {required FetchAmbassadorParams params}) async {
+    try {
+      final query = getAmbassadorsQuery();
+
+      final QueryResult result = await apiClient.get(
+        query,
+        variables: {
+          VariablesConstants.pk: params.ambassadorId,
+        },
+      );
+
+      log("getAmbassadorById >> Data >> ..........\n ${result.data}.......");
+      return listUserModelFormAmbassador(result.data);
+    } catch (e) {
+      log("Error: $e");
+      return AppError(AppErrorType.unHandledError,
+          message: "getBuyerById getAmbassadorById >> $e");
     }
   }
 

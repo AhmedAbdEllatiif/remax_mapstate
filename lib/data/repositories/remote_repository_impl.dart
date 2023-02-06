@@ -39,9 +39,11 @@ import '../../domain/entities/params/update_user_after_registration_params.dart'
 import '../../domain/entities/params/update_user_params.dart';
 import '../../domain/entities/profile_entity.dart';
 import '../../domain/entities/register_entity.dart';
-import '../../domain/entities/user_entity.dart';
+import '../../domain/entities/users/ambassador_entity.dart';
+import '../../domain/entities/users/user_entity.dart';
 import '../models/auth/profile/get_profile_request_model.dart';
 import '../params/add_or_remove_project_to_fav_params.dart';
+import '../params/fetch_ambassador_user_params.dart';
 import '../params/fetch_broker_params.dart';
 import '../params/fetch_fav_projects_params.dart';
 import '../params/fetch_list_params.dart';
@@ -255,22 +257,6 @@ class RemoteRepositoryImpl extends RemoteRepository {
   Future<Either<AppError, List<ProjectEntity>>> getFavoriteProject() {
     // TODO: implement getFavoriteProject
     throw UnimplementedError();
-  }
-
-  /// return list of area broker
-  @override
-  Future<Either<AppError, List<BrokerEntity>>> getAreaBrokers() async {
-    try {
-      final brokers = await remoteDataSource.getAreaBrokers();
-      return Right(brokers);
-    } on SocketException catch (e) {
-      return Left(AppError(AppErrorType.network, message: e.message));
-    } on OperationException catch (e) {
-      log("RepoImpl >> fetchUnitTypeNames >> OperationException >> $e");
-      return Left(AppError(AppErrorType.network, message: e.toString()));
-    } on Exception catch (e) {
-      return Left(AppError(AppErrorType.api, message: e.toString()));
-    }
   }
 
   @override
@@ -842,6 +828,50 @@ class RemoteRepositoryImpl extends RemoteRepository {
     //==> SocketException
     on SocketException catch (e) {
       log("RepoImpl >> getBrokersByRegion >> SocketException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.message));
+    }
+    //==> OperationException
+    on OperationException catch (e) {
+      final appErrorType =
+          AppErrorTypeBuilder.formOperationException(e).appErrorType;
+      log("RepoImpl >> getBrokersByRegion >> OperationException >> $e");
+      return Left(AppError(appErrorType, message: e.toString()));
+    }
+    //==> Exception
+    on Exception catch (e) {
+      log("RepoImpl >> getBrokersByRegion >> Exception >> $e");
+      return Left(AppError(AppErrorType.unHandledError, message: e.toString()));
+    }
+  }
+
+  //============================>  Ambassador   <=============================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
+  /// getAmbassadorById
+  @override
+  Future<Either<AppError, AmbassadorEntity>> getAmbassadorById(
+      {required FetchAmbassadorParams params}) async {
+    try {
+      final result = await remoteDataSource.getAmbassadorById(params: params);
+
+      if (result is List<UserModel>) {
+        if (result.isNotEmpty) {
+          return Right(AmbassadorEntity.fromUserModel(result[0]));
+        }
+        log("RepoImpl >>getAmbassadorById >> "
+            "user with id ${params.ambassadorId} not found");
+        return Left(AppError(AppErrorType.userNotFound,
+            message: "user with id ${params.ambassadorId} not found"));
+      }
+      return Left(result);
+    }
+    //==> SocketException
+    on SocketException catch (e) {
+      log(" >> getBrokersByRegion >> SocketException >> $e");
       return Left(AppError(AppErrorType.network, message: e.message));
     }
     //==> OperationException

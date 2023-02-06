@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:remax_mapstate/presentation/journeys/choose_user_type/user_type_card.dart';
 
 import '../../../../common/enums/user_types.dart';
-import '../../../../domain/entities/user_entity.dart';
+import '../../../domain/entities/users/user_entity.dart';
 
 class ChooseUserListWidget extends StatelessWidget {
   ChooseUserListWidget({Key? key}) : super(key: key);

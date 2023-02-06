@@ -1,55 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:remax_mapstate/common/constants/app_utils.dart';
 import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
+import 'package:remax_mapstate/common/functions/get_current_app_language.dart';
+import 'package:remax_mapstate/common/functions/get_user_token.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/arguments/register_or_login_args.dart';
-import 'package:remax_mapstate/domain/entities/users/user_entity.dart';
 import 'package:remax_mapstate/presentation/journeys/profile/user_avatar_widget.dart';
 import 'package:remax_mapstate/presentation/journeys/profile/user_data_item.dart';
-import 'package:remax_mapstate/presentation/logic/cubit/complete_broker_data/complete_broker_data_cubit.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/update_default_user/update_default_user_cubit.dart';
 import 'package:remax_mapstate/presentation/widgets/app_error_widget.dart';
 import 'package:remax_mapstate/router/route_hepler.dart';
 import '../../../common/enums/user_types.dart';
 import '../../../di/git_it.dart';
-import '../../../domain/entities/arguments/complete_broker_data_arguments.dart';
-import '../../logic/cubit/get_broker_by_id/get_broker_by_id_cubit.dart';
-import '../../themes/theme_color.dart';
+import '../../../domain/entities/users/ambassador_entity.dart';
+import '../../logic/cubit/complete_ambassador_date/complete_ambassador_data_cubit.dart';
+import '../../logic/cubit/get_ambassador_by_id/get_ambassador_by_id_cubit.dart';
 import '../../widgets/btn_with_box_shadow.dart';
-import '../../widgets/image_name_rating_widget.dart';
 import '../../widgets/loading_widget.dart';
 
-class BrokerProfile extends StatefulWidget {
-  final String brokerId;
+class AmbassadorProfile extends StatefulWidget {
+  final String ambassadorId;
 
-  const BrokerProfile({Key? key, required this.brokerId}) : super(key: key);
+  const AmbassadorProfile({Key? key, required this.ambassadorId})
+      : super(key: key);
 
   @override
-  State<BrokerProfile> createState() => _BrokerProfileState();
+  State<AmbassadorProfile> createState() => _AmbassadorProfileState();
 }
 
-class _BrokerProfileState extends State<BrokerProfile> {
-  late final GetBrokerByIdCubit _getBrokerByIdCubit;
-  late final CompleteBrokerDataCubit _completeBrokerDataCubit;
+class _AmbassadorProfileState extends State<AmbassadorProfile> {
+  late final GetAmbassadorByIdCubit _getAmbassadorByIdCubit;
+  late final CompleteAmbassadorDataCubit _completeAmbassadorDataCubit;
   late final UpdateDefaultUserCubit _updateDefaultUserCubit;
 
   @override
   void initState() {
     super.initState();
-    _getBrokerByIdCubit = getItInstance<GetBrokerByIdCubit>();
-    _completeBrokerDataCubit = getItInstance<CompleteBrokerDataCubit>();
+    _getAmbassadorByIdCubit = getItInstance<GetAmbassadorByIdCubit>();
+    _completeAmbassadorDataCubit = getItInstance<CompleteAmbassadorDataCubit>();
     _updateDefaultUserCubit = getItInstance<UpdateDefaultUserCubit>();
-    _fetchBrokerData();
+    _fetchAmbassadorData();
   }
 
   @override
   void dispose() {
-    _getBrokerByIdCubit.close();
-    _completeBrokerDataCubit.close();
+    _getAmbassadorByIdCubit.close();
+    _completeAmbassadorDataCubit.close();
     _updateDefaultUserCubit.close();
     super.dispose();
   }
@@ -58,18 +57,19 @@ class _BrokerProfileState extends State<BrokerProfile> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => _getBrokerByIdCubit),
-        BlocProvider(create: (context) => _completeBrokerDataCubit),
+        BlocProvider(create: (context) => _getAmbassadorByIdCubit),
+        BlocProvider(create: (context) => _completeAmbassadorDataCubit),
         BlocProvider(create: (context) => _updateDefaultUserCubit),
       ],
       child: Builder(builder: (context) {
-        return BlocListener<CompleteBrokerDataCubit, CompleteBrokerDataState>(
+        return BlocListener<CompleteAmbassadorDataCubit,
+            CompleteAmbassadorDataState>(
           listener: (context, state) {
-            if (state is BrokerDataCompletedSuccessfully) {
-              _fetchBrokerData();
+            if (state is AmbassadorDataCompletedSuccessfully) {
+              _fetchAmbassadorData();
             }
           },
-          child: BlocBuilder<GetBrokerByIdCubit, GetBrokerByIdState>(
+          child: BlocBuilder<GetAmbassadorByIdCubit, GetAmbassadorByIdState>(
             builder: (context, state) {
               /*
             *
@@ -78,9 +78,28 @@ class _BrokerProfileState extends State<BrokerProfile> {
             *
             *
             * */
-              if (state is LoadingGetBrokerById) {
+              if (state is LoadingGetAmbassadorById) {
                 return const Center(child: LoadingWidget());
               }
+
+
+              /*
+              *
+              *
+              * ambassador not found
+              *
+              * */
+              if (state is AmbassadorNotFoundById) {
+                return Center(
+                  child: AppErrorWidget(
+                    withCard: false,
+                    appTypeError: AppErrorType.userNotFound,
+                    buttonText: TranslateConstants.retry.t(context),
+                    onPressedRetry: () => _navigateToLogin(),
+                  ),
+                );
+              }
+
 
               /*
             *
@@ -89,7 +108,7 @@ class _BrokerProfileState extends State<BrokerProfile> {
             *
             *
             * */
-              if (state is NotCompletedDataForBroker) {
+              if (state is NotCompletedDataForAmbassador) {
                 return SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Column(
@@ -98,26 +117,27 @@ class _BrokerProfileState extends State<BrokerProfile> {
                       Align(
                         alignment: Alignment.center,
                         child: UserAvatarWidget(
-                          userId: widget.brokerId,
+                          userId: widget.ambassadorId,
                           updateDefaultUserCubit: _updateDefaultUserCubit,
-                          avatarUrl: state.userEntity.avatar,
-                          userName: state.userEntity.firstName,
-                          rating: state.userEntity.brokerRating,
+                          avatarUrl: state.ambassadorEntity.avatar,
+                          userName: state.ambassadorEntity.firstName,
+                          rating: 0,
+                          showRating: false,
                         ),
                       ),
                       UserDataItem(
                         keyData: TranslateConstants.email.t(context),
-                        value: state.userEntity.email,
+                        value: state.ambassadorEntity.email,
                       ),
                       UserDataItem(
                         keyData: TranslateConstants.phoneNumber.t(context),
-                        value: state.userEntity.phoneNumber,
+                        value: state.ambassadorEntity.phoneNumber,
                         forceLTR: true,
                       ),
                       ButtonWithBoxShadow(
                         text: TranslateConstants.completeYourProfile.t(context),
-                        onPressed: () => _navigateToCompleteBrokerData(
-                          userEntity: state.userEntity,
+                        onPressed: () => _navigateToCompleteAmbassadorData(
+                          ambassadorEntity: state.ambassadorEntity,
                         ),
                       ),
                     ],
@@ -132,7 +152,7 @@ class _BrokerProfileState extends State<BrokerProfile> {
             *
             *
             * */
-              if (state is BrokerDataFetched) {
+              if (state is AmbassadorDataFetched) {
                 return SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Column(
@@ -141,11 +161,12 @@ class _BrokerProfileState extends State<BrokerProfile> {
                       Align(
                         alignment: Alignment.center,
                         child: UserAvatarWidget(
-                          userId: widget.brokerId,
+                          userId: widget.ambassadorId,
                           updateDefaultUserCubit: _updateDefaultUserCubit,
-                          avatarUrl: state.userEntity.avatar,
-                          userName: state.userEntity.firstName,
-                          rating: state.userEntity.brokerRating,
+                          avatarUrl: state.ambassadorEntity.avatar,
+                          userName: state.ambassadorEntity.firstName,
+                          rating: 0,
+                          showRating: false,
                         ),
                       ),
                       SizedBox(
@@ -153,7 +174,7 @@ class _BrokerProfileState extends State<BrokerProfile> {
                       ),
                       UserDataItem(
                         keyData: TranslateConstants.email.t(context),
-                        value: state.userEntity.email,
+                        value: state.ambassadorEntity.email,
                       ),
                       SizedBox(
                         height: Sizes.dimen_6.h,
@@ -167,64 +188,14 @@ class _BrokerProfileState extends State<BrokerProfile> {
                             child: UserDataItem(
                               keyData:
                                   TranslateConstants.phoneNumber.t(context),
-                              value: state.userEntity.phoneNumber,
+                              value: state.ambassadorEntity.phoneNumber,
                             ),
                           ),
                           Container(
                             width: 30,
                           ),
-                          Expanded(
-                            child: UserDataItem(
-                              keyData:
-                                  TranslateConstants.experienceYears.t(context),
-                              value:
-                                  state.userEntity.experienceYears.toString(),
-                            ),
-                          ),
                         ],
                       ),
-                      SizedBox(
-                        height: Sizes.dimen_6.h,
-                      ),
-
-                      //==> favoriteRegions
-                      Text(
-                        TranslateConstants.favoriteRegions.t(context),
-                        textAlign: TextAlign.start,
-                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                              //letterSpacing: 0.5,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.white54,
-                            ),
-                      ),
-                      LayoutBuilder(builder: (context, constraints) {
-                        return GridView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          shrinkWrap: true,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount:
-                                      constraints.maxWidth > 700 ? 4 : 3,
-                                  mainAxisSpacing: 8,
-                                  crossAxisSpacing: 3,
-                                  childAspectRatio: 3),
-                          itemCount: state.userEntity.favoriteAreas.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              padding: const EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                  color: AppColor.bgItemBlack,
-                                  borderRadius: BorderRadius.circular(
-                                      AppUtils.cornerRadius.w)),
-                              child: Center(
-                                child: Text(
-                                  state.userEntity.favoriteAreas[index].name,
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      }),
                     ],
                   ),
                 );
@@ -237,7 +208,7 @@ class _BrokerProfileState extends State<BrokerProfile> {
             *
             *
             * */
-              if (state is UnAuthorizedToGetBrokerById) {
+              if (state is UnAuthorizedToGetAmbassadorById) {
                 return Center(
                   child: AppErrorWidget(
                     withCard: false,
@@ -251,15 +222,15 @@ class _BrokerProfileState extends State<BrokerProfile> {
               /*
             *
             *
-            * Not a broker before getting broker by id
-            * broker id (-1)
+            * Not a Ambassador before getting Ambassador by id
+            * Ambassador id (-1)
             * this means that the saved authorized user in the preferences
             * have not valid data
             * solution >>  try to login again
             *
             *
             * */
-              if (state is NotABrokerBeforeGettingBrokerById) {
+              if (state is NotAAmbassadorBeforeGettingAmbassadorById) {
                 return Center(
                   child: AppErrorWidget(
                     withCard: false,
@@ -277,12 +248,12 @@ class _BrokerProfileState extends State<BrokerProfile> {
             *
             *
             * */
-              if (state is ErrorWhileGettingBrokerById) {
+              if (state is ErrorWhileGettingAmbassadorById) {
                 return Center(
                   child: AppErrorWidget(
                     withCard: false,
                     appTypeError: state.appError.appErrorType,
-                    onPressedRetry: () => _fetchBrokerData(),
+                    onPressedRetry: () => _fetchAmbassadorData(),
                   ),
                 );
               }
@@ -302,11 +273,15 @@ class _BrokerProfileState extends State<BrokerProfile> {
     );
   }
 
-  /// to fetch broker data
-  void _fetchBrokerData() {
-    _getBrokerByIdCubit.getBrokerById(
-      context,
-      brokerId: widget.brokerId,
+  /// to fetch Ambassador data
+  void _fetchAmbassadorData() {
+    final userToken = getUserToken(context);
+    final appLanguage = getCurrentAppLanguage(context);
+
+    _getAmbassadorByIdCubit.tryToGetAmbassadorById(
+      ambassadorId: widget.ambassadorId,
+      userToken: userToken,
+      appLanguage: appLanguage,
     );
   }
 
@@ -315,18 +290,19 @@ class _BrokerProfileState extends State<BrokerProfile> {
     RouteHelper().registerOrLoginScreen(
       context,
       registerOrLoginArguments: RegisterOrLoginArguments(
-        userType: UserType.broker,
+        userType: UserType.ambassador,
       ),
       removeAllScreens: true,
     );
   }
 
-  /// to navigate to complete broker data
-  void _navigateToCompleteBrokerData({required UserEntity userEntity}) {
-    RouteHelper().completeBrokerData(context,
-        completeBrokerDataArguments: CompleteBrokerDataArguments(
-          userEntity: userEntity,
-          completeBrokerDataCubit: _completeBrokerDataCubit,
-        ));
+  /// to navigate to complete Ambassador data
+  void _navigateToCompleteAmbassadorData(
+      {required AmbassadorEntity ambassadorEntity}) {
+    // RouteHelper().completeAmbassadorData(context,
+    //     completeAmbassadorDataArguments: CompleteAmbassadorDataArguments(
+    //       ambassadorEntity: ambassadorEntity,
+    //       completeAmbassadorDataCubit: _completeAmbassadorDataCubit,
+    //     ));
   }
 }

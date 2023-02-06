@@ -7,7 +7,7 @@ import 'package:remax_mapstate/domain/use_cases/get_broker_by_region_case.dart';
 
 import '../../../../di/git_it.dart';
 import '../../../../domain/entities/app_error.dart';
-import '../../../../domain/entities/user_entity.dart';
+import '../../../../domain/entities/users/user_entity.dart';
 
 part 'get_brokers_by_area_state.dart';
 

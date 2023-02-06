@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../di/git_it.dart';
 import '../../../../domain/entities/app_error.dart';
 import '../../../../domain/entities/params/fetch_buyer_user_params.dart';
-import '../../../../domain/entities/user_entity.dart';
+import '../../../../domain/entities/users/user_entity.dart';
 import '../../../../domain/use_cases/get_buyer_by_id.dart';
 
 part 'get_buyer_by_id_state.dart';

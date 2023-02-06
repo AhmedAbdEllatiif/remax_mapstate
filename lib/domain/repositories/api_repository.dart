@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:remax_mapstate/data/models/success_model.dart';
 import 'package:remax_mapstate/data/params/add_or_remove_project_to_fav_params.dart';
+import 'package:remax_mapstate/data/params/fetch_ambassador_user_params.dart';
 import 'package:remax_mapstate/data/params/fetch_fav_projects_params.dart';
 import 'package:remax_mapstate/data/params/fetch_list_params.dart';
 import 'package:remax_mapstate/data/params/filter_data_params.dart';
@@ -22,7 +23,8 @@ import 'package:remax_mapstate/domain/entities/project_status_entity.dart';
 import 'package:remax_mapstate/domain/entities/register_entity.dart';
 import 'package:remax_mapstate/domain/entities/team_support_entity.dart';
 import 'package:remax_mapstate/domain/entities/unit_type_entity.dart';
-import 'package:remax_mapstate/domain/entities/user_entity.dart';
+import 'package:remax_mapstate/domain/entities/users/ambassador_entity.dart';
+import 'package:remax_mapstate/domain/entities/users/user_entity.dart';
 
 import '../../data/params/fetch_areas_params.dart';
 import '../../data/params/fetch_broker_params.dart';
@@ -51,9 +53,6 @@ abstract class RemoteRepository {
 
   /// return list of areas_by_status
   Future<Either<AppError, List<AreaEntity>>> getAreas(FetchAreaParams params);
-
-  /// return list of broker according to specific area
-  Future<Either<AppError, List<BrokerEntity>>> getAreaBrokers();
 
   /// return a list of project status
   Future<Either<AppError, List<ProjectStatusEntity>>> getProjectStatus(
@@ -158,4 +157,15 @@ abstract class RemoteRepository {
   Future<Either<AppError, List<UserEntity>>> getBrokersByRegion({
     required GetBrokersByAreaParams params,
   });
+
+  //============================>  Ambassador   <=============================\\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //                                                                          \\
+  //==========================================================================\\
+  /// getAmbassadorById
+  Future<Either<AppError, AmbassadorEntity>> getAmbassadorById(
+      {required FetchAmbassadorParams params});
 }

@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:remax_mapstate/common/enums/login_status.dart';
 import 'package:remax_mapstate/domain/entities/auto_login_entity.dart';
-import 'package:remax_mapstate/domain/entities/user_entity.dart';
+import 'package:remax_mapstate/domain/entities/users/user_entity.dart';
 import '../entities/app_error.dart';
 import '../entities/authorized_user_entity.dart';
 

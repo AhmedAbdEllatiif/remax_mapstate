@@ -20,6 +20,7 @@ enum AppErrorType {
 
 
   mustBeUnique,
+  userNotFound,
 }
 
 class AppError extends Equatable {

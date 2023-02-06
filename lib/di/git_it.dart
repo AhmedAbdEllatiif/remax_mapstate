@@ -13,7 +13,6 @@ import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 import 'package:remax_mapstate/domain/repositories/app_repository.dart';
 import 'package:remax_mapstate/domain/repositories/app_settings_repository.dart';
 import 'package:remax_mapstate/domain/repositories/local_repository.dart';
-import 'package:remax_mapstate/domain/use_cases/get_area_brokers.dart';
 import 'package:remax_mapstate/domain/use_cases/get_areas.dart';
 import 'package:remax_mapstate/domain/use_cases/get_broker_by_id.dart';
 import 'package:remax_mapstate/domain/use_cases/get_buyer_by_id.dart';
@@ -61,6 +60,7 @@ import '../domain/use_cases/complete_broker_data_case.dart';
 import '../domain/use_cases/contact_us_case.dart';
 import '../domain/use_cases/fav_projects/get_fav_projects_case.dart';
 import '../domain/use_cases/fav_projects/get_fav_projects_ids_case.dart';
+import '../domain/use_cases/get_ambassador_by_id.dart';
 import '../domain/use_cases/get_broker_by_region_case.dart';
 import '../domain/use_cases/get_filter_data.dart';
 import '../domain/use_cases/get_projects_by_status.dart';
@@ -81,13 +81,14 @@ import '../domain/use_cases/update_user/update_user_avatar.dart';
 import '../presentation/logic/cubit/areas/areas_cubit.dart';
 import '../presentation/logic/cubit/auth/get_profile/get_current_user_profile_cubit.dart';
 import '../presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
-import '../presentation/logic/cubit/brokers_by_area/get_area_brokers_cubit.dart';
 import '../presentation/logic/bloc/calculator_validation/calculator_validation_bloc.dart';
 import '../presentation/logic/bloc/project_status/project_status_bloc.dart';
 import '../presentation/logic/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
 import '../presentation/logic/cubit/check_current_project_favorite/check_current_favorite_project_cubit.dart';
+import '../presentation/logic/cubit/complete_ambassador_date/complete_ambassador_data_cubit.dart';
 import '../presentation/logic/cubit/complete_broker_data/complete_broker_data_cubit.dart';
 import '../presentation/logic/cubit/fav_projects/get_fav_projects_cubit.dart';
+import '../presentation/logic/cubit/get_ambassador_by_id/get_ambassador_by_id_cubit.dart';
 import '../presentation/logic/cubit/get_broker_by_id/get_broker_by_id_cubit.dart';
 import '../presentation/logic/cubit/pick_images/pick_image_cubit.dart';
 import '../presentation/logic/cubit/projects/get_projects_cubit.dart';
@@ -237,13 +238,6 @@ Future init() async {
   /// LoginCase
   getItInstance.registerFactory<LoginCase>(
     () => LoginCase(
-      apiRepo: getItInstance(),
-    ),
-  );
-
-  /// GetAreasBrokersCase
-  getItInstance.registerLazySingleton<GetAreaBrokersCase>(
-    () => GetAreaBrokersCase(
       apiRepo: getItInstance(),
     ),
   );
@@ -405,6 +399,13 @@ Future init() async {
   /// GetBrokersByRegionCase
   getItInstance.registerFactory<GetBrokersByRegionCase>(
     () => GetBrokersByRegionCase(
+      remoteRepository: getItInstance(),
+    ),
+  );
+
+  /// GetAmbassadorByIdCase
+  getItInstance.registerFactory<GetAmbassadorByIdCase>(
+    () => GetAmbassadorByIdCase(
       remoteRepository: getItInstance(),
     ),
   );
@@ -628,6 +629,16 @@ Future init() async {
     () => GetBrokersByAreaCubit(),
   );
 
+  /// GetAmbassadorByIdCubit
+  getItInstance.registerFactory<GetAmbassadorByIdCubit>(
+    () => GetAmbassadorByIdCubit(),
+  );
+
+  /// CompleteAmbassadorDataCubit
+  getItInstance.registerFactory<CompleteAmbassadorDataCubit>(
+    () => CompleteAmbassadorDataCubit(),
+  );
+
   ///**************************** init blocs *******************************\\\
 
   ///==> init ProjectBackdropBloc
@@ -668,10 +679,6 @@ Future init() async {
   /// init IndicatorPositionCubit
   getItInstance
       .registerFactory<IndicatorPositionCubit>(() => IndicatorPositionCubit());
-
-  /// init AreaBrokersBloc
-  getItInstance
-      .registerFactory<GetAreaBrokersCubit>(() => GetAreaBrokersCubit());
 
   /// init UpdateDefaultUserCubit
   getItInstance

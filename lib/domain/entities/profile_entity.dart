@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:remax_mapstate/domain/entities/user_entity.dart';
+import 'package:remax_mapstate/domain/entities/users/user_entity.dart';
 
 class ProfileEntity extends Equatable {
   final UserEntity userEntity;
