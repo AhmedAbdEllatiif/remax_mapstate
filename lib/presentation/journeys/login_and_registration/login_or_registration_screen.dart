@@ -140,7 +140,7 @@ class _RegisterOrLoginScreenState extends State<RegisterOrLoginScreen> {
         child: StackScaffoldWithFullBackground(
           appBarTitle: isLoginForm
               ? Text(TranslateConstants.login.t(context))
-              : Text(TranslateConstants.brokerRegistration.t(context)),
+              : Text(TranslateConstants.register.t(context)),
           body: BlocBuilder<UpdateDefaultUserCubit, UpdateDefaultUserState>(
             builder: (context, updateUserDataState) {
               return BlocBuilder<GetCurrentUserProfileCubit,
