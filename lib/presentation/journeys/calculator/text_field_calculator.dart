@@ -18,7 +18,7 @@ class TextFieldCalculator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return   Card(
-      color: AppColor.extraTransparentGeeBung,
+      color: AppColor.white.withOpacity(0.3),
       elevation: 0.0,
       //shadowColor: AppColor.absoluteFadeGeeBung,
       shape: RoundedRectangleBorder(
@@ -32,8 +32,8 @@ class TextFieldCalculator extends StatelessWidget {
             ? TextInputAction.next
             : TextInputAction.done,
         initialValue: calculatorInputParams.initialValue,
-        cursorColor: AppColor.geeBung,
-        style: const TextStyle(color: AppColor.geeBung),
+        cursorColor: AppColor.white,
+        style: const TextStyle(color: AppColor.white),
         onFieldSubmitted:(_) {
           if(calculatorInputParams.inputType ==
               CalculatorInputType.numberOfYears){
@@ -63,22 +63,22 @@ class TextFieldCalculator extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
             borderSide:
-            const BorderSide(color: AppColor.geeBung, width: 2.0),
+            const BorderSide(color: AppColor.white, width: 2.0),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
             borderSide:
-            const BorderSide(color: AppColor.absoluteTransparentGeeBung, width: 0.7),
+             BorderSide(color: AppColor.white.withOpacity(0.4), width: 0.7),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(Sizes.dimen_16.w),
             borderSide: const BorderSide(color: Colors.red, width: 1.0),
           ),
-          fillColor: AppColor.geeBung,
+        //  fillColor: AppColor.geeBung,
           labelText: calculatorInputParams.label,
           // errorMaxLines: ,
           labelStyle: Theme.of(context).textTheme.subtitle1!.copyWith(
-            color: AppColor.geeBung,
+            color: AppColor.white,
             fontWeight: FontWeight.bold,
               fontSize: Sizes.dimen_16,
           ),

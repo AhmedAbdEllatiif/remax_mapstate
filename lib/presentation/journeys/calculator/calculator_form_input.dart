@@ -34,12 +34,12 @@ class CalculatorFormInput extends StatelessWidget {
                 Text(
                   calculatorInputParams.label,
                   style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                      color: AppColor.absoluteTransparentGeeBung, fontWeight: FontWeight.bold),
+                      color: AppColor.geeBung, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   width: Sizes.dimen_10.w,
                 ),
-                Icon(calculatorInputParams.iconData,color: AppColor.absoluteTransparentGeeBung,),
+                Icon(calculatorInputParams.iconData,color: AppColor.geeBung,),
               ],
             ),
 
@@ -50,13 +50,13 @@ class CalculatorFormInput extends StatelessWidget {
                   text: TextSpan(
                 text: "(${_getCurrentInputLength(state)}",
                 style: Theme.of(context).textTheme.caption!.copyWith(
-                      color: AppColor.absoluteTransparentGeeBung,
+                      color: AppColor.white.withOpacity(0.8),
                     ),
                 children: [
                   TextSpan(
                     text: " / ${calculatorInputParams.maxLength - 1})",
                     style: Theme.of(context).textTheme.caption!.copyWith(
-                          color: AppColor.absoluteTransparentGeeBung,
+                          color: AppColor.white.withOpacity(0.8),
                         ),
                   ),
                 ],
