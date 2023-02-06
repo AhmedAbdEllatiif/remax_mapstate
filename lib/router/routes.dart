@@ -4,6 +4,7 @@ import 'package:remax_mapstate/domain/entities/arguments/register_or_login_args.
 import 'package:remax_mapstate/domain/entities/params/contact_developer.dart';
 import 'package:remax_mapstate/presentation/arguments/advanced_filter_result_args.dart';
 import 'package:remax_mapstate/presentation/arguments/project_by_status_args.dart';
+import 'package:remax_mapstate/presentation/arguments/update_ambassador_args.dart';
 import 'package:remax_mapstate/presentation/journeys/advanced_filter_result/advanced_filter_result_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/all_areas/all_areas_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/area_unit_types/area_unit_types_screen.dart';
@@ -17,6 +18,7 @@ import 'package:remax_mapstate/presentation/journeys/main/main_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/project_details/project_details_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/projects_by_status/projects_by_status_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/choose_user_type/choose_user_screen.dart';
+import 'package:remax_mapstate/presentation/journeys/update_ambassador_data/update_ambassador_data_screen.dart';
 
 import '../common/constants/route_list.dart';
 import '../presentation/journeys/choose_broker/arguments/choose_broker_argument.dart';
@@ -91,6 +93,11 @@ class Routes {
         RouteList.completeBrokerData: (context) => CompleteBrokerDataScreen(
               completeBrokerDataArguments:
                   settings.arguments as CompleteBrokerDataArguments,
+            ),
+
+        /// UpdateAmbassadorDataScreen
+        RouteList.updateAmbassador: (context) => UpdateAmbassadorDataScreen(
+              arguments: settings.arguments as UpdateAmbassadorArguments,
             ),
 
         /// contactUs

@@ -42,6 +42,7 @@ import '../../domain/entities/register_entity.dart';
 import '../../domain/entities/users/ambassador_entity.dart';
 import '../../domain/entities/users/user_entity.dart';
 import '../models/auth/profile/get_profile_request_model.dart';
+import '../models/mutation/update_ambassador_request_model.dart';
 import '../params/add_or_remove_project_to_fav_params.dart';
 import '../params/fetch_ambassador_user_params.dart';
 import '../params/fetch_broker_params.dart';
@@ -49,6 +50,7 @@ import '../params/fetch_fav_projects_params.dart';
 import '../params/fetch_list_params.dart';
 import '../params/filter_data_params.dart';
 import '../params/get_profile_params.dart';
+import '../params/update_ambassador_data_params.dart';
 
 class RemoteRepositoryImpl extends RemoteRepository {
   final RemoteDataSource remoteDataSource;
@@ -758,19 +760,19 @@ class RemoteRepositoryImpl extends RemoteRepository {
     }
     //==> SocketException
     on SocketException catch (e) {
-      log("RepoImpl >> completeBrokerData >> SocketException >> $e");
+      log("RepoImpl >> contactUs >> SocketException >> $e");
       return Left(AppError(AppErrorType.network, message: e.message));
     }
     //==> OperationException
     on OperationException catch (e) {
       final appErrorType =
           AppErrorTypeBuilder.formOperationException(e).appErrorType;
-      log("RepoImpl >> completeBrokerData >> OperationException >> $e");
+      log("RepoImpl >> contactUs >> OperationException >> $e");
       return Left(AppError(appErrorType, message: e.toString()));
     }
     //==> Exception
     on Exception catch (e) {
-      log("RepoImpl >> completeBrokerData >> Exception >> $e");
+      log("RepoImpl >> contactUs >> Exception >> $e");
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
   }
@@ -884,6 +886,42 @@ class RemoteRepositoryImpl extends RemoteRepository {
     //==> Exception
     on Exception catch (e) {
       log("RepoImpl >> getBrokersByRegion >> Exception >> $e");
+      return Left(AppError(AppErrorType.unHandledError, message: e.toString()));
+    }
+  }
+
+  /// updateAmbassadorData
+  @override
+  Future<Either<AppError, SuccessModel>> updateAmbassadorData(
+      {required UpdateAmbassadorDataParams params}) async {
+    try {
+      final requestModel =
+          UpdateAmbassadorRequestModel.fromParams(params: params);
+
+      final result = await remoteDataSource.updateAmbassadorData(
+        updateAmbassadorRequestModel: requestModel,
+      );
+
+      if (result is SuccessModel) {
+        return Right(result);
+      }
+      return Left(result);
+    }
+    //==> SocketException
+    on SocketException catch (e) {
+      log("RepoImpl >> updateAmbassadorData >> SocketException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.message));
+    }
+    //==> OperationException
+    on OperationException catch (e) {
+      final appErrorType =
+          AppErrorTypeBuilder.formOperationException(e).appErrorType;
+      log("RepoImpl >> updateAmbassadorData >> OperationException >> $e");
+      return Left(AppError(appErrorType, message: e.toString()));
+    }
+    //==> Exception
+    on Exception catch (e) {
+      log("RepoImpl >> updateAmbassadorData >> Exception >> $e");
       return Left(AppError(AppErrorType.unHandledError, message: e.toString()));
     }
   }

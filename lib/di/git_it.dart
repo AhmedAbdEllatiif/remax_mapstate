@@ -74,6 +74,7 @@ import '../domain/use_cases/login.dart';
 import '../domain/use_cases/make_phone_call.dart';
 import '../domain/use_cases/open_map.dart';
 import '../domain/use_cases/open_whats_app.dart';
+import '../domain/use_cases/update_ambassador_data_case.dart';
 import '../domain/use_cases/update_default_user.dart';
 import '../domain/use_cases/update_user/add_or_remove_fav_project_case.dart';
 import '../domain/use_cases/update_user/update_user_after_registration.dart';
@@ -85,7 +86,6 @@ import '../presentation/logic/bloc/calculator_validation/calculator_validation_b
 import '../presentation/logic/bloc/project_status/project_status_bloc.dart';
 import '../presentation/logic/bloc/project_status_backdrop/project_status_backdrop_bloc.dart';
 import '../presentation/logic/cubit/check_current_project_favorite/check_current_favorite_project_cubit.dart';
-import '../presentation/logic/cubit/complete_ambassador_date/complete_ambassador_data_cubit.dart';
 import '../presentation/logic/cubit/complete_broker_data/complete_broker_data_cubit.dart';
 import '../presentation/logic/cubit/fav_projects/get_fav_projects_cubit.dart';
 import '../presentation/logic/cubit/get_ambassador_by_id/get_ambassador_by_id_cubit.dart';
@@ -107,6 +107,7 @@ import '../presentation/journeys/calculator/formz/second_down_payment.dart';
 import '../presentation/journeys/calculator/formz/third_down_payment.dart';
 import '../presentation/logic/bloc/favorite_projects/favorite_projects_bloc.dart';
 import '../presentation/logic/cubit/project_scrollable_indicator/indicator_position_cubit.dart';
+import '../presentation/logic/cubit/update_ambassador_date/update_ambassador_data_cubit.dart';
 import '../presentation/logic/cubit/update_default_user/update_default_user_cubit.dart';
 
 final getItInstance = GetIt.I;
@@ -410,6 +411,13 @@ Future init() async {
     ),
   );
 
+  /// UpdateAmbassadorDataCase
+  getItInstance.registerFactory<UpdateAmbassadorDataCase>(
+    () => UpdateAmbassadorDataCase(
+      remoteRepository: getItInstance(),
+    ),
+  );
+
   ///************************** Local_Use_Cases *****************************\\\
 //==> GetAutoLogin
   getItInstance.registerLazySingleton<GetUserTokenCase>(() => GetUserTokenCase(
@@ -634,9 +642,9 @@ Future init() async {
     () => GetAmbassadorByIdCubit(),
   );
 
-  /// CompleteAmbassadorDataCubit
-  getItInstance.registerFactory<CompleteAmbassadorDataCubit>(
-    () => CompleteAmbassadorDataCubit(),
+  /// UpdateAmbassadorDataCubit
+  getItInstance.registerFactory<UpdateAmbassadorDataCubit>(
+    () => UpdateAmbassadorDataCubit(),
   );
 
   ///**************************** init blocs *******************************\\\

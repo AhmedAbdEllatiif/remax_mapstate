@@ -7,6 +7,7 @@ import 'package:remax_mapstate/presentation/arguments/advanced_filter_result_arg
 import 'package:remax_mapstate/presentation/arguments/project_by_status_args.dart';
 import 'package:remax_mapstate/presentation/arguments/project_details_argument.dart';
 import 'package:remax_mapstate/presentation/arguments/area_unit_types_args.dart';
+import 'package:remax_mapstate/presentation/arguments/update_ambassador_args.dart';
 import '../presentation/journeys/choose_broker/arguments/choose_broker_argument.dart';
 import '../presentation/logic/bloc/calculator_validation/calculator_validation_bloc.dart';
 
@@ -131,5 +132,15 @@ class RouteHelper {
   /// To ContactUsScreen \\\
   void contactUsScreen(BuildContext context) =>
       Navigator.of(context).pushNamed(RouteList.contactUs);
+
+  /// To UpdateAmbassadorDataScreen \\\
+  void updateAmbassadorData(
+    BuildContext context, {
+    required UpdateAmbassadorArguments arguments,
+  }) =>
+      Navigator.of(context).pushNamed(
+        RouteList.updateAmbassador,
+        arguments: arguments,
+      );
 }
 //Navigator.pushNamed(context, AppRouter.chooseBrokerScreen)

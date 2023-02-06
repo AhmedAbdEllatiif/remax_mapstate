@@ -8,6 +8,7 @@ import 'package:remax_mapstate/common/functions/get_current_app_language.dart';
 import 'package:remax_mapstate/common/functions/get_user_token.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/arguments/register_or_login_args.dart';
+import 'package:remax_mapstate/presentation/arguments/update_ambassador_args.dart';
 import 'package:remax_mapstate/presentation/journeys/profile/user_avatar_widget.dart';
 import 'package:remax_mapstate/presentation/journeys/profile/user_data_item.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/update_default_user/update_default_user_cubit.dart';
@@ -16,8 +17,8 @@ import 'package:remax_mapstate/router/route_hepler.dart';
 import '../../../common/enums/user_types.dart';
 import '../../../di/git_it.dart';
 import '../../../domain/entities/users/ambassador_entity.dart';
-import '../../logic/cubit/complete_ambassador_date/complete_ambassador_data_cubit.dart';
 import '../../logic/cubit/get_ambassador_by_id/get_ambassador_by_id_cubit.dart';
+import '../../logic/cubit/update_ambassador_date/update_ambassador_data_cubit.dart';
 import '../../widgets/btn_with_box_shadow.dart';
 import '../../widgets/loading_widget.dart';
 
@@ -33,14 +34,14 @@ class AmbassadorProfile extends StatefulWidget {
 
 class _AmbassadorProfileState extends State<AmbassadorProfile> {
   late final GetAmbassadorByIdCubit _getAmbassadorByIdCubit;
-  late final CompleteAmbassadorDataCubit _completeAmbassadorDataCubit;
+  late final UpdateAmbassadorDataCubit _completeAmbassadorDataCubit;
   late final UpdateDefaultUserCubit _updateDefaultUserCubit;
 
   @override
   void initState() {
     super.initState();
     _getAmbassadorByIdCubit = getItInstance<GetAmbassadorByIdCubit>();
-    _completeAmbassadorDataCubit = getItInstance<CompleteAmbassadorDataCubit>();
+    _completeAmbassadorDataCubit = getItInstance<UpdateAmbassadorDataCubit>();
     _updateDefaultUserCubit = getItInstance<UpdateDefaultUserCubit>();
     _fetchAmbassadorData();
   }
@@ -62,10 +63,10 @@ class _AmbassadorProfileState extends State<AmbassadorProfile> {
         BlocProvider(create: (context) => _updateDefaultUserCubit),
       ],
       child: Builder(builder: (context) {
-        return BlocListener<CompleteAmbassadorDataCubit,
-            CompleteAmbassadorDataState>(
+        return BlocListener<UpdateAmbassadorDataCubit,
+            UpdateAmbassadorDataState>(
           listener: (context, state) {
-            if (state is AmbassadorDataCompletedSuccessfully) {
+            if (state is AmbassadorDataUpdatedSuccessfully) {
               _fetchAmbassadorData();
             }
           },
@@ -81,7 +82,6 @@ class _AmbassadorProfileState extends State<AmbassadorProfile> {
               if (state is LoadingGetAmbassadorById) {
                 return const Center(child: LoadingWidget());
               }
-
 
               /*
               *
@@ -99,7 +99,6 @@ class _AmbassadorProfileState extends State<AmbassadorProfile> {
                   ),
                 );
               }
-
 
               /*
             *
@@ -125,15 +124,26 @@ class _AmbassadorProfileState extends State<AmbassadorProfile> {
                           showRating: false,
                         ),
                       ),
+
+                      /// email
                       UserDataItem(
                         keyData: TranslateConstants.email.t(context),
                         value: state.ambassadorEntity.email,
+                        forceLTR: true,
                       ),
+
+                      /// space
+                      SizedBox(height: Sizes.dimen_6.h),
+
+                      /// phone
                       UserDataItem(
                         keyData: TranslateConstants.phoneNumber.t(context),
                         value: state.ambassadorEntity.phoneNumber,
                         forceLTR: true,
                       ),
+
+
+                      /// button
                       ButtonWithBoxShadow(
                         text: TranslateConstants.completeYourProfile.t(context),
                         onPressed: () => _navigateToCompleteAmbassadorData(
@@ -169,32 +179,34 @@ class _AmbassadorProfileState extends State<AmbassadorProfile> {
                           showRating: false,
                         ),
                       ),
-                      SizedBox(
-                        height: Sizes.dimen_10.h,
-                      ),
+
+                      /// space
+                      SizedBox(height: Sizes.dimen_10.h),
+
+                      /// email
                       UserDataItem(
                         keyData: TranslateConstants.email.t(context),
                         value: state.ambassadorEntity.email,
-                      ),
-                      SizedBox(
-                        height: Sizes.dimen_6.h,
+                        forceLTR: true,
                       ),
 
-                      //==> phoneNum and experience years
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: UserDataItem(
-                              keyData:
-                                  TranslateConstants.phoneNumber.t(context),
-                              value: state.ambassadorEntity.phoneNumber,
-                            ),
-                          ),
-                          Container(
-                            width: 30,
-                          ),
-                        ],
+                      /// space
+                      SizedBox(height: Sizes.dimen_6.h),
+
+                      /// phone number
+                      UserDataItem(
+                        keyData: TranslateConstants.phoneNumber.t(context),
+                        value: state.ambassadorEntity.phoneNumber,
+                        forceLTR: true,
+                      ),
+
+                      ///space
+                      SizedBox(height: Sizes.dimen_6.h),
+
+                      /// current job
+                      UserDataItem(
+                        keyData: TranslateConstants.currentJob.t(context),
+                        value: state.ambassadorEntity.jobTitle,
                       ),
                     ],
                   ),
@@ -299,10 +311,10 @@ class _AmbassadorProfileState extends State<AmbassadorProfile> {
   /// to navigate to complete Ambassador data
   void _navigateToCompleteAmbassadorData(
       {required AmbassadorEntity ambassadorEntity}) {
-    // RouteHelper().completeAmbassadorData(context,
-    //     completeAmbassadorDataArguments: CompleteAmbassadorDataArguments(
-    //       ambassadorEntity: ambassadorEntity,
-    //       completeAmbassadorDataCubit: _completeAmbassadorDataCubit,
-    //     ));
+    RouteHelper().updateAmbassadorData(context,
+        arguments: UpdateAmbassadorArguments(
+          ambassadorEntity: ambassadorEntity,
+          completeAmbassadorDataCubit: _completeAmbassadorDataCubit,
+        ));
   }
 }

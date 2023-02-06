@@ -18,4 +18,5 @@ class RouteList{
   static const String advancedFilterResult = "/advancedFilterResult";
   static const String completeBrokerData = "/completeBrokerData";
   static const String contactUs = "/contactUs";
+  static const String updateAmbassador = "/updateAmbassador";
 }

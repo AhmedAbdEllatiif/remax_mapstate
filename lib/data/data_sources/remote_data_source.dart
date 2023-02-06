@@ -10,6 +10,7 @@ import 'package:remax_mapstate/data/api/clients/auth_client.dart';
 import 'package:remax_mapstate/data/api/requests/auth/get_profile.dart';
 import 'package:remax_mapstate/data/api/requests/mutations/contact_us.dart';
 import 'package:remax_mapstate/data/api/requests/mutations/request_a_call.dart';
+import 'package:remax_mapstate/data/api/requests/mutations/update_ambassador.dart';
 import 'package:remax_mapstate/data/api/requests/queries/ambassadors/get_ambassadors.dart';
 import 'package:remax_mapstate/data/api/requests/queries/areas/ar_areas.dart';
 import 'package:remax_mapstate/data/api/requests/queries/areas/en_areas.dart';
@@ -67,6 +68,7 @@ import '../models/filter_model.dart';
 import '../models/list_of_fav_project_ids.dart';
 import '../models/mutation/contact_us_request_model.dart';
 import '../models/mutation/request_a_call_request_model.dart';
+import '../models/mutation/update_ambassador_request_model.dart';
 import '../models/mutation/update_broker_request_model.dart';
 import '../params/fetch_fav_projects_params.dart';
 
@@ -200,6 +202,11 @@ abstract class RemoteDataSource {
   /// updateBrokerData
   Future<dynamic> updateBrokerData({
     required UpdateBrokerRequestModel updateBrokerRequestModel,
+  });
+
+  /// updateAmbassadorData
+  Future<dynamic> updateAmbassadorData({
+    required UpdateAmbassadorRequestModel updateAmbassadorRequestModel,
   });
 }
 
@@ -844,12 +851,37 @@ class RemoteDateSourceImpl extends RemoteDataSource {
         },
       );
 
-      log("updateUser >> ResultOnly >> ..........\n \n \n ${result}.......\n\n\n");
-      log("updateUser >> Data >> ..........\n ${result.data}.......");
+      log("RemoteData >> updateBrokerData >> ResultOnly >> ..........\n \n \n ${result}.......\n\n\n");
+      log("RemoteData >> updateBrokerData >> Data >> ..........\n ${result.data}.......");
       return SuccessModel();
     } catch (e) {
       return AppError(AppErrorType.unHandledError,
-          message: "updateDefaultUser UnHandledError >> $e");
+          message: "RemoteData >> updateBrokerData UnHandledError >> $e");
+    }
+  }
+
+  /// updateAmbassadorData
+  @override
+  Future<dynamic> updateAmbassadorData({
+    required UpdateAmbassadorRequestModel updateAmbassadorRequestModel,
+  }) async {
+    try {
+      final mutationFields = updateAmbassadorMutation();
+
+      final QueryResult result = await apiClient.mutate(
+        mutationFields,
+        variables: {
+          VariablesConstants.inputForm: updateAmbassadorRequestModel.toJson(),
+        },
+      );
+
+      log("RemoteData >> updateAmbassadorData >>"
+          " Data >> ..........\n ${result.data}.......");
+      return SuccessModel();
+    } catch (e) {
+      log("RemoteData >> updateAmbassadorData >> error: $e");
+      return AppError(AppErrorType.unHandledError,
+          message: "RemoteData >> updateAmbassadorData UnHandledError >> $e");
     }
   }
 }
