@@ -68,6 +68,7 @@ class NavigationSubListItem extends StatelessWidget {
           contentPadding: EdgeInsets.symmetric(horizontal: Sizes.dimen_32.w),
           title: Text(
             title,
+            textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.subtitle1!.copyWith(
               fontWeight: FontWeight.w500,
               color: AppColor.white

@@ -23,12 +23,13 @@ class NavigationDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 4.0,
-            color: Theme.of(context).primaryColor.withOpacity(0.8),
-          )
-        ],
+        // boxShadow: [
+        //   BoxShadow(
+        //     blurRadius: 4.0,
+        //     color: Theme.of(context).primaryColor.withOpacity(0.8),
+        //   )
+        // ],
+        color: AppColor.black.withOpacity(0.6)
       ),
       width: Sizes.dimen_300.w,
       child: SafeArea(

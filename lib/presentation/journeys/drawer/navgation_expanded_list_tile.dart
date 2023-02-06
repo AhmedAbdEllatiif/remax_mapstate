@@ -19,7 +19,7 @@ class NavigationExpandedListItem extends StatefulWidget {
 
 class _NavigationExpandedListItemState extends State<NavigationExpandedListItem> {
 
-  Color expansionChangesColor = AppColor.black;
+  Color expansionChangesColor = AppColor.white;
 
 
   @override
@@ -37,9 +37,14 @@ class _NavigationExpandedListItemState extends State<NavigationExpandedListItem>
         leading: Icon(Icons.language_outlined,color: expansionChangesColor,),
         childrenPadding: EdgeInsets.zero,
         iconColor: AppColor.geeBung,
-        collapsedIconColor: AppColor.black,
-        collapsedBackgroundColor: AppColor.geeBung,
-        collapsedTextColor: AppColor.black,
+
+
+      textColor:  AppColor.white,
+        collapsedIconColor: AppColor.white,
+        collapsedBackgroundColor: Colors.transparent,
+        collapsedTextColor: AppColor.white,
+
+
         title: Text(
           widget.title,
           style: Theme.of(context).textTheme.subtitle1!.copyWith(
@@ -50,7 +55,7 @@ class _NavigationExpandedListItemState extends State<NavigationExpandedListItem>
         onExpansionChanged: (isExpanded){
 
           setState(() {
-            expansionChangesColor = isExpanded? AppColor.geeBung: AppColor.black;
+            expansionChangesColor = isExpanded? AppColor.geeBung: AppColor.white;
           });
         },
         children: [
