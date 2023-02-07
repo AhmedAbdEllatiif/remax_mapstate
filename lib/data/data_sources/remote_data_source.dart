@@ -732,6 +732,7 @@ class RemoteDateSourceImpl extends RemoteDataSource {
         ? fetchEnglishProjectByStatusQuery()
         : fetchArabicProjectByStatusQuery();
 
+    log("filtersList >>> $filtersList");
     final QueryResult result = await apiClient.get(
       query,
       variables: {
@@ -740,7 +741,7 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       },
     );
 
-    //log("getProjectByStatus >> Data >> ..........\n ${result.data}.......");
+    log("getProjectByStatus >> Data >> ..........\n ${result.data}.......");
     return listOfProjectModel(result.data!);
   }
 

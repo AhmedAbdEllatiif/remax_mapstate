@@ -40,7 +40,7 @@ class AdvancedProjectsFilterBuilder extends Equatable {
     if (type != null) {
       filters.add(FilterModel(
         field: "type",
-        value: type,
+        value: "residential",
         clause: FilterClause.exact,
       ));
     }

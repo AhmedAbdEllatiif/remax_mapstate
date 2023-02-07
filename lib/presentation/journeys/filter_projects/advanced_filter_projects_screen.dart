@@ -57,11 +57,16 @@ class _AdvancedFilterProjectsScreenState
   }
 
   /// filters
-  String projectType = "";
-  String city = "";
-  String finishingType = "";
-  String unitType = "";
-  String deliveryDate = "";
+  String? projectType;
+
+  String? city;
+
+  String? finishingType;
+
+  String? unitType;
+
+  String? deliveryDate;
+
   double startPrice = 100000;
   double endPrice = 10000000;
   double startArea = 0;
@@ -125,17 +130,15 @@ class _AdvancedFilterProjectsScreenState
                         children: [
                           /// project type
                           AppDropDownField(
-                              hintText: TranslateConstants.chooseProjectType.t(context),
+                              hintText: TranslateConstants.chooseProjectType
+                                  .t(context),
                               itemsList: [
                                 TranslateConstants.commercial.t(context),
                                 TranslateConstants.residential.t(context)
                               ],
                               onChanged: (value) {
                                 if (value != null) {
-                                  /// TODO
-                                  /// TranslateConstants.commercial.toLowerCase
-                                  /// TranslateConstants.residential.toLowerCase
-                                  projectType = value;
+                                  projectType = value.toLowerCase();
                                 }
                               }),
 
@@ -144,7 +147,8 @@ class _AdvancedFilterProjectsScreenState
 
                           /// city
                           AppDropDownField(
-                              hintText: TranslateConstants.chooseCity.t(context),
+                              hintText:
+                                  TranslateConstants.chooseCity.t(context),
                               itemsList: state.filterDataEntity.cities,
                               onChanged: (value) {
                                 if (value != null) {
@@ -157,7 +161,8 @@ class _AdvancedFilterProjectsScreenState
 
                           /// finishingTypes
                           AppDropDownField(
-                              hintText: TranslateConstants.chooseFinishingType.t(context),
+                              hintText: TranslateConstants.chooseFinishingType
+                                  .t(context),
                               itemsList: state.filterDataEntity.finishingTypes,
                               onChanged: (value) {
                                 if (value != null) {
@@ -170,7 +175,8 @@ class _AdvancedFilterProjectsScreenState
 
                           /// unitType
                           AppDropDownField(
-                              hintText: TranslateConstants.chooseUnitType.t(context),
+                              hintText:
+                                  TranslateConstants.chooseUnitType.t(context),
                               itemsList: state.filterDataEntity.unitTypes,
                               onChanged: (value) {
                                 if (value != null) {
@@ -183,7 +189,8 @@ class _AdvancedFilterProjectsScreenState
 
                           /// delivery date
                           AppDropDownField(
-                              hintText: TranslateConstants.chooseDeliveryDate.t(context),
+                              hintText: TranslateConstants.chooseDeliveryDate
+                                  .t(context),
                               itemsList: yearsList(countOfYears: 8),
                               onChanged: (value) {
                                 if (value != null) {

@@ -15,11 +15,11 @@ class SearchFilterBuilderCubit extends Cubit<SearchFilterBuilderState> {
   // to build filters
   void buildFilters(
     BuildContext context, {
-    required String type,
-    required String city,
-    required String finishingType,
-    required String unitType,
-    required String deliveryDate,
+    String? type,
+    String? city,
+    String? finishingType,
+    String? unitType,
+    String? deliveryDate,
     double? priceFrom,
     double? priceTo,
     double? areaFrom,
@@ -48,13 +48,12 @@ class SearchFilterBuilderCubit extends Cubit<SearchFilterBuilderState> {
     _emitIfNotClosed(FiltersBuiltSuccessfully(filtersToAdd: filters));
   }
 
-
   void buildByArea(
-      BuildContext context, {
-        required String type,
-        required String city,
-        required String unitType,
-      }) {
+    BuildContext context, {
+    required String type,
+    required String city,
+    required String unitType,
+  }) {
     // reset to emit the same if required
     reset();
 
