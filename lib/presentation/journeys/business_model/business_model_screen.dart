@@ -41,6 +41,15 @@ class _BusinessModelScreenState extends State<BusinessModelScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      /// appbar
+      appBar: widget.arguments.withAppBar ? AppBar(
+        title: Text(
+          TranslateConstants.businessModel.t(context)
+        ),
+      ) : null,
+
+
       body: Column(
         children: [
           /// Logo with slogan
@@ -71,6 +80,8 @@ class _BusinessModelScreenState extends State<BusinessModelScreen> {
             ),
           ),
 
+
+          if(widget.arguments.withButton)
           ButtonWithBoxShadow(
             text: TranslateConstants.register.t(context),
             onPressed: () => _navigateToRegisterOrLoginScreen(),

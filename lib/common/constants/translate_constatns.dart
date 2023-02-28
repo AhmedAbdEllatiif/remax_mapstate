@@ -141,6 +141,8 @@ class TranslateConstants{
   static const String noBrokersToShow = 'noBrokersToShow';
   static const String noTeamSupportFound = 'noTeamSupportFound';
 
+  static const String info = 'info';
+  static const String businessModel = 'businessModel';
   static const String buyerBusinessModel = 'buyerBusinessModel';
   static const String brokerBusinessModel = 'brokerBusinessModel';
   static const String ambassadorBusinessModel = 'ambassadorBusinessModel';

@@ -5,6 +5,7 @@ import 'package:remax_mapstate/common/constants/sizes.dart';
 import 'package:remax_mapstate/common/constants/translate_constatns.dart';
 import 'package:remax_mapstate/common/extensions/size_extensions.dart';
 import 'package:remax_mapstate/common/extensions/string_extensions.dart';
+import 'package:remax_mapstate/common/functions/get_authorized_user.dart';
 import 'package:remax_mapstate/presentation/journeys/drawer/navgation_expanded_list_tile.dart';
 import 'package:remax_mapstate/presentation/journeys/drawer/navigation_list_item.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
@@ -14,6 +15,7 @@ import 'package:remax_mapstate/presentation/widgets/logo.dart';
 import 'package:remax_mapstate/presentation/widgets/logo_with_slogan.dart';
 import 'package:remax_mapstate/router/route_hepler.dart';
 
+import '../../arguments/business_model_args.dart';
 import '../../logic/cubit/language/language_cubit.dart';
 
 class CustomNavigationDrawer extends StatelessWidget {
@@ -73,16 +75,16 @@ class CustomNavigationDrawer extends StatelessWidget {
 
             /// About
             NavigationListItem(
-              title: TranslateConstants.about.t(context),
+              title: TranslateConstants.info.t(context),
               icon: const Icon(
                 Icons.info_outline,
                 color: AppColor.white,
               ),
               onPressed: () {
-                // to close the drawer
-                Navigator.of(context).pop();
+                _navigateToBusinessModelScreen(context);
+                //Navigator.of(context).pop();
 
-                _showDialog(context);
+                //_showDialog(context);
               },
             ),
 
@@ -138,6 +140,19 @@ class CustomNavigationDrawer extends StatelessWidget {
   void _onLanguageSelected(int index, BuildContext context) {
     BlocProvider.of<LanguageCubit>(context).toggleLanguage(
       LanguageConstants.supportedLanguages[index],
+    );
+  }
+
+  /// navigate to BusinessModelScreen
+  void _navigateToBusinessModelScreen(BuildContext context) {
+    final userType =  getAuthorizedUser(context).userType;
+    RouteHelper().businessModelScreen(
+      context,
+      arguments: BusinessModelArguments(
+        userType: userType,
+        withAppBar: true,
+        withButton: false
+      ),
     );
   }
 

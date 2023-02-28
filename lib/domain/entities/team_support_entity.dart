@@ -16,7 +16,7 @@ class TeamSupportEntity extends Equatable {
     required this.whatsappNum,
     required final String image,
   }) {
-    avatar = ApiConstants.baseMediaUrl + image;
+    avatar = ApiConstants.baseMediaWithoutUrl + image;
   }
 
   @override
