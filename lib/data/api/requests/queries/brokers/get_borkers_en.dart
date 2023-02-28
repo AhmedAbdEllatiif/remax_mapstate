@@ -43,6 +43,11 @@ query getBroker(
       
     } # end of user
     
+    reviews{
+      brokerRating
+      brokerReview
+    }
+    
     favoriteRegions{
       name
       id

@@ -20,7 +20,7 @@ class BrokersViewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: Sizes.dimen_10.h),
-      height: ScreenUtil.screenHeight * 0.35,
+      height: ScreenUtil.screenHeight * 0.30,
       child: PageView.builder(
         pageSnapping: true,
         controller: pageController,

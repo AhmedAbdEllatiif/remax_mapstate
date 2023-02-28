@@ -139,6 +139,12 @@
   "brokerBusinessModel": "Welcome our partner ...\nNow you can double your profit and accelerate your growth by using our successful tools like:\nFree training sessions \nQualified team leader support you at any time\nYou can meet your clients in our office \nYou can connect with developer’s agent throw the application \nYou will also gain the biggest commission split in the market which equal 80% form the developer’s commission after taxes  \n\nTo start your profitable journey REGISTER NOW\n",
   "ambassadorBusinessModel": "Do You have connections??\nNow you can convert your connections to great income by referring these connections to our agents. \nWhen these referred clients closed their deals, you will get 1% from the unit price immediately as a side income which will be equal to your main income or may be more.\n\nTo double your income REGISTER NOW\n",
 
+  "name": "الاسم",
+  "rating": "التقييمات",
+  "reviews": "المراجعات",
+  "notReviewedYet": "لم تتم مراجعته بعد",
+
+  "noTeamSupportFound": "لم يتم العثور على دعم الفريق",
 
   "arabic": "العربية",
   "english": "English",

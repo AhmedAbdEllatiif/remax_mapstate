@@ -128,8 +128,9 @@ class _ChooseBrokerScreenState extends State<ChooseBrokerScreen> {
 
                     /// BottomCardDataHolder
                     Container(
-                      width: ScreenUtil.screenWidth * _cardWidthRatio(context),
-                      height: ScreenUtil.screenHeight * 0.35,
+                     // width: ScreenUtil.screenWidth * _cardWidthRatio(context),
+                      width: ScreenUtil.screenWidth * 0.9,
+                      height: ScreenUtil.screenHeight * 0.4,
                       margin: EdgeInsets.only(top: Sizes.dimen_20.w),
                       child: const BottomCardDataHolder(),
                     ),

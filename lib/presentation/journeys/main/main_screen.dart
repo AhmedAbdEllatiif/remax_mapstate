@@ -44,7 +44,7 @@ class _MainScreenState extends State<MainScreen> {
     return BlocProvider(
       create: (context) => navigationCubit,
       child: Scaffold(
-        drawer: const NavigationDrawer(),
+        drawer: const CustomNavigationDrawer(),
 
         appBar: AppBar(
           title: BlocBuilder<NavigationCubit, NavigationState>(

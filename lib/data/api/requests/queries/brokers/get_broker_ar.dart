@@ -22,14 +22,31 @@ query getBroker(
   ########## End of params ###########
   
   ######### Query body #########
-  user {
+  brokerFiveStarsScore 
+  doneDealsCount
+  yearsOfExperience
+  
+    user {
       id
       email
       phone
       firstName
       lastName
+      
+       mapEstateUser{
+         avatar 
+         favoriteProjects{
+             id
+          }
+      } # end of mapEstateUser
+      
+    } # end of user
+   
+    
+    reviews{
+      brokerRating
+      brokerReview
     }
-    yearsOfExperience
     
     favoriteRegions{
       arabicName

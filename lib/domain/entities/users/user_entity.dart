@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:remax_mapstate/common/constants/api_constants.dart';
 import 'package:remax_mapstate/common/constants/app_utils.dart';
 import 'package:remax_mapstate/common/enums/user_types.dart';
+import 'package:remax_mapstate/domain/entities/BrokerReviewEntity.dart';
 
 import '../area_entity.dart';
 
@@ -15,6 +16,7 @@ class UserEntity extends Equatable {
   UserType userType;
   final int experienceYears;
   final List<AreaEntity> favoriteAreas;
+  final List<BrokerReviewEntity> reviews;
 
   final double brokerRating;
   final num brokerDoneDeals;
@@ -31,6 +33,7 @@ class UserEntity extends Equatable {
     required this.userProfileImage,
     required this.brokerRating,
     required this.brokerDoneDeals,
+    required this.reviews,
     this.favoriteAreas = const [],
   }) {
     if (userProfileImage != AppUtils.undefined) {
@@ -51,6 +54,7 @@ class UserEntity extends Equatable {
         favoriteAreas: const [],
         brokerDoneDeals: -1,
         brokerRating: -1,
+        reviews: const [],
         userProfileImage: AppUtils.undefined,
       );
 

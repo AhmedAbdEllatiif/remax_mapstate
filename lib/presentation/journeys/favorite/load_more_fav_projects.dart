@@ -45,7 +45,7 @@ class LoadingMoreFavProjectsWidget extends StatelessWidget {
                     TranslateConstants.checkInternetConnection.t(context),
                     style: Theme.of(context)
                         .textTheme
-                        .caption!
+                        .bodySmall!
                         .copyWith(color: AppColor.white),
                   ),
                 ],

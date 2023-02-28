@@ -1,38 +1,38 @@
 part of 'team_support_cubit.dart';
 
 abstract class TeamSupportState extends Equatable {
-  final TeamSupportEntity? teamSupportEntity;
-
-  const TeamSupportState({
-    this.teamSupportEntity,
-  });
+  const TeamSupportState();
 
   @override
   List<Object> get props => [];
 }
 
+/// initial
+class TeamSupportStateInitial extends TeamSupportState {}
+
 /// Loading
 class LoadingTeamSupportState extends TeamSupportState {}
 
-/// With image
+/// empty
+class NoTeamSupportFound extends TeamSupportState {}
+
+/// success
 class TeamSupportDataLoaded extends TeamSupportState {
   final TeamSupportEntity teamSupportEntity;
 
   const TeamSupportDataLoaded({
     required this.teamSupportEntity,
-  }) : super(teamSupportEntity:teamSupportEntity);
+  });
 
   @override
   List<Object> get props => [teamSupportEntity];
 }
 
-
-
 /// Error
-class TeamSupportErrorState extends TeamSupportState {
+class ErrorWhileLoadingTeamSupport extends TeamSupportState {
   final AppError appError;
 
-  const TeamSupportErrorState({
+  const ErrorWhileLoadingTeamSupport({
     required this.appError,
   });
 

@@ -560,12 +560,8 @@ Future init() async {
   );
 
   /// init TeamSupportCubit
-  getItInstance.registerSingleton<TeamSupportCubit>(
-    TeamSupportCubit(
-      openWhatsappCase: getItInstance(),
-      makePhoneCallCase: getItInstance(),
-      getTeamSupportCase: getItInstance(),
-    ),
+  getItInstance.registerFactory<TeamSupportCubit>(
+    () => TeamSupportCubit(),
   );
 
   /// ChooseFavoriteAreaCubit
@@ -660,9 +656,8 @@ Future init() async {
 
   /// UpdateAmbassadorDataCubit
   getItInstance.registerFactory<FirstLaunchStatusCubit>(
-        () => FirstLaunchStatusCubit(),
+    () => FirstLaunchStatusCubit(),
   );
-
 
   ///**************************** init blocs *******************************\\\
 

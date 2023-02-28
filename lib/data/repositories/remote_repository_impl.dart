@@ -14,6 +14,7 @@ import 'package:remax_mapstate/data/models/user_model.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
 import 'package:remax_mapstate/data/params/fetch_favorite_projects_id_params.dart';
 import 'package:remax_mapstate/data/params/get_brokers_by_area_params.dart';
+import 'package:remax_mapstate/data/params/get_team_support_params.dart';
 import 'package:remax_mapstate/data/params/request_a_call_params.dart';
 import 'package:remax_mapstate/data/params/update_user_avatar.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
@@ -353,14 +354,21 @@ class RemoteRepositoryImpl extends RemoteRepository {
 
   /// return team support data
   @override
-  Future<Either<AppError, TeamSupportEntity>> getTeamSupport() async {
+  Future<Either<AppError, List<TeamSupportEntity>>> getTeamSupport(
+      GetTeamSupportParams params) async {
     try {
-      final teamSupportModel = await remoteDataSource.getTeamSupport();
-      final teamSupportEntity = teamSupportModel;
-      return Right(teamSupportEntity);
+      final result = await remoteDataSource.getTeamSupport(params);
+
+      if (result is List<TeamSupportEntity>) {
+        return Right(result);
+      }
+
+      return Left(result);
     } on SocketException catch (e) {
+      log("RemoteRepoImp >> getTeamsSupport SocketException >> $e");
       return Left(AppError(AppErrorType.network, message: e.message));
     } on Exception catch (e) {
+      log("RemoteRepoImp >> getTeamsSupport Exception >> $e");
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
   }

@@ -31,6 +31,7 @@ import '../../data/params/fetch_areas_params.dart';
 import '../../data/params/fetch_broker_params.dart';
 import '../../data/params/fetch_favorite_projects_id_params.dart';
 import '../../data/params/get_brokers_by_area_params.dart';
+import '../../data/params/get_team_support_params.dart';
 import '../../data/params/request_a_call_params.dart';
 import '../../data/params/update_user_avatar.dart';
 import '../entities/params/complete_broker_data_params.dart';
@@ -142,7 +143,7 @@ abstract class RemoteRepository {
 
   ///**************************** Team Support **************************** \\\\
   /// return team support
-  Future<Either<AppError, TeamSupportEntity>> getTeamSupport();
+  Future<Either<AppError, List<TeamSupportEntity>>> getTeamSupport(GetTeamSupportParams params);
 
   /// contactUs
   Future<Either<AppError, SuccessModel>> contactUs(

@@ -74,9 +74,13 @@ class TranslateConstants{
   static const String fullName = 'fullName';
   static const String firstName = 'firstName';
   static const String lastName = 'lastName';
+  static const String name = 'name';
+  static const String rating = 'rating';
   static const String email = 'email';
   static const String currentJob = 'currentJob';
   static const String experienceYears = 'experienceYears';
+  static const String reviews = 'reviews';
+  static const String notReviewedYet = 'notReviewedYet';
   static const String password = 'password';
   static const String selectedAreas = 'selectedAreas';
   static const String okay = 'okay';
@@ -135,6 +139,7 @@ class TranslateConstants{
   static const String callRequested = 'callRequested';
   static const String alreadyRequestOnThisProject = 'alreadyRequestOnThisProject';
   static const String noBrokersToShow = 'noBrokersToShow';
+  static const String noTeamSupportFound = 'noTeamSupportFound';
 
   static const String buyerBusinessModel = 'buyerBusinessModel';
   static const String brokerBusinessModel = 'brokerBusinessModel';

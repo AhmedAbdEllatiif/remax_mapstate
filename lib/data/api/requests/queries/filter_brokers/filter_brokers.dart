@@ -34,6 +34,10 @@ query ArabicProjectStatus(
           }
       } # end of mapEstateUser
     }
+     reviews{
+      brokerRating
+      brokerReview
+    }
     avatar
     brokerFiveStarsScore
     doneDealsCount

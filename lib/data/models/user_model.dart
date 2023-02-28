@@ -1,4 +1,5 @@
 import 'package:remax_mapstate/common/constants/app_utils.dart';
+import 'package:remax_mapstate/data/models/broker_review_model.dart';
 import 'package:remax_mapstate/domain/entities/users/user_entity.dart';
 
 import '../../common/enums/user_types.dart';
@@ -42,6 +43,7 @@ List<UserModel> listUserModelFormBroker(dynamic json) {
       doneDeals: element["doneDeals"],
       yearsOfExperience: element["yearsOfExperience"],
       favoriteAreas: element["favoriteRegions"],
+      brokerReviews: element["reviews"],
     ),
   ));
 }
@@ -118,6 +120,7 @@ class UserModel extends UserEntity {
   final DateTime? dateOfBirth;
   final String ambassadorJobTitle;
   final int ambassadorDoneDealsCount;
+  final List<BrokerReviewModel> brokerReviews;
 
   UserModel({
     required this.userId,
@@ -133,6 +136,7 @@ class UserModel extends UserEntity {
     required this.yearsOfExperience,
     required this.userBrokerRating,
     required this.userDoneDeals,
+    required this.brokerReviews,
 
     // only for ambassadors
     required this.dateOfBirth,
@@ -150,6 +154,7 @@ class UserModel extends UserEntity {
           brokerDoneDeals: userDoneDeals,
           brokerRating: userBrokerRating,
           userProfileImage: userAvatar,
+          reviews: brokerReviews,
         );
 
   factory UserModel.formJson(dynamic json) {
@@ -169,6 +174,7 @@ class UserModel extends UserEntity {
 
       // broker rating
       userBrokerRating: 0,
+      brokerReviews: const [],
 
       // done deals
       userDoneDeals: 0,
@@ -193,6 +199,7 @@ class UserModel extends UserEntity {
     required dynamic rating,
     required dynamic doneDeals,
     required dynamic mapEstateUserJson,
+    required dynamic brokerReviews,
   }) {
     return UserModel(
       // from userJson
@@ -216,6 +223,9 @@ class UserModel extends UserEntity {
       userFavoriteAreas: favoriteAreas != null
           ? listOfAreasFromFavRegionsJson(favoriteAreas)
           : [],
+
+      brokerReviews:
+          brokerReviews != null ? listOfBrokerReviews(brokerReviews) : [],
 
       dateOfBirth: DateTime.now(),
       ambassadorJobTitle: AppUtils.undefined,
@@ -254,6 +264,7 @@ class UserModel extends UserEntity {
 
       yearsOfExperience: 0,
       userFavoriteAreas: const [],
+      brokerReviews: const [],
 
       dateOfBirth: DateTime.now(),
       ambassadorJobTitle: AppUtils.undefined,
@@ -295,6 +306,7 @@ class UserModel extends UserEntity {
 
       yearsOfExperience: 0,
       userFavoriteAreas: const [],
+      brokerReviews: const [],
 
       dateOfBirth: dateOfBirth,
       ambassadorJobTitle: ambassadorJobTitle ?? AppUtils.undefined,
@@ -323,6 +335,7 @@ class UserModel extends UserEntity {
 
       // broker rating
       userBrokerRating: 0,
+      brokerReviews: const [],
 
       // done deals
       userDoneDeals: 0,

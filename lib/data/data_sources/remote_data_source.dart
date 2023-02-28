@@ -21,6 +21,7 @@ import 'package:remax_mapstate/data/api/requests/queries/get_filter_data/en_get_
 import 'package:remax_mapstate/data/api/requests/queries/project_status/ar_project_status.dart';
 import 'package:remax_mapstate/data/api/requests/queries/project_status/en_project_status.dart';
 import 'package:remax_mapstate/data/api/requests/queries/projects.dart';
+import 'package:remax_mapstate/data/api/requests/queries/team_support_users.dart';
 import 'package:remax_mapstate/data/api/requests/queries/unit_type_names/ar_unit_type_names.dart';
 import 'package:remax_mapstate/data/api/requests/queries/unit_type_names/en_unit_type_names.dart';
 import 'package:remax_mapstate/data/api/requests/mutations/login.dart';
@@ -71,6 +72,7 @@ import '../models/mutation/request_a_call_request_model.dart';
 import '../models/mutation/update_ambassador_request_model.dart';
 import '../models/mutation/update_broker_request_model.dart';
 import '../params/fetch_fav_projects_params.dart';
+import '../params/get_team_support_params.dart';
 
 abstract class RemoteDataSource {
   //===============================>  Auth  <================================\\
@@ -172,7 +174,7 @@ abstract class RemoteDataSource {
   Future<ContactDeveloperModel> getDeveloperContact(String developerId);
 
   /// return team support data
-  Future<TeamSupportModel> getTeamSupport();
+  Future<dynamic> getTeamSupport(GetTeamSupportParams params);
 
   /// return list of projects
   Future<List<ProjectModel>> advancedFilterProject({
@@ -569,17 +571,6 @@ class RemoteDateSourceImpl extends RemoteDataSource {
     );
   }
 
-  TeamSupportModel teamSupportModel() {
-    return const TeamSupportModel(
-      id: 0,
-      firstName: "Haytham",
-      lastName: "Hagrasy",
-      phoneNum: "+200112*****",
-      whatsappNum: '+201154949495',
-      image: AssetsConstants.person2,
-    );
-  }
-
   @override
   Future<List<AreaModel>> getAreas(FetchAreaParams params) async {
     final query = params.appLanguage == AppLanguage.en
@@ -696,9 +687,22 @@ class RemoteDateSourceImpl extends RemoteDataSource {
   }
 
   @override
-  Future<TeamSupportModel> getTeamSupport() async {
-    final teamSupport = await teamSupportModel();
-    return teamSupport;
+  Future<dynamic> getTeamSupport(GetTeamSupportParams params) async {
+    try {
+      final query = getTeamSupportRequest();
+
+      final QueryResult result = await apiClient.get(
+        query,
+      );
+
+      log("RemoteDataSource >> getTeamSupport  >> "
+          "Data >> ..........\n ${result.data}.......");
+      return listOFTeamSupportModelFromJson(result.data);
+    } catch (e) {
+      log("RemoteDataSource >> getTeamSupport >> error:$e");
+      return AppError(AppErrorType.unHandledError,
+          message: "getTeamSupport UnHandledError >> $e");
+    }
   }
 
   @override

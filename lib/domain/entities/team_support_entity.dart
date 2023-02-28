@@ -1,21 +1,23 @@
 import 'package:equatable/equatable.dart';
-
+import 'package:remax_mapstate/common/constants/api_constants.dart';
 
 class TeamSupportEntity extends Equatable {
-  final int id;
+  final String id;
   final String name;
   final String phoneNum;
   final String whatsappNum;
-  final String image;
 
-  const TeamSupportEntity({
-   required this.id,
-   required this.name ,
-   required this.phoneNum,
-   required this.whatsappNum,
-   required this.image,
-  });
+  late final String avatar;
 
+  TeamSupportEntity({
+    required this.id,
+    required this.name,
+    required this.phoneNum,
+    required this.whatsappNum,
+    required final String image,
+  }) {
+    avatar = ApiConstants.baseMediaUrl + image;
+  }
 
   @override
   List<Object?> get props => [id];
