@@ -55,6 +55,7 @@ import '../data/api/clients/auth_client.dart';
 import '../data/api/clients/graphql_client.dart';
 import '../data/repositories/remote_repository_impl.dart';
 import '../domain/use_cases/advanced_filter_projects.dart';
+import '../domain/use_cases/ambassador_support_case.dart';
 import '../domain/use_cases/auth/get_current_user_profile.dart';
 import '../domain/use_cases/auth/register_new_user.dart';
 import '../domain/use_cases/complete_broker_data_case.dart';
@@ -82,6 +83,7 @@ import '../domain/use_cases/update_default_user.dart';
 import '../domain/use_cases/update_user/add_or_remove_fav_project_case.dart';
 import '../domain/use_cases/update_user/update_user_after_registration.dart';
 import '../domain/use_cases/update_user/update_user_avatar.dart';
+import '../presentation/logic/cubit/ambassador_support/ambassador_support_cubit.dart';
 import '../presentation/logic/cubit/areas/areas_cubit.dart';
 import '../presentation/logic/cubit/auth/get_profile/get_current_user_profile_cubit.dart';
 import '../presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
@@ -421,6 +423,13 @@ Future init() async {
     ),
   );
 
+  /// GetAmbassadorSupportCase
+  getItInstance.registerFactory<GetAmbassadorSupportCase>(
+    () => GetAmbassadorSupportCase(
+      remoteRepository: getItInstance(),
+    ),
+  );
+
   ///************************** Local_Use_Cases *****************************\\\
 //==> GetAutoLogin
   getItInstance.registerLazySingleton<GetUserTokenCase>(() => GetUserTokenCase(
@@ -562,6 +571,11 @@ Future init() async {
   /// init TeamSupportCubit
   getItInstance.registerFactory<TeamSupportCubit>(
     () => TeamSupportCubit(),
+  );
+
+  /// init AmbassadorSupportCubit
+  getItInstance.registerFactory<AmbassadorSupportCubit>(
+    () => AmbassadorSupportCubit(),
   );
 
   /// ChooseFavoriteAreaCubit

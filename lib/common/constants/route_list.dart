@@ -20,4 +20,5 @@ class RouteList{
   static const String contactUs = "/contactUs";
   static const String updateAmbassador = "/updateAmbassador";
   static const String businessModel = "/businessModel";
+  static const String ambassadorSupport = "/ambassadorSupport";
 }

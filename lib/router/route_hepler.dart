@@ -153,5 +153,10 @@ class RouteHelper {
         RouteList.businessModel,
         arguments: arguments,
       );
+
+
+  /// To ambassadorSupportScreen \\\
+  void ambassadorSupportScreen(BuildContext context) =>
+      Navigator.of(context).pushNamed(RouteList.ambassadorSupport);
 }
 //Navigator.pushNamed(context, AppRouter.chooseBrokerScreen)

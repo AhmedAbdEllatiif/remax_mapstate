@@ -8,6 +8,7 @@ import 'package:remax_mapstate/presentation/arguments/project_by_status_args.dar
 import 'package:remax_mapstate/presentation/arguments/update_ambassador_args.dart';
 import 'package:remax_mapstate/presentation/journeys/advanced_filter_result/advanced_filter_result_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/all_areas/all_areas_screen.dart';
+import 'package:remax_mapstate/presentation/journeys/ambassador_support/ambassador_support_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/area_unit_types/area_unit_types_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/business_model/business_model_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/calculation_result/calculation_result_screen.dart';
@@ -109,5 +110,8 @@ class Routes {
 
         /// contactUs
         RouteList.contactUs: (context) => const ContactUsScreen(),
+
+        RouteList.ambassadorSupport: (context) =>
+            const AmbassadorSupportScreen(),
       };
 }

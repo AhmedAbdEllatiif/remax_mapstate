@@ -49,6 +49,7 @@ import 'package:remax_mapstate/data/params/fetch_ambassador_user_params.dart';
 import 'package:remax_mapstate/data/params/fetch_areas_params.dart';
 import 'package:remax_mapstate/data/params/fetch_broker_params.dart';
 import 'package:remax_mapstate/data/params/fetch_favorite_projects_id_params.dart';
+import 'package:remax_mapstate/data/params/get_ambassador_support_params.dart';
 import 'package:remax_mapstate/data/params/get_brokers_by_area_params.dart';
 import 'package:remax_mapstate/data/params/request_a_call_params.dart';
 import 'package:remax_mapstate/domain/entities/params/contact_us_request_params.dart';
@@ -57,6 +58,7 @@ import '../../common/constants/api_constants.dart';
 import '../../domain/entities/app_error.dart';
 import '../../domain/entities/params/fetch_buyer_user_params.dart';
 import '../api/requests/auth/register.dart';
+import '../api/requests/queries/ambassador_support_users.dart';
 import '../api/requests/queries/brokers/get_borkers_en.dart';
 import '../api/requests/queries/brokers/get_broker_ar.dart';
 import '../api/requests/queries/favorite_projects/ar_fav_projects.dart';
@@ -65,6 +67,7 @@ import '../api/requests/queries/projects_by_status/ar_project_by_status.dart';
 import '../api/requests/queries/projects_by_status/en_project_by_status.dart';
 import '../api/requests/mutations/update_broker.dart';
 import '../api/requests/queries/users/get_users_en.dart';
+import '../models/ambassador_support_model.dart';
 import '../models/filter_model.dart';
 import '../models/list_of_fav_project_ids.dart';
 import '../models/mutation/contact_us_request_model.dart';
@@ -175,6 +178,9 @@ abstract class RemoteDataSource {
 
   /// return team support data
   Future<dynamic> getTeamSupport(GetTeamSupportParams params);
+
+  /// return ambassador support data
+  Future<dynamic> getAmbassadorSupport(GetAmbassadorSupportParams params);
 
   /// return list of projects
   Future<List<ProjectModel>> advancedFilterProject({
@@ -702,6 +708,27 @@ class RemoteDateSourceImpl extends RemoteDataSource {
       log("RemoteDataSource >> getTeamSupport >> error:$e");
       return AppError(AppErrorType.unHandledError,
           message: "getTeamSupport UnHandledError >> $e");
+    }
+  }
+
+  /// return ambassador support data
+  @override
+  Future<dynamic> getAmbassadorSupport(
+      GetAmbassadorSupportParams params) async {
+    try {
+      final query = getAmbassadorSupportRequest();
+
+      final QueryResult result = await apiClient.get(
+        query,
+      );
+
+      log("RemoteDataSource >> getAmbassadorSupport  >> "
+          "Data >> ..........\n ${result.data}.......");
+      return listOfAmbassadorSupportModelFromJson(result.data);
+    } catch (e) {
+      log("RemoteDataSource >> getAmbassadorSupport >> error:$e");
+      return AppError(AppErrorType.unHandledError,
+          message: "getAmbassadorSupport UnHandledError >> $e");
     }
   }
 

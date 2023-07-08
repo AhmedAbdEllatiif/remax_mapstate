@@ -19,7 +19,14 @@ class SecondDownPaymentForm extends FormzInput<String, SecondDownPaymentError> {
 
   @override
   SecondDownPaymentError? validator(String value) {
-    if(value.isEmpty) return SecondDownPaymentError.requiredField;
+   // if(value.isEmpty) return SecondDownPaymentError.requiredField;
+    if(value.isEmpty) return null;
+    if(_secondDownPaymentRegx.hasMatch(value)) {
+      final num = int.parse(value);
+      if(num  >=  100){
+        return SecondDownPaymentError.invalid;
+      }
+    }
     return _secondDownPaymentRegx.hasMatch(value) ? null : SecondDownPaymentError.invalid;
   }
 }

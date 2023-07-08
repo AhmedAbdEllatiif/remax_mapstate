@@ -355,7 +355,7 @@ class CalculatorValidationBloc
         if (isReachedMax) {
           emit(state.copyWith(
               validationEnum:
-              CalculatorValidationEnum.maxLengthFourthDownPayment,
+                  CalculatorValidationEnum.maxLengthFourthDownPayment,
               minLength: minLength,
               downPaymentLength: lengthOnChanges));
         }
@@ -365,7 +365,7 @@ class CalculatorValidationBloc
           if (state.fourthDownPaymentForm.error != null) {
             emit(state.copyWith(
                 validationEnum:
-                CalculatorValidationEnum.invalidFourthDownPayment,
+                    CalculatorValidationEnum.invalidFourthDownPayment,
                 minLength: minLength,
                 downPaymentLength: lengthOnChanges));
           }
@@ -388,7 +388,6 @@ class CalculatorValidationBloc
       }
 
       ///************************************* End third of DownPaymentChangedEvent ******************************************************\\
-
 
       ///************************************* Submit ******************************************************\\
       /// CalculatorFormSubmitted
@@ -436,11 +435,13 @@ class CalculatorValidationBloc
         }
 
         ///==> firstDownPayment is invalid
-        else if (firstDownPaymentForm.value.isEmpty) {
-          emit(state.copyWith(
-              validationEnum:
-                  CalculatorValidationEnum.minLengthFirstDownPayment));
-        } else if (firstDownPaymentForm.value.length >= 6) {
+        // else if (firstDownPaymentForm.value.isEmpty) {
+        //   emit(state.copyWith(
+        //       validationEnum:
+        //           CalculatorValidationEnum.minLengthFirstDownPayment));
+        // }
+
+        else if (firstDownPaymentForm.value.length >= 6) {
           emit(state.copyWith(
               validationEnum:
                   CalculatorValidationEnum.maxLengthFirstDownPayment));
@@ -451,10 +452,16 @@ class CalculatorValidationBloc
         }
 
         ///==> secondDownPayment is invalid
-        else if (secondDownPaymentForm.value.isEmpty) {
+        // else if (secondDownPaymentForm.value.isEmpty) {
+        //   emit(state.copyWith(
+        //       validationEnum:
+        //           CalculatorValidationEnum.minLengthSecondDownPayment));
+        // }
+        else if (secondDownPaymentForm.value.isNotEmpty &&
+            firstDownPaymentForm.value.isEmpty) {
           emit(state.copyWith(
               validationEnum:
-                  CalculatorValidationEnum.minLengthSecondDownPayment));
+                  CalculatorValidationEnum.minLengthFirstDownPayment));
         } else if (secondDownPaymentForm.value.length >= 6) {
           emit(state.copyWith(
               validationEnum:
@@ -466,11 +473,18 @@ class CalculatorValidationBloc
         }
 
         ///==> thirdDownPayment is invalid
-        else if (thirdDownPaymentForm.value.isEmpty) {
+        // else if (thirdDownPaymentForm.value.isEmpty) {
+        //   emit(state.copyWith(
+        //       validationEnum:
+        //           CalculatorValidationEnum.minLengthThirdDownPayment));
+        // }
+
+        else if (thirdDownPaymentForm.value.isNotEmpty &&
+            secondDownPaymentForm.value.isEmpty) {
           emit(state.copyWith(
               validationEnum:
-                  CalculatorValidationEnum.minLengthThirdDownPayment));
-        } else if (thirdDownPaymentForm.value.length >= 6) {
+              CalculatorValidationEnum.minLengthSecondDownPayment));
+        }else if (thirdDownPaymentForm.value.length >= 6) {
           emit(state.copyWith(
               validationEnum:
                   CalculatorValidationEnum.maxLengthThirdDownPayment));
@@ -481,10 +495,17 @@ class CalculatorValidationBloc
         }
 
         ///==> fourthDownPaymentForm is invalid
-        else if (fourthDownPaymentForm.value.isEmpty) {
+        // else if (fourthDownPaymentForm.value.isEmpty) {
+        //   emit(state.copyWith(
+        //       validationEnum:
+        //           CalculatorValidationEnum.minLengthFourthDownPayment));
+        // }
+
+        else if (fourthDownPaymentForm.value.isNotEmpty &&
+            thirdDownPaymentForm.value.isEmpty) {
           emit(state.copyWith(
               validationEnum:
-                  CalculatorValidationEnum.minLengthFourthDownPayment));
+              CalculatorValidationEnum.minLengthThirdDownPayment));
         } else if (fourthDownPaymentForm.value.length >= 6) {
           emit(state.copyWith(
               validationEnum:
@@ -500,23 +521,23 @@ class CalculatorValidationBloc
           final double totalUnitPrice = double.parse(unitPrice.value);
           final double totalNumberOfYears = double.parse(numberOfYears.value);
           final double initialDownPayment = double.parse(downPayment.value);
-          final double firstDownPayment =
-              double.parse(firstDownPaymentForm.value);
-          final double secondDownPayment =
-              double.parse(secondDownPaymentForm.value);
-          final double thirdDownPayment =
-              double.parse(thirdDownPaymentForm.value);
-          final double fourthDownPayment =
-              double.parse(fourthDownPaymentForm.value);
+          final double? firstDownPayment =
+              double.tryParse(firstDownPaymentForm.value);
+          final double? secondDownPayment =
+              double.tryParse(secondDownPaymentForm.value);
+          final double? thirdDownPayment =
+              double.tryParse(thirdDownPaymentForm.value);
+          final double? fourthDownPayment =
+              double.tryParse(fourthDownPaymentForm.value);
           emit(state.copyWith(
             calculationFinalResult: CalculationFinalResult.calculate(
                 totalUnitPrice: totalUnitPrice,
                 initialDownPayment: initialDownPayment,
                 numOfYears: totalNumberOfYears,
-                firstDownPayment: firstDownPayment,
-                secondDownPayment: secondDownPayment,
-                thirdDownPayment: thirdDownPayment,
-                fourthDownPayment: fourthDownPayment),
+                firstDownPayment: firstDownPayment ?? 0,
+                secondDownPayment: secondDownPayment ?? 0,
+                thirdDownPayment: thirdDownPayment ?? 0,
+                fourthDownPayment: fourthDownPayment ?? 0),
             validationEnum: CalculatorValidationEnum.successForm,
           ));
         }

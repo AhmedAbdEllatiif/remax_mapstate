@@ -61,7 +61,7 @@ dependencies:
   get_it: ^7.2.0
 
   # google_fonts
-  google_fonts: ^2.3.1
+  google_fonts: ^4.0.4
 
   # flutter_svg
   flutter_svg: ^1.0.3
@@ -153,7 +153,8 @@ dependencies:
 
 
 
-#dependency_overrides:
+dependency_overrides:
+  intl: ^0.18.0
   #js: ^0.6.4
   #material_color_utilities: ^0.1.4
   #path: ^1.8.1

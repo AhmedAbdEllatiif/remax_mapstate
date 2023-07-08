@@ -31,6 +31,7 @@ import 'package:remax_mapstate/domain/entities/unit_type_entity.dart';
 import 'package:remax_mapstate/domain/repositories/api_repository.dart';
 
 import '../../common/classes/handle_operation_exceptions.dart';
+import '../../domain/entities/ambassador_support_entity.dart';
 import '../../domain/entities/login_entity.dart';
 import '../../domain/entities/params/contact_us_request_params.dart';
 import '../../domain/entities/params/fetch_buyer_user_params.dart';
@@ -50,6 +51,7 @@ import '../params/fetch_broker_params.dart';
 import '../params/fetch_fav_projects_params.dart';
 import '../params/fetch_list_params.dart';
 import '../params/filter_data_params.dart';
+import '../params/get_ambassador_support_params.dart';
 import '../params/get_profile_params.dart';
 import '../params/update_ambassador_data_params.dart';
 
@@ -369,6 +371,26 @@ class RemoteRepositoryImpl extends RemoteRepository {
       return Left(AppError(AppErrorType.network, message: e.message));
     } on Exception catch (e) {
       log("RemoteRepoImp >> getTeamsSupport Exception >> $e");
+      return Left(AppError(AppErrorType.api, message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<AppError, List<AmbassadorSupportEntity>>> getAmbassadorSupport(
+      GetAmbassadorSupportParams params) async {
+    try {
+      final result = await remoteDataSource.getAmbassadorSupport(params);
+
+      if (result is List<AmbassadorSupportEntity>) {
+        return Right(result);
+      }
+
+      return Left(result);
+    } on SocketException catch (e) {
+      log("RemoteRepoImp >> getAmbassadorSupport SocketException >> $e");
+      return Left(AppError(AppErrorType.network, message: e.message));
+    } on Exception catch (e) {
+      log("RemoteRepoImp >> getAmbassadorSupport Exception >> $e");
       return Left(AppError(AppErrorType.api, message: e.toString()));
     }
   }

@@ -19,7 +19,14 @@ class FirstDownPaymentForm extends FormzInput<String, FirstDownPaymentError> {
 
   @override
   FirstDownPaymentError? validator(String value) {
-    if(value.isEmpty) return FirstDownPaymentError.requiredField;
+    //if(value.isEmpty) return FirstDownPaymentError.requiredField;
+    if(value.isEmpty) return null;
+    if(_firstDownPaymentRegex.hasMatch(value)) {
+      final num = int.parse(value);
+      if(num  >=  100){
+        return FirstDownPaymentError.invalid;
+      }
+    }
     return _firstDownPaymentRegex.hasMatch(value) ? null : FirstDownPaymentError.invalid;
   }
 }

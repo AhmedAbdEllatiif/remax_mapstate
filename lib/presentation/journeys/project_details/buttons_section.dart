@@ -135,8 +135,7 @@ class _ButtonSectionState extends State<ButtonSection> {
             }
 
             /// broker or ambassador
-            if (userType == UserType.broker ||
-                userType == UserType.ambassador) {
+            if (userType == UserType.broker) {
               return Container(
                 decoration: BoxDecoration(
                   color: AppColor.white.withOpacity(0.2),
@@ -153,6 +152,29 @@ class _ButtonSectionState extends State<ButtonSection> {
                   textColor: AppColor.black,
                   text: TranslateConstants.contactWithDeveloper.t(context),
                   onPressed: widget.onPressed,
+                ),
+              );
+            }
+
+            if (userType == UserType.ambassador) {
+              return Container(
+                decoration: BoxDecoration(
+                  color: AppColor.white.withOpacity(0.2),
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(Sizes.dimen_16.w),
+                    topLeft: Radius.circular(Sizes.dimen_16.w),
+                  ),
+                ),
+                // padding: EdgeInsets.symmetric(
+                //   vertical: Sizes.dimen_5.h,
+                //   horizontal: Sizes.dimen_16.w,
+                // ),
+                child: AppButtonGradient(
+                  textColor: AppColor.black,
+                  text: TranslateConstants.contactUs.t(context),
+                  onPressed: () {
+                    RouteHelper().ambassadorSupportScreen(context);
+                  },
                 ),
               );
             }

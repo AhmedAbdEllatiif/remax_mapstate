@@ -5,8 +5,10 @@ import 'package:remax_mapstate/data/params/fetch_ambassador_user_params.dart';
 import 'package:remax_mapstate/data/params/fetch_fav_projects_params.dart';
 import 'package:remax_mapstate/data/params/fetch_list_params.dart';
 import 'package:remax_mapstate/data/params/filter_data_params.dart';
+import 'package:remax_mapstate/data/params/get_ambassador_support_params.dart';
 import 'package:remax_mapstate/data/params/get_profile_params.dart';
 import 'package:remax_mapstate/data/params/update_ambassador_data_params.dart';
+import 'package:remax_mapstate/domain/entities/ambassador_support_entity.dart';
 import 'package:remax_mapstate/domain/entities/app_error.dart';
 import 'package:remax_mapstate/domain/entities/area_entity.dart';
 import 'package:remax_mapstate/domain/entities/broker_entity.dart';
@@ -143,7 +145,11 @@ abstract class RemoteRepository {
 
   ///**************************** Team Support **************************** \\\\
   /// return team support
-  Future<Either<AppError, List<TeamSupportEntity>>> getTeamSupport(GetTeamSupportParams params);
+  Future<Either<AppError, List<TeamSupportEntity>>> getTeamSupport(
+      GetTeamSupportParams params);
+
+  Future<Either<AppError, List<AmbassadorSupportEntity>>> getAmbassadorSupport(
+      GetAmbassadorSupportParams params);
 
   /// contactUs
   Future<Either<AppError, SuccessModel>> contactUs(

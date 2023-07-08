@@ -77,6 +77,8 @@ void main() async {
   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   _setupFCM();
 
+
+  await FirebaseMessaging.instance.subscribeToTopic("newTopic");
   runApp(MainApp(
     languageCubit: languageCubit,
     authorizedUserCubit: authorizedUserCubit,

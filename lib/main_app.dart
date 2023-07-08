@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -216,6 +218,7 @@ class _MainAppState extends State<MainApp> {
   /// show received notification banner
   void _showReceivedNotification() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+    log("MainApp >> _showReceivedNotification message : $message");
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
 

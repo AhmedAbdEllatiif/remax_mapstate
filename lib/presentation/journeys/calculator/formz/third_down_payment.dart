@@ -19,7 +19,14 @@ class ThirdDownPaymentForm extends FormzInput<String, ThirdDownPaymentError> {
 
   @override
   ThirdDownPaymentError? validator(String value) {
-    if(value.isEmpty) return ThirdDownPaymentError.requiredField;
+    //if(value.isEmpty) return ThirdDownPaymentError.requiredField;
+    if(value.isEmpty) return null;
+    if(_thirdDownPaymentRegx.hasMatch(value)) {
+      final num = int.parse(value);
+      if(num  >=  100){
+        return ThirdDownPaymentError.invalid;
+      }
+    }
     return _thirdDownPaymentRegx.hasMatch(value) ? null : ThirdDownPaymentError.invalid;
   }
 }

@@ -6,6 +6,7 @@ import 'package:remax_mapstate/presentation/journeys/calculator/calculator_scree
 import 'package:remax_mapstate/presentation/journeys/favorite/favorite_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/not_user_login_first/not_a_user_login_first_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/profile/profile_screen.dart';
+import 'package:remax_mapstate/presentation/journeys/support_screen.dart';
 import 'package:remax_mapstate/presentation/journeys/team_support/team_support_screen.dart';
 import 'package:remax_mapstate/presentation/logic/cubit/authorized_user/authorized_user_cubit.dart';
 import 'package:remax_mapstate/presentation/themes/theme_color.dart';
@@ -84,7 +85,6 @@ class _MainScreenState extends State<MainScreen> {
 
         body: Stack(
           children: [
-
             BlocBuilder<NavigationCubit, NavigationState>(
               bloc: navigationCubit,
               builder: (context, state) {
@@ -93,7 +93,7 @@ class _MainScreenState extends State<MainScreen> {
                 } else if (state is FavoriteState) {
                   return const FavoriteScreen();
                 } else if (state is SupportState) {
-                  return const TeamSupportScreen();
+                  return const SupportScreen();
                 } else if (state is ProfileState) {
                   return const ProfileScreen();
                 } else if (state is CalculatorState) {
@@ -111,13 +111,11 @@ class _MainScreenState extends State<MainScreen> {
         ),
 
         // bottomNavigationBar
-        bottomNavigationBar: BlocBuilder<
-            AuthorizedUserCubit,
-            AuthorizedUserState>(
+        bottomNavigationBar:
+            BlocBuilder<AuthorizedUserCubit, AuthorizedUserState>(
           builder: (context, state) {
             return Theme(
-                data:
-                Theme.of(context).copyWith(canvasColor: AppColor.black),
+                data: Theme.of(context).copyWith(canvasColor: AppColor.black),
                 child: BottomNavigation(
                   userType: state.currentUserType,
                 ));
