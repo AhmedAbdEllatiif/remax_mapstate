@@ -113,6 +113,19 @@
   "aNumberRequired": "* يجب تضمين رقم واحد على الأقل",
 
 
+  "atLeast": "* يجب أن تحتوي على الأقل",
+  "maximumChar": "* الحد الأقصى هو",
+  "number": "رقم",
+  "invalid": "* غير صالح",
+
+  "totalUnitPrice":"إجمالي سعر الوحدة",
+  "initialDownPayment":"المقدم",
+  "numberOfYearsFull":"عدد السنوات",
+  "firstDownPayment":"أول دفعة",
+  "secondDownPayment":"الدفعة الثانية",
+  "thirdDownPayment":"الدفعة الثالثة",
+  "fourthDownPayment":"الدفعة الرابعة",
+
   "completeYourProfile": "أكمل ملفك الشخصي",
   "updateProfile": "تعديل الملف الشخصى",
 

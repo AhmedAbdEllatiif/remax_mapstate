@@ -93,7 +93,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           CalculatorFormInput(
                             key: unitTypeKey,
                             calculatorInputParams:
-                            CalculatorInputParams.formInputType(
+                            CalculatorInputParams.formInputType(context,
                                 CalculatorInputType.unitPrice),
                           ),
                           SizedBox(height: Sizes.dimen_5.h),
@@ -102,7 +102,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           CalculatorFormInput(
                             key: downPaymentKey,
                             calculatorInputParams:
-                            CalculatorInputParams.formInputType(
+                            CalculatorInputParams.formInputType(context,
                                 CalculatorInputType.downPayment),
                           ),
                           SizedBox(height: Sizes.dimen_5.h),
@@ -111,7 +111,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           CalculatorFormInput(
                             key: numberOfYearsKey,
                             calculatorInputParams:
-                            CalculatorInputParams.formInputType(
+                            CalculatorInputParams.formInputType(context,
                                 CalculatorInputType.numberOfYears),
                           ),
                           SizedBox(height: Sizes.dimen_5.h),
@@ -120,7 +120,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           CalculatorFormInput(
                             key: firstDownPaymentKey,
                             calculatorInputParams:
-                            CalculatorInputParams.formInputType(
+                            CalculatorInputParams.formInputType(context,
                                 CalculatorInputType.firstDownPayment),
                           ),
                           SizedBox(height: Sizes.dimen_5.h),
@@ -129,7 +129,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           CalculatorFormInput(
                             key: secondDownPaymentKey,
                             calculatorInputParams:
-                            CalculatorInputParams.formInputType(
+                            CalculatorInputParams.formInputType(context,
                                 CalculatorInputType.secondDownPayment),
                           ),
                           SizedBox(height: Sizes.dimen_5.h),
@@ -138,7 +138,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           CalculatorFormInput(
                             key: thirdDownPaymentKey,
                             calculatorInputParams:
-                            CalculatorInputParams.formInputType(
+                            CalculatorInputParams.formInputType(context,
                                 CalculatorInputType.thirdDownPayment),
                           ),
                           SizedBox(height: Sizes.dimen_5.h),
@@ -147,7 +147,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                           CalculatorFormInput(
                             key: fourthDownPaymentKey,
                             calculatorInputParams:
-                            CalculatorInputParams.formInputType(
+                            CalculatorInputParams.formInputType(context,
                                 CalculatorInputType.fourthDownPayment),
                           ),
                           SizedBox(height: Sizes.dimen_5.h),

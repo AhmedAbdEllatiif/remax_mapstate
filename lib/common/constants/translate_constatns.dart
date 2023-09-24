@@ -141,6 +141,20 @@ class TranslateConstants{
   static const String noBrokersToShow = 'noBrokersToShow';
   static const String noTeamSupportFound = 'noTeamSupportFound';
 
+  static const String atLeast = 'atLeast';
+  static const String maximumChar = 'maximumChar';
+  static const String number = 'number';
+  static const String invalid = 'invalid';
+
+  static const String totalUnitPrice = 'totalUnitPrice';
+  static const String initialDownPayment = 'initialDownPayment';
+  static const String numberOfYearsFull = 'numberOfYearsFull';
+  static const String firstDownPayment = 'firstDownPayment';
+  static const String secondDownPayment = 'secondDownPayment';
+  static const String thirdDownPayment = 'thirdDownPayment';
+  static const String fourthDownPayment = 'fourthDownPayment';
+
+
   static const String info = 'info';
   static const String businessModel = 'businessModel';
   static const String buyerBusinessModel = 'buyerBusinessModel';

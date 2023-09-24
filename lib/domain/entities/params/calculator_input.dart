@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:remax_mapstate/common/constants/translate_constatns.dart';
+import 'package:remax_mapstate/common/extensions/string_extensions.dart';
 
 enum CalculatorInputType {
   unitPrice,
@@ -12,6 +14,7 @@ enum CalculatorInputType {
 }
 
 class CalculatorInputParams extends Equatable {
+
   final String label;
   final String initialValue;
   final IconData iconData;
@@ -21,6 +24,7 @@ class CalculatorInputParams extends Equatable {
   final CalculatorInputType inputType;
 
   const CalculatorInputParams(
+
       {required this.label,
       required this.initialValue,
       required this.iconData,
@@ -29,14 +33,15 @@ class CalculatorInputParams extends Equatable {
       required this.inputType,
       this.maxNumOfYears = 30});
 
-  factory CalculatorInputParams.formInputType(CalculatorInputType inputType) {
+  factory CalculatorInputParams.formInputType(BuildContext context,CalculatorInputType inputType) {
     switch (inputType) {
 
       ///TODO add translate
       /// unitPrice
       case CalculatorInputType.unitPrice:
         return CalculatorInputParams(
-          label: 'Total Unit Price',
+
+          label: TranslateConstants.totalUnitPrice.t(context),
           iconData: Icons.price_change_outlined,
           initialValue: "",
           maxLength: 13,
@@ -47,7 +52,8 @@ class CalculatorInputParams extends Equatable {
       /// downPayment
       case CalculatorInputType.downPayment:
         return CalculatorInputParams(
-          label: 'Initial Down payment',
+
+          label:  TranslateConstants.initialDownPayment.t(context),
           iconData: Icons.percent_outlined,
           initialValue: "",
           maxLength: 6,
@@ -58,7 +64,7 @@ class CalculatorInputParams extends Equatable {
       /// numberOfYears
       case CalculatorInputType.numberOfYears:
         return CalculatorInputParams(
-          label: 'Number of years',
+          label: TranslateConstants.numberOfYearsFull.t(context),
           iconData: Icons.numbers_outlined,
           initialValue: "",
           maxLength: 4,
@@ -69,7 +75,7 @@ class CalculatorInputParams extends Equatable {
       /// firstDownPayment
       case CalculatorInputType.firstDownPayment:
         return CalculatorInputParams(
-          label: 'First Down payment',
+          label: TranslateConstants.firstDownPayment.t(context),
           iconData: Icons.percent_outlined,
           initialValue: "",
           maxLength: 6,
@@ -80,7 +86,7 @@ class CalculatorInputParams extends Equatable {
       /// secondDownPayment
       case CalculatorInputType.secondDownPayment:
         return CalculatorInputParams(
-          label: 'Second Down payment',
+          label: TranslateConstants.secondDownPayment.t(context),
           iconData: Icons.percent_outlined,
           initialValue: "",
           maxLength: 6,
@@ -91,7 +97,7 @@ class CalculatorInputParams extends Equatable {
       /// thirdDownPayment
       case CalculatorInputType.thirdDownPayment:
         return CalculatorInputParams(
-          label: 'Third Down payment',
+          label: TranslateConstants.thirdDownPayment.t(context),
           iconData: Icons.percent_outlined,
           initialValue: "",
           maxLength: 6,
@@ -102,7 +108,7 @@ class CalculatorInputParams extends Equatable {
     /// fourthDownPayment
       case CalculatorInputType.fourthDownPayment:
         return CalculatorInputParams(
-          label: 'Fourth Down payment',
+          label: TranslateConstants.fourthDownPayment.t(context),
           iconData: Icons.percent_outlined,
           initialValue: "",
           maxLength: 6,

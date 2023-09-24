@@ -114,6 +114,12 @@
   "aNumberRequired": "* Required at least 1 number",
 
 
+  "atLeast": "* Should contain at least",
+  "maximumChar": "* Maximum characters is",
+  "number": "number",
+  "invalid": "* Invalid",
+
+
   "updateProfile": "Update Profile",
   "favoriteRegions": "Favorite Regions",
   "findProjectByStatus": "Find Project by status",
@@ -136,6 +142,14 @@
   "callRequested": "Call requested successfully",
   "alreadyRequestOnThisProject": "A call is already requested for this project",
   "noBrokersToShow": "No brokers to show",
+
+  "totalUnitPrice":"Total Unit Price",
+  "initialDownPayment":"Initial Down payment",
+  "numberOfYearsFull":"Number of years",
+  "firstDownPayment":"First Down payment",
+  "secondDownPayment":"Second Down payment",
+  "thirdDownPayment":"Third Down payment",
+  "fourthDownPayment":"Fourth Down payment",
 
 
   "info": "Info",
